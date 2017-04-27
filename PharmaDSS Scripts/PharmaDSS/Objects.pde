@@ -106,6 +106,9 @@ class Site {
   // Limit to the amount of NCEs on site for RnD
   int limitRnD;
   
+//  // Salary Modifier for Site Conditions (i.e. 0.9 or 1.2 of Labour Cost)
+//  float salaryMod;
+  
   // Basic Constructor
   Site() {}
   

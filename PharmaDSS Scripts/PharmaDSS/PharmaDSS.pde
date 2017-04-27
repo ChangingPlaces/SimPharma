@@ -23,10 +23,12 @@
  /      2. Progress each turn
  /  - Implement stochastic events not easily performed in excel
  /  - Allow user to compare performance with baseline scenario(s)
+ /  - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
  /  - Misc Visual:
  /    - Add peak forecast demand tag to Profiles
  /    - Switch between weight/cost metrics for Build Types
  /    - Add R&D "modules", specified by limit, to Site Visualization
+ /  - Include Salary modifier for different Sites
 */
 
 // Initialize (1)system and (2)objects of model:
