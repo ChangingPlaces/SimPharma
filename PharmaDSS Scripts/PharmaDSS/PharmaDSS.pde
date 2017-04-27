@@ -2,7 +2,7 @@
  /  Ira Winder, jiw@mit.edu
  /  Cambridge, MA
  /
- /  Beta 1.0 Reslease:
+ /  Beta 1.0 Release:
  /
  /  The following scripts demonstrate a basic environment for "PharmaDSS."
  /  The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
@@ -15,6 +15,11 @@
  /  - Object-oriented framework for model components
  /  - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
  /  - Basic Visualization of System Inputs
+ /
+ /  Beta 1.1 Release
+ /  - Misc Visual:
+ /    - Add peak forecast demand tag to Profiles
+ /
 */
 
  /* The following is planned for Beta 1.1:
@@ -24,11 +29,10 @@
  /  - Implement stochastic events not easily performed in excel
  /  - Allow user to compare performance with baseline scenario(s)
  /  - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
+ /  - Include Salary modifier for different Sites
  /  - Misc Visual:
- /    - Add peak forecast demand tag to Profiles
  /    - Switch between weight/cost metrics for Build Types
  /    - Add R&D "modules", specified by limit, to Site Visualization
- /  - Include Salary modifier for different Sites
 */
 
 // Initialize (1)system and (2)objects of model:
@@ -82,12 +86,12 @@ void testDraw() {
   
   // Draw Profile Legend
   fill(#0000FF, 200);
-  rect(50, 100, 10, 10);
+  rect(50, 100, 15, 10);
   fill(255, 150);
-  rect(50, 120, 10, 10);
+  rect(50, 120, 15, 10);
   fill(255);
   textAlign(LEFT);
-  text("Legend:", 50, 90);
+  text("Legend (" + agileModel.TIME_UNITS + "):", 50, 90);
   text("Actual", 70, 100 + 10);
   text("Forecast", 70, 120 + 10);
   
