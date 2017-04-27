@@ -55,6 +55,34 @@ class Profile {
     this.productionCost = productionCost;
     this.demandProfile = demandProfile;
   }
+  
+  void peak() {
+    demandPeak = 0;
+    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+      if (demandPeak < demandProfile.getFloat(1, i) ) {
+        demandPeak = demandProfile.getFloat(1, i);
+      }
+    }
+  }
+  
+  void draw(int x, int y, int w, int h) {
+    float scalerH = h/demandPeak;
+    float scalerW = float(w)/demandProfile.getColumnCount();
+    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+      float barF = scalerH * demandProfile.getFloat(1, i);
+      float barA = scalerH * demandProfile.getFloat(2, i);
+      noStroke();
+      fill(255, 150);
+      rect(x + scalerW * i, y - barF, scalerW, barF);
+      fill(#0000FF, 200);
+      rect(x + scalerW * i, y - barA, scalerW, barA);
+      fill(255);
+    }
+    textAlign(LEFT);
+    text(name + ", " + summary, x, y + 15);
+    textAlign(RIGHT);
+    text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 15);
+  }
 }
 
 // Site Characteristics for a given manufacturing site (i.e. Cork, Jurong)
@@ -78,6 +106,32 @@ class Site {
     this.capEx = capEx;
     this.capGn = capGn;
     this.limitRnD = limitRnD;
+  }
+  
+  void draw(int x, int y) {
+    float scaler = 6; // 
+    float sideEx = sqrt(capEx);
+    float sideGn = sqrt(capEx + capGn); 
+    float wScale = 1.25;
+    float hScale = 1.5;
+    
+    fill(#00FF00, 100);
+    rect(x, y, wScale*scaler*sideGn, hScale*scaler*sideGn);
+    fill(255);
+    stroke(#CCCCCC);
+    strokeWeight(3);
+    rect(x, y, wScale*scaler*sideEx, hScale*scaler*sideEx);
+    noStroke();
+    
+    textAlign(LEFT);
+    text("Site " + name, x, y - 10);
+    textAlign(RIGHT);
+    text("Greenfield " + capGn + " " + agileModel.WEIGHT_UNITS, x + wScale*scaler*sideGn - 5, y + hScale*scaler*sideGn - 10);
+    textAlign(CENTER);
+    fill(0);
+    text("Existing", x + wScale*scaler*sideEx/2, y + hScale*scaler*sideEx/2 + 0);
+    text(capEx + " " + agileModel.WEIGHT_UNITS, x + wScale*scaler*sideEx/2, y + hScale*scaler*sideEx/2 + 15);
+
   }
   
 }
@@ -114,6 +168,37 @@ class Build {
     this.repurpCost = repurpCost;
     this.repurpTime = repurpTime;
     this.labor = labor;
+  }
+  
+  void draw(int x, int y, String type) {
+    int scaler = 4;
+    fill(255);
+    rect(x + 155, y, scaler*capacity, 10);
+    textAlign(LEFT);
+    fill(255);
+    text(capacity + " " + agileModel.WEIGHT_UNITS, x + 155 + scaler*capacity + 3, y + 9);
+    if (type.equals("GMS")) {
+      text(int(buildTime) + " " + agileModel.TIME_UNITS + ", " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 19);
+      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 19);
+    } else {
+      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 19);
+    }
+    for (int i=0; i< labor.size(); i++) {
+      if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0,0) )) {
+        fill(#FF0000);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(1,0) )) {
+        fill(#00FF00);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(2,0) )) {
+        fill(#0000FF);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(3,0) )) {
+        fill(#FFFF00);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(4,0) )) {
+        fill(#FF00FF);
+      } else {
+        fill(#00FFFF);
+      }
+      ellipse(x +157 + i*6, y + 20, 3, 10);
+    }
   }
 }
 

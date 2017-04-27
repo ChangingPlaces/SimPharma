@@ -1,4 +1,4 @@
- /* Scripts for reading values from XLS files. The scripts:
+ /* Scripts for reading values from GSK Meta-Model XLS file. The scripts:
  /  (a) read values into memory
  /  (b) write the values into local objects that are used in the model
 */
@@ -83,7 +83,7 @@ void loadModel_XLS(System model, String name) {
     model.GMS_BUILDS.get(i).capacity     = reader.getFloat(GMS_ROW, GMS_COL + i);
     model.GMS_BUILDS.get(i).buildCost    = buildCost(model.GMS_BUILDS.get(i).capacity);
     model.GMS_BUILDS.get(i).buildTime    = buildTime(model.GMS_BUILDS.get(i).capacity);
-    model.GMS_BUILDS.get(i).repurpCost   = reader.getFloat(GMS_ROW + 3, GMS_COL + i);
+    model.GMS_BUILDS.get(i).repurpCost   = 1000000 * reader.getFloat(GMS_ROW + 3, GMS_COL + i);
     model.GMS_BUILDS.get(i).repurpTime   = reader.getFloat(GMS_ROW + 4, GMS_COL + i);
     
     // Read System: GMS Build Labor
@@ -104,8 +104,8 @@ void loadModel_XLS(System model, String name) {
     model.RND_BUILDS.add(new Build());
     model.RND_BUILDS.get(i).name         = "Build #" + (i+1);
     model.RND_BUILDS.get(i).capacity     = reader.getFloat(RND_ROW, RND_COL + i);
-    model.RND_BUILDS.get(i).buildCost    = reader.getFloat(RND_ROW + 1, RND_COL + i);
-    model.RND_BUILDS.get(i).buildTime    = reader.getFloat(RND_ROW + 2, RND_COL + i);
+    model.RND_BUILDS.get(i).repurpCost    = 1000000 * reader.getFloat(RND_ROW + 2, RND_COL + i);
+    model.RND_BUILDS.get(i).repurpTime    = reader.getFloat(RND_ROW + 1, RND_COL + i);
     
     // Read System: RND Build Labor
     for (int j=0; j<NUM_LABOR; j++) {
@@ -167,5 +167,8 @@ void loadModel_XLS(System model, String name) {
       model.PROFILES.get(i).demandProfile.setFloat(2, j, reader.getFloat(PROFILE_ROW + 3 + 4*i, PROFILE_COL + 10 + j) );
       model.PROFILES.get(i).demandProfile.setString(3, j, reader.getString(PROFILE_ROW + 4 + 4*i, PROFILE_COL + 10 + j) );
     }
+    
+    // Calculates peak forecast demand value
+    model.PROFILES.get(i).peak();
   }
 }
