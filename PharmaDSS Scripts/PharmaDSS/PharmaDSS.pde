@@ -23,6 +23,10 @@
  /      2. Progress each turn
  /  - Implement stochastic events not easily performed in excel
  /  - Allow user to compare performance with baseline scenario(s)
+ /  - Misc Visual:
+ /    - Add peak forecast demand tag to Profiles
+ /    - Switch between weight/cost metrics for Build Types
+ /    - Add R&D "modules", specified by limit, to Site Visualization
 */
 
 // Initialize (1)system and (2)objects of model:

@@ -22,6 +22,7 @@ class Profile {
   
   // Peak Forecast Demand  
   float demandPeak; // calculate from demandProfile
+  float peakTime;
   
   // Start Time  
   String timeStart;
@@ -61,21 +62,29 @@ class Profile {
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
       if (demandPeak < demandProfile.getFloat(1, i) ) {
         demandPeak = demandProfile.getFloat(1, i);
+        peakTime = demandProfile.getFloat(0, i);
       }
     }
   }
   
   void draw(int x, int y, int w, int h) {
-    float scalerH = h/demandPeak;
+    float MAX_VALUE = 20000.0;
+    float scalerH = h/MAX_VALUE;
     float scalerW = float(w)/demandProfile.getColumnCount();
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
       float barF = scalerH * demandProfile.getFloat(1, i);
       float barA = scalerH * demandProfile.getFloat(2, i);
       noStroke();
       fill(255, 150);
-      rect(x + scalerW * i, y - barF, scalerW, barF);
+      rect(x + scalerW * i +1, y - barF, scalerW - 2, barF);
+//    Needs Debugging
+//      if (peakTime == demandProfile.getFloat(0, i)) {
+//        fill(255);
+//        textAlign(LEFT);
+//        text(int(demandPeak/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + 1.5*scalerW * i, y - barF);
+//      }
       fill(#0000FF, 200);
-      rect(x + scalerW * i, y - barA, scalerW, barA);
+      rect(x + scalerW * i + 1, y - barA, scalerW - 2, barA);
       fill(255);
     }
     textAlign(LEFT);
