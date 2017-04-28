@@ -98,7 +98,6 @@ void setup() {
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
-  background(abs(background - 50));
   
   testDraw();
   
@@ -125,6 +124,7 @@ void loadMenu(int canvasWidth, int canvasHeight) {
 
 //Here are some function to test drawing the visualization
 void testDraw() {
+  background(abs(background - 20));
   
   float testScalerW = 0.85;
   float testScalerH = 0.85;

@@ -64,6 +64,7 @@ void keyPressed() {
       nextTurn();
       break;
   }
+  loop();
 }
 
 void toggleMainMenu() {
