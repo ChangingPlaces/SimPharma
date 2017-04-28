@@ -42,7 +42,13 @@ void setup() {
 void loadMenu(int canvasWidth, int canvasHeight) {
   // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
   // number of buttons to offset downward, String[] names of buttons)
-  hideMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 0, hide, align);
+  String[] hideText;
+  if (showMainMenu) {
+    hideText = hide;
+  } else {
+    hideText = show;
+  }
+  hideMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 0, hideText, align);
   mainMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 2, buttonNames, align);
 }
 
