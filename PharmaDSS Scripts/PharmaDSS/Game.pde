@@ -1,3 +1,5 @@
+boolean gameMode = false;
+
 // Game, Turn, Event classes help log and manage actions over the passage of time
 // Games are made up of a series of Turns, and Turns are made up of 0 or more events that effect the system.
 class Game {

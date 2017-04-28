@@ -131,4 +131,7 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   }
   hideMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 0, hideText, align);
   mainMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 2, buttonNames, align);
+  
+  // Hides "Next Turn" button unless game is active
+  mainMenu.buttons[1].isVoid = !gameMode;
 }

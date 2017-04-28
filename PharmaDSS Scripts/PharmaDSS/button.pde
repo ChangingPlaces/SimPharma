@@ -20,11 +20,10 @@ boolean showMainMenu = true;
 // what they are named by editing this String array:
 String[] buttonNames = 
 {
-  "Invert Colors (i)",    // 0
+  "Play Game (g)",  // 0
   "Next Turn (SPACE)",    // 1
   "VOID",  // 2
-  "VOID",  // 3
-  "VOID"   // 4
+  "Invert Colors (i)"   // 3
 };
 
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
@@ -41,12 +40,22 @@ void mouseClicked() {
   
   //function0
   if(mainMenu.buttons[0].over()){ 
-    invertColors();
+    toggleGame();
   }
   
   //function1
   if(mainMenu.buttons[1].over()){ 
     nextTurn();
+  }
+  
+  //function2
+  if(mainMenu.buttons[2].over()){ 
+    // void
+  }
+  
+  //function3
+  if(mainMenu.buttons[3].over()){ 
+    invertColors();
   }
   
   loop();
@@ -57,10 +66,13 @@ void keyPressed() {
     case 'h': // "Hide Main Menu (h)"
       toggleMainMenu();
       break;
-    case 'i': // "Invert Colors (i)"  // 0
+    case 'i': // "Invert Colors (i)"
       invertColors();
       break;
-    case ' ': // "Next Turn (SPACE)" // 1
+    case 'g': // "Play Game (g)"
+      toggleGame();
+      break;
+    case ' ': // "Next Turn (SPACE)"
       nextTurn();
       break;
   }
@@ -108,6 +120,20 @@ void invertColors() {
 
 void nextTurn() {
   session.execute();
+}
+
+void toggleGame() {
+  if (gameMode) {
+    gameMode = false;
+    mainMenu.buttons[0].label = "Game OFF (g)";
+    mainMenu.buttons[1].isVoid = true;
+  } else {
+    gameMode = true;
+    mainMenu.buttons[0].label = "Game ON (g)";
+    mainMenu.buttons[1].isVoid = false;
+  }
+  
+  println("gameMode: " + gameMode);
 }
 
 // iterates an index parameter
