@@ -107,8 +107,7 @@ void invertColors() {
 }
 
 void nextTurn() {
-  //session.execute();
-  println("Next Turn");
+  session.execute();
 }
 
 // iterates an index parameter

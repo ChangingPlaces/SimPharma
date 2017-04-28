@@ -59,7 +59,7 @@ class Profile {
     }
   }
   
-  void draw(int x, int y, int w, int h) {
+  void draw(int x, int y, int w, int h, boolean axis) {
     float MAX_VALUE = 20000.0;
     float scalerH = h/MAX_VALUE;
     float scalerW = float(w)/demandProfile.getColumnCount();
@@ -82,7 +82,9 @@ class Profile {
     fill(textColor);
     textAlign(LEFT);
     text(name + ", " + summary, x, y + 15);
-//    textAlign(RIGHT);
-//    text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 15);
+    if (axis) {
+      textAlign(RIGHT);
+      text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 15);
+    }
   }
 }
