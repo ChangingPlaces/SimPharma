@@ -1,6 +1,6 @@
 //Here are some function to test drawing the visualization
 void drawFramework() {
-  background(abs(background - 20));
+  background(abs(background - 10));
   
   float testScalerW = 0.85;
   float testScalerH = 0.85;
