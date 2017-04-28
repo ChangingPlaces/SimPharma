@@ -34,10 +34,10 @@ class Build {
   
   void draw(int x, int y, String type) {
     int scaler = 4;
-    fill(255);
-    rect(x + 155, y, scaler*capacity, 10);
+    fill(abs(textColor - 75));
+    rect(x + 155, y, scaler*capacity, 10, 3);
     textAlign(LEFT);
-    fill(255);
+    fill(textColor);
     text(capacity + " " + agileModel.WEIGHT_UNITS, x + 155 + scaler*capacity + 3, y + 9);
     if (type.equals("GMS")) {
       text(int(buildTime) + " " + agileModel.TIME_UNITS + ", " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 19);
@@ -47,17 +47,17 @@ class Build {
     }
     for (int i=0; i< labor.size(); i++) {
       if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0,0) )) {
-        fill(#FF0000);
+        fill(#CC0000);
       } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(1,0) )) {
-        fill(#00FF00);
+        fill(#00CC00);
       } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(2,0) )) {
-        fill(#0000FF);
+        fill(#0000CC);
       } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(3,0) )) {
-        fill(#FFFF00);
+        fill(#CCCC00);
       } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(4,0) )) {
-        fill(#FF00FF);
+        fill(#CC00CC);
       } else {
-        fill(#00FFFF);
+        fill(#00CCCC);
       }
       ellipse(x +157 + i*6, y + 20, 3, 10);
     }

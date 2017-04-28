@@ -1,8 +1,11 @@
  /* PharmaDSS Beta
  /  Ira Winder, jiw@mit.edu
  /  Cambridge, MA
- /
- /  Beta 1.0 Release:
+*/
+ 
+ String VERSION = "BETA v1.01";
+ 
+ /*  Beta 1.0 Release:
  /
  /  The following scripts demonstrate a basic environment for "PharmaDSS" (Decision Support System)
  /  The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
@@ -10,7 +13,13 @@
  /
  /  The primary purpose of this work is overcome various limitations of excel such as: 
  /  graphics, arithmatic operations, usability, and stochastic variability.
- /
+ / 
+ /  Classes that define primary object abstractions in the system are: 
+ /  (a) Profile: NCE demand profile
+ /  (b) Site: Factory Location/Area
+ /  (c) Build: Manufacturing Unit/Process
+ /  (d) Person: "Human Beans", as the BFG would say (i.e. Labor)
+ / 
  /  The Beta is designed with the following minimum viable features:
  /  - Object-oriented framework for model components
  /    - Profiles, Sites, Builds, and Persons
@@ -35,6 +44,9 @@
  /    - Switch between weight/cost metrics for Build Types
  /    - Add R&D "modules", specified by limit, to Site Visualization
 */
+
+// Library needed for ComponentAdapter()
+import java.awt.event.*;
 
 // Initialize (1)system and (2)objects of model:
 System agileModel;
@@ -67,101 +79,154 @@ void setup() {
   // Setup for Canvas Visualization
   size(1280, 800);
   
-  testDraw();
+  // Window may be resized after initialized
+  frame.setResizable(true);
+  
+  // Recalculates relative positions of canvas items if screen is resized
+  frame.addComponentListener(new ComponentAdapter() { 
+     public void componentResized(ComponentEvent e) { 
+       if(e.getSource()==frame) { 
+         loadMenu(width, height);
+       } 
+     } 
+   }
+   );
+  
+  // Loads and formats menue items
+  loadMenu(width, height);
 }
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
+  background(abs(background - 50));
   
+  testDraw();
+  
+  // Draws Menu
+  hideMenu.draw();
+  if (showMainMenu) {
+    mainMenu.draw();
+  }
+  
+  noLoop();
+}
+
+// Refreshes when there's a mouse mouse movement
+void mouseMoved() {
+  loop();
+}
+
+void loadMenu(int canvasWidth, int canvasHeight) {
+  // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
+  // number of buttons to offset downward, String[] names of buttons)
+  hideMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 0, hide, align);
+  mainMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 2, buttonNames, align);
 }
 
 //Here are some function to test drawing the visualization
 void testDraw() {
-  background(0);
+  
+  float testScalerW = 0.85;
+  float testScalerH = 0.85;
+  int margin = 50;
+  
+  // Upper Left Corners
+  int profilesX = 850;
+  int profilesY = 200;
+  int buildsX = 350;
+  int buildsY = 200;
+  int sitesX = 0;
+  int sitesY = 200;
+  
+  
+  // Draw Title
+  fill(textColor);
+  text("PharmaDSS " + VERSION, margin, margin);
+  text("MIT Media Lab + GlaxoSmithKline", margin, margin + 15);
+  text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", margin, margin + 30);
   
   // Draw Profiles
-  fill(255);
+  fill(textColor);
   textAlign(LEFT);
-  text("NCE Demand Profiles:", 50, 50 - 10);
+  text("NCE Demand Profiles:", margin + int(testScalerW*(profilesX)), profilesY - 60);
   for (int i=1; i<=NUM_PROFILES; i++) {
-    agileModel.PROFILES.get(i-1).draw(50, int(1.5*height/NUM_PROFILES) + int(0.85*i/float(NUM_PROFILES+1)*height), 300, int(0.3*height/float(NUM_PROFILES+1)));
+    agileModel.PROFILES.get(i-1).draw(margin + int(testScalerW*(profilesX)), 20 + profilesY + int(testScalerH*0.85*i/float(NUM_PROFILES+1)*800), int(testScalerW*300), int(testScalerH*0.3*800/float(NUM_PROFILES+1)));
   }
   
   // Draw Profile Legend
   fill(#0000FF, 200);
-  rect(50, 100, 15, 10);
-  fill(255, 150);
-  rect(50, 120, 15, 10);
-  fill(255);
+  rect(margin + int(testScalerW*(profilesX)), profilesY, 15, 10);
+  fill(textColor, 150);
+  rect(margin + int(testScalerW*(profilesX)), profilesY + 20, 15, 10);
+  fill(textColor);
   textAlign(LEFT);
-  text("Legend (" + agileModel.TIME_UNITS + "):", 50, 90);
-  text("Actual", 70, 100 + 10);
-  text("Forecast", 70, 120 + 10);
+  text("Legend (" + agileModel.TIME_UNITS + "):", margin + int(testScalerW*(profilesX)), profilesY - 10);
+  text("Actual", margin + int(testScalerW*(profilesX))+20, profilesY + 10);
+  text("Forecast", margin + int(testScalerW*(profilesX))+20, profilesY + 20 + 10);
   
   // Draw Sites
-  fill(255);
+  fill(textColor);
   textAlign(LEFT);
-  text("Site Characteristics:", 1000, 50 - 10);
+  text("Site Characteristics:", margin + int(testScalerW*(sitesX)), sitesY - 60);
   for (int i=0; i<NUM_SITES; i++) {
-    agileModel.SITES.get(i).draw(1000, 100 + 300*i);
+    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(300*i)));
   }
   
 //  // Draw Site Scale:
 //  int scaleValue = 50;
-//  fill(255, 100);
+//  fill(textColor, 100);
 //  rect(450, height - 125, 10*sqrt(scaleValue), 10*sqrt(scaleValue));
-//  fill(255);
+//  fill(textColor);
 //  textAlign(LEFT);
 //  text("Site Capacities:", 450, height - 125 - 10);
 //  textAlign(CENTER);
 //  text(scaleValue + " " + agileModel.WEIGHT_UNITS, 450 + 10*sqrt(scaleValue)/2, height - 125 + 10*sqrt(scaleValue)/2 + 5);
   
   // Draw Build/Repurpose Units
-  int buildW = 500;
-  int buildH = 100;
-  fill(255);
+  fill(textColor);
   textAlign(LEFT);
-  text("Pre-Engineered Production Units:", buildW - 60, 50 - 10);
+  text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60);
   
   // Draw GMS Build Options
-  fill(255);
+  fill(textColor);
   textAlign(LEFT);
-  text("GMS:", buildW - 60, buildH - 10);
-  text("Build", buildW, buildH - 10);
-  text("Repurpose", buildW + 80, buildH - 10);
+  text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10);
+  text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10);
+  text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10);
   for (int i=0; i<NUM_GMS_BUILDS; i++) {
-    agileModel.GMS_BUILDS.get(i).draw(buildW, 5 + buildH + 33*i, "GMS");
+    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY - 10 + int(testScalerH*(15 +33*i)), "GMS");
   }
   
   // Draw R&D Build Options
-  fill(255);
+  fill(textColor);
   textAlign(LEFT);
-  text("R&D:", buildW - 60, int(0.57*height) + buildH - 10);
-  text("Repurpose", buildW + 80, int(0.57*height) + buildH - 10);
+  float vOffset = buildsY - 10 + int(testScalerH*(15 + 33*(agileModel.GMS_BUILDS.size()+1)));
+  text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
+  text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
   for (int i=0; i<NUM_RND_BUILDS; i++) {
-    agileModel.RND_BUILDS.get(i).draw(buildW, int(0.57*height) + 5 + buildH + 33*i, "R&D");
+    agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +33*i) ), "R&D");
   }
   
   // Draw Personnel Legend
-  fill(255);
+  fill(textColor);
   textAlign(LEFT);
-  text("Legend:", buildW + 280, buildH - 10);
+  text("Legend:", margin + int(testScalerW*(buildsX)) + 280, buildsY - 10);
   for (int i=0; i<NUM_LABOR; i++) {
     if (i==0) {
-      fill(#FF0000);
+      fill(#CC0000);
     } else if (i==1) {
-      fill(#00FF00);
+      fill(#00CC00);
     } else if (i==2) {
-      fill(#0000FF);
+      fill(#0000CC);
     } else if (i==3) {
-      fill(#FFFF00);
+      fill(#CCCC00);
     } else if (i==4) {
-      fill(#FF00FF);
+      fill(#CC00CC);
     } else {
-      fill(#00FFFF);
+      fill(#00CCCC);
     }
-    ellipse(buildW + 280, buildH + 10 + 15*i, 3, 10);
-    fill(255);
-    text(agileModel.LABOR_TYPES.getString(i,0), buildW + 280 + 10, buildH + 15 + 15*i);
+    ellipse(margin + int(testScalerW*(buildsX)) + 280, buildsY + 10 + 15*i, 3, 10);
+    fill(textColor);
+    text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX)) + 10 + 280, buildsY + 15 + 15*i);
   }
 }

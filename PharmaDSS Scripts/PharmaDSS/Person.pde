@@ -3,9 +3,7 @@ class Person {
   
   // Name of Role (i.e. "Operator")
   String name;
-  
   float shifts; // per time
-  
   float cost; // per shift
   
   // Basic Constructor

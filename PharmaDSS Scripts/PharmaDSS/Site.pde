@@ -31,18 +31,19 @@ class Site {
     float wScale = 1.25;
     float hScale = 1.5;
     
-    fill(#00FF00, 100);
-    rect(x, y, wScale*scaler*sideGn, hScale*scaler*sideGn);
-    fill(255);
-    rect(x + 5, y + 5, wScale*scaler*sideEx, hScale*scaler*sideEx);
+    fill(#CDDB90);
+    rect(x, y, wScale*scaler*sideGn, hScale*scaler*sideGn, 5);
+    fill(255, 200);
+    rect(x + 5, y + 5, wScale*scaler*sideEx, hScale*scaler*sideEx, 5);
     noStroke();
     
+    fill(textColor);
     textAlign(LEFT);
     text("Site " + name, x, y - 10);
+    fill(0);
     textAlign(RIGHT);
     text("Greenfield " + capGn + " " + agileModel.WEIGHT_UNITS, x + wScale*scaler*sideGn - 10, y + hScale*scaler*sideGn - 10);
     textAlign(CENTER);
-    fill(0);
     text("Existing", x + 5 + wScale*scaler*sideEx/2, y + 5 + hScale*scaler*sideEx/2 + 0);
     text(capEx + " " + agileModel.WEIGHT_UNITS, x + 5 + wScale*scaler*sideEx/2, y + 5 + hScale*scaler*sideEx/2 + 15);
 

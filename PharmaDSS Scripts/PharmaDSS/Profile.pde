@@ -67,19 +67,19 @@ class Profile {
       float barF = scalerH * demandProfile.getFloat(1, i);
       float barA = scalerH * demandProfile.getFloat(2, i);
       noStroke();
-      fill(255, 150);
+      fill(textColor, 150);
       rect(x + scalerW * i +1, y - barF, scalerW - 2, barF);
       fill(#0000FF, 200);
       rect(x + scalerW * i + 1, y - barA, scalerW - 2, barA);
       if (peakTime == demandProfile.getFloat(0, i)) {
-        fill(255);
+        fill(textColor);
         ellipse(x + scalerW * (0.5+i) + 1, y - barF, 3, 3);
-        fill(255, 150);
+        fill(textColor, 150);
         textAlign(CENTER);
         text(int(demandPeak/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
       }
     }
-    fill(255);
+    fill(textColor);
     textAlign(LEFT);
     text(name + ", " + summary, x, y + 15);
 //    textAlign(RIGHT);
