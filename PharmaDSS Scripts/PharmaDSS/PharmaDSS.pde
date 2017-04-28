@@ -3,9 +3,19 @@
  /  Cambridge, MA
 */
  
- String VERSION = "BETA v1.01";
+ String VERSION = "BETA V1.1";
  
- /*  Beta 1.0 Release:
+ /* Release Notes:
+ /  
+ /  BETA V1.1 Release
+ /  Dynamic, Turn-based interaction using mouse and keyboard commands
+ /  Misc Visual:
+ /    - Added peak forecast demand tag to Profiles
+ /    - Added Color Inversion
+ /    - Added turn-based Profile explorer
+ /    - Incorporate 5-yr lead times
+ /
+ /  BETA V1.0 Release:
  /
  /  The following scripts demonstrate a basic environment for "PharmaDSS" (Decision Support System)
  /  The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
@@ -26,23 +36,19 @@
  /  - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
  /  - Basic Visualization of System Inputs
  /
- /  Beta 1.1 Release
- /  - Misc Visual:
- /    - Add peak forecast demand tag to Profiles
- /
 */
 
- /* The following is planned for Beta 1.1:
- /  - Dynamic, Turn-based interaction using mouse and keyboard commands:
- /      1. Allocate/Move/Delete NCE capacity between sites
- /      2. Progress each turn
+ /* Development Notes:
+ /
+ /  The following is planned for BETA V1.2:
  /  - Implement stochastic events not easily performed in excel
- /  - Allow user to compare performance with baseline scenario(s)
  /  - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
  /  - Include Salary modifier for different Sites
  /  - Misc Visual:
  /    - Switch between weight/cost metrics for Build Types
  /    - Add R&D "modules", specified by limit, to Site Visualization
+ /  - Allocate/Move/Delete NCE capacity between sites
+ /  - Allow user to compare performance with baseline scenario(s)
 */
 
 // Library needed for ComponentAdapter()
