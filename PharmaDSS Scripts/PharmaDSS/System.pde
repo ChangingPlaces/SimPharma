@@ -2,6 +2,13 @@
  /  Rules specified here universally apply to classes within the "Objects" tab.
 */
  
+ /* Classes that define primary object abstractions in the system such as: 
+ /  (a) Profile: NCE demand profile
+ /  (b) Site: Factory Location/Area
+ /  (c) Build: Manufacturing Unit/Process
+ /  (d) Person: "Human Beans", as the BFG would say (i.e. Labor)
+*/ 
+ 
 class System {
   
   // Units for Describing Weight (i.e. "tons")

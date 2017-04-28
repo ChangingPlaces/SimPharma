@@ -4,15 +4,16 @@
  /
  /  Beta 1.0 Release:
  /
- /  The following scripts demonstrate a basic environment for "PharmaDSS."
+ /  The following scripts demonstrate a basic environment for "PharmaDSS" (Decision Support System)
  /  The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
  /  developed by Mason Briner and Giovonni Giorgio in U.K. 
  /
  /  The primary purpose of this work is overcome various limitations of excel such as: 
- /  graphics, usability, and stochastic variability.
+ /  graphics, arithmatic operations, usability, and stochastic variability.
  /
  /  The Beta is designed with the following minimum viable features:
  /  - Object-oriented framework for model components
+ /    - Profiles, Sites, Builds, and Persons
  /  - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
  /  - Basic Visualization of System Inputs
  /
@@ -39,6 +40,7 @@
 System agileModel;
 
 // Specify to "true" if reading System Values from an XLS spreadsheet file in the "data/" folder"
+// (Do not set to false unless you provide for default initialization values for system)
 boolean readXLS = true;
 
 // "setup()" runs once upon executing script
@@ -57,7 +59,8 @@ void setup() {
      / - Referenced cells are VALUES, not EQUATIONS
     */
     
-    loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); // assumes file to be in the data folder, refer to tab "xls.pde"
+    // assumes file to be in the data folder, refer to tab "xls.pde"
+    loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
 
   }
   

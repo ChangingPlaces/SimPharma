@@ -1,6 +1,6 @@
  /* Scripts for reading values from GSK Meta-Model XLS file. The scripts:
  /  (a) read values into memory
- /  (b) write the values into local objects that are used in the model
+ /  (b) write the values into local objects/classes that are used in the model
 */
 
 // Library for reading XLS files into Processing
