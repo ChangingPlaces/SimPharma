@@ -31,7 +31,8 @@ class Site {
     float wScale = 1.25;
     float hScale = 1.5;
     
-    fill(#CDDB90);
+//    fill(#CDDB90);
+    fill(205, 250, 150);
     rect(x, y, wScale*scaler*sideGn, hScale*scaler*sideGn, 5);
     fill(255, 200);
     rect(x + 5, y + 5, wScale*scaler*sideEx, hScale*scaler*sideEx, 5);
