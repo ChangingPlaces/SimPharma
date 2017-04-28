@@ -129,6 +129,7 @@ void toggleGame() {
     mainMenu.buttons[1].isVoid = true;
   } else {
     gameMode = true;
+    session = new Game();
     mainMenu.buttons[0].label = "Game ON (g)";
     mainMenu.buttons[1].isVoid = false;
   }

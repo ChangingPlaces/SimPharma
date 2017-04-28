@@ -27,14 +27,16 @@ void drawFramework() {
   text("NCE Demand Profiles:", margin + int(testScalerW*(profilesX)), profilesY - 60);
   boolean axis = false;
   for (int i=1; i<=NUM_PROFILES; i++) {
-    if (i == NUM_PROFILES) axis = true;
-    agileModel.PROFILES.get(i-1).draw(
-      margin + int(testScalerW*(profilesX)), 
-      20 + profilesY + int(testScalerH*0.85*i/float(NUM_PROFILES+1)*800), 
-      int(testScalerW*300), 
-      int(testScalerH*0.3*800/float(NUM_PROFILES+1)),
-      axis
-    );
+    if (!gameMode || agileModel.PROFILES.get(i-1).timeLead <= session.current.TURN ) {
+      if (i == NUM_PROFILES) axis = true;
+      agileModel.PROFILES.get(i-1).draw(
+        margin + int(testScalerW*(profilesX)), 
+        20 + profilesY + int(testScalerH*0.85*i/float(NUM_PROFILES+1)*800), 
+        int(testScalerW*300), 
+        int(testScalerH*0.3*800/float(NUM_PROFILES+1)),
+        axis
+      );
+    }
   }
   
   // Draw Profile Legend
@@ -48,6 +50,16 @@ void drawFramework() {
   text("Actual", margin + int(testScalerW*(profilesX))+20, profilesY + 10);
   text("Forecast", margin + int(testScalerW*(profilesX))+20, profilesY + 20 + 10);
   
+  noStroke();
+  fill(#00CC00);
+  rect(margin + int(testScalerW*(profilesX))+100, profilesY, 6, 10);
+  fill(#CC0000);
+  rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 6, 10);
+  fill(textColor);
+  textAlign(LEFT);
+  text("Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
+  text("End", margin + int(testScalerW*(profilesX))+115, profilesY + 20 + 10);
+ 
   // Draw Sites
   fill(textColor);
   textAlign(LEFT);

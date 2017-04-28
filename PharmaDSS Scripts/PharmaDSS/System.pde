@@ -24,6 +24,9 @@ class System {
   // Maximum portion (0.0 - 1.0) of site utilization considered "safe."
   float MAX_SAFE_UTILIZATION;
   
+  // Time Profile is know in advance of first expected demand;
+  float LEAD_TIME = 5;
+  
   System() {
     LABOR_TYPES = new Table();
     PROFILES = new ArrayList<Profile>();

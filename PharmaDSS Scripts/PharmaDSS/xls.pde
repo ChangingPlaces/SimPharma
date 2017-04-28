@@ -168,7 +168,7 @@ void loadModel_XLS(System model, String name) {
       model.PROFILES.get(i).demandProfile.setString(3, j, reader.getString(PROFILE_ROW + 4 + 4*i, PROFILE_COL + 10 + j) );
     }
     
-    // Calculates peak forecast demand value
-    model.PROFILES.get(i).peak();
+    // Calculates peak forecast demand value, lead years, etc
+    model.PROFILES.get(i).calc();
   }
 }
