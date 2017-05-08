@@ -185,7 +185,8 @@ void nextBuild() {
 }
 
 void deploySelection() {
-  println("deploy!");
+  Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
+  session.current.event.add(deploy);
 }
 
 void endTurn() {

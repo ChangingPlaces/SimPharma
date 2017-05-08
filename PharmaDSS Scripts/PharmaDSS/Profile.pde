@@ -3,6 +3,8 @@ class Profile {
   
   // Name of NCE Demand Profile
   String name; 
+  
+  int ABSOLUTE_INDEX;
 
   // Breif Descriptor of Profile (i.e. "Blockbuster" or "Never Manufactured")
   String summary;
@@ -40,19 +42,21 @@ class Profile {
   Table demandProfile;
   
   // Basic Constructor
-  Profile() {
+  Profile(int INDEX) {
     productionCost = new ArrayList<Float>();
     demandProfile = new Table();
+    ABSOLUTE_INDEX = INDEX;
   }
   
   // The Class Constructor
-  Profile(String name, String summary, boolean success, String timeStart, float recoveries, ArrayList<Float> productionCost, Table demandProfile) {
+  Profile(String name, String summary, boolean success, String timeStart, float recoveries, ArrayList<Float> productionCost, Table demandProfile, int INDEX) {
     this.name = name;
     this.summary = summary;
     this.success = success;
     this.timeStart = timeStart;
     this.productionCost = productionCost;
     this.demandProfile = demandProfile;
+    ABSOLUTE_INDEX = INDEX;
   }
   
   void calc() {

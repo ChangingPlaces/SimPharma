@@ -140,7 +140,7 @@ void loadModel_XLS(System model, String name) {
   for (int i=0; i<NUM_PROFILES; i++) {
     
     // Read Profile: Basic Attributes
-    model.PROFILES.add( new Profile() ); 
+    model.PROFILES.add( new Profile(i) ); 
     model.PROFILES.get(i).name = reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL);
     model.PROFILES.get(i).summary = reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 1);
     if (reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 2).equals("success")) {

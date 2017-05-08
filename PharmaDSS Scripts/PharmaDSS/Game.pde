@@ -76,8 +76,21 @@ class Turn {
 // An Event might describe a change to the system initiated by (a) the user or (b) external forces
 class Event {
   String eventType;
-  Event(String eventType) {
+  int siteIndex, buildIndex, profileIndex;
+  
+  Event(String eventType, int siteIndex, int buildIndex, int profileIndex) {
     this.eventType = eventType;
+    this.siteIndex = siteIndex;
+    this.buildIndex = buildIndex;
+    this.profileIndex = profileIndex;
+    
+    stage();
+  }
+  
+  void stage() {
+    Build event = agileModel.GMS_BUILDS.get(buildIndex);
+    event.assignProfile(profileIndex);
+    agileModel.SITES.get(siteIndex).siteBuild.add(event);
   }
 }
 
