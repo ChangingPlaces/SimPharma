@@ -21,7 +21,7 @@ boolean showMainMenu = true;
 String[] buttonNames = 
 {
   "Play Game (g)",  // 0
-  "Next Turn (SPACE)",    // 1
+  "End Turn (SPACE)",    // 1
   "VOID",  // 2
   "Invert Colors (i)"   // 3
 };
@@ -45,7 +45,7 @@ void mouseClicked() {
   
   //function1
   if(mainMenu.buttons[1].over()){ 
-    nextTurn();
+    endTurn();
   }
   
   //function2
@@ -72,8 +72,11 @@ void keyPressed() {
     case 'g': // "Play Game (g)"
       toggleGame();
       break;
+    case 'n': // "Next Profile (n)"
+      nextProfile(agileModel.PROFILES.size());
+      break;
     case ' ': // "Next Turn (SPACE)"
-      nextTurn();
+      endTurn();
       break;
   }
   loop();
@@ -118,7 +121,15 @@ void invertColors() {
   println ("background: " + background + ", textColor: " + textColor);
 }
 
-void nextTurn() {
+void nextProfile(int numProfiles) {
+  if (session.selectedProfile >= numProfiles - 1) {
+    session.setProfile(session.selectedProfile = 0);
+  } else {
+    session.setProfile(session.selectedProfile + 1);
+  }
+}
+
+void endTurn() {
   session.execute();
 }
 

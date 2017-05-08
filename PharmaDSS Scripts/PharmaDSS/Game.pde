@@ -9,8 +9,11 @@ class Game {
   Turn current;
   ArrayList<Turn> turnLog;
   
+  int selectedProfile;
+  
   Game() {
     current = new Turn(0);
+    selectedProfile = 0;
     turnLog = new ArrayList<Turn>();
   }
   
@@ -19,6 +22,12 @@ class Game {
     println("Turn " + current.TURN + " logged");
     
     current = new Turn(current.TURN + 1);
+    setProfile(0);
+  }
+  
+  void setProfile(int index) {
+    selectedProfile = index;
+    println("Now editing profile: " + agileModel.PROFILES.get(selectedProfile).name);
   }
   
 }
