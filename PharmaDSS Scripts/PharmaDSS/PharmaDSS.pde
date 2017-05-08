@@ -87,7 +87,7 @@ void setup() {
   }
   
   // Setup for Canvas Visualization
-  size(1280, 800);
+  size(1400, 1000);
   
   // Window may be resized after initialized
   frame.setResizable(true);
@@ -138,6 +138,7 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   hideMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 0, hideText, align);
   mainMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 2, buttonNames, align);
   
-  // Hides "Next Turn" button unless game is active
+  // Hides "End Turn" and "next Profile" button unless game is active
   mainMenu.buttons[1].isVoid = !gameMode;
+  mainMenu.buttons[2].isVoid = !gameMode;
 }

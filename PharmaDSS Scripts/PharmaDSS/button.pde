@@ -9,6 +9,8 @@ Menu mainMenu, hideMenu;
 // Global Text and Background Color
 int textColor = 0;
 int background = 255;
+int BUTTON_OFFSET_H = 125;
+int BUTTON_OFFSET_W = 50;
 
 // Menu Alignment on Screen
 String align = "RIGHT";
@@ -21,9 +23,10 @@ boolean showMainMenu = true;
 String[] buttonNames = 
 {
   "Play Game (g)",  // 0
-  "End Turn (SPACE)",    // 1
-  "VOID",  // 2
-  "Invert Colors (i)"   // 3
+  "Next Profile (n)",    // 1
+  "End Turn (SPACE)",    // 2
+  "VOID",  // 3
+  "Invert Colors (i)"   // 4
 };
 
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
@@ -45,16 +48,21 @@ void mouseClicked() {
   
   //function1
   if(mainMenu.buttons[1].over()){ 
-    endTurn();
+    nextProfile(agileModel.PROFILES.size());
   }
   
   //function2
   if(mainMenu.buttons[2].over()){ 
-    // void
+    endTurn();
   }
   
   //function3
   if(mainMenu.buttons[3].over()){ 
+    // void
+  }
+  
+  //function4
+  if(mainMenu.buttons[4].over()){ 
     invertColors();
   }
   
@@ -138,11 +146,13 @@ void toggleGame() {
     gameMode = false;
     mainMenu.buttons[0].label = "Game OFF (g)";
     mainMenu.buttons[1].isVoid = true;
+    mainMenu.buttons[2].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
     mainMenu.buttons[0].label = "Game ON (g)";
     mainMenu.buttons[1].isVoid = false;
+    mainMenu.buttons[2].isVoid = false;
   }
   
   println("gameMode: " + gameMode);
@@ -240,7 +250,8 @@ class Menu{
     this.y = y;
     
     // distance in pixels from corner of screen
-    int margin = 50;
+    int marginH = BUTTON_OFFSET_H;
+    int marginW = BUTTON_OFFSET_W;
     
     canvas = createGraphics(w, h);
     // #Buttons defined by Name String Array Length
@@ -250,13 +261,13 @@ class Menu{
     for (int i=0; i<buttons.length; i++) {
       if ( this.align.equals("right") || this.align.equals("RIGHT") ) {
         // Right Align
-        buttons[i] = new Button(this.w - this.x - margin, margin + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
+        buttons[i] = new Button(this.w - this.x - marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
       } else if ( this.align.equals("left") || this.align.equals("LEFT") ) { 
         // Left Align
-        buttons[i] = new Button(margin, margin + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, names[i]);
+        buttons[i] = new Button(marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, names[i]);
       } else if ( this.align.equals("center") || this.align.equals("CENTER") ) { 
         // Center Align
-        buttons[i] = new Button( (this.w-this.x)/2, margin + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
+        buttons[i] = new Button( (this.w-this.x)/2, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
       }
       
       // Alows a menu button spacer to be added by setting its string value to "VOID"

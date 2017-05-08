@@ -3,7 +3,7 @@ void drawFramework() {
   background(abs(background));
   
   float testScalerW = 0.85;
-  float testScalerH = 0.85;
+  float testScalerH = 0.8;
   int margin = 50;
   
   // Upper Left Corners
@@ -25,16 +25,20 @@ void drawFramework() {
   fill(textColor);
   textAlign(LEFT);
   text("NCE Demand Profiles:", margin + int(testScalerW*(profilesX)), profilesY - 60);
-  boolean axis = false;
+  boolean axis;
+  boolean selected;
   for (int i=1; i<=NUM_PROFILES; i++) {
+    selected = false;
+    axis = false;
     if (!gameMode || agileModel.PROFILES.get(i-1).timeLead <= session.current.TURN ) {
       if (i == NUM_PROFILES) axis = true;
+      if (i == session.selectedProfile+1) selected = true;
       agileModel.PROFILES.get(i-1).draw(
         margin + int(testScalerW*(profilesX)), 
         20 + profilesY + int(testScalerH*0.85*i/float(NUM_PROFILES+1)*800), 
         int(testScalerW*300), 
         int(testScalerH*0.3*800/float(NUM_PROFILES+1)),
-        axis
+        axis, selected
       );
     }
   }

@@ -101,7 +101,7 @@ class Profile {
     if (!viable) timeEnd = timeLead;
   }
   
-  void draw(int x, int y, int w, int h, boolean axis) {
+  void draw(int x, int y, int w, int h, boolean axis, boolean selected) {
     float MAX_VALUE = 20000.0;
     float scalerH = h/MAX_VALUE;
     float scalerW = float(w)/demandProfile.getColumnCount();
@@ -154,10 +154,20 @@ class Profile {
     fill(#00CC00);
     rect(x + scalerW * timeLead - 3, y - h, 6, h);
     
-    //End Date
+    // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       fill(#CC0000);
       rect(x + scalerW * timeEnd - 3, y - h, 6, h);
+    }
+    
+    // Draw Profile Selection
+    if (selected) {
+      noFill();
+      //stroke(255 - background, 100);
+      stroke(#CCCC00, 100);
+      strokeWeight(4);
+      rect(x - 10, y - h - 15, w + 20, 2*h + 20, 5);
+      noStroke();
     }
   } 
 }
