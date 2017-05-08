@@ -23,6 +23,14 @@ class Game {
     // Only adds profiles with 5 years advance forecast
     agileModel.activeProfiles.clear();
     populateProfiles();
+    
+    resetSites();
+  }
+  
+  void resetSites() {
+    for (int i=0; i<agileModel.SITES.size(); i++) {
+      agileModel.SITES.get(i).siteBuild.clear();
+    }
   }
   
   void execute() {
@@ -88,7 +96,16 @@ class Event {
   }
   
   void stage() {
-    Build event = agileModel.GMS_BUILDS.get(buildIndex);
+    Build event = new Build();
+    
+    event.name         = agileModel.GMS_BUILDS.get(buildIndex).name;
+    event.capacity     = agileModel.GMS_BUILDS.get(buildIndex).capacity;
+    event.buildCost    = agileModel.GMS_BUILDS.get(buildIndex).buildCost;
+    event.buildTime    = agileModel.GMS_BUILDS.get(buildIndex).buildTime;
+    event.repurpCost   = agileModel.GMS_BUILDS.get(buildIndex).repurpCost;
+    event.repurpTime   = agileModel.GMS_BUILDS.get(buildIndex).repurpTime;
+    event.labor        = agileModel.GMS_BUILDS.get(buildIndex).labor;
+
     event.assignProfile(profileIndex);
     agileModel.SITES.get(siteIndex).siteBuild.add(event);
   }

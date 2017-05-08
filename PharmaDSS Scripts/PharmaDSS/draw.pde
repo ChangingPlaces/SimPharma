@@ -36,7 +36,7 @@ void drawFramework() {
   for (int i=0; i<NUM_SITES; i++) {
     selected = false;
     if (i == session.selectedSite) selected = true;
-    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(320*i)), selected);
+    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(400*i)), selected);
   }
   
   // Draw Build/Repurpose Units
