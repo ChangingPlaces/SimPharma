@@ -15,6 +15,10 @@ class Game {
     current = new Turn(0);
     selectedProfile = 0;
     turnLog = new ArrayList<Turn>();
+    
+    // Only adds profiles with 5 years advance forecast
+    agileModel.activeProfiles.clear();
+    populateProfiles();
   }
   
   void execute() {
@@ -23,11 +27,22 @@ class Game {
     
     current = new Turn(current.TURN + 1);
     setProfile(0);
+    
+    populateProfiles();
   }
   
   void setProfile(int index) {
     selectedProfile = index;
     println("Now editing profile: " + agileModel.PROFILES.get(selectedProfile).name);
+  }
+  
+  // Only adds profiles with 5 years advance forecast
+  void populateProfiles() {
+    for (int i=0; i<agileModel.PROFILES.size(); i++) {
+      if (agileModel.PROFILES.get(i).timeLead == current.TURN) {
+        agileModel.activeProfiles.add(agileModel.PROFILES.get(i));
+      }
+    }
   }
   
 }

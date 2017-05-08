@@ -14,7 +14,7 @@ class System {
   
   // Objects that hold marginal attributes of various build volumes.  
   // Each build is associated with a discrete build volume.
-  ArrayList<Profile> PROFILES;
+  ArrayList<Profile> PROFILES, activeProfiles;
   ArrayList<Site> SITES;
   ArrayList<Build> GMS_BUILDS, RND_BUILDS;
   
@@ -30,6 +30,7 @@ class System {
   System() {
     LABOR_TYPES = new Table();
     PROFILES = new ArrayList<Profile>();
+    activeProfiles = new ArrayList<Profile>();
     SITES = new ArrayList<Site>();
     GMS_BUILDS = new ArrayList<Build>();
     RND_BUILDS = new ArrayList<Build>();

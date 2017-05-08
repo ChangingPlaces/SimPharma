@@ -1,19 +1,18 @@
+float testScalerW = 0.85;
+float testScalerH = 0.8;
+int margin = 50;
+
+// Upper Left Corners
+int profilesX = 850;
+int profilesY = 200;
+int buildsX = 350;
+int buildsY = 200;
+int sitesX = 0;
+int sitesY = 200;
+  
 //Here are some function to test drawing the visualization
 void drawFramework() {
   background(abs(background));
-  
-  float testScalerW = 0.85;
-  float testScalerH = 0.8;
-  int margin = 50;
-  
-  // Upper Left Corners
-  int profilesX = 850;
-  int profilesY = 200;
-  int buildsX = 350;
-  int buildsY = 200;
-  int sitesX = 0;
-  int sitesY = 200;
-  
   
   // Draw Title
   fill(textColor);
@@ -22,47 +21,11 @@ void drawFramework() {
   text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", margin, margin + 30);
   
   // Draw Profiles
-  fill(textColor);
-  textAlign(LEFT);
-  text("NCE Demand Profiles:", margin + int(testScalerW*(profilesX)), profilesY - 60);
-  boolean axis;
-  boolean selected;
-  for (int i=1; i<=NUM_PROFILES; i++) {
-    selected = false;
-    axis = false;
-    if (!gameMode || agileModel.PROFILES.get(i-1).timeLead <= session.current.TURN ) {
-      if (i == NUM_PROFILES) axis = true;
-      if (i == session.selectedProfile+1) selected = true;
-      agileModel.PROFILES.get(i-1).draw(
-        margin + int(testScalerW*(profilesX)), 
-        20 + profilesY + int(testScalerH*0.85*i/float(NUM_PROFILES+1)*800), 
-        int(testScalerW*300), 
-        int(testScalerH*0.3*800/float(NUM_PROFILES+1)),
-        axis, selected
-      );
-    }
+  if (!gameMode) {
+    drawProfiles(agileModel.PROFILES);
+  } else {
+    drawProfiles(agileModel.activeProfiles);
   }
-  
-  // Draw Profile Legend
-  fill(#0000FF, 200);
-  rect(margin + int(testScalerW*(profilesX)), profilesY, 15, 10);
-  fill(textColor, 150);
-  rect(margin + int(testScalerW*(profilesX)), profilesY + 20, 15, 10);
-  fill(textColor);
-  textAlign(LEFT);
-  text("Legend (" + agileModel.TIME_UNITS + "):", margin + int(testScalerW*(profilesX)), profilesY - 10);
-  text("Actual", margin + int(testScalerW*(profilesX))+20, profilesY + 10);
-  text("Forecast", margin + int(testScalerW*(profilesX))+20, profilesY + 20 + 10);
-  
-  noStroke();
-  fill(#00CC00);
-  rect(margin + int(testScalerW*(profilesX))+100, profilesY, 6, 10);
-  fill(#CC0000);
-  rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 6, 10);
-  fill(textColor);
-  textAlign(LEFT);
-  text("Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
-  text("End", margin + int(testScalerW*(profilesX))+115, profilesY + 20 + 10);
  
   // Draw Sites
   fill(textColor);
@@ -119,4 +82,51 @@ void drawFramework() {
     fill(textColor);
     text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX)) + 10 + 280, buildsY + 15 + 15*i);
   }
+}
+
+void drawProfiles(ArrayList<Profile> list) {
+  fill(textColor);
+  textAlign(LEFT);
+  text("NCE Demand Profiles:", margin + int(testScalerW*(profilesX)), profilesY - 60);
+  boolean axis;
+  boolean selected;
+  //int numProf = list.size();
+  int numProf = 10;
+  for (int i=1; i<=list.size(); i++) {
+    selected = false;
+    axis = false;
+    if (!gameMode || list.get(i-1).timeLead <= session.current.TURN ) {
+      if (i == numProf) axis = true;
+      if (i == session.selectedProfile+1) selected = true;
+      list.get(i-1).draw(
+        margin + int(testScalerW*(profilesX)), 
+        20 + profilesY + int(testScalerH*0.85*i/float(numProf+1)*800), 
+        int(testScalerW*300), 
+        int(testScalerH*0.3*800/float(numProf+1)),
+        axis, selected
+      );
+    }
+  }
+  
+  // Draw Profile Legend
+  fill(#0000FF, 200);
+  rect(margin + int(testScalerW*(profilesX)), profilesY, 15, 10);
+  fill(textColor, 150);
+  rect(margin + int(testScalerW*(profilesX)), profilesY + 20, 15, 10);
+  fill(textColor);
+  textAlign(LEFT);
+  text("Legend (" + agileModel.TIME_UNITS + "):", margin + int(testScalerW*(profilesX)), profilesY - 10);
+  text("Actual", margin + int(testScalerW*(profilesX))+20, profilesY + 10);
+  text("Forecast", margin + int(testScalerW*(profilesX))+20, profilesY + 20 + 10);
+  
+  noStroke();
+  fill(#00CC00);
+  rect(margin + int(testScalerW*(profilesX))+100, profilesY, 6, 10);
+  fill(#CC0000);
+  rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 6, 10);
+  fill(textColor);
+  textAlign(LEFT);
+  text("Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
+  text("End", margin + int(testScalerW*(profilesX))+115, profilesY + 20 + 10);
+  
 }

@@ -48,7 +48,7 @@ void mouseClicked() {
   
   //function1
   if(mainMenu.buttons[1].over()){ 
-    nextProfile(agileModel.PROFILES.size());
+    nextProfile();
   }
   
   //function2
@@ -81,7 +81,7 @@ void keyPressed() {
       toggleGame();
       break;
     case 'n': // "Next Profile (n)"
-      nextProfile(agileModel.PROFILES.size());
+      nextProfile();
       break;
     case ' ': // "Next Turn (SPACE)"
       endTurn();
@@ -129,7 +129,15 @@ void invertColors() {
   println ("background: " + background + ", textColor: " + textColor);
 }
 
-void nextProfile(int numProfiles) {
+void nextProfile() {
+  int numProfiles;
+  
+  if (!gameMode) {
+    numProfiles = agileModel.PROFILES.size();
+  } else {
+    numProfiles = agileModel.activeProfiles.size();
+  }
+  
   if (session.selectedProfile >= numProfiles - 1) {
     session.setProfile(session.selectedProfile = 0);
   } else {
