@@ -22,11 +22,18 @@ boolean showMainMenu = true;
 // what they are named by editing this String array:
 String[] buttonNames = 
 {
-  "Play Game (g)",  // 0
-  "Next Profile (n)",    // 1
-  "End Turn (SPACE)",    // 2
-  "VOID",  // 3
-  "Invert Colors (i)"   // 4
+  "Invert Colors (i)", //0
+  "VOID",  // 1
+  "Play Game (g)",  // 2
+  "Next Profile (p)",    // 3
+  "Next Site (s)",  // 4
+  "Next Build (b)",  // 5
+  "VOID",  // 6
+  "VOID",  // 7
+  "VOID",  // 8
+  "VOID",  // 9
+  "VOID",  // 10
+  "End Turn (SPACE)",    // 11
 };
 
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
@@ -41,28 +48,27 @@ void mouseClicked() {
     toggleMainMenu();
   }
   
-  //function0
-  if(mainMenu.buttons[0].over()){ 
+  if(mainMenu.buttons[2].over()){ 
     toggleGame();
   }
   
-  //function1
-  if(mainMenu.buttons[1].over()){ 
+  if(mainMenu.buttons[3].over()){ 
     nextProfile();
   }
   
-  //function2
-  if(mainMenu.buttons[2].over()){ 
+  if(mainMenu.buttons[4].over()){ 
+    nextSite();
+  }
+  
+  if(mainMenu.buttons[5].over()){ 
+    nextBuild();
+  }
+  
+  if(mainMenu.buttons[11].over()){ 
     endTurn();
   }
   
-  //function3
-  if(mainMenu.buttons[3].over()){ 
-    // void
-  }
-  
-  //function4
-  if(mainMenu.buttons[4].over()){ 
+  if(mainMenu.buttons[0].over()){ 
     invertColors();
   }
   
@@ -80,8 +86,14 @@ void keyPressed() {
     case 'g': // "Play Game (g)"
       toggleGame();
       break;
-    case 'n': // "Next Profile (n)"
+    case 'p': // "Next Profile (p)"
       nextProfile();
+      break;
+    case 's': // "Next Profile (p)"
+      nextSite();
+      break;
+    case 'b': // "Next Profile (p)"
+      nextBuild();
       break;
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
@@ -145,6 +157,24 @@ void nextProfile() {
   }
 }
 
+void nextSite() {
+  if (session.selectedSite == agileModel.SITES.size() - 1) {
+    session.selectedSite = 0;
+  } else {
+    session.selectedSite++;
+  }
+  println("Site: " + (session.selectedSite+1));
+}
+
+void nextBuild() {
+  if (session.selectedBuild == agileModel.GMS_BUILDS.size() - 1) {
+    session.selectedBuild = 0;
+  } else {
+    session.selectedBuild++;
+  }
+  println("GMS Build Type: " + (session.selectedBuild+1));
+}
+
 void endTurn() {
   session.execute();
 }
@@ -152,13 +182,13 @@ void endTurn() {
 void toggleGame() {
   if (gameMode) {
     gameMode = false;
-    mainMenu.buttons[0].label = "Game OFF (g)";
-    mainMenu.buttons[2].isVoid = true;
+    mainMenu.buttons[2].label = "Game is OFF (g)";
+    mainMenu.buttons[11].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[0].label = "Game ON (g)";
-    mainMenu.buttons[2].isVoid = false;
+    mainMenu.buttons[2].label = "Game is ON (g)";
+    mainMenu.buttons[11].isVoid = false;
   }
   
   println("gameMode: " + gameMode);

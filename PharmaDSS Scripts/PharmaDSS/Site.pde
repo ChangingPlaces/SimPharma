@@ -39,7 +39,7 @@ class Site {
     }
   }
   
-  void draw(int x, int y) {
+  void draw(int x, int y, boolean selected) {
     float scaler = 6; // 
     float sideEx = sqrt(capEx);
     float sideGn = sqrt(capEx + capGn); 
@@ -62,7 +62,15 @@ class Site {
     textAlign(CENTER);
     text("Existing", x + 5 + wScale*scaler*sideEx/2, y + 5 + hScale*scaler*sideEx/2 + 0);
     text(capEx + " " + agileModel.WEIGHT_UNITS, x + 5 + wScale*scaler*sideEx/2, y + 5 + hScale*scaler*sideEx/2 + 15);
-
+    
+    // Draw Site Selection
+    if (selected) {
+      noFill();
+      stroke(#CCCC00, 100);
+      strokeWeight(4);
+      rect(x - 10, y - 30, wScale*scaler*sideGn + 20, hScale*scaler*sideGn + 40, 5);
+      noStroke();
+    }
   }
   
 }

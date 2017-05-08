@@ -50,7 +50,7 @@ class Build {
     }
   }
   
-  void draw(int x, int y, String type) {
+  void draw(int x, int y, String type, boolean selected) {
     int scaler = 4;
     fill(abs(textColor - 75));
     rect(x + 155, y, scaler*capacity, 10, 3);
@@ -78,6 +78,15 @@ class Build {
         fill(#00CCCC);
       }
       ellipse(x +157 + i*6, y + 20, 3, 10);
+    }
+    
+    // Draw Build Selection
+    if (selected) {
+      noFill();
+      stroke(#CCCC00, 100);
+      strokeWeight(4);
+      rect(x - 10, y, 160, 30, 5);
+      noStroke();
     }
   }
 }

@@ -13,6 +13,7 @@ int sitesY = 200;
 //Here are some function to test drawing the visualization
 void drawFramework() {
   background(abs(background));
+  boolean selected;
   
   // Draw Title
   fill(textColor);
@@ -33,13 +34,17 @@ void drawFramework() {
   textAlign(LEFT);
   text("Site Characteristics:", margin + int(testScalerW*(sitesX)), sitesY - 60);
   for (int i=0; i<NUM_SITES; i++) {
-    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(300*i)));
+    selected = false;
+    if (i == session.selectedSite) selected = true;
+    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(320*i)), selected);
   }
   
   // Draw Build/Repurpose Units
   fill(textColor);
   textAlign(LEFT);
   text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60);
+  
+  
   
   // Draw GMS Build Options
   fill(textColor);
@@ -48,7 +53,9 @@ void drawFramework() {
   text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10);
   text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10);
   for (int i=0; i<NUM_GMS_BUILDS; i++) {
-    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY - 10 + int(testScalerH*(15 +33*i)), "GMS");
+    selected = false;
+    if (i == session.selectedBuild) selected = true;
+    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY - 10 + int(testScalerH*(15 +33*i)), "GMS", selected);
   }
   
   // Draw R&D Build Options
@@ -58,7 +65,9 @@ void drawFramework() {
   text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
   text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
   for (int i=0; i<NUM_RND_BUILDS; i++) {
-    agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +33*i) ), "R&D");
+    selected = false;
+    // if (...) selected = true;
+    agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +33*i) ), "R&D", selected);
   }
   
   // Draw Personnel Legend

@@ -10,10 +10,14 @@ class Game {
   ArrayList<Turn> turnLog;
   
   int selectedProfile;
+  int selectedSite;
+  int selectedBuild;
   
   Game() {
     current = new Turn(0);
     selectedProfile = 0;
+    selectedSite = 0;
+    selectedBuild = 0;
     turnLog = new ArrayList<Turn>();
     
     // Only adds profiles with 5 years advance forecast
