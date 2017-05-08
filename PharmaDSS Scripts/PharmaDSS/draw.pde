@@ -16,6 +16,7 @@ void drawFramework() {
   
   // Draw Title
   fill(textColor);
+  textAlign(LEFT);
   text("PharmaDSS " + VERSION, margin, margin);
   text("MIT Media Lab + GlaxoSmithKline", margin, margin + 15);
   text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", margin, margin + 30);
@@ -82,6 +83,23 @@ void drawFramework() {
     fill(textColor);
     text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX)) + 10 + 280, buildsY + 15 + 15*i);
   }
+  
+  //Draw Selected Profile in Large Format
+  if (!gameMode) {
+    drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
+  } else {
+    drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  }
+}
+
+void drawLargeProfile(Profile selected) {
+  selected.draw(
+    margin, 
+    int(height*0.95), 
+    int(0.85*width*testScalerW), 
+    int(0.5*height*(1.0 - testScalerH)),
+    true, false, true
+  );
 }
 
 void drawProfiles(ArrayList<Profile> list) {
@@ -103,7 +121,7 @@ void drawProfiles(ArrayList<Profile> list) {
         20 + profilesY + int(testScalerH*0.85*i/float(numProf+1)*800), 
         int(testScalerW*300), 
         int(testScalerH*0.3*800/float(numProf+1)),
-        axis, selected
+        axis, selected, false
       );
     }
   }

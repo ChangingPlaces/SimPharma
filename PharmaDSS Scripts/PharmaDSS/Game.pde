@@ -26,7 +26,7 @@ class Game {
     println("Turn " + current.TURN + " logged");
     
     current = new Turn(current.TURN + 1);
-    setProfile(0);
+    //setProfile(0);
     
     populateProfiles();
   }
