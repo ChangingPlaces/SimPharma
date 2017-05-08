@@ -16,6 +16,11 @@ class Build {
   // Operators (Amount, Shifts, Cost)
   ArrayList<Person> labor;
   
+  // Status of Build:
+  int PROFILE_INDEX;
+  boolean built;
+  int age;
+  
   // Basic Constructor
   Build() {
     labor = new ArrayList<Person>();
@@ -30,6 +35,19 @@ class Build {
     this.repurpCost = repurpCost;
     this.repurpTime = repurpTime;
     this.labor = labor;
+  }
+  
+  void assignProfile(int index) {
+    PROFILE_INDEX = index;
+    built = false;
+    age = 0;
+  }
+  
+  void updateBuild() {
+    age++;
+    if (age >= buildTime) {
+      built = true;
+    }
   }
   
   void draw(int x, int y, String type) {

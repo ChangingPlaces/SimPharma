@@ -10,6 +10,8 @@ class Site {
   // Limit to the amount of NCEs on site for RnD
   int limitRnD;
   
+  ArrayList<Build> siteBuild;
+  
 //  // Salary Modifier for Site Conditions (i.e. 0.9 or 1.2 of Labour Cost)
 //  float salaryMod;
   
@@ -22,6 +24,19 @@ class Site {
     this.capEx = capEx;
     this.capGn = capGn;
     this.limitRnD = limitRnD;
+    
+    siteBuild = new ArrayList<Build>();
+  }
+  
+  void addBuild(Build newBuild, int PROFILE_INDEX) {
+    newBuild.assignProfile(PROFILE_INDEX);
+    siteBuild.add(newBuild);
+  }
+  
+  void updateBuilds() {
+    for(int i=0; i<siteBuild.size(); i++) {
+      siteBuild.get(i).updateBuild();
+    }
   }
   
   void draw(int x, int y) {

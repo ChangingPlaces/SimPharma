@@ -84,7 +84,7 @@ void keyPressed() {
       nextProfile();
       break;
     case ' ': // "Next Turn (SPACE)"
-      endTurn();
+      if (gameMode) endTurn();
       break;
   }
   loop();

@@ -29,6 +29,11 @@ class Game {
     //setProfile(0);
     
     populateProfiles();
+    println("There are now " + agileModel.activeProfiles.size() + " Active Profiles.");
+    
+    for (int i=0; i<agileModel.SITES.size(); i++) {
+      agileModel.SITES.get(i).updateBuilds();
+    }
   }
   
   void setProfile(int index) {
@@ -41,6 +46,12 @@ class Game {
     for (int i=0; i<agileModel.PROFILES.size(); i++) {
       if (agileModel.PROFILES.get(i).timeLead == current.TURN) {
         agileModel.activeProfiles.add(agileModel.PROFILES.get(i));
+      }
+    }
+    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+      if (agileModel.activeProfiles.get(i).timeEnd + 1 < current.TURN) {
+        if (selectedProfile == i) selectedProfile = 0;
+        agileModel.activeProfiles.remove(i);
       }
     }
   }

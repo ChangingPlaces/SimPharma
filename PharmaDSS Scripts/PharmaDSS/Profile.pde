@@ -111,8 +111,14 @@ class Profile {
     
     // Time Bar
     if (!detail) {
-      if (textColor == 255) {
-        fill(textColor, 100);
+//      if (textColor == 255) {
+//        fill(textColor, 100);
+//      } else {
+//        fill(#00CC00, 40);
+//      }
+      println(timeEnd, session.current.TURN);
+      if (timeEnd < session.current.TURN || (!gameMode && timeEnd < NUM_INTERVALS) ) {
+        fill(#CC0000, 40);
       } else {
         fill(#00CC00, 40);
       }
@@ -188,7 +194,7 @@ class Profile {
       //stroke(255 - background, 100);
       stroke(#CCCC00, 100);
       strokeWeight(4);
-      rect(x - 20, y - 2.1*h, w + 40, 3.0*h, 5);
+      rect(x - 20, y - 2*h, w + 40, 3.0*h, 5);
       noStroke();
     }
     
