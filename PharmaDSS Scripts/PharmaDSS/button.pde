@@ -148,6 +148,7 @@ void invertColors() {
   println ("background: " + background + ", textColor: " + textColor);
 }
 
+// User Selects Next Available Profile
 void nextProfile() {
   int numProfiles;
   
@@ -166,6 +167,7 @@ void nextProfile() {
   println("Profile: " + (session.selectedProfile+1));
 }
 
+// User Selects Next Available Site
 void nextSite() {
   if (session.selectedSite == agileModel.SITES.size() - 1) {
     session.selectedSite = 0;
@@ -175,6 +177,7 @@ void nextSite() {
   println("Site: " + (session.selectedSite+1));
 }
 
+// User Selects Next Available Build
 void nextBuild() {
   if (session.selectedBuild == agileModel.GMS_BUILDS.size() - 1) {
     session.selectedBuild = 0;
@@ -184,25 +187,28 @@ void nextBuild() {
   println("GMS Build Type: " + (session.selectedBuild+1));
 }
 
+// Build Selected Manufactring Option
 void deploySelection() {
   Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
   session.current.event.add(deploy);
 }
 
+// Advance to Next Turn
 void endTurn() {
   session.execute();
 }
 
+// Toggle God Mode vs. Game Mode
 void toggleGame() {
   if (gameMode) {
     gameMode = false;
-    mainMenu.buttons[2].label = "Game is OFF (g)";
+    mainMenu.buttons[2].label = "God Mode (g)";
     mainMenu.buttons[11].isVoid = true;
     mainMenu.buttons[7].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[2].label = "Game is ON (g)";
+    mainMenu.buttons[2].label = "Game Mode (g)";
     mainMenu.buttons[11].isVoid = false;
     mainMenu.buttons[7].isVoid = false;
   }

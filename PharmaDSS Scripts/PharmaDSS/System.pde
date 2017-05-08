@@ -29,7 +29,11 @@ class System {
   
   System() {
     LABOR_TYPES = new Table();
+    
+    // The possible Universe/Reality of Profiles
     PROFILES = new ArrayList<Profile>();
+    
+    // Only the Profiles Visible/Used during a game situation
     activeProfiles = new ArrayList<Profile>();
     SITES = new ArrayList<Site>();
     GMS_BUILDS = new ArrayList<Build>();

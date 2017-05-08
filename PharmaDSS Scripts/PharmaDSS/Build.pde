@@ -16,10 +16,14 @@ class Build {
   // Operators (Amount, Shifts, Cost)
   ArrayList<Person> labor;
   
-  // Status of Build:
-  int PROFILE_INDEX;
-  boolean built;
-  int age;
+  // Status of Build when allocated to a site:
+    
+    // NCE profile produced by build
+    int PROFILE_INDEX;
+    // Is build operational, yet?
+    boolean built;
+    // How many years since the build has been comissioned?
+    int age;
   
   // Basic Constructor
   Build() {
@@ -37,20 +41,24 @@ class Build {
     this.labor = labor;
   }
   
+  // Allocate Specific Profile Information to a Build when it is deployed on Site
   void assignProfile(int index) {
     PROFILE_INDEX = index;
     built = false;
     age = 0;
   }
   
+  // Update Temporal aspects of build, such as age and construction progress
   void updateBuild() {
     age++;
     if (age >= buildTime) {
+      // Build becomes active after N years of construction
       built = true;
     }
   }
   
   void draw(int x, int y, String type, boolean selected) {
+    // Draw Build Characteristics
     int scaler = 4;
     fill(abs(textColor - 75));
     rect(x + 155, y, scaler*capacity, 10, 3);
@@ -80,7 +88,7 @@ class Build {
       ellipse(x +157 + i*6, y + 20, 3, 10);
     }
     
-    // Draw Build Selection
+    // Draw Build Selection Box
     if (selected) {
       noFill();
       stroke(#CCCC00, 100);

@@ -10,6 +10,7 @@ class Site {
   // Limit to the amount of NCEs on site for RnD
   int limitRnD;
   
+  // A List of Manufacturing Capacities (Build objects) assigned to the site
   ArrayList<Build> siteBuild;
   
 //  // Salary Modifier for Site Conditions (i.e. 0.9 or 1.2 of Labour Cost)
@@ -28,11 +29,7 @@ class Site {
     siteBuild = new ArrayList<Build>();
   }
   
-  void addBuild(Build newBuild, int PROFILE_INDEX) {
-    newBuild.assignProfile(PROFILE_INDEX);
-    siteBuild.add(newBuild);
-  }
-  
+  // Update the state of all builds on site
   void updateBuilds() {
     for(int i=0; i<siteBuild.size(); i++) {
       siteBuild.get(i).updateBuild();
@@ -46,13 +43,14 @@ class Site {
     float wScale = 30;
     float hScale = 0.08;
     
-//    fill(#CDDB90);
+    // Draw Baseline Total External and Green Field Rectangle Capacities
     fill(205, 250, 150);
     rect(x, y, wScale*scaler, hScale*scaler*sideGn + 10, 5);
     fill(255, 200);
     rect(x + 5, y + 5, wScale*scaler - 10, hScale*scaler*sideEx, 5);
     noStroke();
     
+    // Draw Label Text
     fill(textColor);
     textAlign(LEFT);
     text("Site " + name, x, y - 10);
@@ -63,16 +61,20 @@ class Site {
     text("Existing", x + 5 + wScale*scaler*sideEx/2, y + 5 + hScale*scaler*sideEx/2 + 0);
     text(capEx + " " + agileModel.WEIGHT_UNITS, x + 5 + wScale*scaler/2, y + 10 + hScale*scaler*sideEx/2);
     
-    // Draw Allocations
+    // Draw Build Allocations within Site Square
     if (gameMode) {
       float offset = 0;
       float size;
       for (int i=0; i<siteBuild.size(); i++) {
+        
         if (siteBuild.get(i).built == false) {
+          // Color Under Construction
           fill(abs(100-textColor), 150);
         } else if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN) {
+          // Color NCE Not Viable
           fill(#CC0000, 150);
         } else {
+          // Color NCE Active Production
           fill(#0000CC, 150);
         }
         //stroke(255, 200);

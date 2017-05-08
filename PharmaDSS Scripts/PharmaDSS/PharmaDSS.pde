@@ -3,10 +3,19 @@
  /  Cambridge, MA
 */
  
- String VERSION = "BETA V1.1";
+ String VERSION = "BETA V1.2";
  
  /* Release Notes:
  /  
+ /  BETA V1.2 Release
+ /  Dynamic, Turn-based interaction using button and keyboard commands
+ /    - Added UI for selecting specific (a)Profiles, (b)Sites, and (c)Builds
+ /    - Allocate NCE "Build" capacity between sites
+ /    - Enabled "deploy" event that allocates capacity to site in a given turn
+ /    Misc Visual:
+ /      - Add Large-scale format for selected profile for greater legibility
+ /      - Build capacity has 3 states: (1) Under Construction, (2) Active, (3) Inactive/Not utilized 
+ /
  /  BETA V1.1 Release
  /  Dynamic, Turn-based interaction using mouse and keyboard commands
  /  Misc Visual:
@@ -35,19 +44,18 @@
  /    - Profiles, Sites, Builds, and Persons
  /  - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
  /  - Basic Visualization of System Inputs
- /
 */
 
- /* Development Notes:
- /
- /  The following is planned for BETA V1.2:
+ /*
+ /  The following is planned for ALPHA V1.0:
+ /  - Output summary of 5 KPIs
  /  - Implement stochastic events not easily performed in excel
  /  - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
  /  - Include Salary modifier for different Sites
  /  - Misc Visual:
  /    - Switch between weight/cost metrics for Build Types
  /    - Add R&D "modules", specified by limit, to Site Visualization
- /  - Allocate/Move/Delete NCE capacity between sites
+ /    - Relative scaling for Large-format Profile visualization
  /  - Allow user to compare performance with baseline scenario(s)
 */
 

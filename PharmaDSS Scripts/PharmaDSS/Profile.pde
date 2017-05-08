@@ -4,6 +4,7 @@ class Profile {
   // Name of NCE Demand Profile
   String name; 
   
+  // This static index should always refer to the profile's "ideal" state located in "System.PROFILES"
   int ABSOLUTE_INDEX;
 
   // Breif Descriptor of Profile (i.e. "Blockbuster" or "Never Manufactured")
@@ -60,11 +61,17 @@ class Profile {
   }
   
   void calc() {
+    // Based on Profile, compute the peak forecast demand
     peak();
+    
+    // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) System.LEAD_TIME
     lead();
+    
+    // Based on Profile, compute the date that NCE Profile "terminates"
     end();
   }
   
+  // Based on Profile, compute the peak forecast demand
   void peak() {
     demandPeak = 0;
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
@@ -75,6 +82,7 @@ class Profile {
     }
   }
   
+  // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) System.LEAD_TIME
   void lead() {
     timeLead = 0;
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
@@ -87,6 +95,7 @@ class Profile {
     }
   }
   
+  // Based on Profile, compute the date that NCE Profile "terminates" (i.e. is no longer viable)
   void end() {
     timeEnd = Float.POSITIVE_INFINITY;
     boolean viable = false;
@@ -94,10 +103,12 @@ class Profile {
     for (int i=1; i<demandProfile.getColumnCount(); i++) {
       current = demandProfile.getFloat(2, i);
       previous = demandProfile.getFloat(2, i-1);
+      // If actual demand reaches zero, profile is no longer viable
       if (current == 0 && previous > 0) {
         timeEnd = i;
         break;
       }
+      // If actual demand is still above zero, keep viable
       if (current > 0) {
         viable = true;
       }
@@ -132,10 +143,11 @@ class Profile {
       float barA = scalerH * demandProfile.getFloat(2, i); // Actual Demand
       noStroke();
       
+      // Draw Forecast Demand Bars
       fill(abs(textColor-200));
       rect(x + scalerW * i +1, y - barF, scalerW - 2, barF);
 
-      // If game is on, only shows actual demand for finished turns
+      // If game is on, only shows actual demand bars for finished turns
       if (!gameMode || session.current.TURN > i) {
         fill(#0000FF, 100);
         rect(x + scalerW * i + 1, y - barA, scalerW - 2, barA);
@@ -158,6 +170,7 @@ class Profile {
       }
     }
     
+    // Draw small year axis on last NCE only
     if (!detail) {
       fill(textColor);
       textAlign(LEFT);
@@ -207,7 +220,7 @@ class Profile {
       text("T=" + session.current.TURN, X, Y-5);
     }
     
-    // Y-Axis
+    // Y-Axis for Large-scale graphic
     if (detail) {
       stroke(textColor, 20);
       strokeWeight(1);
