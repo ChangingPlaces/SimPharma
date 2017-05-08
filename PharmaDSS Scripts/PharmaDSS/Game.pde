@@ -42,7 +42,6 @@ class Game {
   
   void setProfile(int index) {
     selectedProfile = index;
-    println("Now editing profile: " + agileModel.PROFILES.get(selectedProfile).name);
   }
   
   // Only adds profiles with 5 years advance forecast

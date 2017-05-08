@@ -25,11 +25,11 @@ String[] buttonNames =
   "Invert Colors (i)", //0
   "VOID",  // 1
   "Play Game (g)",  // 2
-  "Next Profile (p)",    // 3
-  "Next Site (s)",  // 4
-  "Next Build (b)",  // 5
+  "Toggle Profile (p)",    // 3
+  "Toggle Site (s)",  // 4
+  "Toggle Build (b)",  // 5
   "VOID",  // 6
-  "VOID",  // 7
+  "Deploy Selection (d)",  // 7
   "VOID",  // 8
   "VOID",  // 9
   "VOID",  // 10
@@ -64,6 +64,10 @@ void mouseClicked() {
     nextBuild();
   }
   
+  if(mainMenu.buttons[7].over()){ 
+    deploySelection();
+  }
+  
   if(mainMenu.buttons[11].over()){ 
     endTurn();
   }
@@ -86,14 +90,17 @@ void keyPressed() {
     case 'g': // "Play Game (g)"
       toggleGame();
       break;
-    case 'p': // "Next Profile (p)"
+    case 'p': // "Toggle Profile (p)"
       nextProfile();
       break;
-    case 's': // "Next Profile (p)"
+    case 's': // "Toggle Site (s)"
       nextSite();
       break;
-    case 'b': // "Next Profile (p)"
+    case 'b': // "Toggle Build (b)"
       nextBuild();
+      break;
+    case 'd': // "Deploy Selection (d)"
+      if (gameMode) deploySelection();
       break;
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
@@ -155,6 +162,8 @@ void nextProfile() {
   } else {
     session.setProfile(session.selectedProfile + 1);
   }
+  
+  println("Profile: " + (session.selectedProfile+1));
 }
 
 void nextSite() {
@@ -175,6 +184,10 @@ void nextBuild() {
   println("GMS Build Type: " + (session.selectedBuild+1));
 }
 
+void deploySelection() {
+  println("deploy!");
+}
+
 void endTurn() {
   session.execute();
 }
@@ -184,11 +197,13 @@ void toggleGame() {
     gameMode = false;
     mainMenu.buttons[2].label = "Game is OFF (g)";
     mainMenu.buttons[11].isVoid = true;
+    mainMenu.buttons[7].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
     mainMenu.buttons[2].label = "Game is ON (g)";
     mainMenu.buttons[11].isVoid = false;
+    mainMenu.buttons[7].isVoid = false;
   }
   
   println("gameMode: " + gameMode);

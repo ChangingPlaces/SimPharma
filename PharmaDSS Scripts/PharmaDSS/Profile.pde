@@ -188,7 +188,7 @@ class Profile {
       //stroke(255 - background, 100);
       stroke(#CCCC00, 100);
       strokeWeight(4);
-      rect(x - 20, y - 2*h, w + 40, 3.0*h, 5);
+      rect(x - 20, y - 1.75*h, w + 40, 3.0*h, 5);
       noStroke();
     }
     
