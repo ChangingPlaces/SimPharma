@@ -111,12 +111,6 @@ class Profile {
     
     // Time Bar
     if (!detail) {
-//      if (textColor == 255) {
-//        fill(textColor, 100);
-//      } else {
-//        fill(#00CC00, 40);
-//      }
-      println(timeEnd, session.current.TURN);
       if (timeEnd < session.current.TURN || (!gameMode && timeEnd < NUM_INTERVALS) ) {
         fill(#CC0000, 40);
       } else {
@@ -172,7 +166,7 @@ class Profile {
     
     // Lead Date
     fill(#00CC00);
-    rect(x + scalerW * timeLead - 3, y - h, 6, h);
+    rect(x + scalerW * timeLead - 3, y - h, 3, h);
     if (detail) {
       textAlign(CENTER);
       text("T=" + int(timeLead), x + scalerW * timeLead - 3, y-h-5);
@@ -181,7 +175,7 @@ class Profile {
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       fill(#CC0000);
-      rect(x + scalerW * timeEnd - 3, y-h, 6, h);
+      rect(x + scalerW * timeEnd - 3, y-h, 3, h);
       if (detail) {
         textAlign(CENTER);
         text("T=" + int(timeEnd), x + scalerW * timeEnd - 3, y-h-5);
@@ -219,7 +213,7 @@ class Profile {
 //        textAlign(RIGHT);
 //        text(i*unit/1000 + "k " + agileModel.WEIGHT_UNITS, x - 10, y - scalerH*(i-0.5)*unit);
         textAlign(LEFT);
-        text(i*unit/1000 + "k " + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.5)*unit);
+        text(i*unit/1000 + "k " + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.25)*unit);
       }
     }
   } 

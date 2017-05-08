@@ -56,7 +56,7 @@ class Site {
     fill(textColor);
     textAlign(LEFT);
     text("Site " + name, x, y - 10);
-    fill(0);
+    fill(105, 150, 050);
     textAlign(RIGHT);
     text("Greenfield " + capGn + " " + agileModel.WEIGHT_UNITS, x + wScale*scaler*sideGn - 10, y + hScale*scaler*sideGn - 10);
     textAlign(CENTER);

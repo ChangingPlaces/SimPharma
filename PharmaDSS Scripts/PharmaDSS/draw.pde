@@ -139,9 +139,9 @@ void drawProfiles(ArrayList<Profile> list) {
   
   noStroke();
   fill(#00CC00);
-  rect(margin + int(testScalerW*(profilesX))+100, profilesY, 6, 10);
+  rect(margin + int(testScalerW*(profilesX))+100, profilesY, 3, 10);
   fill(#CC0000);
-  rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 6, 10);
+  rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 3, 10);
   fill(textColor);
   textAlign(LEFT);
   text("Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
