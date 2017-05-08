@@ -202,13 +202,13 @@ void endTurn() {
 void toggleGame() {
   if (gameMode) {
     gameMode = false;
-    mainMenu.buttons[2].label = "God Mode (g)";
+    mainMenu.buttons[2].label = "Play Game (g)";
     mainMenu.buttons[11].isVoid = true;
     mainMenu.buttons[7].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[2].label = "Game Mode (g)";
+    mainMenu.buttons[2].label = "Play God (g)";
     mainMenu.buttons[11].isVoid = false;
     mainMenu.buttons[7].isVoid = false;
   }
