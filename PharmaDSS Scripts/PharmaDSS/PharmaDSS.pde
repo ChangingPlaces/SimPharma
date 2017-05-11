@@ -105,7 +105,7 @@ void setup() {
   }
   
   // Setup for Canvas Visualization
-  size(1400, 1100);
+  size(1800, 1100);
   
   // Window may be resized after initialized
   frame.setResizable(true);

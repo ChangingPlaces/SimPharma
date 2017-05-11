@@ -28,7 +28,7 @@ import de.bezier.data.*;
     int GMS_COL = 3;
     int NUM_GMS_BUILDS = 12;
     // Constrain the list of capacities that are acceptable for the game.
-    float[] capacityToUseGMS = {5, 10, 20, 40};
+    float[] capacityToUseGMS = {30, 40, 50};
     
     // Cell U3
     int RND_ROW = 2; 

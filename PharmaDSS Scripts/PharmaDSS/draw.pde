@@ -3,9 +3,9 @@ float testScalerH = 0.8;
 int margin = 50;
 
 // Upper Left Corners
-int profilesX = 850;
+int profilesX = 950;
 int profilesY = 200;
-int buildsX = 350;
+int buildsX = 450;
 int buildsY = 200;
 int sitesX = 0;
 int sitesY = 200;
@@ -36,7 +36,7 @@ void drawFramework() {
   for (int i=0; i<NUM_SITES; i++) {
     selected = false;
     if (i == session.selectedSite) selected = true;
-    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(400*i)), selected);
+    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(0.52*height*i)), selected);
   }
   
   // Draw Build/Repurpose Units
@@ -47,23 +47,24 @@ void drawFramework() {
   
   // Build Var
   int sepPix = 53;
+  int sepH = 100;
   
   // Draw GMS Build Options
   fill(textColor);
   textAlign(LEFT);
-  text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10);
-  text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10);
-  text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10);
+  text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10 + sepH);
+  text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10 + sepH);
+  text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10 + sepH);
   for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
     selected = false;
     if (i == session.selectedBuild) selected = true;
-    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY + 10 + int(testScalerH*(15 +sepPix*i)), "GMS", selected);
+    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY + 10 + sepH + int(testScalerH*(15 +sepPix*i)), "GMS", selected);
   }
   
   // Draw R&D Build Options
   fill(textColor);
   textAlign(LEFT);
-  float vOffset = buildsY - 10 + int(testScalerH*(15 + sepPix*(agileModel.GMS_BUILDS.size()+1)));
+  float vOffset = buildsY - 10 + sepH + int(testScalerH*(15 + sepPix*(agileModel.GMS_BUILDS.size()+1)));
   text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
   text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
   for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
