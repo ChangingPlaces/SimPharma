@@ -65,7 +65,7 @@ class Site {
     text("Existing", x + 5 + wScale*scaler*sideEx/2, y + 5 + hScale*scaler*sideEx/2 + 0);
     text(capEx + " " + agileModel.WEIGHT_UNITS, x + 5 + wScale*scaler/2, y + 10 + hScale*scaler*sideEx/2);
     
-    // Draw RND Capacity
+    // Draw RND Capacity Slots
     int RnD_W = 50;
     int RnD_gap = 10;
     for (int i=0; i<limitRnD; i++) {
