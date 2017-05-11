@@ -45,6 +45,8 @@ void drawFramework() {
   text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60);
   
   
+  // Build Var
+  int sepPix = 53;
   
   // Draw GMS Build Options
   fill(textColor);
@@ -52,28 +54,29 @@ void drawFramework() {
   text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10);
   text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10);
   text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10);
-  for (int i=0; i<NUM_GMS_BUILDS; i++) {
+  for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
     selected = false;
     if (i == session.selectedBuild) selected = true;
-    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY - 10 + int(testScalerH*(15 +33*i)), "GMS", selected);
+    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY + 10 + int(testScalerH*(15 +sepPix*i)), "GMS", selected);
   }
   
   // Draw R&D Build Options
   fill(textColor);
   textAlign(LEFT);
-  float vOffset = buildsY - 10 + int(testScalerH*(15 + 33*(agileModel.GMS_BUILDS.size()+1)));
+  float vOffset = buildsY - 10 + int(testScalerH*(15 + sepPix*(agileModel.GMS_BUILDS.size()+1)));
   text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
   text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
-  for (int i=0; i<NUM_RND_BUILDS; i++) {
+  for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
     selected = false;
     // if (...) selected = true;
-    agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +33*i) ), "R&D", selected);
+    agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +sepPix*i) ), "R&D", selected);
   }
   
   // Draw Personnel Legend
+  int vOff = -50;
   fill(textColor);
   textAlign(LEFT);
-  text("Legend:", margin + int(testScalerW*(buildsX)) + 280, buildsY - 10);
+  text("Personnel:", margin + int(testScalerW*(buildsX)) + 280, buildsY - 10 + vOff);
   for (int i=0; i<NUM_LABOR; i++) {
     if (i==0) {
       fill(#CC0000);
@@ -88,9 +91,9 @@ void drawFramework() {
     } else {
       fill(#00CCCC);
     }
-    ellipse(margin + int(testScalerW*(buildsX)) + 280, buildsY + 10 + 15*i, 3, 10);
+    ellipse(margin + int(testScalerW*(buildsX)) + 280, buildsY + 10 + 15*i + vOff, 3, 10);
     fill(textColor);
-    text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX)) + 10 + 280, buildsY + 15 + 15*i);
+    text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX)) + 10 + 280, buildsY + 15 + 15*i + vOff);
   }
   
   //Draw Selected Profile in Large Format

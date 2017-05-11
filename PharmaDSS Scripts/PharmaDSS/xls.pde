@@ -27,11 +27,15 @@ import de.bezier.data.*;
     int GMS_ROW = 2; 
     int GMS_COL = 3;
     int NUM_GMS_BUILDS = 12;
+    // Constrain the list of capacities that are acceptable for the game.
+    float[] capacityToUseGMS = {5, 10, 20, 40};
     
     // Cell U3
     int RND_ROW = 2; 
     int RND_COL = 20;
     int NUM_RND_BUILDS = 6;
+    // Constrain the list of capacities that are acceptable for the game.
+    float[] capacityToUseRND = {0.2, 0.4};
     
     // Cell B63
     int SAFE_ROW = 62; 
@@ -64,8 +68,8 @@ void loadModel_XLS(System model, String name) {
     
   // Read System: Units
   model.WEIGHT_UNITS = reader.getString(SITE_ROW, SITE_COL+2);
-  model.TIME_UNITS = reader.getString(GMS_ROW+2, GMS_COL-2);
-  model.COST_UNITS = reader.getString(GMS_ROW+7, GMS_COL-2).substring(0,1);
+  model.TIME_UNITS = reader.getString(GMS_ROW+2, 1);
+  model.COST_UNITS = reader.getString(GMS_ROW+7, 1).substring(0,1);
 
   // Read System: Labor Types
   model.LABOR_TYPES.addColumn(reader.getString(LABOR_ROW, LABOR_COL));
@@ -77,45 +81,74 @@ void loadModel_XLS(System model, String name) {
   }
 
   // Read System: GMS Build Types
+  int index = -1;
+  boolean valid;
   for (int i=0; i<NUM_GMS_BUILDS; i++) {
-    model.GMS_BUILDS.add(new Build());
-    model.GMS_BUILDS.get(i).name         = "Build #" + (i+1);
-    model.GMS_BUILDS.get(i).capacity     = reader.getFloat(GMS_ROW, GMS_COL + i);
-    model.GMS_BUILDS.get(i).buildCost    = buildCost(model.GMS_BUILDS.get(i).capacity);
-    model.GMS_BUILDS.get(i).buildTime    = buildTime(model.GMS_BUILDS.get(i).capacity);
-    model.GMS_BUILDS.get(i).repurpCost   = 1000000 * reader.getFloat(GMS_ROW + 3, GMS_COL + i);
-    model.GMS_BUILDS.get(i).repurpTime   = reader.getFloat(GMS_ROW + 4, GMS_COL + i);
     
-    // Read System: GMS Build Labor
-    for (int j=0; j<NUM_LABOR; j++) {
-      int num = reader.getInt(GMS_ROW + 5 + 3*j, GMS_COL + i);
-      for (int k=0; k<num; k++) {
-        model.GMS_BUILDS.get(i).labor.add(new Person(
-          model.LABOR_TYPES.getString(j, 0), // Name
-          reader.getFloat(GMS_ROW + 6 + 3*j, GMS_COL + i), // #Shifts
-          model.LABOR_TYPES.getFloat(j, 1) // Cost/Shift
-        ));
+    // Checks to see if capacity value is desired according to "float[] capacityToUseGMS"
+    valid = false;
+    for (int j=0; j<capacityToUseGMS.length; j++) {
+      if (reader.getFloat(GMS_ROW, GMS_COL + i) == capacityToUseGMS[j]) {
+        valid = true;
+        index++;
+        break;
+      }
+    }
+    
+    if(valid) {
+      model.GMS_BUILDS.add(new Build());
+      model.GMS_BUILDS.get(index).name         = "Build #" + (i+1);
+      model.GMS_BUILDS.get(index).capacity     = reader.getFloat(GMS_ROW, GMS_COL + i);
+      model.GMS_BUILDS.get(index).buildCost    = buildCost(model.GMS_BUILDS.get(index).capacity);
+      model.GMS_BUILDS.get(index).buildTime    = buildTime(model.GMS_BUILDS.get(index).capacity);
+      model.GMS_BUILDS.get(index).repurpCost   = 1000000 * reader.getFloat(GMS_ROW + 3, GMS_COL + i);
+      model.GMS_BUILDS.get(index).repurpTime   = reader.getFloat(GMS_ROW + 4, GMS_COL + i);
+      
+      // Read System: GMS Build Labor
+      for (int j=0; j<NUM_LABOR; j++) {
+        int num = reader.getInt(GMS_ROW + 5 + 3*j, GMS_COL + i);
+        for (int k=0; k<num; k++) {
+          model.GMS_BUILDS.get(index).labor.add(new Person(
+            model.LABOR_TYPES.getString(j, 0), // Name
+            reader.getFloat(GMS_ROW + 6 + 3*j, GMS_COL + i), // #Shifts
+            model.LABOR_TYPES.getFloat(j, 1) // Cost/Shift
+          ));
+        }
       }
     }
   }
   
   // Read System: RND Build Types
+  index = -1;
   for (int i=0; i<NUM_RND_BUILDS; i++) {
-    model.RND_BUILDS.add(new Build());
-    model.RND_BUILDS.get(i).name         = "Build #" + (i+1);
-    model.RND_BUILDS.get(i).capacity     = reader.getFloat(RND_ROW, RND_COL + i);
-    model.RND_BUILDS.get(i).repurpCost    = 1000000 * reader.getFloat(RND_ROW + 2, RND_COL + i);
-    model.RND_BUILDS.get(i).repurpTime    = reader.getFloat(RND_ROW + 1, RND_COL + i);
+  
+    // Checks to see if capacity value is desired according to "float[] capacityToUseGMS"
+    valid = false;
+    for (int j=0; j<capacityToUseRND.length; j++) {
+      if (reader.getFloat(RND_ROW, RND_COL + i) == capacityToUseRND[j]) {
+        valid = true;
+        index++;
+        break;
+      }
+    }
     
-    // Read System: RND Build Labor
-    for (int j=0; j<NUM_LABOR; j++) {
-      int num = reader.getInt(RND_ROW + 3 + 3*j, RND_COL + i);
-      for (int k=0; k<num; k++) {
-        model.RND_BUILDS.get(i).labor.add(new Person(
-          model.LABOR_TYPES.getString(j, 0), // Name
-          reader.getFloat(RND_ROW + 4 + 3*j, RND_COL + i), // #Shifts
-          model.LABOR_TYPES.getFloat(j, 1) // Cost/Shift
-        ));
+    if(valid) {
+      model.RND_BUILDS.add(new Build());
+      model.RND_BUILDS.get(index).name         = "Build #" + (i+1);
+      model.RND_BUILDS.get(index).capacity     = reader.getFloat(RND_ROW, RND_COL + i);
+      model.RND_BUILDS.get(index).repurpCost    = 1000000 * reader.getFloat(RND_ROW + 2, RND_COL + i);
+      model.RND_BUILDS.get(index).repurpTime    = reader.getFloat(RND_ROW + 1, RND_COL + i);
+      
+      // Read System: RND Build Labor
+      for (int j=0; j<NUM_LABOR; j++) {
+        int num = reader.getInt(RND_ROW + 3 + 3*j, RND_COL + i);
+        for (int k=0; k<num; k++) {
+          model.RND_BUILDS.get(index).labor.add(new Person(
+            model.LABOR_TYPES.getString(j, 0), // Name
+            reader.getFloat(RND_ROW + 4 + 3*j, RND_COL + i), // #Shifts
+            model.LABOR_TYPES.getFloat(j, 1) // Cost/Shift
+          ));
+        }
       }
     }
   }

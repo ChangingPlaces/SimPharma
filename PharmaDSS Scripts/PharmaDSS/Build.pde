@@ -66,10 +66,10 @@ class Build {
     fill(textColor);
     text(capacity + " " + agileModel.WEIGHT_UNITS, x + 155 + scaler*capacity + 3, y + 9);
     if (type.equals("GMS")) {
-      text(int(buildTime) + " " + agileModel.TIME_UNITS + ", " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 19);
-      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 19);
+      text(int(buildTime) + " " + agileModel.TIME_UNITS + ", " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 9);
+      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 9);
     } else {
-      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 19);
+      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 9);
     }
     for (int i=0; i< labor.size(); i++) {
       if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0,0) )) {
@@ -93,7 +93,7 @@ class Build {
       noFill();
       stroke(#CCCC00, 100);
       strokeWeight(4);
-      rect(x - 10, y, 160, 30, 5);
+      rect(x - 10, y - 10, 160, 30, 5);
       noStroke();
     }
   }
