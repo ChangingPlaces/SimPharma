@@ -67,7 +67,7 @@ class Site {
     
     // Draw RND Capacity
     int RnD_W = 50;
-    int RnD_gap = 15;
+    int RnD_gap = 10;
     for (int i=0; i<limitRnD; i++) {
       noFill();
       stroke(textColor, 100);
