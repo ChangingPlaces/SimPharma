@@ -105,10 +105,12 @@ void drawFramework() {
 }
 
 void drawLargeProfile(Profile selected) {
+  textAlign(LEFT);
+  text("Selected Profile: " + selected.name, margin + int(testScalerW*(profilesX)), int(height*0.94) - int(0.9*height*(1.0 - testScalerH)) );
   selected.draw(
-    margin, 
-    int(height*0.95), 
-    int(0.85*width*testScalerW), 
+    margin + int(testScalerW*(profilesX)),
+    int(height*0.94), 
+    int(testScalerW*300), 
     int(0.5*height*(1.0 - testScalerH)),
     true, false, true
   );

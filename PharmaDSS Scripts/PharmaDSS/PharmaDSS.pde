@@ -48,7 +48,17 @@
 
  /*
  /  The following is planned for ALPHA V1.0:
+ /
+ /  - Normalize Large-scale Profile graph
+ /
  /  - Output summary of 5 KPIs
+ /     - CAPEX
+ /     - OPEX
+ /     - Ability to Meet Demand
+ /     - Cost of Goods
+ /     - Security of Supply
+ /  
+ /  - Make it possible to (a) remove capacity and (b) repurpose capacity
  /  - Implement stochastic events not easily performed in excel
  /  - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
  /  - Include Salary modifier for different Sites
@@ -95,7 +105,7 @@ void setup() {
   }
   
   // Setup for Canvas Visualization
-  size(1400, 1000);
+  size(1400, 1100);
   
   // Window may be resized after initialized
   frame.setResizable(true);

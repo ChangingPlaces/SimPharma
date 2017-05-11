@@ -208,7 +208,7 @@ void toggleGame() {
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[2].label = "Play God (g)";
+    mainMenu.buttons[2].label = "God Mode (g)";
     mainMenu.buttons[11].isVoid = false;
     mainMenu.buttons[7].isVoid = false;
   }

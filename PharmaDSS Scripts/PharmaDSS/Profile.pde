@@ -119,8 +119,14 @@ class Profile {
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     float MAX_VALUE = 30000.0;
     float unit = 5000;
-    float scalerH = h/MAX_VALUE;
-    float scalerW = float(w)/demandProfile.getColumnCount();
+    float scalerH, scalerW;
+    float markerH = 1.25;
+    if (detail) {
+      scalerH = h/demandPeak;
+    } else {
+      scalerH = h/MAX_VALUE;
+    }
+    scalerW = float(w)/demandProfile.getColumnCount();
     
     noStroke();
     
@@ -139,8 +145,9 @@ class Profile {
     }
     
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
-      float barF = scalerH * demandProfile.getFloat(1, i); // Forecast Demand
-      float barA = scalerH * demandProfile.getFloat(2, i); // Actual Demand
+      float barF, barA;
+      barF = scalerH * demandProfile.getFloat(1, i); // Forecast Demand
+      barA = scalerH * demandProfile.getFloat(2, i); // Actual Demand
       noStroke();
       
       // Draw Forecast Demand Bars
@@ -165,16 +172,25 @@ class Profile {
       // Draw Details such as axis
       fill(textColor);
       textAlign(CENTER);
-      if (detail) {
+      if (detail && (i==0 || (i+1)%5 == 0)) {
+        stroke(textColor);
+        strokeWeight(1);
+        line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
+        noStroke();
         text(i+1 + " yr", x + scalerW * (i+.5) + 1, y + 15);
       }
     }
     
+    // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
     if (!detail) {
       fill(textColor);
       textAlign(LEFT);
-      text(name + ", " + summary, x, y + 15);
+      if (gameMode && timeEnd != session.current.TURN-1 && session.current.TURN != NUM_INTERVALS) {
+        text(name, x, y + 15);
+      } else {
+        text(name + ", " + summary, x, y + 15);
+      }
       if (axis) {
         textAlign(RIGHT);
         text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 15);
@@ -183,19 +199,19 @@ class Profile {
     
     // Lead Date
     fill(#00CC00);
-    rect(x + scalerW * timeLead - 3, y - h, 3, h);
+    rect(x + scalerW * timeLead - 3, y - markerH*h, 3, markerH*h);
     if (detail) {
       textAlign(CENTER);
-      text("T=" + int(timeLead), x + scalerW * timeLead - 3, y-h-5);
+      text("T=" + int(timeLead), x + scalerW * timeLead - 3, y-markerH*h-5);
     }
     
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       fill(#CC0000);
-      rect(x + scalerW * timeEnd - 3, y-h, 3, h);
+      rect(x + scalerW * timeEnd - 3, y-h, 3, markerH*h);
       if (detail) {
         textAlign(CENTER);
-        text("T=" + int(timeEnd), x + scalerW * timeEnd - 3, y-h-5);
+        text("T=" + int(timeEnd), x + scalerW * timeEnd - 3, y-markerH*h-5);
       }
     }
     
@@ -210,27 +226,50 @@ class Profile {
     }
     
     // Draw Time Details
-    if (detail && gameMode) {
+    if (gameMode) {
+      float barA = 0;
+      float cap = 0;
+      if (session.current.TURN > 0) {
+        cap = demandProfile.getFloat(2, session.current.TURN-1);
+        barA = scalerH * cap;
+      }
       fill(textColor);
       float X, Y;
-      Y = y - h;
+      if (detail) {
+        Y = y - barA;
+      } else {
+        Y = y - h;
+      }
       X = x + scalerW * (min(demandProfile.getColumnCount(), session.current.TURN)) - 3;
-      rect(X, Y, 6, h);
-      textAlign(CENTER);
-      text("T=" + session.current.TURN, X, Y-5);
+      if (detail) {
+        rect(X, Y, 3, max(3, barA) );
+      } else {
+        if (session.current.TURN != timeLead)
+          rect(X, Y, 3, h );
+      }
+      if (detail) {
+        fill(abs(textColor - 150));
+        rect(X+1, y, 1, 25);
+        fill(textColor);
+        textAlign(LEFT);
+        text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X, Y-5);
+        textAlign(CENTER);
+        text("Turn " + session.current.TURN, X, y + 40);
+      }
     }
     
     // Y-Axis for Large-scale graphic
     if (detail) {
+      unit = demandPeak/6;
       stroke(textColor, 20);
       strokeWeight(1);
-      for (int i=0; i<=int(MAX_VALUE/unit); i++) {
+      for (int i=0; i<=int(demandPeak/unit); i++) {
         line(x, y - scalerH*i*unit, x+w, y - scalerH*i*unit);
         fill(textColor, 50);
 //        textAlign(RIGHT);
 //        text(i*unit/1000 + "k " + agileModel.WEIGHT_UNITS, x - 10, y - scalerH*(i-0.5)*unit);
         textAlign(LEFT);
-        text(i*unit/1000 + "k " + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.25)*unit);
+        text(i*int(unit/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.25)*unit);
       }
     }
   } 

@@ -37,18 +37,20 @@ class Game {
   
   // End the turn and commit all events to the Log
   void execute() {
-    turnLog.add(current);
-    println("Turn " + current.TURN + " logged");
-    
-    current = new Turn(current.TURN + 1);
-    
-    // Only adds profiles to game within known Lead Time
-    populateProfiles();
-    println("There are now " + agileModel.activeProfiles.size() + " Active Profiles.");
-    
-    // Updates the Status of builds on each site at end of each turn (age, etc)
-    for (int i=0; i<agileModel.SITES.size(); i++) {
-      agileModel.SITES.get(i).updateBuilds();
+    if (current.TURN < NUM_INTERVALS) {
+      turnLog.add(current);
+      println("Turn " + current.TURN + " logged");
+      
+      current = new Turn(current.TURN + 1);
+      
+      // Only adds profiles to game within known Lead Time
+      populateProfiles();
+      println("There are now " + agileModel.activeProfiles.size() + " Active Profiles.");
+      
+      // Updates the Status of builds on each site at end of each turn (age, etc)
+      for (int i=0; i<agileModel.SITES.size(); i++) {
+        agileModel.SITES.get(i).updateBuilds();
+      }
     }
   }
   
@@ -70,8 +72,15 @@ class Game {
     // When game is active, only populate profiles that are visibile by 5-yr forecasts
     for (int i=0; i<agileModel.activeProfiles.size(); i++) {
       if (agileModel.activeProfiles.get(i).timeEnd + 1 < current.TURN) {
+        
+        // Resets selection to 0 if current profile is being deleted
         if (selectedProfile == i) selectedProfile = 0;
+        
         agileModel.activeProfiles.remove(i);
+        
+        // keeps current profile selected if one behind it is removed
+        if (selectedProfile > i) selectedProfile--;
+          
       }
     }
   }
