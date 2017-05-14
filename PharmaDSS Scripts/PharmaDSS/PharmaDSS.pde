@@ -49,6 +49,12 @@
  /*
  /  The following is planned for ALPHA V1.0:
  /
+ /  Giovonni's Notes:
+ /  - Make Version That is Compatible with Small Screens
+ /  - Make Current Year more Visible during GameMode
+ /  - R&D Slot tonnage is not terribly important
+ /  - Have 2 modes for batch vs. continuous - continuous effectively makes sites have higher capacity
+ /
  /  - Normalize Large-scale Profile graph
  /
  /  - Output summary of 5 KPIs
