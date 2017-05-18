@@ -4,7 +4,7 @@
 */
 
 // Add Batch/Continuous Mode
-// Add Process Graphic to visualization
+// Make Screen Resolution Lower/Resizable
 // Place into R&D First
 // Prepopulate Builds?
 // Only fill up production capacities partially on sites
@@ -14,6 +14,7 @@
 // Random order for XLS PRofiles
 // Add Total Capacity to NCEs
 // Make Builds and NCEs similar magnitides
+// Add Process Graphic to visualization
  
  String VERSION = "BETA V1.2";
  
