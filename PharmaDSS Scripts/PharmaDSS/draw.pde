@@ -1,28 +1,35 @@
 PImage phasing;
 
-float testScalerW = 0.85;
-float testScalerH = 0.8;
-int margin = 50;
+int MARGIN = 50;
 
 // Upper Left Corners
-int profilesX = 725;
-int profilesY = 200;
-int buildsX = 1200;
-int buildsY = 200;
-int sitesX = 0;
-int sitesY = 200;
+int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY;
 
 // Width and Height
-int profilesW = 750;
-int profilesH = 200;
-int buildsW = 1250;
-int buildsH = 200;
-int sitesW = 180;
-int sitesH = canvasH - 2*margin - sitesY;
+int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH;
   
 //Here are some functions to test drawing the visualization
 void drawFramework() {
-  println(sitesH);
+  // 1800, 1100
+  
+  textSize(10);
+  
+  // Upper Left Corners
+  profilesX = int(0.33*width);
+  profilesY = int(0.22*height);
+  buildsX = int(0.66*width);
+  buildsY = int(0.5*height);
+  sitesX = 0;
+  sitesY = int(0.22*height);
+  
+  // Width and Height
+  profilesW = int(0.25*width);
+  profilesH = int(0.2*height);
+  buildsW =   0;
+  buildsH =   int(0.05*height);
+  sitesW =    int(0.08*width);
+  sitesH =    height - 2*MARGIN - sitesY;
+  
   background(abs(background));
   boolean selected;
   
@@ -30,13 +37,13 @@ void drawFramework() {
   
       fill(textColor);
       textAlign(LEFT);
-      text("PharmaDSS " + VERSION, testScalerW*profilesX + margin, margin);
-      text("MIT Media Lab + GlaxoSmithKline", testScalerW*profilesX + margin, margin + 15);
-      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", testScalerW*profilesX + margin, margin + 30);
+      text("PharmaDSS " + VERSION, profilesX + MARGIN, MARGIN);
+      text("MIT Media Lab + GlaxoSmithKline", profilesX + MARGIN, MARGIN + 15);
+      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", profilesX + MARGIN, MARGIN + 30);
   
   // Draw Phasing Diagram
   
-      image(phasing, margin, margin - 10, 0.25*width, 65);
+      image(phasing, MARGIN, MARGIN - 10, 0.25*width, 0.06*height);
   
   // Draw Profiles
 
@@ -56,51 +63,49 @@ void drawFramework() {
       }
       fill(textColor);
       textAlign(LEFT);
-      text("Site Characteristics:", margin + int(testScalerW*(sitesX)), sitesY - 60);
+      text("Site Characteristics:", MARGIN + sitesX, sitesY - 60);
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
-        agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)) + i*(2*margin+sitesW), sitesY, sitesW, sitesH, maxSite, selected);
+        agileModel.SITES.get(i).draw(MARGIN + sitesX + i*(2*MARGIN+sitesW), sitesY, sitesW, sitesH, maxSite, selected);
       }
   
   // Draw Build/Repurpose Units
       
       // Build Var
-      int sepPix = 53;
-      int sepH = 150;
       fill(textColor);
       textAlign(LEFT);
-      text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60 + sepH);
+      text("Pre-Engineered Production Units:", MARGIN + buildsX - 60, buildsY - 60);
       
       // Draw GMS Build Options
       fill(textColor);
       textAlign(LEFT);
-      text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10 + sepH);
-      text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10 + sepH);
-      text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10 + sepH);
+      text("GMS:", MARGIN + buildsX - 60, buildsY - 10);
+      text("Build", MARGIN + buildsX, buildsY - 10);
+      text("Repurpose", MARGIN + buildsX + 80, buildsY - 10);
       for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
         selected = false;
         if (i == session.selectedBuild) selected = true;
-        agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY + 10 + sepH + int(testScalerH*(15 +sepPix*i)), "GMS", selected);
+        agileModel.GMS_BUILDS.get(i).draw(MARGIN + buildsX, buildsY + 10 + 15 +buildsH*i, "GMS", selected);
       }
       
       // Draw R&D Build Options
       fill(textColor);
       textAlign(LEFT);
-      float vOffset = buildsY - 10 + sepH + int(testScalerH*(15 + sepPix*(agileModel.GMS_BUILDS.size()+1)));
-      text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
-      text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
+      float vOffset = buildsY - 10 + 15 + buildsH*(agileModel.GMS_BUILDS.size()+1);
+      text("R&D:", MARGIN + buildsX - 60, vOffset);
+      text("Repurpose", MARGIN + buildsX + 80, vOffset);
       for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
         selected = false;
         // if (...) selected = true;
-        agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +sepPix*i) ), "R&D", selected);
+        agileModel.RND_BUILDS.get(i).draw(MARGIN + buildsX,  + int(vOffset + 15 + buildsH*i ), "R&D", selected);
       }
       
       // Draw Personnel Legend
       int vOff = -50;
       fill(textColor);
       textAlign(LEFT);
-      text("Personnel:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10 + vOff);
+      text("Personnel:", MARGIN + buildsX - 60, MARGIN);
       for (int i=0; i<NUM_LABOR; i++) {
         if (i==0) {
           fill(#CC0000);
@@ -115,9 +120,9 @@ void drawFramework() {
         } else {
           fill(#00CCCC);
         }
-        ellipse(margin + int(testScalerW*(buildsX - 60)), buildsY + 10 + 15*i + vOff, 3, 10);
+        ellipse(MARGIN + buildsX - 60, MARGIN + 15*i +20, 3, 10);
         fill(textColor);
-        text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX - 60)) + 10, buildsY + 15 + 15*i + vOff);
+        text(agileModel.LABOR_TYPES.getString(i,0), MARGIN + buildsX - 60 + 10, MARGIN + 15*i +25);
       }
   
   //Draw Selected Profile in Large Format
@@ -130,12 +135,12 @@ void drawFramework() {
 
 void drawLargeProfile(Profile selected) {
   textAlign(LEFT);
-  text("Selected Profile: " + selected.name, margin + int(testScalerW*(profilesX)), int(height*0.94) - int(0.9*height*(1.0 - testScalerH)) );
+  text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
   selected.draw(
-    margin + int(testScalerW*(profilesX)),
-    int(height*0.94), 
-    int(testScalerW*300), 
-    int(0.5*height*(1.0 - testScalerH)),
+    MARGIN + profilesX,
+    int(height - 2*MARGIN), 
+    300, 
+    int(0.10*height),
     true, false, true
   );
 }
@@ -143,7 +148,7 @@ void drawLargeProfile(Profile selected) {
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
-  text("NCE Demand Profiles:", margin + int(testScalerW*(profilesX)), profilesY - 60);
+  text("NCE Demand Profiles:", MARGIN + profilesX, profilesY - 60);
   boolean axis;
   boolean selected;
   //int numProf = list.size();
@@ -155,10 +160,10 @@ void drawProfiles(ArrayList<Profile> list) {
       if (i == numProf) axis = true;
       if (i == session.selectedProfile+1) selected = true;
       list.get(i-1).draw(
-        margin + int(testScalerW*(profilesX)), 
-        20 + profilesY + int(testScalerH*0.85*i/float(numProf+1)*800), 
-        int(testScalerW*300), 
-        int(testScalerH*0.3*800/float(numProf+1)),
+        MARGIN + profilesX, 
+        20 + profilesY + int(0.5*i/float(numProf+1)*800), 
+        300, 
+        int(0.25*800/float(numProf+1)),
         axis, selected, false
       );
     }
@@ -166,27 +171,27 @@ void drawProfiles(ArrayList<Profile> list) {
   
   // Draw Profile Legend
   fill(#0000FF, 200);
-  rect(margin + int(testScalerW*(profilesX)), profilesY, 15, 10);
+  rect(MARGIN + profilesX, profilesY, 15, 10);
   fill(textColor, 150);
-  rect(margin + int(testScalerW*(profilesX)), profilesY + 20, 15, 10);
+  rect(MARGIN + profilesX, profilesY + 20, 15, 10);
   fill(textColor);
   textAlign(LEFT);
-  text("Legend (" + agileModel.TIME_UNITS + "):", margin + int(testScalerW*(profilesX)), profilesY - 10);
-  text("Actual", margin + int(testScalerW*(profilesX))+20, profilesY + 10);
-  text("Forecast", margin + int(testScalerW*(profilesX))+20, profilesY + 20 + 10);
+  text("Legend (" + agileModel.TIME_UNITS + "):", MARGIN + profilesX, profilesY - 10);
+  text("Actual", MARGIN + profilesX+20, profilesY + 10);
+  text("Forecast", MARGIN + profilesX+20, profilesY + 20 + 10);
   
   noStroke();
   fill(#00CC00);
-  rect(margin + int(testScalerW*(profilesX))+100, profilesY, 3, 10);
+  rect(MARGIN + profilesX+100, profilesY, 3, 10);
   fill(#CC0000);
-  rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 3, 10);
+  rect(MARGIN + profilesX+100, profilesY + 20, 3, 10);
   fill(textColor);
   textAlign(LEFT);
-  text("Ph.III Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
-  text("End", margin + int(testScalerW*(profilesX))+115, profilesY + 20 + 10);
+  text("Ph.III Lead", MARGIN + profilesX+115, profilesY + 10);
+  text("End", MARGIN + profilesX+115, profilesY + 20 + 10);
   
   fill(textColor);
-  rect(margin + int(testScalerW*(profilesX))+200, profilesY, 10, 3);
-  text("Capacity", margin + int(testScalerW*(profilesX))+215, profilesY + 10);
+  rect(MARGIN + profilesX+200, profilesY, 10, 3);
+  text("Capacity", MARGIN + profilesX+215, profilesY + 10);
   
 }

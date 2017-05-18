@@ -9,7 +9,7 @@ Menu mainMenu, hideMenu;
 // Global Text and Background Color
 int textColor = 0;
 int background = 255;
-int BUTTON_OFFSET_H = 125;
+int BUTTON_OFFSET_H = 50;
 int BUTTON_OFFSET_W = 50;
 
 // Menu Alignment on Screen

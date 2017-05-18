@@ -56,11 +56,9 @@ class Site {
     textAlign(LEFT);
     text("Site " + name, x, y - 10);
     fill(105, 150, 050);
-    textAlign(RIGHT);
-    text("Greenfield " + capGn + " " + agileModel.WEIGHT_UNITS, x + w - 10, y + sideGn - 10);
     textAlign(CENTER);
-    text("Existing", x + 5 + w*sideEx/2, y + 5 + sideEx/2 + 0);
-    text(capEx + " " + agileModel.WEIGHT_UNITS, x + 5 + w/2, y + 10 + sideEx/2);
+    text(capEx + " " + agileModel.WEIGHT_UNITS, x + w/2, y + 10 + sideEx/2);
+    text("( " + capGn + " " + agileModel.WEIGHT_UNITS + " )", x + w/2, y + sideGn + 0.5*MARGIN);
     
     // Draw RND Capacity Slots
     int RnD_W = 50;
@@ -104,7 +102,6 @@ class Site {
         text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name, x + 0.5*w, y + offset + 10 - size/2);
       }
     }
-    
       
     // Draw Site Selection
     if (selected) {

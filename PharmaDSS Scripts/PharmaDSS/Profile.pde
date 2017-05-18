@@ -193,13 +193,13 @@ class Profile {
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     float unit = 5000;
     float scalerH, scalerW;
-    float markerH = 1.25;
-    float forecastScalerH = 1.5; // leaves room for actual demand to overshoot forecast
-    if (detail) {
+    float markerH = 1.00;
+    float forecastScalerH = 2.0; // leaves room for actual demand to overshoot forecast
+//    if (detail) {
       scalerH = h/(forecastScalerH*demandPeak_F);
-    } else {
-      scalerH = h/MAX_PROFILE_VALUE;
-    }
+//    } else {
+//      scalerH = h/MAX_PROFILE_VALUE;
+//    }
     scalerW = float(w)/demandProfile.getColumnCount();
     
     noStroke();
@@ -286,13 +286,13 @@ class Profile {
       fill(textColor);
       textAlign(LEFT);
       if (gameMode && timeEnd != session.current.TURN-1 && session.current.TURN != NUM_INTERVALS) {
-        text(name, x, y + 15);
+        text(name, x, y + 10);
       } else {
-        text(name + ", " + summary, x, y + 15);
+        text(name + ", " + summary, x, y + 10);
       }
       if (axis) {
         textAlign(RIGHT);
-        text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 15);
+        text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 10);
       }
     }
     
@@ -317,10 +317,9 @@ class Profile {
     // Draw Profile Selection
     if (selected) {
       noFill();
-      //stroke(255 - background, 100);
       stroke(#CCCC00, 100);
       strokeWeight(4);
-      rect(x - 20, y - 1.75*h, w + 40, 3.0*h, 5);
+      rect(x - 20, y - h, w + 40, h+10, 5);
       noStroke();
     }
     
@@ -359,7 +358,7 @@ class Profile {
     
     // Y-Axis for Large-scale graphic
     if (detail) {
-      unit = demandPeak_F/6;
+      unit = demandPeak_F/3;
       stroke(textColor, 20);
       strokeWeight(1);
       for (int i=0; i<=int(forecastScalerH*demandPeak_F/unit); i++) {
