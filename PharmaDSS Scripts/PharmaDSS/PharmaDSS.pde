@@ -3,14 +3,17 @@
  /  Cambridge, MA
 */
 
-// Add Total Capacity to NCEs
-// Make Builds and NCEs similar magnitides
 // Add Batch/Continuous Mode
 // Add Process Graphic to visualization
-// Random order for XLS PRofiles?
 // Place into R&D First
 // Prepopulate Builds?
 // Only fill up production capacities partially on sites
+// Update Capacity into future
+
+//Finished:
+// Random order for XLS PRofiles
+// Add Total Capacity to NCEs
+// Make Builds and NCEs similar magnitides
  
  String VERSION = "BETA V1.2";
  

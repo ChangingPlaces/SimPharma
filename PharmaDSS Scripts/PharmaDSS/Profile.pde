@@ -262,7 +262,7 @@ class Profile {
       }
       
       // Draw Global Manufacturing Capacity
-      if (gameMode && i > 0) {
+      if (gameMode) {
         noFill();
         if (i <= session.current.TURN) {
           stroke(textColor);
@@ -273,9 +273,9 @@ class Profile {
         }
         strokeWeight(2);
         // Draw Vertical Line
-        line(x + scalerW * (i-1) +1, y - cap, x + scalerW * (i-1) +1, y - capLast);
+        line(x + scalerW * (i-0) +1, y - cap, x + scalerW * (i-0) +1, y - capLast);
         // Draw Horizontal Line
-        line(x + scalerW * (i-1) +1, y - cap, x + scalerW * (i-1) + 1 + scalerW - 2, y - cap);
+        line(x + scalerW * (i-0) +1, y - cap, x + scalerW * (i-0) + 1 + scalerW - 2, y - cap);
         noStroke();
       }
     }

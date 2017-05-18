@@ -162,4 +162,8 @@ void drawProfiles(ArrayList<Profile> list) {
   text("Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
   text("End", margin + int(testScalerW*(profilesX))+115, profilesY + 20 + 10);
   
+  fill(textColor);
+  rect(margin + int(testScalerW*(profilesX))+200, profilesY, 10, 3);
+  text("Global Capacity", margin + int(testScalerW*(profilesX))+215, profilesY + 10);
+  
 }
