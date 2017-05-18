@@ -301,7 +301,7 @@ class Profile {
     rect(x + scalerW * timeLead - 3, y - markerH*h, 3, markerH*h);
     if (detail) {
       textAlign(CENTER);
-      text("T=" + int(timeLead), x + scalerW * timeLead - 3, y-markerH*h-5);
+      text("Ph.III, T=" + int(timeLead), x + scalerW * timeLead - 3, y-markerH*h-5);
     }
     
     // End Date

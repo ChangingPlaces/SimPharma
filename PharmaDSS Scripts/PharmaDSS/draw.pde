@@ -1,3 +1,5 @@
+PImage phasing;
+
 float testScalerW = 0.85;
 float testScalerH = 0.8;
 int margin = 50;
@@ -18,9 +20,11 @@ void drawFramework() {
   // Draw Title
   fill(textColor);
   textAlign(LEFT);
-  text("PharmaDSS " + VERSION, margin, margin);
-  text("MIT Media Lab + GlaxoSmithKline", margin, margin + 15);
-  text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", margin, margin + 30);
+  text("PharmaDSS " + VERSION, buildsX + 2*margin, margin);
+  text("MIT Media Lab + GlaxoSmithKline", buildsX + 2*margin, margin + 15);
+  text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", buildsX + 2*margin, margin + 30);
+  
+  image(phasing, margin, margin - 10, 0.25*width, 65);
   
   // Draw Profiles
   if (!gameMode) {
@@ -159,7 +163,7 @@ void drawProfiles(ArrayList<Profile> list) {
   rect(margin + int(testScalerW*(profilesX))+100, profilesY + 20, 3, 10);
   fill(textColor);
   textAlign(LEFT);
-  text("Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
+  text("Ph.III Lead", margin + int(testScalerW*(profilesX))+115, profilesY + 10);
   text("End", margin + int(testScalerW*(profilesX))+115, profilesY + 20 + 10);
   
   fill(textColor);

@@ -140,6 +140,8 @@ void setup() {
   
   // Loads and formats menue items
   loadMenu(width, height);
+  
+  phasing = loadImage("data/phasing.png");
 }
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
