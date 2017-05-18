@@ -37,7 +37,9 @@ void regenerateGame() {
   }
 }
 
-//Returns an array of integers 0 - amt but randomized
+// Returns an array of integers (0 - amt) but randomized.
+// For example, if amt = 10, outputs: {2, 6, 9, 7, 0, 8, 5, 1, 3, 4}
+
 int[] randomIndex(int amt) {
   int[] list = new int[amt];
   
@@ -54,11 +56,5 @@ int[] randomIndex(int amt) {
       allocated ++;
     }
   }
-  
-  for (int i=0; i<list.length; i++) {
-    println(list[i]);
-  }
-  
   return list;
-  
 }
