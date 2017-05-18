@@ -73,6 +73,8 @@ class Game {
     // When not in game mode, all profiles are viewed in their entirety (i.e. Omnipotent mode..)
     for (int i=0; i<agileModel.PROFILES.size(); i++) {
       if (agileModel.PROFILES.get(i).timeLead == current.TURN) {
+        agileModel.PROFILES.get(i).globalProductionLimit = 0;
+        agileModel.PROFILES.get(i).initCapacityProfile();
         agileModel.activeProfiles.add(agileModel.PROFILES.get(i));
       }
     }

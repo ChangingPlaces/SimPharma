@@ -10,6 +10,7 @@
 // Random order for XLS PRofiles?
 // Place into R&D First
 // Prepopulate Builds?
+// Only fill up production capacities partially on sites
  
  String VERSION = "BETA V1.2";
  

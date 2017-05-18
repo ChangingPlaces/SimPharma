@@ -46,6 +46,13 @@ class Profile {
   //  - Actual Demand (weight per time)
   //  - Event Description
   Table demandProfile;
+
+  //  Columns of consecutive, discrete time intervals describing:
+  //  - Time
+  //  - Actual Capacity (weight per time)
+  //  - Ideal Capacity (weight per time)
+  Table capacityProfile;
+
   
   // Basic Constructor
   Profile(int INDEX) {
@@ -77,6 +84,9 @@ class Profile {
     
     // Based on Profile, compute the date that NCE Profile "terminates"
     end();
+    
+    //Initialize Table for holding capacity values
+    initCapacityProfile();
   }
   
   // Given an existing profile, rescales all demand values (forecast and actual) according to a new peak value
@@ -145,7 +155,19 @@ class Profile {
     if (!viable) timeEnd = timeLead;
   }
   
+  void initCapacityProfile() {
+    capacityProfile = new Table();
+    capacityProfile.addRow(); //Time
+    capacityProfile.addRow(); //Capacity (Actual)
+    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+      capacityProfile.addColumn();
+      capacityProfile.setFloat(0, i, demandProfile.getFloat(0,i)); //Time
+      capacityProfile.setFloat(1, i, 0.0); // Capacity
+    }
+  }
+  
   void calcProduction(ArrayList<Site> factories) {
+    
     localProductionLimit = new ArrayList<Float>();
     globalProductionLimit = 0;
     int numSites, numBuilds;
@@ -163,8 +185,9 @@ class Profile {
           }
         }
       }
-      globalProductionLimit += localProductionLimit.get(i);
+      globalProductionLimit += 1000*localProductionLimit.get(i);
     }
+    capacityProfile.setFloat(1, session.current.TURN, globalProductionLimit);
   }
   
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
@@ -196,9 +219,16 @@ class Profile {
     }
     
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
-      float barF, barA;
+      float barF, barA, cap, capLast, globalCap;
       barF = scalerH * demandProfile.getFloat(1, i); // Forecast Demand
       barA = scalerH * demandProfile.getFloat(2, i); // Actual Demand
+      cap = scalerH * capacityProfile.getFloat(1, i); // Actual Global Production Capacity
+      globalCap = scalerH * globalProductionLimit; // Actual Global Production Capacity
+      if (i==0) {
+        capLast = 0;
+      } else {
+        capLast = scalerH * capacityProfile.getFloat(1, i-1); 
+      }
       noStroke();
       
       // Draw Forecast Demand Bars
@@ -230,6 +260,24 @@ class Profile {
         noStroke();
         text(i+1 + " yr", x + scalerW * (i+.5) + 1, y + 15);
       }
+      
+      // Draw Global Manufacturing Capacity
+      if (gameMode && i > 0) {
+        noFill();
+        if (i <= session.current.TURN) {
+          stroke(textColor);
+        } else {
+          stroke(textColor, 50);
+          cap = globalCap;
+          capLast = globalCap;
+        }
+        strokeWeight(2);
+        // Draw Vertical Line
+        line(x + scalerW * (i-1) +1, y - cap, x + scalerW * (i-1) +1, y - capLast);
+        // Draw Horizontal Line
+        line(x + scalerW * (i-1) +1, y - cap, x + scalerW * (i-1) + 1 + scalerW - 2, y - cap);
+        noStroke();
+      }
     }
     
     // Draw Profile Name and Summary
@@ -259,7 +307,7 @@ class Profile {
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       fill(#CC0000);
-      rect(x + scalerW * timeEnd - 3, y-h, 3, markerH*h);
+      rect(x + scalerW * timeEnd - 3, y - markerH*h, 3, markerH*h);
       if (detail) {
         textAlign(CENTER);
         text("T=" + int(timeEnd), x + scalerW * timeEnd - 3, y-markerH*h-5);
@@ -284,7 +332,7 @@ class Profile {
         cap = demandProfile.getFloat(2, session.current.TURN-1);
         barA = scalerH * cap;
       }
-      fill(textColor);
+      fill(textColor, 50);
       float X, Y;
       if (detail) {
         Y = y - barA;
