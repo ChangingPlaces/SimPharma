@@ -15,6 +15,7 @@ class Profile {
   
   // Success/ Failure (due to clinical trail failure, competition enters market, etc)
   boolean success;
+  boolean launched;
   
   // (TBA) Criticality to Patient
   // (TBA) Number of Stages
@@ -59,6 +60,7 @@ class Profile {
     productionCost = new ArrayList<Float>();
     demandProfile = new Table();
     ABSOLUTE_INDEX = INDEX;
+    launched = false;
   }
   
   ArrayList<Float> localProductionLimit;
@@ -73,6 +75,7 @@ class Profile {
     this.productionCost = productionCost;
     this.demandProfile = demandProfile;
     ABSOLUTE_INDEX = INDEX;
+    launched = false;
   }
   
   void calc() {
@@ -195,12 +198,17 @@ class Profile {
     float scalerH, scalerW;
     float markerH = 1.00;
     float forecastScalerH = 2.0; // leaves room for actual demand to overshoot forecast
-//    if (detail) {
-      scalerH = h/(forecastScalerH*demandPeak_F);
-//    } else {
-//      scalerH = h/MAX_PROFILE_VALUE;
-//    }
+    scalerH = h/(forecastScalerH*demandPeak_F);
     scalerW = float(w)/demandProfile.getColumnCount();
+    
+    // Draw Profile Selection
+    if (selected) {
+      fill(HIGHLIGHT, 40);
+      stroke(HIGHLIGHT, 80);
+      strokeWeight(1);
+      rect(x - 15, y - h - 7, w + 30, h+17, 5);
+      noStroke();
+    }
     
     noStroke();
     
@@ -247,7 +255,7 @@ class Profile {
         ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
         fill(textColor);
         textAlign(CENTER);
-        text(int(demandPeak_F/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
+        text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
       }
       
       // Draw Details such as axis
@@ -271,11 +279,11 @@ class Profile {
           cap = globalCap;
           capLast = globalCap;
         }
-        strokeWeight(2);
+        strokeWeight(1.5);
         // Draw Vertical Line
-        line(x + scalerW * (i-0) +1, y - cap, x + scalerW * (i-0) +1, y - capLast);
+        line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0), y - capLast);
         // Draw Horizontal Line
-        line(x + scalerW * (i-0) +1, y - cap, x + scalerW * (i-0) + 1 + scalerW - 2, y - cap);
+        line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
         noStroke();
       }
     }
@@ -312,15 +320,6 @@ class Profile {
         textAlign(CENTER);
         text("T=" + int(timeEnd), x + scalerW * timeEnd - 3, y-markerH*h-5);
       }
-    }
-    
-    // Draw Profile Selection
-    if (selected) {
-      noFill();
-      stroke(#CCCC00, 100);
-      strokeWeight(4);
-      rect(x - 20, y - h, w + 40, h+10, 5);
-      noStroke();
     }
     
     // Draw Time Details
@@ -364,10 +363,8 @@ class Profile {
       for (int i=0; i<=int(forecastScalerH*demandPeak_F/unit); i++) {
         line(x, y - scalerH*i*unit, x+w, y - scalerH*i*unit);
         fill(textColor, 50);
-//        textAlign(RIGHT);
-//        text(i*unit/1000 + "k " + agileModel.WEIGHT_UNITS, x - 10, y - scalerH*(i-0.5)*unit);
         textAlign(LEFT);
-        text(i*int(unit/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.25)*unit);
+        text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.25)*unit);
       }
     }
   } 

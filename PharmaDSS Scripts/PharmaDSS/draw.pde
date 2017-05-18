@@ -1,6 +1,7 @@
 PImage phasing;
 
 int MARGIN = 50;
+int HIGHLIGHT = #CCCC00;
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY;
@@ -18,15 +19,15 @@ void drawFramework() {
   profilesX = int(0.33*width);
   profilesY = int(0.22*height);
   buildsX = int(0.66*width);
-  buildsY = int(0.5*height);
+  buildsY = int(0.22*height);
   sitesX = 0;
   sitesY = int(0.22*height);
   
   // Width and Height
   profilesW = int(0.25*width);
-  profilesH = int(0.2*height);
-  buildsW =   0;
-  buildsH =   int(0.05*height);
+  profilesH = int(0.02*height);
+  buildsW =   int(0.13*width);
+  buildsH =   profilesH;
   sitesW =    int(0.08*width);
   sitesH =    height - 2*MARGIN - sitesY;
   
@@ -75,37 +76,37 @@ void drawFramework() {
       // Build Var
       fill(textColor);
       textAlign(LEFT);
-      text("Pre-Engineered Production Units:", MARGIN + buildsX - 60, buildsY - 60);
+      text("Pre-Engineered Production Units:", buildsX, buildsY - 60);
+      float spread = 3.0;
       
       // Draw GMS Build Options
       fill(textColor);
       textAlign(LEFT);
-      text("GMS:", MARGIN + buildsX - 60, buildsY - 10);
-      text("Build", MARGIN + buildsX, buildsY - 10);
-      text("Repurpose", MARGIN + buildsX + 80, buildsY - 10);
+      text("GMS", buildsX, buildsY + 1.4*MARGIN);
+//      text("Build", MARGIN + buildsX, buildsY - 10);
+//      text("Repurpose", MARGIN + buildsX + 80, buildsY - 10);
       for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
         selected = false;
         if (i == session.selectedBuild) selected = true;
-        agileModel.GMS_BUILDS.get(i).draw(MARGIN + buildsX, buildsY + 10 + 15 +buildsH*i, "GMS", selected);
+        agileModel.GMS_BUILDS.get(i).draw(buildsX, 2*MARGIN + buildsY + int(spread*buildsH*i), buildsW, buildsH, "GMS", selected);
       }
       
       // Draw R&D Build Options
       fill(textColor);
       textAlign(LEFT);
-      float vOffset = buildsY - 10 + 15 + buildsH*(agileModel.GMS_BUILDS.size()+1);
-      text("R&D:", MARGIN + buildsX - 60, vOffset);
-      text("Repurpose", MARGIN + buildsX + 80, vOffset);
+      float vOffset = buildsY + spread*buildsH*(agileModel.GMS_BUILDS.size()+1);
+      text("R&D", buildsX, vOffset + 1.4*MARGIN);
       for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
         selected = false;
         // if (...) selected = true;
-        agileModel.RND_BUILDS.get(i).draw(MARGIN + buildsX,  + int(vOffset + 15 + buildsH*i ), "R&D", selected);
+        agileModel.RND_BUILDS.get(i).draw(buildsX, 2*MARGIN + int(vOffset + spread*buildsH*i ), buildsW, buildsH, "R&D", selected);
       }
       
       // Draw Personnel Legend
       int vOff = -50;
       fill(textColor);
       textAlign(LEFT);
-      text("Personnel:", MARGIN + buildsX - 60, MARGIN);
+//      text("Personnel:", MARGIN + buildsX - 60, MARGIN);
       for (int i=0; i<NUM_LABOR; i++) {
         if (i==0) {
           fill(#CC0000);
@@ -120,9 +121,15 @@ void drawFramework() {
         } else {
           fill(#00CCCC);
         }
-        ellipse(MARGIN + buildsX - 60, MARGIN + 15*i +20, 3, 10);
+        
+        int xOff = 0;
+        if (i > 2) {
+          xOff = 100;
+        }
+        
+        ellipse(buildsX + xOff, 15*(i%3) - 4 + profilesY, 3, 10);
         fill(textColor);
-        text(agileModel.LABOR_TYPES.getString(i,0), MARGIN + buildsX - 60 + 10, MARGIN + 15*i +25);
+        text(agileModel.LABOR_TYPES.getString(i,0), buildsX + 10 + xOff, 15*(i%3) + profilesY);
       }
   
   //Draw Selected Profile in Large Format
@@ -138,7 +145,7 @@ void drawLargeProfile(Profile selected) {
   text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
   selected.draw(
     MARGIN + profilesX,
-    int(height - 2*MARGIN), 
+    int(height - 1.75*MARGIN), 
     300, 
     int(0.10*height),
     true, false, true
@@ -161,9 +168,8 @@ void drawProfiles(ArrayList<Profile> list) {
       if (i == session.selectedProfile+1) selected = true;
       list.get(i-1).draw(
         MARGIN + profilesX, 
-        20 + profilesY + int(0.5*i/float(numProf+1)*800), 
-        300, 
-        int(0.25*800/float(numProf+1)),
+        2*MARGIN + profilesY + int(0.45*height*(i-1)/float(numProf+1)), 
+        300, profilesH,
         axis, selected, false
       );
     }
@@ -171,27 +177,27 @@ void drawProfiles(ArrayList<Profile> list) {
   
   // Draw Profile Legend
   fill(#0000FF, 200);
-  rect(MARGIN + profilesX, profilesY, 15, 10);
+  rect(MARGIN + profilesX, profilesY - 9, 15, 10);
   fill(textColor, 150);
-  rect(MARGIN + profilesX, profilesY + 20, 15, 10);
+  rect(MARGIN + profilesX, profilesY + 6, 15, 10);
   fill(textColor);
   textAlign(LEFT);
-  text("Legend (" + agileModel.TIME_UNITS + "):", MARGIN + profilesX, profilesY - 10);
-  text("Actual", MARGIN + profilesX+20, profilesY + 10);
-  text("Forecast", MARGIN + profilesX+20, profilesY + 20 + 10);
+//  text("Legend:", MARGIN + profilesX, profilesY);
+  text("Actual", MARGIN + profilesX+20, profilesY);
+  text("Forecast", MARGIN + profilesX+20, profilesY + 15);
   
   noStroke();
   fill(#00CC00);
-  rect(MARGIN + profilesX+100, profilesY, 3, 10);
+  rect(MARGIN + profilesX+100, profilesY - 9, 3, 10);
   fill(#CC0000);
-  rect(MARGIN + profilesX+100, profilesY + 20, 3, 10);
+  rect(MARGIN + profilesX+100, profilesY + 6, 3, 10);
   fill(textColor);
   textAlign(LEFT);
-  text("Ph.III Lead", MARGIN + profilesX+115, profilesY + 10);
-  text("End", MARGIN + profilesX+115, profilesY + 20 + 10);
+  text("Lead (Ph.III)", MARGIN + profilesX+115, profilesY);
+  text("End", MARGIN + profilesX+115, profilesY + 15);
   
   fill(textColor);
-  rect(MARGIN + profilesX+200, profilesY, 10, 3);
-  text("Capacity", MARGIN + profilesX+215, profilesY + 10);
+  rect(MARGIN + profilesX+200, profilesY - 5, 15, 3);
+  text("Capacity", MARGIN + profilesX+220, profilesY);
   
 }

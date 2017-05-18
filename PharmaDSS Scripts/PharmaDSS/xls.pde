@@ -35,7 +35,7 @@ import de.bezier.data.*;
     int RND_COL = 20;
     int NUM_RND_BUILDS = 6;
     // Constrain the list of capacities that are acceptable for the game.
-    float[] capacityToUseRND = {0.2, 0.4};
+    float[] capacityToUseRND = {0.4};
     
     // Cell B63
     int SAFE_ROW = 62; 

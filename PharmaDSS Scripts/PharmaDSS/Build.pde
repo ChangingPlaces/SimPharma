@@ -57,19 +57,30 @@ class Build {
     }
   }
   
-  void draw(int x, int y, String type, boolean selected) {
+  void draw(int x, int y, int w, int h, String type, boolean selected) {
+    
+    // Draw Build Selection Box
+    if (selected) {
+      fill(HIGHLIGHT, 40);
+      stroke(HIGHLIGHT, 80);
+      strokeWeight(1);
+      
+      rect(x - 15, y - h - 7, w + 30, h+32, 5);
+      noStroke();
+    }
+    
     // Draw Build Characteristics
-    int scaler = 4;
+    int scaler = 2;
     fill(abs(textColor - 75));
-    rect(x + 155, y, scaler*capacity, 10, 3);
+    rect(x + 35, y - 5, scaler*capacity, 10, 3);
     textAlign(LEFT);
     fill(textColor);
-    text(capacity + " " + agileModel.WEIGHT_UNITS, x + 155 + scaler*capacity + 3, y + 9);
+    text(capacity + " " + agileModel.WEIGHT_UNITS, x, y + 4);
     if (type.equals("GMS")) {
-      text(int(buildTime) + " " + agileModel.TIME_UNITS + ", " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 9);
-      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 9);
+      text("BLD: " + int(buildTime) + " " + agileModel.TIME_UNITS + ", " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y - 11);
+      text("RPP: " + int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y - 11);
     } else {
-      text(int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x + 80, y + 9);
+      text("RPP: " + int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, y - 11);
     }
     for (int i=0; i< labor.size(); i++) {
       if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0,0) )) {
@@ -85,16 +96,7 @@ class Build {
       } else {
         fill(#00CCCC);
       }
-      ellipse(x +157 + i*6, y + 20, 3, 10);
-    }
-    
-    // Draw Build Selection Box
-    if (selected) {
-      noFill();
-      stroke(#CCCC00, 100);
-      strokeWeight(4);
-      rect(x - 10, y - 10, 160, 30, 5);
-      noStroke();
+      ellipse(x + 37 + i*5, y + 15, 3, 10);
     }
   }
 }
