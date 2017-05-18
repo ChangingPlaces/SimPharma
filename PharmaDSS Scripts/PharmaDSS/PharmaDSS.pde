@@ -100,6 +100,9 @@ Game session;
 // (Do not set to false unless you provide for default initialization values for system)
 boolean readXLS = true;
 
+int canvasW = 1800;
+int canvasH = 1100;
+
 // "setup()" runs once upon executing script
 void setup() {
   

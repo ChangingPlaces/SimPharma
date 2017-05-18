@@ -5,109 +5,120 @@ float testScalerH = 0.8;
 int margin = 50;
 
 // Upper Left Corners
-int profilesX = 750;
+int profilesX = 725;
 int profilesY = 200;
-int buildsX = 1250;
+int buildsX = 1200;
 int buildsY = 200;
 int sitesX = 0;
 int sitesY = 200;
+
+// Width and Height
+int profilesW = 750;
+int profilesH = 200;
+int buildsW = 1250;
+int buildsH = 200;
+int sitesW = 180;
+int sitesH = canvasH - 2*margin - sitesY;
   
 //Here are some functions to test drawing the visualization
 void drawFramework() {
+  println(sitesH);
   background(abs(background));
   boolean selected;
   
   // Draw Title
-  fill(textColor);
-  textAlign(LEFT);
-  text("PharmaDSS " + VERSION, buildsX + 2*margin, margin);
-  text("MIT Media Lab + GlaxoSmithKline", buildsX + 2*margin, margin + 15);
-  text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", buildsX + 2*margin, margin + 30);
   
-  image(phasing, margin, margin - 10, 0.25*width, 65);
+      fill(textColor);
+      textAlign(LEFT);
+      text("PharmaDSS " + VERSION, testScalerW*profilesX + margin, margin);
+      text("MIT Media Lab + GlaxoSmithKline", testScalerW*profilesX + margin, margin + 15);
+      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", testScalerW*profilesX + margin, margin + 30);
+  
+  // Draw Phasing Diagram
+  
+      image(phasing, margin, margin - 10, 0.25*width, 65);
   
   // Draw Profiles
-  if (!gameMode) {
-    drawProfiles(agileModel.PROFILES);
-  } else {
-    drawProfiles(agileModel.activeProfiles);
-  }
+
+      if (!gameMode) {
+        drawProfiles(agileModel.PROFILES);
+      } else {
+        drawProfiles(agileModel.activeProfiles);
+      }
  
   // Draw Sites
-  int siteW = 180;
-  int siteH = height - 2*margin - sitesY;
-  // Calculate maximum site capacity value
-  float maxSite, current;
-  maxSite = 0;
-  for (int i=0; i<NUM_SITES; i++) {
-    current = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
-    if ( current > maxSite ) maxSite = current;
-  }
-  fill(textColor);
-  textAlign(LEFT);
-  text("Site Characteristics:", margin + int(testScalerW*(sitesX)), sitesY - 60);
-  for (int i=0; i<NUM_SITES; i++) {
-    selected = false;
-    if (i == session.selectedSite) selected = true;
-    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)) + i*(2*margin+siteW), sitesY, siteW, siteH, maxSite, selected);
-  }
+  
+      float maxSite, current;
+      maxSite = 0;
+      for (int i=0; i<NUM_SITES; i++) { // Calculate maximum site capacity value
+        current = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
+        if ( current > maxSite ) maxSite = current;
+      }
+      fill(textColor);
+      textAlign(LEFT);
+      text("Site Characteristics:", margin + int(testScalerW*(sitesX)), sitesY - 60);
+      for (int i=0; i<NUM_SITES; i++) {
+        selected = false;
+        if (i == session.selectedSite) selected = true;
+        agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)) + i*(2*margin+sitesW), sitesY, sitesW, sitesH, maxSite, selected);
+      }
   
   // Draw Build/Repurpose Units
-  fill(textColor);
-  textAlign(LEFT);
-  text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60);
-  
-  // Build Var
-  int sepPix = 53;
-  int sepH = 100;
-  
-  // Draw GMS Build Options
-  fill(textColor);
-  textAlign(LEFT);
-  text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10 + sepH);
-  text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10 + sepH);
-  text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10 + sepH);
-  for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
-    selected = false;
-    if (i == session.selectedBuild) selected = true;
-    agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY + 10 + sepH + int(testScalerH*(15 +sepPix*i)), "GMS", selected);
-  }
-  
-  // Draw R&D Build Options
-  fill(textColor);
-  textAlign(LEFT);
-  float vOffset = buildsY - 10 + sepH + int(testScalerH*(15 + sepPix*(agileModel.GMS_BUILDS.size()+1)));
-  text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
-  text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
-  for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
-    selected = false;
-    // if (...) selected = true;
-    agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +sepPix*i) ), "R&D", selected);
-  }
-  
-  // Draw Personnel Legend
-  int vOff = -50;
-  fill(textColor);
-  textAlign(LEFT);
-  text("Personnel:", margin + int(testScalerW*(buildsX)) + 280, buildsY - 10 + vOff);
-  for (int i=0; i<NUM_LABOR; i++) {
-    if (i==0) {
-      fill(#CC0000);
-    } else if (i==1) {
-      fill(#00CC00);
-    } else if (i==2) {
-      fill(#0000CC);
-    } else if (i==3) {
-      fill(#CCCC00);
-    } else if (i==4) {
-      fill(#CC00CC);
-    } else {
-      fill(#00CCCC);
-    }
-    ellipse(margin + int(testScalerW*(buildsX)) + 280, buildsY + 10 + 15*i + vOff, 3, 10);
-    fill(textColor);
-    text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX)) + 10 + 280, buildsY + 15 + 15*i + vOff);
-  }
+      
+      // Build Var
+      int sepPix = 53;
+      int sepH = 150;
+      fill(textColor);
+      textAlign(LEFT);
+      text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60 + sepH);
+      
+      // Draw GMS Build Options
+      fill(textColor);
+      textAlign(LEFT);
+      text("GMS:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10 + sepH);
+      text("Build", margin + int(testScalerW*(buildsX)), buildsY - 10 + sepH);
+      text("Repurpose", margin + int(testScalerW*(buildsX + 80)), buildsY - 10 + sepH);
+      for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
+        selected = false;
+        if (i == session.selectedBuild) selected = true;
+        agileModel.GMS_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)), buildsY + 10 + sepH + int(testScalerH*(15 +sepPix*i)), "GMS", selected);
+      }
+      
+      // Draw R&D Build Options
+      fill(textColor);
+      textAlign(LEFT);
+      float vOffset = buildsY - 10 + sepH + int(testScalerH*(15 + sepPix*(agileModel.GMS_BUILDS.size()+1)));
+      text("R&D:", margin + int(testScalerW*(buildsX - 60)), vOffset);
+      text("Repurpose", margin + int(testScalerW*(buildsX + 80)), vOffset);
+      for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
+        selected = false;
+        // if (...) selected = true;
+        agileModel.RND_BUILDS.get(i).draw(margin + int(testScalerW*(buildsX)),  + int(vOffset + testScalerH*(15 +sepPix*i) ), "R&D", selected);
+      }
+      
+      // Draw Personnel Legend
+      int vOff = -50;
+      fill(textColor);
+      textAlign(LEFT);
+      text("Personnel:", margin + int(testScalerW*(buildsX - 60)), buildsY - 10 + vOff);
+      for (int i=0; i<NUM_LABOR; i++) {
+        if (i==0) {
+          fill(#CC0000);
+        } else if (i==1) {
+          fill(#00CC00);
+        } else if (i==2) {
+          fill(#0000CC);
+        } else if (i==3) {
+          fill(#CCCC00);
+        } else if (i==4) {
+          fill(#CC00CC);
+        } else {
+          fill(#00CCCC);
+        }
+        ellipse(margin + int(testScalerW*(buildsX - 60)), buildsY + 10 + 15*i + vOff, 3, 10);
+        fill(textColor);
+        text(agileModel.LABOR_TYPES.getString(i,0), margin + int(testScalerW*(buildsX - 60)) + 10, buildsY + 15 + 15*i + vOff);
+      }
   
   //Draw Selected Profile in Large Format
   if (!gameMode) {
