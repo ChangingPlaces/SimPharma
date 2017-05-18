@@ -5,9 +5,9 @@ float testScalerH = 0.8;
 int margin = 50;
 
 // Upper Left Corners
-int profilesX = 950;
+int profilesX = 750;
 int profilesY = 200;
-int buildsX = 450;
+int buildsX = 1250;
 int buildsY = 200;
 int sitesX = 0;
 int sitesY = 200;
@@ -34,20 +34,28 @@ void drawFramework() {
   }
  
   // Draw Sites
+  int siteW = 180;
+  int siteH = height - 2*margin - sitesY;
+  // Calculate maximum site capacity value
+  float maxSite, current;
+  maxSite = 0;
+  for (int i=0; i<NUM_SITES; i++) {
+    current = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
+    if ( current > maxSite ) maxSite = current;
+  }
   fill(textColor);
   textAlign(LEFT);
   text("Site Characteristics:", margin + int(testScalerW*(sitesX)), sitesY - 60);
   for (int i=0; i<NUM_SITES; i++) {
     selected = false;
     if (i == session.selectedSite) selected = true;
-    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)), sitesY + int(testScalerH*(0.52*height*i)), selected);
+    agileModel.SITES.get(i).draw(margin + int(testScalerW*(sitesX)) + i*(2*margin+siteW), sitesY, siteW, siteH, maxSite, selected);
   }
   
   // Draw Build/Repurpose Units
   fill(textColor);
   textAlign(LEFT);
   text("Pre-Engineered Production Units:", margin + int(testScalerW*(buildsX - 60)), buildsY - 60);
-  
   
   // Build Var
   int sepPix = 53;
@@ -168,6 +176,6 @@ void drawProfiles(ArrayList<Profile> list) {
   
   fill(textColor);
   rect(margin + int(testScalerW*(profilesX))+200, profilesY, 10, 3);
-  text("Global Capacity", margin + int(testScalerW*(profilesX))+215, profilesY + 10);
+  text("Capacity", margin + int(testScalerW*(profilesX))+215, profilesY + 10);
   
 }
