@@ -203,5 +203,13 @@ void loadModel_XLS(System model, String name) {
     
     // Calculates peak forecast demand value, lead years, etc
     model.PROFILES.get(i).calc();
+    
+    //Rescale peak NCE values to be within reasonable orders of magnitude of GMS Build Options
+    int randomCap = int(random(capacityToUseGMS.length));
+    float randomMag = 1000*random(1.0, 3.0);
+    model.PROFILES.get(i).setPeak(randomMag*capacityToUseGMS[randomCap]);
+    
+    // Re-Calculates peak forecast demand value, lead years, etc
+    model.PROFILES.get(i).calc();
   }
 }

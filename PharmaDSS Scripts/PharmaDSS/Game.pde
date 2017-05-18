@@ -13,6 +13,9 @@ class Game {
   int selectedSite;
   int selectedBuild;
   
+  // Boolean to specify if continuous manufacturing technology is allowed
+  boolean continuousMfG = false;
+  
   Game() {
     current = new Turn(0);
     selectedProfile = 0;

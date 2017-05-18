@@ -1,4 +1,7 @@
 // Demand profile for a chemical entity (i.e. NCE)
+
+float MAX_PROFILE_VALUE = 0;
+
 class Profile {
   
   // Name of NCE Demand Profile
@@ -16,9 +19,11 @@ class Profile {
   // (TBA) Criticality to Patient
   // (TBA) Number of Stages
   
-  // Peak Forecast Demand  
-  float demandPeak; // calculate from demandProfile
-  float peakTime;
+  // Peak Demands (Forecast and Actual)
+  float demandPeak_F, demandPeak_A; // calculate from demandProfile
+  float peakTime_F, peakTime_A;
+  
+  // Peak Actual Demand
   
   // Start Time  
   String timeStart;
@@ -71,13 +76,34 @@ class Profile {
     end();
   }
   
+  // Given an existing profile, rescales all demand values (forecast and actual) according to a new peak value
+  void setPeak(float newPeak) {
+    float scaler = newPeak/demandPeak_F;
+    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+      demandProfile.setFloat(1, i, demandProfile.getFloat(1, i) * scaler); // Forecast
+      demandProfile.setFloat(2, i, demandProfile.getFloat(2, i) * scaler); // Actual
+    }
+  }
+  
   // Based on Profile, compute the peak forecast demand
   void peak() {
-    demandPeak = 0;
+    demandPeak_F = 0;
+    demandPeak_A = 0;
+    float value_F, value_A, time;
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
-      if (demandPeak < demandProfile.getFloat(1, i) ) {
-        demandPeak = demandProfile.getFloat(1, i);
-        peakTime = demandProfile.getFloat(0, i);
+      time = demandProfile.getFloat(0, i);
+      value_F = demandProfile.getFloat(1, i); // Forecast
+      value_A = demandProfile.getFloat(2, i); // Actual
+      if (demandPeak_F < value_F ) {
+        demandPeak_F = value_F;
+        peakTime_F = time;
+        
+        // Sets global max profile value
+        if (MAX_PROFILE_VALUE < value_F) MAX_PROFILE_VALUE = value_F;
+      }
+      if (demandPeak_A < value_A ) {
+        demandPeak_A = value_A;
+        peakTime_A = time;
       }
     }
   }
@@ -117,14 +143,14 @@ class Profile {
   }
   
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
-    float MAX_VALUE = 30000.0;
     float unit = 5000;
     float scalerH, scalerW;
     float markerH = 1.25;
+    float forecastScalerH = 1.5; // leaves room for actual demand to overshoot forecast
     if (detail) {
-      scalerH = h/demandPeak;
+      scalerH = h/(forecastScalerH*demandPeak_F);
     } else {
-      scalerH = h/MAX_VALUE;
+      scalerH = h/MAX_PROFILE_VALUE;
     }
     scalerW = float(w)/demandProfile.getColumnCount();
     
@@ -161,12 +187,12 @@ class Profile {
       }
       
       // Draw Peak Forcast
-      if (peakTime == demandProfile.getFloat(0, i)) {
+      if (peakTime_F == demandProfile.getFloat(0, i)) {
         fill(textColor);
         ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
         fill(textColor);
         textAlign(CENTER);
-        text(int(demandPeak/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
+        text(int(demandPeak_F/100)/10.0 + "k " + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
       }
       
       // Draw Details such as axis
@@ -260,10 +286,10 @@ class Profile {
     
     // Y-Axis for Large-scale graphic
     if (detail) {
-      unit = demandPeak/6;
+      unit = demandPeak_F/6;
       stroke(textColor, 20);
       strokeWeight(1);
-      for (int i=0; i<=int(demandPeak/unit); i++) {
+      for (int i=0; i<=int(forecastScalerH*demandPeak_F/unit); i++) {
         line(x, y - scalerH*i*unit, x+w, y - scalerH*i*unit);
         fill(textColor, 50);
 //        textAlign(RIGHT);

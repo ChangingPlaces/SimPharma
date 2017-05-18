@@ -10,7 +10,7 @@ int buildsY = 200;
 int sitesX = 0;
 int sitesY = 200;
   
-//Here are some function to test drawing the visualization
+//Here are some functions to test drawing the visualization
 void drawFramework() {
   background(abs(background));
   boolean selected;

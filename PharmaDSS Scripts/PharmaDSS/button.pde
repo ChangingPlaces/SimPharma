@@ -24,16 +24,18 @@ String[] buttonNames =
 {
   "Invert Colors (i)", //0
   "VOID",  // 1
-  "Play Game (g)",  // 2
-  "Toggle Profile (p)",    // 3
-  "Toggle Site (s)",  // 4
-  "Toggle Build (b)",  // 5
-  "VOID",  // 6
-  "Deploy Selection (d)",  // 7
-  "VOID",  // 8
-  "VOID",  // 9
+  "Generate Profiles (r)",  // 2
+  "Play Game (g)",  // 3
+  "VOID",  // 4
+  "VOID",  // 5
+  "Toggle Profile (p)",    // 6
+  "Toggle Site (s)",  // 7
+  "Toggle Build (b)",  // 8
+  "Deploy Selection (d)",  // 9
   "VOID",  // 10
-  "End Turn (SPACE)",    // 11
+  "VOID",  // 11
+  "VOID",  // 12
+  "End Turn (SPACE)",    // 13
 };
 
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
@@ -49,26 +51,30 @@ void mouseClicked() {
   }
   
   if(mainMenu.buttons[2].over()){ 
-    toggleGame();
+    regenerateGame();
   }
   
   if(mainMenu.buttons[3].over()){ 
+    toggleGame();
+  }
+  
+  if(mainMenu.buttons[6].over()){ 
     nextProfile();
   }
   
-  if(mainMenu.buttons[4].over()){ 
+  if(mainMenu.buttons[7].over()){ 
     nextSite();
   }
   
-  if(mainMenu.buttons[5].over()){ 
+  if(mainMenu.buttons[8].over()){ 
     nextBuild();
   }
   
-  if(mainMenu.buttons[7].over()){ 
+  if(mainMenu.buttons[9].over()){ 
     deploySelection();
   }
   
-  if(mainMenu.buttons[11].over()){ 
+  if(mainMenu.buttons[13].over()){ 
     endTurn();
   }
   
@@ -104,6 +110,9 @@ void keyPressed() {
       break;
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
+      break;
+    case 'r': // "Regenerate Profile Data (r)"
+      regenerateGame();
       break;
   }
   loop();
@@ -202,15 +211,15 @@ void endTurn() {
 void toggleGame() {
   if (gameMode) {
     gameMode = false;
-    mainMenu.buttons[2].label = "Play Game (g)";
-    mainMenu.buttons[11].isVoid = true;
-    mainMenu.buttons[7].isVoid = true;
+    mainMenu.buttons[3].label = "Play Game (g)";
+    mainMenu.buttons[13].isVoid = true;
+    mainMenu.buttons[9].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[2].label = "God Mode (g)";
-    mainMenu.buttons[11].isVoid = false;
-    mainMenu.buttons[7].isVoid = false;
+    mainMenu.buttons[3].label = "God Mode (g)";
+    mainMenu.buttons[13].isVoid = false;
+    mainMenu.buttons[9].isVoid = false;
   }
   
   println("gameMode: " + gameMode);

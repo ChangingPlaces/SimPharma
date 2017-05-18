@@ -2,6 +2,12 @@
  /  Ira Winder, jiw@mit.edu
  /  Cambridge, MA
 */
+
+// Add Total Capacity to NCEs
+// Make Builds and NCEs similar magnitides
+// Add Batch/Continuous Mode
+// Add Process Graphic to visualization
+// Random order for XLS PRofiles?
  
  String VERSION = "BETA V1.2";
  
@@ -92,9 +98,6 @@ void setup() {
   // Initiate System and Objects
   agileModel = new System();
   
-  //Initiate Game
-  session = new Game();
-  
   // Load Model XLS
   if (readXLS) {
     
@@ -109,6 +112,9 @@ void setup() {
     loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
 
   }
+  
+  //Initiate Game
+  session = new Game();
   
   // Setup for Canvas Visualization
   size(1800, 1100);
@@ -163,6 +169,6 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   mainMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
-  mainMenu.buttons[11].isVoid = !gameMode;
-  mainMenu.buttons[7].isVoid = !gameMode;
+  mainMenu.buttons[13].isVoid = !gameMode;
+  mainMenu.buttons[9].isVoid = !gameMode;
 }

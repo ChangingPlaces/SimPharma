@@ -13,3 +13,28 @@ float buildTime(float capacity) {
     return 5; //yr
   }
 }
+
+// Regenerate Game
+void regenerateGame() {
+  
+  boolean interrupt = false;;
+  
+  // Cannot reset game while in active game mode
+  if (gameMode) {
+    interrupt = true;
+    gameMode = false;
+  }
+  
+  // Initiate System and Objects
+  agileModel = new System();
+  //Initiate Game
+  loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
+  
+  session = new Game();
+  // Turns game back on if interrupted so god mode is never seen
+  if (interrupt) {
+    gameMode = true;
+  }
+  
+  loop();
+}
