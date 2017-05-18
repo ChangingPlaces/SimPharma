@@ -169,23 +169,25 @@ void loadModel_XLS(System model, String name) {
   // Read Profile Information
   reader.openSheet(PROFILE_SHEET);
   
+  int[] profileList = randomIndex(NUM_PROFILES);
+  
   // Read Profile: Attributes
   for (int i=0; i<NUM_PROFILES; i++) {
     
     // Read Profile: Basic Attributes
     model.PROFILES.add( new Profile(i) ); 
     model.PROFILES.get(i).name = reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL);
-    model.PROFILES.get(i).summary = reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 1);
-    if (reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 2).equals("success")) {
+    model.PROFILES.get(i).summary = reader.getString(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 1);
+    if (reader.getString(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 2).equals("success")) {
       model.PROFILES.get(i).success = true;
     } else {
       model.PROFILES.get(i).success = false;
     }
-    model.PROFILES.get(i).timeStart = reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 6);
+    model.PROFILES.get(i).timeStart = reader.getString(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 6);
     
     // Read Profile: Site Costs
     for (int j=0; j<NUM_SITES; j++) {
-      model.PROFILES.get(i).productionCost.add( reader.getFloat(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 7 + j) );
+      model.PROFILES.get(i).productionCost.add( reader.getFloat(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 7 + j) );
     }
     
     // Read Profile: Demand Profile
@@ -196,9 +198,9 @@ void loadModel_XLS(System model, String name) {
     for (int j=0; j<NUM_INTERVALS; j++) {
       model.PROFILES.get(i).demandProfile.addColumn();
       model.PROFILES.get(i).demandProfile.setFloat(0, j, reader.getFloat(PROFILE_ROW, PROFILE_COL + 10 + j) );
-      model.PROFILES.get(i).demandProfile.setFloat(1, j, reader.getFloat(PROFILE_ROW + 2 + 4*i, PROFILE_COL + 10 + j) );
-      model.PROFILES.get(i).demandProfile.setFloat(2, j, reader.getFloat(PROFILE_ROW + 3 + 4*i, PROFILE_COL + 10 + j) );
-      model.PROFILES.get(i).demandProfile.setString(3, j, reader.getString(PROFILE_ROW + 4 + 4*i, PROFILE_COL + 10 + j) );
+      model.PROFILES.get(i).demandProfile.setFloat(1, j, reader.getFloat(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 10 + j) );
+      model.PROFILES.get(i).demandProfile.setFloat(2, j, reader.getFloat(PROFILE_ROW + 3 + 4*profileList[i], PROFILE_COL + 10 + j) );
+      model.PROFILES.get(i).demandProfile.setString(3, j, reader.getString(PROFILE_ROW + 4 + 4*profileList[i], PROFILE_COL + 10 + j) );
     }
     
     // Calculates peak forecast demand value, lead years, etc

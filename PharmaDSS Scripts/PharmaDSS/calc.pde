@@ -35,6 +35,30 @@ void regenerateGame() {
   if (interrupt) {
     gameMode = true;
   }
+}
+
+//Returns an array of integers 0 - amt but randomized
+int[] randomIndex(int amt) {
+  int[] list = new int[amt];
   
-  loop();
+  //sets all values to -1
+  for (int i=0; i<amt; i++) list[i] = -1;
+  
+  int random;
+  int allocated = 0;
+  while(allocated < amt) {
+    random = int(random(0, amt));
+    if (random < 0 || random >= amt) random = 0; // checks in bounds
+    if (list[random] == -1) {
+      list[random] = allocated;
+      allocated ++;
+    }
+  }
+  
+  for (int i=0; i<list.length; i++) {
+    println(list[i]);
+  }
+  
+  return list;
+  
 }
