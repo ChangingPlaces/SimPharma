@@ -54,6 +54,11 @@ class Game {
       for (int i=0; i<agileModel.SITES.size(); i++) {
         agileModel.SITES.get(i).updateBuilds();
       }
+      
+      // Updates the production capacities for each NCE
+      for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+        agileModel.activeProfiles.get(i).calcProduction(agileModel.SITES);
+      }
     }
   }
   
@@ -141,4 +146,53 @@ class Event {
   }
 }
 
+// User Selects Next Available Profile
+void nextProfile() {
+  int numProfiles;
+  
+  if (!gameMode) {
+    numProfiles = agileModel.PROFILES.size();
+  } else {
+    numProfiles = agileModel.activeProfiles.size();
+  }
+  
+  if (session.selectedProfile >= numProfiles - 1) {
+    session.setProfile(session.selectedProfile = 0);
+  } else {
+    session.setProfile(session.selectedProfile + 1);
+  }
+  
+  println("Profile: " + (session.selectedProfile+1));
+}
+
+// User Selects Next Available Site
+void nextSite() {
+  if (session.selectedSite == agileModel.SITES.size() - 1) {
+    session.selectedSite = 0;
+  } else {
+    session.selectedSite++;
+  }
+  println("Site: " + (session.selectedSite+1));
+}
+
+// User Selects Next Available Build
+void nextBuild() {
+  if (session.selectedBuild == agileModel.GMS_BUILDS.size() - 1) {
+    session.selectedBuild = 0;
+  } else {
+    session.selectedBuild++;
+  }
+  println("GMS Build Type: " + (session.selectedBuild+1));
+}
+
+// Build Selected Manufactring Option
+void deploySelection() {
+  Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
+  session.current.event.add(deploy);
+}
+
+// Advance to Next Turn
+void endTurn() {
+  session.execute();
+}
 

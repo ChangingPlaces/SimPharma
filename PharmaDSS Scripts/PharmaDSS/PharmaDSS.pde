@@ -8,6 +8,8 @@
 // Add Batch/Continuous Mode
 // Add Process Graphic to visualization
 // Random order for XLS PRofiles?
+// Place into R&D First
+// Prepopulate Builds?
  
  String VERSION = "BETA V1.2";
  

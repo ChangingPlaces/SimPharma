@@ -54,6 +54,9 @@ class Profile {
     ABSOLUTE_INDEX = INDEX;
   }
   
+  ArrayList<Float> localProductionLimit;
+  float globalProductionLimit;
+  
   // The Class Constructor
   Profile(String name, String summary, boolean success, String timeStart, float recoveries, ArrayList<Float> productionCost, Table demandProfile, int INDEX) {
     this.name = name;
@@ -140,6 +143,28 @@ class Profile {
       }
     }
     if (!viable) timeEnd = timeLead;
+  }
+  
+  void calcProduction(ArrayList<Site> factories) {
+    localProductionLimit = new ArrayList<Float>();
+    globalProductionLimit = 0;
+    int numSites, numBuilds;
+    Build current;
+    
+    numSites = factories.size();
+    for (int i=0; i<numSites; i++) {
+      localProductionLimit.add(0.0);
+      numBuilds = factories.get(i).siteBuild.size();
+      for (int j=0; j<numBuilds; j++) {
+        current = factories.get(i).siteBuild.get(j);
+        if (current.built) {
+          if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
+            localProductionLimit.set(i, localProductionLimit.get(i) + current.capacity);
+          }
+        }
+      }
+      globalProductionLimit += localProductionLimit.get(i);
+    }
   }
   
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
