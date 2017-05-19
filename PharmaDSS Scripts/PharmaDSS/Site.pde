@@ -76,7 +76,7 @@ class Site {
     // Draw Baseline Total External and Green Field Rectangle Capacities
     stroke(textColor, 100);
     strokeWeight(2);
-    fill(THEME, 150);
+    fill(textColor, 50);
     rect(x, infoGap*MARGIN + y, w, sideGn + 10, 5);
     noStroke();
     fill(background);
@@ -86,7 +86,7 @@ class Site {
     fill(textColor);
     textAlign(LEFT);
     text("Site " + name, x, y - 15);
-    fill(105, 150, 050);
+    fill(textColor);
     textAlign(CENTER);
     //text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);
     text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
@@ -105,37 +105,35 @@ class Site {
     fill(textColor);
     
     // Draw Build Allocations within Site Square
-//    if (gameMode) {
-      float offset = 0;
-      float size;
-      for (int i=0; i<siteBuild.size(); i++) {
-        
-        if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
-          // Color NCE Not Viable or build flagged for demolition
-          fill(#CC0000, 150);
-        } else if (siteBuild.get(i).built == false) {
-          // Color Under Construction
-          fill(abs(100-textColor), 150);
-        } else {
-          // Color NCE Active Production
-          fill(#0000CC, 150);
-        }
-        if (session.selectedSiteBuild == i && selected) {
-          stroke(HIGHLIGHT);
-          strokeWeight(3);
-        } else {
-          stroke(255, 200);
-          strokeWeight(1);
-        }
-        size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
-        rect(x + 5, y + 5 + 1 + offset + infoGap*MARGIN, w - 10, size - 2, 5);
-        offset += size;
-        noStroke();
-        fill(textColor);
-        textAlign(CENTER);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
+    float offset = 0;
+    float size;
+    for (int i=0; i<siteBuild.size(); i++) {
+      
+      if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
+        // Color NCE Not Viable or build flagged for demolition
+        fill(#CC0000, 150);
+      } else if (siteBuild.get(i).built == false) {
+        // Color Under Construction
+        fill(abs(100-textColor), 150);
+      } else {
+        // Color NCE Active Production
+        fill(#0000CC, 150);
       }
-//    }
+      if (session.selectedSiteBuild == i && selected) {
+        stroke(HIGHLIGHT);
+        strokeWeight(3);
+      } else {
+        stroke(255, 200);
+        strokeWeight(1);
+      }
+      size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
+      rect(x + 7, y + 5 + 1 + offset + infoGap*MARGIN, w - 14, size - 2, 5);
+      offset += size;
+      noStroke();
+      fill(textColor);
+      textAlign(CENTER);
+      text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
+    }
   }
   
 }
