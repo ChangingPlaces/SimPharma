@@ -9,6 +9,8 @@ class System {
   // Units for Describing time (i.e. "years")
   String TIME_UNITS;
   
+  int YEAR_0 = 2017;
+  
   // Units for Describing cost (i.e. "GBP")
   String COST_UNITS;
   

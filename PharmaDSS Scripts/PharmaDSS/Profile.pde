@@ -270,7 +270,7 @@ class Profile {
         strokeWeight(1);
         line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
         noStroke();
-        text(i+1 + " yr", x + scalerW * (i+.5) + 1, y + 15);
+        text((agileModel.YEAR_0+i), x + scalerW * (i+.5) + 1, y + 15);
       }
       
       // Draw Global Manufacturing Capacity
@@ -363,12 +363,12 @@ class Profile {
       }
       if (detail) {
         fill(abs(textColor - 150));
-        rect(X+1, y, 2, 25);
+        rect(X+1, y, 2, 35);
         fill(textColor);
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X, Y-5);
         textAlign(CENTER);
-        text("Turn " + session.current.TURN, X, y + 40);
+        text((agileModel.YEAR_0 + session.current.TURN), X, y + MARGIN);
       }
     }
     

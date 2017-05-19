@@ -174,6 +174,16 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
+  
+  // Current Year
+  fill(textColor, 80);
+  rect(profilesX + profilesW + 0.5*MARGIN+3, titlesY - 15+3, 40, 20, 5);
+  fill(THEME);
+  rect(profilesX + profilesW + 0.5*MARGIN, titlesY - 15, 40, 20, 5);
+  textAlign(RIGHT);
+  fill(textColor);
+  text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
+  
   boolean axis;
   boolean selected;
   //int numProf = list.size();

@@ -1,31 +1,29 @@
- /* PharmaDSS Beta
+ /* PharmaDSS Alpha
  /  Ira Winder, jiw@mit.edu
  /  Cambridge, MA
 */
 
-// Make click-based interface?
-// Add Batch/Continuous Mode
-
-// Place into R&D First
-// Prepopulate Builds?
-// Only fill up production capacities partially on sites
-// Update Capacity into future
-// Select Subset of builds in site...remove or repurpose
-// Draw Launch Tick
-// Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
-
-//Finished:
-// Random order for XLS PRofiles
-// Add Total Capacity to NCEs
-// Make Builds and NCEs similar magnitides
-// Add Process Graphic to visualization
-// Make Screen Resolution Lower/Resizable
- 
  String VERSION = "ALPHA V1.3";
  
  /* Release Notes:
- /  
- /  BETA V1.2 Release
+ /
+ /  ALPHA V1.3 Release
+ /  - Select Subset of builds in site...remove or repurpose site builds
+ /  - Prepopulate Builds
+ /  - Random order for XLS PRofiles
+ /  - Add Total Capacity to NCEs
+ /  - Make Builds and NCEs similar magnitides
+ /  - Add Process Graphic to visualization
+ /  - Make Screen Resolution Lower/Resizable
+ /  - Draw Launch Tick
+ /  - Make Version That is Compatible with Small Screens
+ /  - Normalize Large-scale Profile graph
+ /  - Make Current Year more Visible during GameMode
+ /  - Add R&D "modules", specified by limit, to Site Visualization
+ /  - Relative scaling for Large-format Profile visualization
+ /  - Implement stochastic events not easily performed in excel
+ /
+ /  ALPHA V1.2 Release
  /  Dynamic, Turn-based interaction using button and keyboard commands
  /    - Added UI for selecting specific (a)Profiles, (b)Sites, and (c)Builds
  /    - Allocate NCE "Build" capacity between sites
@@ -42,7 +40,7 @@
  /    - Added turn-based Profile explorer
  /    - Incorporate 5-yr lead times
  /
- /  BETA V1.0 Release:
+ /  ALPHA V1.0 Release:
  /
  /  The following scripts demonstrate a basic environment for "PharmaDSS" (Decision Support System)
  /  The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
@@ -65,15 +63,11 @@
 */
 
  /*
- /  The following is planned for ALPHA V1.0:
+ /  The following is planned for BETA V1.0:
  /
  /  Giovonni's Notes:
- /  - Make Version That is Compatible with Small Screens
- /  - Make Current Year more Visible during GameMode
  /  - R&D Slot tonnage is not terribly important
  /  - Have 2 modes for batch vs. continuous - continuous effectively makes sites have higher capacity
- /
- /  - Normalize Large-scale Profile graph
  /
  /  - Output summary of 5 KPIs
  /     - CAPEX
@@ -81,16 +75,18 @@
  /     - Ability to Meet Demand
  /     - Cost of Goods
  /     - Security of Supply
- /  
- /  - Make it possible to (a) remove capacity and (b) repurpose capacity
- /  - Implement stochastic events not easily performed in excel
+ / 
  /  - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
  /  - Include Salary modifier for different Sites
- /  - Misc Visual:
- /    - Switch between weight/cost metrics for Build Types
- /    - Add R&D "modules", specified by limit, to Site Visualization
- /    - Relative scaling for Large-format Profile visualization
+ /  - Switch between weight/cost metrics for Build Types
  /  - Allow user to compare performance with baseline scenario(s)
+ /
+ /  - Make click-based interface?
+ /  - Add Batch/Continuous Mode
+ /  - Place into R&D First
+ /  - Only fill up production capacities partially on sites
+ /  - Update Capacity into future
+ /  - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
 */
 
 // Library needed for ComponentAdapter()
