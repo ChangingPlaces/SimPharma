@@ -10,6 +10,7 @@
 // Prepopulate Builds?
 // Only fill up production capacities partially on sites
 // Update Capacity into future
+// Select Subset of builds in site...remove or repurpose
 
 //Finished:
 // Random order for XLS PRofiles
@@ -144,6 +145,8 @@ void setup() {
   loadMenu(width, height);
   
   phasing = loadImage("data/phasing.png");
+  sitePNG = loadImage("data/site.png");
+  sitePNG_BW = loadImage("data/site_BW.png");
 }
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
@@ -175,8 +178,8 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   } else {
     hideText = show;
   }
-  hideMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 0, hideText, align);
-  mainMenu = new Menu(canvasWidth, canvasHeight, 170, 25, 2, buttonNames, align);
+  hideMenu = new Menu(canvasWidth, canvasHeight, 150, 25, 0, hideText, align);
+  mainMenu = new Menu(canvasWidth, canvasHeight, 150, 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
   mainMenu.buttons[13].isVoid = !gameMode;

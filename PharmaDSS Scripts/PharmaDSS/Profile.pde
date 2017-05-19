@@ -206,7 +206,7 @@ class Profile {
       fill(HIGHLIGHT, 40);
       stroke(HIGHLIGHT, 80);
       strokeWeight(1);
-      rect(x - 15, y - h - 7, w + 30, h+17, 5);
+      rect(x - 15, y - h - 7, w + 30, h+18, 5);
       noStroke();
     }
     
@@ -215,14 +215,14 @@ class Profile {
     // Time Bar
     if (!detail) {
       if (timeEnd < session.current.TURN || (!gameMode && timeEnd < NUM_INTERVALS) ) {
-        fill(#CC0000, 40);
+        fill(#CC0000, 60);
       } else {
-        fill(#00CC00, 40);
+        fill(#00CC00, 60);
       }
       if (!gameMode) {
-        rect(x + scalerW * timeLead, y - h, scalerW * (min(timeEnd, demandProfile.getColumnCount()) - timeLead), h);
+        rect(x + scalerW * timeLead, y - 0.2*h, scalerW * (min(timeEnd, demandProfile.getColumnCount()) - timeLead), 0.2*h);
       } else {
-        rect(x + scalerW * timeLead, y - h, scalerW * (min(min(timeEnd, demandProfile.getColumnCount()), session.current.TURN) - timeLead), h);
+        rect(x + scalerW * timeLead, y - 0.2*h, scalerW * (min(min(timeEnd, demandProfile.getColumnCount()), session.current.TURN) - timeLead), 0.2*h);
       }
     }
     
@@ -330,7 +330,7 @@ class Profile {
         cap = demandProfile.getFloat(2, session.current.TURN-1);
         barA = scalerH * cap;
       }
-      fill(textColor, 50);
+      fill(abs(textColor - 50));
       float X, Y;
       if (detail) {
         Y = y - barA;
@@ -339,14 +339,13 @@ class Profile {
       }
       X = x + scalerW * (min(demandProfile.getColumnCount(), session.current.TURN)) - 3;
       if (detail) {
-        rect(X, Y, 3, max(3, barA) );
+        rect(X, Y, 4, max(3, barA) );
       } else {
-        if (session.current.TURN != timeLead)
-          rect(X, Y, 3, h );
+        if (session.current.TURN != timeLead) rect(X, Y, 3, h );
       }
       if (detail) {
         fill(abs(textColor - 150));
-        rect(X+1, y, 1, 25);
+        rect(X+1, y, 2, 25);
         fill(textColor);
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X, Y-5);
@@ -363,8 +362,8 @@ class Profile {
       for (int i=0; i<=int(forecastScalerH*demandPeak_F/unit); i++) {
         line(x, y - scalerH*i*unit, x+w, y - scalerH*i*unit);
         fill(textColor, 50);
-        textAlign(LEFT);
-        text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 5, y - scalerH*(i-0.25)*unit);
+        textAlign(RIGHT);
+        text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 35, y - scalerH*(i-0.25)*unit);
       }
     }
   } 

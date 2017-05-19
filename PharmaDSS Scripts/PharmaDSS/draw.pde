@@ -1,10 +1,10 @@
-PImage phasing;
+PImage phasing, sitePNG, sitePNG_BW;
 
 int MARGIN = 50;
 int HIGHLIGHT = #CCCC00;
 
 // Upper Left Corners
-int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY;
+int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, titlesY;
 
 // Width and Height
 int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH;
@@ -16,35 +16,52 @@ void drawFramework() {
   textSize(10);
   
   // Upper Left Corners
-  profilesX = int(0.33*width);
-  profilesY = int(0.22*height);
-  buildsX = int(0.66*width);
-  buildsY = int(0.22*height);
-  sitesX = 0;
-  sitesY = int(0.22*height);
+  profilesX = int(0.18*width);
+  profilesY = int(0.23*height);
+  buildsX = int(0.49*width);
+  buildsY = int(0.23*height);
+  sitesX = int(0.64*width);
+  sitesY = int(0.23*height);
+  titlesY = int(2.8*MARGIN);
   
   // Width and Height
-  profilesW = int(0.25*width);
+  profilesW = int(0.20*width);
   profilesH = int(0.02*height);
   buildsW =   int(0.13*width);
   buildsH =   profilesH;
   sitesW =    int(0.08*width);
   sitesH =    height - 2*MARGIN - sitesY;
   
-  background(abs(background));
+  background(abs(background - 15));
   boolean selected;
   
+  // Draw Background Canvases
+      
+      float canH = height - 2.8*MARGIN;
+      
+      noStroke();
+      
+      // Shadows
+      fill(abs(background - 50));
+      rect(0.25*MARGIN + profilesX+5, 2.2*MARGIN+5, profilesW + 1.75*MARGIN, canH, 2);
+      rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN+5, width - sitesX - 1.25*MARGIN, canH, 2);
+      
+      // Canvas
+      fill(abs(background - 0));
+      rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 2);
+      rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH, 2);
+      
   // Draw Title
   
       fill(textColor);
-      textAlign(LEFT);
-      text("PharmaDSS " + VERSION, profilesX + MARGIN, MARGIN);
-      text("MIT Media Lab + GlaxoSmithKline", profilesX + MARGIN, MARGIN + 15);
-      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", profilesX + MARGIN, MARGIN + 30);
+      textAlign(RIGHT);
+      text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
+      text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + 15);
+      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + 30);
   
   // Draw Phasing Diagram
   
-      image(phasing, MARGIN, MARGIN - 10, 0.25*width, 0.06*height);
+      image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
   
   // Draw Profiles
 
@@ -64,11 +81,11 @@ void drawFramework() {
       }
       fill(textColor);
       textAlign(LEFT);
-      text("Site Characteristics:", MARGIN + sitesX, sitesY - 60);
+      text("Site Characteristics:", MARGIN + sitesX, titlesY);
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
-        agileModel.SITES.get(i).draw(MARGIN + sitesX + i*(2*MARGIN+sitesW), sitesY, sitesW, sitesH, maxSite, selected);
+        agileModel.SITES.get(i).draw(MARGIN + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, sitesW, sitesH, maxSite, selected);
       }
   
   // Draw Build/Repurpose Units
@@ -76,7 +93,7 @@ void drawFramework() {
       // Build Var
       fill(textColor);
       textAlign(LEFT);
-      text("Pre-Engineered Production Units:", buildsX, buildsY - 60);
+      text("Pre-Engineered Production Units:", buildsX, titlesY);
       float spread = 3.0;
       
       // Draw GMS Build Options
@@ -106,7 +123,7 @@ void drawFramework() {
       int vOff = -50;
       fill(textColor);
       textAlign(LEFT);
-//      text("Personnel:", MARGIN + buildsX - 60, MARGIN);
+//      text("Personnel:", titlesY, MARGIN);
       for (int i=0; i<NUM_LABOR; i++) {
         if (i==0) {
           fill(#CC0000);
@@ -146,7 +163,7 @@ void drawLargeProfile(Profile selected) {
   selected.draw(
     MARGIN + profilesX,
     int(height - 1.75*MARGIN), 
-    300, 
+    profilesW, 
     int(0.10*height),
     true, false, true
   );
@@ -155,7 +172,7 @@ void drawLargeProfile(Profile selected) {
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
-  text("NCE Demand Profiles:", MARGIN + profilesX, profilesY - 60);
+  text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
   boolean axis;
   boolean selected;
   //int numProf = list.size();
@@ -169,7 +186,7 @@ void drawProfiles(ArrayList<Profile> list) {
       list.get(i-1).draw(
         MARGIN + profilesX, 
         2*MARGIN + profilesY + int(0.45*height*(i-1)/float(numProf+1)), 
-        300, profilesH,
+        profilesW, profilesH,
         axis, selected, false
       );
     }

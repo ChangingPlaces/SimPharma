@@ -70,7 +70,7 @@ class Build {
     }
     
     // Draw Build Characteristics
-    int scaler = 2;
+    int scaler = 3;
     fill(abs(textColor - 75));
     rect(x + 35, y - 5, scaler*capacity, 10, 3);
     textAlign(LEFT);

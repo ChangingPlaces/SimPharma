@@ -9,11 +9,11 @@ Menu mainMenu, hideMenu;
 // Global Text and Background Color
 int textColor = 0;
 int background = 255;
-int BUTTON_OFFSET_H = 50;
+int BUTTON_OFFSET_H = 40;
 int BUTTON_OFFSET_W = 50;
 
 // Menu Alignment on Screen
-String align = "RIGHT";
+String align = "LEFT";
 
 // Set this to true to display the main menue upon start
 boolean showMainMenu = true;
@@ -221,6 +221,7 @@ class Button{
     if (!isVoid) {
       p.smooth();
       p.noStroke();
+      p.textSize(10);
       if( over() ) {  // Darkens button if hovering mouse over it
         p.fill(textColor, hover);
       } else if (isPressed){

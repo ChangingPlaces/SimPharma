@@ -39,9 +39,10 @@ class Site {
   }
   
   void draw(int x, int y, int w, int h, float max, boolean selected) {
-    float sideEx = h*(capEx)/max;
-    float sideGn = h*(capEx + capGn)/max; 
-    int RnD_W = 50;
+    int infoGap = 3; // number of MARGIN widths
+    float sideEx = (h - infoGap*MARGIN)*(capEx)/max;
+    float sideGn = (h - infoGap*MARGIN)*(capEx + capGn)/max;
+    int RnD_W = 35;
     int RnD_gap = 10;
     
     // Draw Site Selection
@@ -49,18 +50,32 @@ class Site {
       fill(HIGHLIGHT, 40);
       stroke(HIGHLIGHT, 80);
       strokeWeight(1);
-      rect(x - 10, y - 30, w + RnD_W + 2*RnD_gap + 10, h + 60, 5);
+      rect(x - 10, y - 30, w + RnD_W + 2*RnD_gap + 10, height - MARGIN - y + 15, 5);
       noStroke();
     }
+    
+    // Draw Site/Factory PNG
+    int picW = w + RnD_gap + RnD_W;
+    int picH = infoGap*MARGIN - RnD_gap;
+    PImage pic;
+    //rect(x, y, picW, picH, 5);
+    if (textColor == 0) {
+      pic = sitePNG_BW;
+    } else {
+      pic = sitePNG;
+    }
+    tint(255, 75);
+    image(pic, x, y, picW, picH);
+    tint(255, 255);
     
     // Draw Baseline Total External and Green Field Rectangle Capacities
     stroke(textColor, 100);
     strokeWeight(2);
     fill(205, 250, 150, 150);
-    rect(x, y, w, sideGn + 10, 5);
+    rect(x, infoGap*MARGIN + y, w, sideGn + 10, 5);
     noStroke();
     fill(background);
-    rect(x + 5, y + 5, w - 10, sideEx, 5);
+    rect(x + 5, infoGap*MARGIN + y + 5, w - 10, sideEx, 5);
     
     // Draw Label Text
     fill(textColor);
@@ -68,18 +83,18 @@ class Site {
     text("Site " + name, x, y - 15);
     fill(105, 150, 050);
     textAlign(CENTER);
-    text(capEx + " " + agileModel.WEIGHT_UNITS, x + w/2, y + 10 + sideEx/2);
-    text("( " + capGn + " " + agileModel.WEIGHT_UNITS + " )", x + w/2, y + sideGn + 0.5*MARGIN);
+    text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);
+    text("( " + capGn + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
     
     // Draw RND Capacity Slots
     for (int i=0; i<limitRnD; i++) {
       fill(background);
       stroke(textColor, 100);
       strokeWeight(2);
-      rect(x + w + RnD_gap, y + i*(RnD_W + RnD_gap), RnD_W, RnD_W, 5);
+      rect(x + w + RnD_gap, infoGap*MARGIN + y + i*(RnD_W + RnD_gap), RnD_W, RnD_W, 5);
       textAlign(CENTER);
       fill(textColor, 150);
-      text("R&D", x + w + RnD_gap + 0.5*RnD_W, y + i*(RnD_W + RnD_gap) + 0.5*RnD_W + 5);
+      text("R&D", x + w + RnD_gap + 0.5*RnD_W, infoGap*MARGIN + y + i*(RnD_W + RnD_gap) + 0.5*RnD_W + 5);
     }
     noStroke();
     fill(textColor);
@@ -101,14 +116,14 @@ class Site {
           fill(#0000CC, 150);
         }
         stroke(255, 200);
-        strokeWeight(2);
-        size = h * siteBuild.get(i).capacity / max;
-        rect(x + 7, y + 5 + 3 + offset, w - 14, size - 6, 5);
+        strokeWeight(1);
+        size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
+        rect(x + 5, y + 5 + 1 + offset + infoGap*MARGIN, w - 10, size - 2, 5);
         offset += size;
         noStroke();
         fill(textColor);
         textAlign(CENTER);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name, x + 0.5*w, y + offset + 10 - size/2);
+        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name, x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
       }
     }
   }
