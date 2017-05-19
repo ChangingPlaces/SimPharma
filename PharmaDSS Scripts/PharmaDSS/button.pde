@@ -24,18 +24,19 @@ String[] buttonNames =
 {
   "Invert Colors (i)", //0
   "VOID",  // 1
-  "Generate Profiles (r)",  // 2
+  "Generate Profiles (SH+R)",  // 2
   "Play Game (g)",  // 3
   "VOID",  // 4
-  "VOID",  // 5
-  "Toggle Profile (p)",    // 6
-  "Toggle Site (s)",  // 7
-  "Toggle Build (b)",  // 8
-  "Deploy Selection (d)",  // 9
-  "VOID",  // 10
-  "VOID",  // 11
-  "VOID",  // 12
-  "End Turn (SPACE)",    // 13
+  "Toggle Profile (p)",    // 5
+  "Toggle Site (s)",  // 6
+  "Toggle Existing Build (SH+S)", //7
+  "Toggle New Build (b)",  // 8
+  "VOID",  // 9
+  "Deploy Selection (d)",  // 10
+  "Remove Selection (r)",  // 11
+  "Repurpose Selection (e)",  // 12
+  "VOID",  // 13
+  "End Turn (SPACE)",    // 14
 };
 
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
@@ -58,23 +59,35 @@ void mouseClicked() {
     toggleGame();
   }
   
-  if(mainMenu.buttons[6].over()){ 
+  if(mainMenu.buttons[5].over()){ 
     nextProfile();
   }
   
-  if(mainMenu.buttons[7].over()){ 
+  if(mainMenu.buttons[6].over()){ 
     nextSite();
+  }
+  
+  if(mainMenu.buttons[7].over()){ 
+    nextSiteBuild();
   }
   
   if(mainMenu.buttons[8].over()){ 
     nextBuild();
   }
   
-  if(mainMenu.buttons[9].over()){ 
+  if(mainMenu.buttons[10].over()){ 
     deploySelection();
   }
   
-  if(mainMenu.buttons[13].over()){ 
+  if(mainMenu.buttons[11].over()){ 
+    removeSelection();
+  }
+  
+  if(mainMenu.buttons[12].over()){ 
+    repurposeSelection();
+  }
+  
+  if(mainMenu.buttons[14].over()){ 
     endTurn();
   }
   
@@ -93,6 +106,9 @@ void keyPressed() {
     case 'i': // "Invert Colors (i)"
       invertColors();
       break;
+    case 'R': // "Regenerate Profile Data (SH+R)"
+      regenerateGame();
+      break;
     case 'g': // "Play Game (g)"
       toggleGame();
       break;
@@ -102,18 +118,25 @@ void keyPressed() {
     case 's': // "Toggle Site (s)"
       nextSite();
       break;
+    case 'S': // "Toggle Existing Build (SH+S)",
+      nextSiteBuild();
+      break;
     case 'b': // "Toggle Build (b)"
       nextBuild();
       break;
     case 'd': // "Deploy Selection (d)"
       if (gameMode) deploySelection();
       break;
+    case 'r': // "Remove Selection (r)"
+      if (gameMode) removeSelection();
+      break;
+    case 'e': // "Repurpose Selection (e)"
+      if (gameMode) repurposeSelection();
+      break;
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
       break;
-    case 'r': // "Regenerate Profile Data (r)"
-      regenerateGame();
-      break;
+
   }
   loop();
 }
@@ -162,14 +185,18 @@ void toggleGame() {
   if (gameMode) {
     gameMode = false;
     mainMenu.buttons[3].label = "Play Game (g)";
-    mainMenu.buttons[13].isVoid = true;
-    mainMenu.buttons[9].isVoid = true;
+    mainMenu.buttons[14].isVoid = true;
+    mainMenu.buttons[10].isVoid = true;
+    mainMenu.buttons[11].isVoid = true;
+    mainMenu.buttons[12].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
     mainMenu.buttons[3].label = "God Mode (g)";
-    mainMenu.buttons[13].isVoid = false;
-    mainMenu.buttons[9].isVoid = false;
+    mainMenu.buttons[14].isVoid = false;
+    mainMenu.buttons[10].isVoid = false;
+    mainMenu.buttons[11].isVoid = false;
+    mainMenu.buttons[12].isVoid = false;
   }
   
   println("gameMode: " + gameMode);

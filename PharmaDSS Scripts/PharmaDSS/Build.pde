@@ -24,6 +24,10 @@ class Build {
     boolean built;
     // How many years since the build has been comissioned?
     int age;
+    // Is the build flagged to be demolished?
+    boolean demolish = false;
+    // Is the build being repurposed?
+    boolean repurpose = false;
   
   // Basic Constructor
   Build() {
@@ -51,7 +55,12 @@ class Build {
   // Update Temporal aspects of build, such as age and construction progress
   void updateBuild() {
     age++;
-    if (age >= buildTime) {
+    if (repurpose) {
+      if (age >= repurpTime) {
+        built = true;
+        repurpose = false;
+      }
+    } else if (age >= buildTime) {
       // Build becomes active after N years of construction
       built = true;
     }

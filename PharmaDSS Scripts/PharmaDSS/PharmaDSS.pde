@@ -3,22 +3,24 @@
  /  Cambridge, MA
 */
 
-// Make click-based interface
+// Make click-based interface?
 // Add Batch/Continuous Mode
-// Make Screen Resolution Lower/Resizable
+
 // Place into R&D First
 // Prepopulate Builds?
 // Only fill up production capacities partially on sites
 // Update Capacity into future
 // Select Subset of builds in site...remove or repurpose
+// Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
 
 //Finished:
 // Random order for XLS PRofiles
 // Add Total Capacity to NCEs
 // Make Builds and NCEs similar magnitides
 // Add Process Graphic to visualization
+// Make Screen Resolution Lower/Resizable
  
- String VERSION = "BETA V1.2";
+ String VERSION = "ALPHA V1.3";
  
  /* Release Notes:
  /  
@@ -182,6 +184,8 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   mainMenu = new Menu(canvasWidth, canvasHeight, 150, 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
-  mainMenu.buttons[13].isVoid = !gameMode;
-  mainMenu.buttons[9].isVoid = !gameMode;
+  mainMenu.buttons[14].isVoid = !gameMode;
+  mainMenu.buttons[10].isVoid = !gameMode;
+  mainMenu.buttons[11].isVoid = !gameMode;
+  mainMenu.buttons[12].isVoid = !gameMode;
 }

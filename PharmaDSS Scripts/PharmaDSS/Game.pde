@@ -10,7 +10,7 @@ class Game {
   ArrayList<Turn> turnLog;
   
   int selectedProfile;
-  int selectedSite;
+  int selectedSite, selectedSiteBuild;
   int selectedBuild;
   
   // Boolean to specify if continuous manufacturing technology is allowed
@@ -20,6 +20,7 @@ class Game {
     current = new Turn(0);
     selectedProfile = 0;
     selectedSite = 0;
+    selectedSiteBuild = 0;
     selectedBuild = 0;
     turnLog = new ArrayList<Turn>();
     
@@ -115,7 +116,7 @@ class Event {
   String eventType;
   
   // Define the site, build, and profile associated with an event
-  int siteIndex, buildIndex, profileIndex;
+  int siteIndex, buildIndex, siteBuildIndex, profileIndex;
   
   Event(String eventType, int siteIndex, int buildIndex, int profileIndex) {
     this.eventType = eventType;
@@ -123,8 +124,23 @@ class Event {
     this.buildIndex = buildIndex;
     this.profileIndex = profileIndex;
     
-    // stage a build/deployment event based upon pre-engineered modules 
-    stage();
+    if (eventType.equals("deploy")) {
+      // stage a build/deployment event based upon pre-engineered modules 
+      stage();
+    } else if (eventType.equals("repurpose")) {
+      // stage a build/deployment event based upon pre-engineered modules 
+      this.siteBuildIndex = buildIndex;
+      flagRepurpose();
+    }
+  }
+  
+  Event(String eventType, int siteIndex, int siteBuildIndex) {
+    this.eventType = eventType;
+    this.siteIndex = siteIndex;
+    this.siteBuildIndex = siteBuildIndex;
+    
+    // flag a build/deployment for removal 
+    flagRemove();
   }
   
   // stage a build/deployment event based upon pre-engineered modules 
@@ -145,6 +161,21 @@ class Event {
     
     // Add the NCE-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);
+  }
+  
+  void flagRemove() {
+    agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
+  }
+  
+  void flagRepurpose() {
+    if (agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built == false) {
+      println("Can't Repurpose while Under Construction");
+    } else {
+      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).repurpose = true;
+      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built = false;
+      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).age = 0;
+      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).PROFILE_INDEX = profileIndex;
+    }
   }
 }
 
@@ -169,7 +200,8 @@ void nextProfile() {
 
 // User Selects Next Available Site
 void nextSite() {
-  if (session.selectedSite == agileModel.SITES.size() - 1) {
+  session.selectedSiteBuild = 0;
+  if (session.selectedSite >= agileModel.SITES.size() - 1) {
     session.selectedSite = 0;
   } else {
     session.selectedSite++;
@@ -179,7 +211,7 @@ void nextSite() {
 
 // User Selects Next Available Build
 void nextBuild() {
-  if (session.selectedBuild == agileModel.GMS_BUILDS.size() - 1) {
+  if (session.selectedBuild >= agileModel.GMS_BUILDS.size() - 1) {
     session.selectedBuild = 0;
   } else {
     session.selectedBuild++;
@@ -187,10 +219,36 @@ void nextBuild() {
   println("GMS Build Type: " + (session.selectedBuild+1));
 }
 
-// Build Selected Manufactring Option
+// User Selects Next Available Build on a specific site
+void nextSiteBuild() {
+  if (agileModel.SITES.get(session.selectedSite).siteBuild.size() == 0) {
+    println("Site has no Production!");
+  } else {
+    if (session.selectedSiteBuild >= agileModel.SITES.get(session.selectedSite).siteBuild.size() - 1) {
+      session.selectedSiteBuild = 0;
+    } else {
+      session.selectedSiteBuild++;
+    }
+    println("Site " + session.selectedSite + " Build Type: " + (session.selectedSiteBuild+1));
+  }
+}
+
+// Build Selected Manufacturing Option
 void deploySelection() {
   Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
   session.current.event.add(deploy);
+}
+
+// Remove Selected Manufacturing Option
+void removeSelection() {
+  Event remove = new Event("remove", session.selectedSite, session.selectedSiteBuild);
+  session.current.event.add(remove);
+}
+
+// Repurpose Selected Manufacturing Option
+void repurposeSelection() {
+  Event repurpose = new Event("repurpose", session.selectedSite, session.selectedSiteBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
+  session.current.event.add(repurpose);
 }
 
 // Advance to Next Turn

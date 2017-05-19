@@ -241,12 +241,12 @@ class Profile {
       
       // Draw Forecast Demand Bars
       fill(abs(textColor-200));
-      rect(x + scalerW * i +1, y - barF, scalerW - 2, barF);
+      rect(x + scalerW * i +1, y - barF, scalerW - 1, barF);
 
       // If game is on, only shows actual demand bars for finished turns
       if (!gameMode || session.current.TURN > i) {
         fill(#0000FF, 100);
-        rect(x + scalerW * i + 1, y - barA, scalerW - 2, barA);
+        rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
       }
       
       // Draw Peak Forcast
@@ -275,7 +275,7 @@ class Profile {
         if (i <= session.current.TURN) {
           stroke(textColor);
         } else {
-          stroke(textColor, 50);
+          stroke(abs(textColor-100));
           cap = globalCap;
           capLast = globalCap;
         }

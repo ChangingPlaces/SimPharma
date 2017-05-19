@@ -33,8 +33,13 @@ class Site {
   
   // Update the state of all builds on site
   void updateBuilds() {
-    for(int i=0; i<siteBuild.size(); i++) {
-      siteBuild.get(i).updateBuild();
+    for(int i=siteBuild.size()-1; i>=0; i--) {
+      if (siteBuild.get(i).demolish) {
+        siteBuild.remove(i);
+        if (session.selectedSiteBuild >= i && i != 0) session.selectedSiteBuild--; // moves index back to avoid crash
+      } else {
+        siteBuild.get(i).updateBuild();
+      }
     }
   }
   
@@ -105,18 +110,23 @@ class Site {
       float size;
       for (int i=0; i<siteBuild.size(); i++) {
         
-        if (siteBuild.get(i).built == false) {
+        if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
+          // Color NCE Not Viable or build flagged for demolition
+          fill(#CC0000, 150);
+        } else if (siteBuild.get(i).built == false) {
           // Color Under Construction
           fill(abs(100-textColor), 150);
-        } else if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN) {
-          // Color NCE Not Viable
-          fill(#CC0000, 150);
         } else {
           // Color NCE Active Production
           fill(#0000CC, 150);
         }
-        stroke(255, 200);
-        strokeWeight(1);
+        if (session.selectedSiteBuild == i && selected) {
+          stroke(HIGHLIGHT);
+          strokeWeight(3);
+        } else {
+          stroke(255, 200);
+          strokeWeight(1);
+        }
         size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
         rect(x + 5, y + 5 + 1 + offset + infoGap*MARGIN, w - 10, size - 2, 5);
         offset += size;
