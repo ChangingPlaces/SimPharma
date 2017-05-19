@@ -216,17 +216,13 @@ class Profile {
     
     // Time Bar
     if (!detail) {
-//      if (timeEnd < session.current.TURN || (!gameMode && timeEnd < NUM_INTERVALS) ) {
-//        fill(#CCCCCC, 80);
-//      } else {
-        fill(#CCCCCC, 80);
-//      }
+      fill(#CCCCCC, 80);
       float begin = max(0, timeLead);
       float end = max(0, timeEnd);
       if (!gameMode) {
         rect(x + scalerW * begin, y - h, scalerW * (min(end, demandProfile.getColumnCount()) - begin), h);
       } else {
-        rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - timeLead), h);
+        rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - begin), h);
       }
     }
     
