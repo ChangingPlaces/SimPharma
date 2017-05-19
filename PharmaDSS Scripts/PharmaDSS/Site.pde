@@ -53,8 +53,9 @@ class Site {
     // Draw Site Selection
     if (selected) {
       fill(HIGHLIGHT, 40);
-      stroke(HIGHLIGHT, 80);
-      strokeWeight(1);
+      //stroke(HIGHLIGHT, 80);
+      //strokeWeight(1);
+      noStroke(); 
       rect(x - 10, y - 30, w + RnD_W + 2*RnD_gap + 10, height - MARGIN - y + 15, 5);
       noStroke();
     }

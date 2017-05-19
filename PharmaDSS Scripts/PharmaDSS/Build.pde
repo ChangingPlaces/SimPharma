@@ -71,9 +71,10 @@ class Build {
     // Draw Build Selection Box
     if (selected) {
       fill(HIGHLIGHT, 40);
-      stroke(HIGHLIGHT, 80);
-      strokeWeight(1);
-      
+      //stroke(HIGHLIGHT, 80);
+      //strokeWeight(1);
+ 
+      noStroke();     
       rect(x - 15, y - h - 7, w + 40, h+32, 5);
       noStroke();
     }

@@ -206,8 +206,9 @@ class Profile {
     // Draw Profile Selection
     if (selected) {
       fill(HIGHLIGHT, 40);
-      stroke(HIGHLIGHT, 80);
-      strokeWeight(1);
+      //stroke(HIGHLIGHT, 80);
+      //strokeWeight(1);
+      noStroke(); 
       rect(x - 15, y - h - 7, w + 30, h+18, 5);
       noStroke();
     }
