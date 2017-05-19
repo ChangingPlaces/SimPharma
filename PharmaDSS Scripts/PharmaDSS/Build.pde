@@ -65,7 +65,7 @@ class Build {
       stroke(HIGHLIGHT, 80);
       strokeWeight(1);
       
-      rect(x - 15, y - h - 7, w + 30, h+32, 5);
+      rect(x - 15, y - h - 7, w + 40, h+32, 5);
       noStroke();
     }
     
