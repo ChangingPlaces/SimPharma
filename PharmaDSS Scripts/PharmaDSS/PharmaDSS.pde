@@ -11,6 +11,7 @@
 // Only fill up production capacities partially on sites
 // Update Capacity into future
 // Select Subset of builds in site...remove or repurpose
+// Draw Launch Tick
 // Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
 
 //Finished:

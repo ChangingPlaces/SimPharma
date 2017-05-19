@@ -1,7 +1,8 @@
 PImage phasing, sitePNG, sitePNG_BW;
 
 int MARGIN = 50;
-int HIGHLIGHT = #CCCC00;
+int HIGHLIGHT = #00CCCC;
+int THEME = #cccc99;
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, titlesY;
@@ -193,7 +194,7 @@ void drawProfiles(ArrayList<Profile> list) {
   }
   
   // Draw Profile Legend
-  fill(#0000FF, 200);
+  fill(THEME, 200);
   rect(MARGIN + profilesX, profilesY - 9, 15, 10);
   fill(textColor, 150);
   rect(MARGIN + profilesX, profilesY + 6, 15, 10);
@@ -208,13 +209,16 @@ void drawProfiles(ArrayList<Profile> list) {
   rect(MARGIN + profilesX+100, profilesY - 9, 3, 10);
   fill(#CC0000);
   rect(MARGIN + profilesX+100, profilesY + 6, 3, 10);
+  fill(#0000CC);
+  rect(MARGIN + profilesX+205, profilesY - 9, 3, 10);
   fill(textColor);
   textAlign(LEFT);
   text("Lead (Ph.III)", MARGIN + profilesX+115, profilesY);
   text("End", MARGIN + profilesX+115, profilesY + 15);
+  text("Launch", MARGIN + profilesX+220, profilesY);
   
   fill(textColor);
-  rect(MARGIN + profilesX+200, profilesY - 5, 15, 3);
-  text("Capacity", MARGIN + profilesX+220, profilesY);
+  rect(MARGIN + profilesX+200, profilesY + 10, 15, 3);
+  text("Capacity", MARGIN + profilesX+220, profilesY + 15);
   
 }

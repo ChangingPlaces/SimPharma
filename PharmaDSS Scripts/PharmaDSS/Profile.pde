@@ -31,6 +31,7 @@ class Profile {
   
   // Lead Date
   float timeLead;
+  float timeLaunch;
   
   // End Date (date when demand drops to zero)
   float timeEnd;
@@ -131,7 +132,8 @@ class Profile {
       float value = demandProfile.getFloat(1, i);
       //println(value);
       if (value > 0) {
-        timeLead = max(0, i - agileModel.LEAD_TIME);
+        timeLaunch = i;
+        timeLead = i - agileModel.LEAD_TIME;
         break;
       }
     }
@@ -214,15 +216,17 @@ class Profile {
     
     // Time Bar
     if (!detail) {
-      if (timeEnd < session.current.TURN || (!gameMode && timeEnd < NUM_INTERVALS) ) {
-        fill(#CC0000, 60);
-      } else {
-        fill(#00CC00, 60);
-      }
+//      if (timeEnd < session.current.TURN || (!gameMode && timeEnd < NUM_INTERVALS) ) {
+//        fill(#CCCCCC, 80);
+//      } else {
+        fill(#CCCCCC, 80);
+//      }
+      float begin = max(0, timeLead);
+      float end = max(0, timeEnd);
       if (!gameMode) {
-        rect(x + scalerW * timeLead, y - 0.2*h, scalerW * (min(timeEnd, demandProfile.getColumnCount()) - timeLead), 0.2*h);
+        rect(x + scalerW * begin, y - h, scalerW * (min(end, demandProfile.getColumnCount()) - begin), h);
       } else {
-        rect(x + scalerW * timeLead, y - 0.2*h, scalerW * (min(min(timeEnd, demandProfile.getColumnCount()), session.current.TURN) - timeLead), 0.2*h);
+        rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - timeLead), h);
       }
     }
     
@@ -245,7 +249,7 @@ class Profile {
 
       // If game is on, only shows actual demand bars for finished turns
       if (!gameMode || session.current.TURN > i) {
-        fill(#0000FF, 100);
+        fill(THEME, 150);
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
       }
       
@@ -305,20 +309,34 @@ class Profile {
     }
     
     // Lead Date
-    fill(#00CC00);
-    rect(x + scalerW * timeLead - 3, y - markerH*h, 3, markerH*h);
-    if (detail) {
-      textAlign(CENTER);
-      text("Ph.III, T=" + int(timeLead), x + scalerW * timeLead - 3, y-markerH*h-5);
+    if (timeLead >=0) {
+      fill(#00CC00);
+      rect(x + scalerW * timeLead - 3, y - markerH*h, 3, markerH*h);
+      if (detail) {
+        textAlign(CENTER);
+        text("Ph.III", x + scalerW * timeLead - 3, y-markerH*h-5);
+      }
+    }
+
+    // Launch Date
+    if (timeLaunch >=0) {
+      fill(#0000CC);
+      rect(x + scalerW * timeLaunch - 3, y - markerH*h, 3, markerH*h);
+      if (detail) {
+        textAlign(CENTER);
+        text("Launch", x + scalerW * timeLaunch - 3, y-markerH*h-5);
+      }
     }
     
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
-      fill(#CC0000);
-      rect(x + scalerW * timeEnd - 3, y - markerH*h, 3, markerH*h);
-      if (detail) {
-        textAlign(CENTER);
-        text("T=" + int(timeEnd), x + scalerW * timeEnd - 3, y-markerH*h-5);
+      if (timeEnd >=0) {
+        fill(#CC0000);
+        rect(x + scalerW * timeEnd - 3, y - markerH*h, 3, markerH*h);
+        if (detail) {
+          textAlign(CENTER);
+          text("End", x + scalerW * timeEnd - 3, y-markerH*h-5);
+        }
       }
     }
     

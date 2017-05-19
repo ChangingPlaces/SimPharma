@@ -76,7 +76,7 @@ class Site {
     // Draw Baseline Total External and Green Field Rectangle Capacities
     stroke(textColor, 100);
     strokeWeight(2);
-    fill(205, 250, 150, 150);
+    fill(THEME, 150);
     rect(x, infoGap*MARGIN + y, w, sideGn + 10, 5);
     noStroke();
     fill(background);
@@ -88,8 +88,8 @@ class Site {
     text("Site " + name, x, y - 15);
     fill(105, 150, 050);
     textAlign(CENTER);
-    text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);
-    text("( " + capGn + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
+    //text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);
+    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
     
     // Draw RND Capacity Slots
     for (int i=0; i<limitRnD; i++) {
@@ -105,7 +105,7 @@ class Site {
     fill(textColor);
     
     // Draw Build Allocations within Site Square
-    if (gameMode) {
+//    if (gameMode) {
       float offset = 0;
       float size;
       for (int i=0; i<siteBuild.size(); i++) {
@@ -133,9 +133,9 @@ class Site {
         noStroke();
         fill(textColor);
         textAlign(CENTER);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name, x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
+        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
       }
-    }
+//    }
   }
   
 }

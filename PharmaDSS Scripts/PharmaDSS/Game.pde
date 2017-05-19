@@ -37,6 +37,12 @@ class Game {
     for (int i=0; i<agileModel.SITES.size(); i++) {
       agileModel.SITES.get(i).siteBuild.clear();
     }
+    
+    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+      Event initialize = new Event("initialize", int(random(NUM_SITES-0.01)), int(random(agileModel.GMS_BUILDS.size()-0.01)), agileModel.activeProfiles.get(i).ABSOLUTE_INDEX);
+      current.event.add(initialize);
+    }
+    
   }
   
   // End the turn and commit all events to the Log
@@ -73,7 +79,7 @@ class Game {
     
     // When not in game mode, all profiles are viewed in their entirety (i.e. Omnipotent mode..)
     for (int i=0; i<agileModel.PROFILES.size(); i++) {
-      if (agileModel.PROFILES.get(i).timeLead == current.TURN) {
+      if (agileModel.PROFILES.get(i).timeLead == current.TURN || (current.TURN == 0 && agileModel.PROFILES.get(i).timeLead < 0) ) {
         agileModel.PROFILES.get(i).globalProductionLimit = 0;
         agileModel.PROFILES.get(i).initCapacityProfile();
         agileModel.activeProfiles.add(agileModel.PROFILES.get(i));
@@ -127,6 +133,9 @@ class Event {
     if (eventType.equals("deploy")) {
       // stage a build/deployment event based upon pre-engineered modules 
       stage();
+    } else if (eventType.equals("initialize")) {
+      // init. a build/deployment event based upon pre-engineered modules 
+      initialize();
     } else if (eventType.equals("repurpose")) {
       // stage a build/deployment event based upon pre-engineered modules 
       this.siteBuildIndex = buildIndex;
@@ -158,6 +167,28 @@ class Event {
     
     // Customizes a Build for a given NCE
     event.assignProfile(profileIndex);
+    
+    // Add the NCE-customized Build to the given Site
+    agileModel.SITES.get(siteIndex).siteBuild.add(event);
+  }
+  
+  // stage a build/deployment event based upon pre-engineered modules 
+  void initialize() {
+    Build event = new Build();
+    
+    // Copy Ideal Build attributes to site-specific build
+    event.name         = agileModel.GMS_BUILDS.get(buildIndex).name;
+    event.capacity     = agileModel.GMS_BUILDS.get(buildIndex).capacity;
+    event.buildCost    = agileModel.GMS_BUILDS.get(buildIndex).buildCost;
+    event.buildTime    = agileModel.GMS_BUILDS.get(buildIndex).buildTime;
+    event.repurpCost   = agileModel.GMS_BUILDS.get(buildIndex).repurpCost;
+    event.repurpTime   = agileModel.GMS_BUILDS.get(buildIndex).repurpTime;
+    event.labor        = agileModel.GMS_BUILDS.get(buildIndex).labor;
+    event.built        = false;
+    
+    // Customizes a Build for a given NCE
+    event.assignProfile(profileIndex);
+    event.age          = int(0 - agileModel.PROFILES.get(profileIndex).timeLead);
     
     // Add the NCE-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);
