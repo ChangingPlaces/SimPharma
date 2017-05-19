@@ -1,8 +1,8 @@
 PImage phasing, sitePNG, sitePNG_BW;
 
 int MARGIN = 50;
-int HIGHLIGHT = #00CCCC;
-int THEME = #cccc99;
+int HIGHLIGHT = #99CCCC;
+int THEME = #cccc00;
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, titlesY;
