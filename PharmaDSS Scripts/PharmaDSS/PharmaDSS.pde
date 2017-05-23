@@ -146,6 +146,8 @@ void setup() {
   phasing = loadImage("data/phasing.png");
   sitePNG = loadImage("data/site.png");
   sitePNG_BW = loadImage("data/site_BW.png");
+  
+  setupRadar();
 }
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.

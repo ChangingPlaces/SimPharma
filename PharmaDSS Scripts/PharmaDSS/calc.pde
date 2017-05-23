@@ -35,6 +35,11 @@ void regenerateGame() {
   if (interrupt) {
     gameMode = true;
   }
+  
+  //resets Scores for debugging
+  for (int i=0; i<kpi.nRadar; i++) {
+    kpi.setScore(i, random(1.0));
+  }
 }
 
 // Returns an array of integers (0 - amt) but randomized.

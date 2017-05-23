@@ -5,10 +5,10 @@ int HIGHLIGHT = #99CCCC;
 int THEME = #cccc00;
 
 // Upper Left Corners
-int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, titlesY;
+int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY;
 
 // Width and Height
-int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH;
+int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH;
   
 //Here are some functions to test drawing the visualization
 void drawFramework() {
@@ -19,19 +19,22 @@ void drawFramework() {
   // Upper Left Corners
   profilesX = int(0.18*width);
   profilesY = int(0.23*height);
-  buildsX = int(0.49*width);
-  buildsY = int(0.23*height);
-  sitesX = int(0.64*width);
-  sitesY = int(0.23*height);
-  titlesY = int(2.8*MARGIN);
+  buildsX   = int(0.49*width);
+  buildsY   = int(0.23*height);
+  sitesX    = int(0.64*width);
+  sitesY    = int(0.23*height);
+  radarX    = int(0.56*width);
+  radarY    = int(0.83*height);
+  titlesY   = int(2.80*MARGIN);
   
   // Width and Height
   profilesW = int(0.20*width);
   profilesH = int(0.02*height);
-  buildsW =   int(0.13*width);
-  buildsH =   profilesH;
-  sitesW =    int(0.08*width);
-  sitesH =    height - 2*MARGIN - sitesY;
+  buildsW   = int(0.13*width);
+  buildsH   = profilesH;
+  sitesW    = int(0.08*width);
+  sitesH    = height - 2*MARGIN - sitesY;
+  radarH    = int(0.06*width);
   
   background(abs(background - 15));
   boolean selected;
@@ -155,6 +158,11 @@ void drawFramework() {
     drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
   } else {
     drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  }
+  
+  // Draw Radar Plot
+  if (displayRadar) {
+    kpi.draw(radarX, radarY, radarH);
   }
 }
 
