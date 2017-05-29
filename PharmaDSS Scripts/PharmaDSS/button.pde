@@ -148,6 +148,9 @@ void keyPressed() {
     case '`': //  "Enable Projection (`)"
       toggleProjection();
       break;
+    case 'y':
+      println(mouseX, mouseY);
+      break;
   }
   loop();
 }

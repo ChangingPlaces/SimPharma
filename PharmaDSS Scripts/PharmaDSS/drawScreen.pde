@@ -71,7 +71,7 @@ void drawScreen() {
       text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + 30);
   
   // Draw Phasing Diagram
-      image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
+      //image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
   
   // Draw Profiles
       if (!gameMode) {
@@ -168,8 +168,8 @@ void drawScreen() {
   if (displayRadar) {
     kpi.draw(radarX, radarY, radarH);
   }
-  
-  image(logo, MARGIN, height-MARGIN - 70);
+
+  image(logo, MARGIN, height-MARGIN - 70); 
   
 }
 

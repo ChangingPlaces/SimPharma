@@ -73,7 +73,7 @@ void setup() {
   logo = loadImage("data/GSK-logo-2014.png");
   setupRadar();
   setupTable();
-  
+
   initUDP();
 }
 
@@ -99,6 +99,13 @@ void draw() {
     mainMenu.draw();
   }
   
+  drawPhase((profilesW + 1.75*MARGIN)/6, (profilesW + 1.75*MARGIN)/12, (profilesW + 1.75*MARGIN)/20, color(200, 10, 20), "RANDOM");
+  
+  shape(s, 0.25*MARGIN + profilesX, MARGIN - 10);
+  shape(s, 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  shape(s, 0.25*MARGIN + profilesX + 2*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  shape(s,0.25*MARGIN + profilesX + 3*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  shape(s,0.25*MARGIN + profilesX + 4*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);    
   noLoop();
 }
 

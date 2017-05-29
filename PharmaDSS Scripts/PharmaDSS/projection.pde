@@ -95,6 +95,7 @@ public class projApplet extends PApplet {
     // Initialize projection-mapping objects
     ks = new Keystone(this);
     surface = ks.createCornerPinSurface(projectorHeight, projectorHeight, 20);
+
     offscreen = createGraphics(projectorHeight, projectorHeight, P3D);
     
     try{
