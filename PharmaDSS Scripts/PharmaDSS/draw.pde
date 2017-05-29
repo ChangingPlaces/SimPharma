@@ -1,8 +1,8 @@
 PImage phasing, sitePNG, sitePNG_BW;
 
 int MARGIN = 50;
-int HIGHLIGHT = #99CCCC;
-int THEME = #cccc00;
+color HIGHLIGHT = color(174, 229, 229);
+color THEME = color(84, 208, 242);
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY;
@@ -56,7 +56,6 @@ void drawFramework() {
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH, 3);
       
   // Draw Title
-  
       fill(textColor);
       textAlign(RIGHT);
       text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
@@ -64,11 +63,9 @@ void drawFramework() {
       text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + 30);
   
   // Draw Phasing Diagram
-  
       image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
   
   // Draw Profiles
-
       if (!gameMode) {
         drawProfiles(agileModel.PROFILES);
       } else {
@@ -76,7 +73,6 @@ void drawFramework() {
       }
  
   // Draw Sites
-  
       float maxSite, current;
       maxSite = 0;
       for (int i=0; i<NUM_SITES; i++) { // Calculate maximum site capacity value
@@ -185,9 +181,9 @@ void drawProfiles(ArrayList<Profile> list) {
   
   // Current Year
   fill(textColor, 80);
-  rect(profilesX + profilesW + 0.5*MARGIN+3, titlesY - 15+3, 40, 20, 5);
+//  rect(profilesX + profilesW + 0.5*MARGIN+3, titlesY - 15+3, 40, 20, 5);
   fill(THEME);
-  rect(profilesX + profilesW + 0.5*MARGIN, titlesY - 15, 40, 20, 5);
+//  rect(profilesX + profilesW + 0.5*MARGIN, titlesY - 15, 40, 20, 5);
   textAlign(RIGHT);
   fill(textColor);
   text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
