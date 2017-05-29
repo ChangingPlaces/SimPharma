@@ -37,7 +37,7 @@ void regenerateGame() {
   }
   
   // Generate New Basins for Sites
-//  generateBasins();
+  generateBasins();
   
   //resets Scores for debugging
   for (int i=0; i<kpi.nRadar; i++) {

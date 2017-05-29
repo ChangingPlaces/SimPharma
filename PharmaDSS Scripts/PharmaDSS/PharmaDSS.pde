@@ -162,7 +162,10 @@ void setup() {
 void draw() {
   
   // Refers to "draw" tab
-  drawFramework();
+  drawScreen();
+  
+  // Refers to "TableSurface" tab
+  drawTable();
   
   drawTable();
   
