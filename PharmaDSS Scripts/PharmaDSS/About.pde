@@ -20,8 +20,11 @@
   *               The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
   *               developed by Mason Briner and Giovonni Giorgio in U.K. 
   *
-  *               The primary purpose of this work is overcome various limitations of excel such as: 
+  *               The primary purpose of this work is to overcome various limitations of excel such as: 
   *               graphics, arithmatic operations, usability, and stochastic variability.
+  *
+  *               This script will also be compatible with the "Tactile Matrix," a tangible Lego interface 
+  *               developed by Ira Winder at the MIT Media Lab.
   *
   *               Classes that define primary object abstractions in the system are: 
   *               (a) Profile: NCE demand profile
