@@ -23,14 +23,6 @@
 
 import javax.swing.JFrame;
 import deadpixel.keystone.*;
-import java.util.*;
-import java.net.*;
-/* The java.io package contains the basics needed for IO operations. */
-import java.io.*;
-/** The SocketClient class is a simple example of a TCP/IP Socket Client.
- *
- */
-import hypermedia.net.*;
 
 Keystone ks;
 CornerPinSurface surface;
@@ -111,11 +103,6 @@ public class projApplet extends PApplet {
     
     ks = new Keystone(this);
     
-    // TableSurface(int u, int v, boolean left_margin)
-    mfg = new TableSurface(projectorHeight, projectorHeight, 22, 22, true);
-    enableSites = true;
-    generateBasins();
-    
     reset();
   }
   
@@ -142,16 +129,8 @@ public class projApplet extends PApplet {
     background(0);
     
     // Draw the scene, offscreen
-    renderCanvas(offscreen);
     surface.render(offscreen);
   
-  }
-  
-  void renderCanvas(PGraphics p) {
-    if (enableSites) {
-      // Draw the scene, offscreen
-      mfg.draw(offscreen);
-    }
   }
   
   void keyPressed() {
@@ -201,6 +180,14 @@ void toggle2DProjection() {
   }
 }
 
+void setupTable() {
+  offscreen = createGraphics(projectorHeight, projectorHeight);
+  // TableSurface(int u, int v, boolean left_margin)
+  mfg = new TableSurface(projectorHeight, projectorHeight, 22, 22, true);
+  enableSites = true;
+  generateBasins();
+}
+
 void generateBasins() {
   int numBasins = int(random(2,4));
   siteCapacity = new float[numBasins];
@@ -239,14 +226,16 @@ class TableSurface {
     p.beginDraw();
     p.background(50);
     
-    if (inputArea.size() > 0) {
-      for (int i=0; i<inputArea.size(); i++) {
-        p.fill(255);
-        p.textAlign(CENTER, CENTER);
-        p.textSize(cellH/2);
-        p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 1.5)*cellH);
-        p.shape(inputArea.get(i).s[0]);
-        p.shape(inputArea.get(i).s[1]);
+    if (enableSites) {
+      if (inputArea.size() > 0) {
+        for (int i=0; i<inputArea.size(); i++) {
+          p.fill(255);
+          p.textAlign(CENTER, CENTER);
+          p.textSize(cellH/2);
+          p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 1.5)*cellH);
+          p.shape(inputArea.get(i).s[0]);
+          p.shape(inputArea.get(i).s[1]);
+        }
       }
     }
     

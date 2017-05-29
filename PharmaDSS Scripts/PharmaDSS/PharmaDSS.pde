@@ -132,7 +132,7 @@ void setup() {
   session = new Game();
   
   // Setup for Canvas Visualization
-  size(screenWidth, screenHeight);
+  size(screenWidth, screenHeight, P2D);
   
   // Window may be resized after initialized
   frame.setResizable(true);
@@ -155,6 +155,7 @@ void setup() {
   sitePNG_BW = loadImage("data/site_BW.png");
   
   setupRadar();
+  setupTable();
 }
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
@@ -162,6 +163,8 @@ void draw() {
   
   // Refers to "draw" tab
   drawFramework();
+  
+  drawTable();
   
   // Draws Menu
   hideMenu.draw();

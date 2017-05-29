@@ -168,6 +168,10 @@ void drawFramework() {
   if (displayRadar) {
     kpi.draw(radarX, radarY, radarH);
   }
+  
+  drawTable();
+  
+  
 }
 
 void drawLargeProfile(Profile selected) {
@@ -243,4 +247,17 @@ void drawProfiles(ArrayList<Profile> list) {
   rect(MARGIN + profilesX+200, profilesY + 10, 15, 3);
   text("Capacity", MARGIN + profilesX+220, profilesY + 15);
   
+}
+
+void drawTable() {
+  
+  // Draw the scene, offscreen
+  mfg.draw(offscreen);
+  
+  if (testProjectorOnMac) {
+    fill(textColor, 100);
+    noStroke();
+    rect(0, 0, width, height);
+    image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
+  }
 }
