@@ -18,8 +18,6 @@ void drawArrow(float w, float h, float inset, color col){
 void drawPhaseDiagram(){
   drawArrow((profilesW + 1.75*MARGIN)/6, (profilesW + 1.75*MARGIN)/12, (profilesW + 1.75*MARGIN)/20, color(100));
   
-
-
   s.setFill(color(100, 100, 100, 150));
   shape(s, 0.25*MARGIN + profilesX, MARGIN - 10);
   shape(s, 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/5, MARGIN - 10);
@@ -32,6 +30,20 @@ void drawPhaseDiagram(){
 
   fill(255);
   textAlign(CENTER, CENTER);
-  println(0.25*MARGIN + profilesX, MARGIN - 10 + (profilesW + 1.75*MARGIN)/12);
-  text("Candidate Selection",0.25*MARGIN + profilesX, MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24);
+  float arrowwidth = (profilesW + 1.75*MARGIN)/6;
+  float ellx = 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12;
+
+  float elly =  MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24;
+  textSize(textSize - 2);
+    text("Candidate",ellx + textSize, elly - textSize/2);
+    text("Selection",ellx + textSize, elly + textSize/2);
+    textSize(textSize - 1);
+     textAlign(LEFT, CENTER);
+    text("PIIb", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + (profilesW + 1.75*MARGIN)/5  , elly );
+    text("PIII", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 2*(profilesW + 1.75*MARGIN)/5  , elly );
+    text("File", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 3*(profilesW + 1.75*MARGIN)/5  , elly );
+     textAlign(CENTER, CENTER);
+    text("Launch", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 4*(profilesW + 1.75*MARGIN)/5  +textSize , elly );
+ // text("Candidate",0.25*MARGIN + profilesX , MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24 - 6);
+  //text("Selection",0.25*MARGIN + profilesX, MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24 + textSize -6);
 }
