@@ -26,6 +26,7 @@ void regenerateGame() {
   agileModel.maxCapacity();
   
   // Generate New Basins for Sites
+  mfg.resetCellTypes();
   generateBasins();
   
   //resets Scores for debugging

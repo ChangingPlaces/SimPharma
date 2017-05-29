@@ -77,6 +77,8 @@
   *               - Added Button for loading original XLS game data
   *               - Create turn-by-turn record or table state
   *               - Draw Colortizer/Table State onto 'offscreen'
+  *               - Included GSK Logo
+  *               - Add cell Identifiers for Tabletop
   */
   
 String VERSION = "BETA V1.0";  
