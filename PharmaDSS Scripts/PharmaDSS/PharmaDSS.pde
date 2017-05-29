@@ -77,9 +77,12 @@ void setup() {
   initUDP();
 }
 
+int textSize = 12;
+
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
-  
+  textSize = min(16,int(width/100));
+  println(textSize);
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
     decodePieces();
@@ -99,13 +102,9 @@ void draw() {
     mainMenu.draw();
   }
   
-  drawPhase((profilesW + 1.75*MARGIN)/6, (profilesW + 1.75*MARGIN)/12, (profilesW + 1.75*MARGIN)/20, color(200, 10, 20), "RANDOM");
-  
-  shape(s, 0.25*MARGIN + profilesX, MARGIN - 10);
-  shape(s, 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/5, MARGIN - 10);
-  shape(s, 0.25*MARGIN + profilesX + 2*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
-  shape(s,0.25*MARGIN + profilesX + 3*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
-  shape(s,0.25*MARGIN + profilesX + 4*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);    
+  drawPhaseDiagram();  
+  fill(0);
+//  rect(width-50, height-50, width/100, width/100);
   noLoop();
 }
 

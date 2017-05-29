@@ -84,6 +84,7 @@ class Build {
     fill(abs(textColor - 75));
     rect(x + 35, y - 5, scaler*capacity, 10, 3);
     textAlign(LEFT);
+    textSize(textSize);
     fill(textColor);
     text(capacity + " " + agileModel.WEIGHT_UNITS, x, y + 4);
     if (type.equals("GMS")) {

@@ -256,6 +256,7 @@ class Profile {
         ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
         fill(textColor);
         textAlign(CENTER);
+         textSize(textSize);
         text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
       }
       

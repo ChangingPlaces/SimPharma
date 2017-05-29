@@ -274,7 +274,6 @@ class Button{
   void draw(PGraphics p){
     if (!isVoid) {
       p.noStroke();
-      p.textSize(10);
       if( over() ) {  // Darkens button if hovering mouse over it
         p.fill(100, hover);
       } else if (isPressed){
@@ -284,6 +283,7 @@ class Button{
       }
       p.rect(x, y, w, h, 5);
       p.fill(255);
+      p.textSize(11);
       p.text(label, x + (w/2-textWidth(label)/2), y + 0.6*h); 
     }
   } 

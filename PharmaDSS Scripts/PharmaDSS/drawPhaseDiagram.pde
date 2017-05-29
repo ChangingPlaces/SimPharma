@@ -1,22 +1,27 @@
 PShape s;
-void drawPhase(float w, float h, float inset, color col, String label){
+void drawArrow(float w, float h, float inset, color col){
    s = createShape();
   s.beginShape();
-  s.fill(0, 0, 255);
+  s.fill(col);
   s.noStroke();
-//  s.vertex(360-360, 43-43);
-//  s.vertex(378-360, 64-43);
-//  s.vertex(360-360, 82-43);
-//  s.vertex(439-360, 82-43);
-//  s.vertex(457-360, 64-43);
-//  s.vertex(439-360, 43-43);
-
   s.vertex(0, 0);
   s.vertex(inset, h/2);
   s.vertex(0, h);
   s.vertex(w, h);
   s.vertex(w + inset, h/2);
   s.vertex(w, 0);
-  
   s.endShape(CLOSE);
+}
+
+void drawPhaseDiagram(){
+  drawArrow((profilesW + 1.75*MARGIN)/6, (profilesW + 1.75*MARGIN)/12, (profilesW + 1.75*MARGIN)/20, color(100));
+  
+  shape(s, 0.25*MARGIN + profilesX, MARGIN - 10);
+  fill(255);
+  //textAlign(CENTER, CENTER);
+  //text("Candidate\nSelection",0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12, MARGIN - 10 + (profilesW + 1.75*MARGIN)/24);
+  shape(s, 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  shape(s, 0.25*MARGIN + profilesX + 2*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  shape(s,0.25*MARGIN + profilesX + 3*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  shape(s,0.25*MARGIN + profilesX + 4*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);  
 }

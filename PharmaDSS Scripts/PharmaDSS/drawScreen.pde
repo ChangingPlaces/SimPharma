@@ -22,7 +22,7 @@ int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH;
 void drawScreen() {
   // 1800, 1100
   
-  textSize(10);
+  textSize(textSize);
   
   // Upper Left Corners
   profilesX = int(0.18*width);
@@ -66,9 +66,9 @@ void drawScreen() {
   // Draw Title
       fill(textColor);
       textAlign(RIGHT);
-      text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
-      text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + 15);
-      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + 30);
+      text("PharmaDSS" + VERSION, width - MARGIN, MARGIN);
+      text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + textSize + 3);
+      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
   
   // Draw Phasing Diagram
       //image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
@@ -188,6 +188,7 @@ void drawLargeProfile(Profile selected) {
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
+  textSize(min(14, textSize));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
   
   // Current Year

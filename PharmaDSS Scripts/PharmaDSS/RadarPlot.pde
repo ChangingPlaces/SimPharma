@@ -4,10 +4,10 @@ RadarPlot kpi;
 void setupRadar() {
   
   kpi = new RadarPlot(5);
-  kpi.setName(0, "CAPEX");
-  kpi.setName(0, "OPEX");
-  kpi.setName(0, "COGs");
-  kpi.setName(0, "ATMDEM");
+  kpi.setName(4, "CAPEX");
+  kpi.setName(3, "OPEX");
+  kpi.setName(2, "COGs");
+  kpi.setName(1, "ATMDEM");
   kpi.setName(0, "SECSUP");
   
   for (int i=0; i<kpi.nRadar; i++) {
@@ -75,8 +75,6 @@ class RadarPlot {
       }
       
       //Draw Labels
-      translate(x,y);
-      rotate(rot);
       for (int i=0; i<nRadar; i++) {
         //Draw Labels
         if (hilite == i) {
@@ -84,23 +82,11 @@ class RadarPlot {
         } else {
           fill(#666666);
         }
-        
-        if (PI/2 < (2*PI*i/nRadar+rot) && (2*PI*i/nRadar+rot) < 3*PI/2) { //Flips text upside down
-          rotate(PI);
-          textAlign(RIGHT);
-  
-          text(names.get(i), - d - 48, 0.4*48);
-          
-          textAlign(LEFT);
-          rotate(-PI);
-        } else {
-          text(names.get(i), d+48, 0.4*48);
-        }
-        rotate(2*PI/nRadar);
+         textAlign(CENTER);
+         text(names.get(i), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y - 7);
+
       }
-      rotate(-rot);
-      translate(-x,-y);
-      
+
       //Draw Score Fills
       for (int i=0; i<nRadar; i++) {
         noStroke();
