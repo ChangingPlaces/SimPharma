@@ -24,26 +24,33 @@ void drawScreen() {
   
   textSize(textSize);
   
-  // Upper Left Corners
+  //Profile
   profilesX = int(0.18*width);
   profilesY = int(0.23*height);
-  buildsX   = int(0.49*width);
-  buildsY   = int(0.23*height);
-  sitesX    = int(0.64*width);
-  sitesY    = int(0.23*height);
-  radarX    = int(0.56*width);
-  radarY    = int(0.83*height);
-  titlesY   = int(2.80*MARGIN);
-  
-  // Width and Height
-  profilesW = int(0.20*width);
+  profilesW = int(0.23*width);
   profilesH = int(0.02*height);
-  buildsW   = int(0.13*width);
-  buildsH   = profilesH;
+  
+  //Sites
+  sitesX    = int(profilesX + profilesW + 100);
+  sitesY    = int(0.23*height);
   sitesW    = int(0.08*width);
   sitesH    = height - 2*MARGIN - sitesY;
-  radarH    = int(0.06*width);
   
+  //Radar
+  radarH    = int(0.06*width);
+  radarX    = int(sitesX + radarH + 60);
+  radarY    = int(0.8*height);
+  
+  
+  //Builds
+  buildsX = sitesX + radarH*3;
+  buildsY = sitesY + sitesH/2;
+  buildsW   = int(0.13*width);
+  buildsH   = profilesH;
+  
+  //Titles
+  titlesY   = int(2.80*MARGIN);
+
   background(abs(background - 15));
   boolean selected;
   

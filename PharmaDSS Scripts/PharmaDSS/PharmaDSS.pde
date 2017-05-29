@@ -86,7 +86,6 @@ int textSize = 12;
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
   textSize = min(16,int(width/100));
-  println(textSize);
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
     decodePieces();
