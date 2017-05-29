@@ -12,6 +12,11 @@
  int projectorHeight = 1200;
  int projectorOffset = 1280;
  
+/* - Added Table Surface Canvas
+ * - Added Projection Mapping
+ * - Added Colortizer port
+ */
+ 
  /* Release Notes:
  /
  /  ALPHA V1.3 Release
@@ -39,7 +44,7 @@
  /      - Add Large-scale format for selected profile for greater legibility
  /      - Build capacity has 3 states: (1) Under Construction, (2) Active, (3) Inactive/Not utilized 
  /
- /  BETA V1.1 Release
+ /  ALPHA V1.1 Release
  /  Dynamic, Turn-based interaction using mouse and keyboard commands
  /  Misc Visual:
  /    - Added peak forecast demand tag to Profiles
@@ -62,7 +67,7 @@
  /  (c) Build: Manufacturing Unit/Process
  /  (d) Person: "Human Beans", as the BFG would say (i.e. Labor)
  / 
- /  The Beta is designed with the following minimum viable features:
+ /  The Alpha is designed with the following minimum viable features:
  /  - Object-oriented framework for model components
  /    - Profiles, Sites, Builds, and Persons
  /  - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
@@ -157,10 +162,18 @@ void setup() {
   logo = loadImage("data/GSK-logo-2014.png");
   setupRadar();
   setupTable();
+  
+  initUDP();
 }
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
+  
+  // Decode Lego pieces only if there is a change in Colortizer input
+  if (changeDetected) {
+    decodePieces();
+    changeDetected = false;
+  }
   
   // Refers to "draw" tab
   drawScreen();

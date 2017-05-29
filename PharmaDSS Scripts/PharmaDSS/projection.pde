@@ -24,12 +24,14 @@
 import javax.swing.JFrame;
 import deadpixel.keystone.*;
 
+// Graphics Objects needed for Projection Mapping
 Keystone ks;
 CornerPinSurface surface;
 PGraphics offscreen;
 
 // Visualization may show 2D projection visualization, or not
 boolean displayProjection2D = false;
+// When debugging without a projector (i.e. on Mac Laptop), this boolean allows table canvas to be shown on screen
 boolean testProjectorOnMac = false;
 
 // New Application Window Parameters
@@ -56,6 +58,7 @@ public class PFrame extends JFrame {
   }
 }
 
+// Open the Pojection Frame
 public void showProjection2D() {
   if (proj2D == null) {
     proj2D = new PFrame();
@@ -63,10 +66,12 @@ public void showProjection2D() {
   proj2D.setVisible(true);
 }
 
+// Close the Projection Frame
 public void closeProjection2D() {
   proj2D.setVisible(false);
 }
 
+// Throw out old Frame and start anew
 public void resetProjection2D() {
   initializeProjection2D();
   if (proj2D != null) {
@@ -80,20 +85,20 @@ public void resetProjection2D() {
   }
 }
 
+// This is a new applet window, and operates like a separate processing thread with its own setup() and draw() functions
 public class projApplet extends PApplet {
   public void setup() {
     // Keystone will only work with P3D or OPENGL renderers, 
     // since it relies on texture mapping to deform
     size(projectorWidth, projectorHeight, P3D);
+    
+    // Initialize projection-mapping objects
     ks = new Keystone(this);
-    reset();
-  }
-  
-  public void reset() {
     surface = ks.createCornerPinSurface(projectorHeight, projectorHeight, 20);
     offscreen = createGraphics(projectorHeight, projectorHeight, P3D);
     
     try{
+      // Loads the corner position of a previously callibrated projection map
       ks.load();
     } catch(RuntimeException e){
       println("No Keystone.xml.  Save one first if you want to load one.");
@@ -147,6 +152,7 @@ public class projApplet extends PApplet {
   }
 }
 
+// Turns Projection Mapping Applet On and Off
 void toggle2DProjection() {
   if (System.getProperty("os.name").substring(0,3).equals("Mac")) {
     testProjectorOnMac = !testProjectorOnMac;

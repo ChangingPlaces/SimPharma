@@ -1,3 +1,5 @@
+// The following scripts stage the drawing that is eventually projected upon a Tactile Matrix
+
 TableSurface mfg;
 float[] siteCapacity;
 boolean enableSites;
@@ -16,7 +18,7 @@ boolean enableSites;
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight, P3D);
   // TableSurface(int u, int v, boolean left_margin)
-  mfg = new TableSurface(projectorHeight, projectorHeight, 22, 22, true);
+  mfg = new TableSurface(projectorHeight, projectorHeight, V_MAX, V_MAX, true);
   enableSites = true;
   generateBasins();
 }
