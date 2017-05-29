@@ -21,6 +21,9 @@ class MFG_System {
   ArrayList<Site> SITES;
   ArrayList<Build> GMS_BUILDS, RND_BUILDS;
   
+  // Max capacity value for a Site. (capEx + capGn)
+  float maxCap;
+  
   // Table that describes labor types and associated costs 
   Table LABOR_TYPES;
 
@@ -41,5 +44,15 @@ class MFG_System {
     SITES = new ArrayList<Site>();
     GMS_BUILDS = new ArrayList<Build>();
     RND_BUILDS = new ArrayList<Build>();
+  }
+  
+  float maxCapacity() {
+    float current;
+    maxCap = 0;
+    for (int i=0; i<NUM_SITES; i++) { // Calculate maximum site capacity value
+      current = agileModel.SITES.get(i).capEx + SITES.get(i).capGn;
+      if ( current > agileModel.maxCap ) maxCap = current;
+    }
+    return maxCap;
   }
 }

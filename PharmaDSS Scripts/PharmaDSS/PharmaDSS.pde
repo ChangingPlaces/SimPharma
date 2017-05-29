@@ -49,6 +49,9 @@ void setup() {
 
   }
   
+  // Calculates Max Capacity Site
+  agileModel.maxCapacity();
+  
   //Initiate Game
   session = new Game();
   

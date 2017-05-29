@@ -24,10 +24,10 @@ void setupTable() {
 }
 
 void drawTable() {
-  
+
   // Draw the scene, offscreen
   mfg.draw(offscreen);
-  
+
   if (testProjectorOnMac) {
 
     stroke(background);
@@ -39,46 +39,46 @@ void drawTable() {
 }
 
 void generateBasins() {
-  int numBasins = int(random(2,4));
-  siteCapacity = new float[numBasins];
-  for (int i=0; i<numBasins; i++) { 
-    siteCapacity[i] = random(10,50);
+  siteCapacity = new float[NUM_SITES];
+  for (int i=0; i<NUM_SITES; i++) { 
+    //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
+    siteCapacity[i] = agileModel.SITES.get(i).capEx;
   }
-  
+
   mfg.clearBasins();
   mfg.addBasins(siteCapacity);
   enableSites = true;
 }
 
 class TableSurface {
-  
+
   int U, V;
   float cellW, cellH;
 
   boolean LEFT_MARGIN;
   int MARGIN_W = 4;
   int BASINS_Y = 5;
-  
+
   ArrayList<Basin> inputArea;
-  
+
   TableSurface(int W, int H, int u, int v, boolean left_margin) {
     U = u;
     V = v;
     LEFT_MARGIN = left_margin;
     inputArea = new ArrayList<Basin>();
-    
+
     cellW = float(W)/U;
     cellH = float(H)/V;
   }
-  
+
   void draw(PGraphics p) {
-    
+
     p.beginDraw();
     p.background(50);
-    
+
     if (enableSites) {
       if (inputArea.size() > 0) {
-        for (int i=0; i<inputArea.size(); i++) {
+        for (int i=0; i<inputArea.size (); i++) {
           p.fill(255);
           p.textAlign(CENTER, CENTER);
           p.textSize(cellH/2);
@@ -88,11 +88,11 @@ class TableSurface {
         }
       }
     }
-    
+
     p.noFill();
     p.stroke(0);
     p.strokeWeight(3);
-    
+
     // Draw black edges where Lego grad gaps are
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
@@ -101,15 +101,15 @@ class TableSurface {
         }
       }
     }
-    
+
     // Draw Black Edge around 4x22 left margin area
     if (LEFT_MARGIN) {
       p.rect(0, 0, MARGIN_W*cellW, p.height);
     }
-    
+
     p.endDraw();
   }
-  
+
   void addBasins(float[] basinSize) {
     int num = basinSize.length;
     int availableWidth = U - MARGIN_W;
@@ -118,50 +118,54 @@ class TableSurface {
       inputArea.add( new Basin(MARGIN_W + 1 + i*basinWidth, BASINS_Y, int(basinSize[i]), basinWidth - 2) );
     }
   }
-  
+
   void clearBasins() {
     inputArea.clear();
   }
-  
+
   // A basin is an area on the table grid representing a total quantity 
   // of some available parameter. Typically, basins are "filled in" by tagged lego pieces.
   class Basin {
     int basinX, basinY, basinSize, basinWidth;
+    float basinCap;
     int[] CORNER_BEVEL;
-    
+    int MAX_SIZE;
     boolean isQuad = true;
     PShape[] s;
-    
-    Basin(int basinX, int basinY, int basinSize, int basinWidth) {
+
+    Basin(int basinX, int basinY, float basinCap, int basinWidth) {
       this.basinX = basinX;
       this.basinY = basinY;
-      this.basinSize = basinSize;
+      this.basinCap = basinCap;
       this.basinWidth = basinWidth;
-      
+
+      MAX_SIZE = basinWidth * ( V_MAX - basinY - 2);
+      basinSize = int(basinCap / agileModel.maxCap * MAX_SIZE);
+
       CORNER_BEVEL = new int[2];
-      CORNER_BEVEL[0] = 10;
+      CORNER_BEVEL[0] = 15;
       CORNER_BEVEL[1] =int( 0.75*CORNER_BEVEL[0] );
       s = new PShape[2];
-      
+
       if (basinSize%basinWidth != 0) {
         isQuad = false;
       }
-      
+
       // Outline
       for (int i=0; i<2; i++) {
         s[i] = createShape();
         s[i].beginShape();
-        
+
         s[i].noFill();
         s[i].strokeWeight(1.5*CORNER_BEVEL[i]);
-        
+
         if (i==0) {
           s[i].stroke(255);
         } else {
           s[i].stroke(GSK_ORANGE, 200);
         }
 
-        s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW,                 - CORNER_BEVEL[i] +  basinY*cellH);
+        s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, - CORNER_BEVEL[i] +  basinY*cellH);
         s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, - CORNER_BEVEL[i] +  basinY*cellH);
         if (isQuad) {
           s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
@@ -170,10 +174,11 @@ class TableSurface {
           s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth - 1) * cellH);
           s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
         }
-        s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW,                 + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
-  
+        s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
+
         s[i].endShape(CLOSE);
       }
     }
   }
 }
+

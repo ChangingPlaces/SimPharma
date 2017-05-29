@@ -88,19 +88,13 @@ void drawScreen() {
       }
  
   // Draw Sites
-      float maxSite, current;
-      maxSite = 0;
-      for (int i=0; i<NUM_SITES; i++) { // Calculate maximum site capacity value
-        current = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
-        if ( current > maxSite ) maxSite = current;
-      }
       fill(textColor);
       textAlign(LEFT);
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
-        agileModel.SITES.get(i).draw(MARGIN + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, sitesW, sitesH, maxSite, selected);
+        agileModel.SITES.get(i).draw(MARGIN + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, sitesW, sitesH, agileModel.maxCap, selected);
       }
   
   // Draw Build/Repurpose Units

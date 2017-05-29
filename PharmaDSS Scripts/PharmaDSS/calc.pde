@@ -36,6 +36,9 @@ void regenerateGame() {
     gameMode = true;
   }
   
+  // Calculates Max Capacity Site
+  agileModel.maxCapacity();
+  
   // Generate New Basins for Sites
   generateBasins();
   
