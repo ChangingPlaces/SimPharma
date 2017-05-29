@@ -74,6 +74,7 @@
   *               - Add Greenfield capacity to Site Basins
   *               - Randomization of Site (2-3 of various sizes)
   *               - Allow Resetting of Values to Original Spreadsheet
+  *               - Added Button for loading original XLS game data
   */
   
 String VERSION = "BETA V1.0";  
@@ -93,6 +94,7 @@ Nina:
   *               - Add Turn-By-Turn Graph of Performance
   *               - Add Dock for filtering NEC performance
   *               - Add Docks performance metric filter
+  *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   *
   *               - Create turn-by-turn record or table state
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables

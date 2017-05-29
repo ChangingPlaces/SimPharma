@@ -22,24 +22,25 @@ boolean showMainMenu = true;
 // what they are named by editing this String array:
 String[] buttonNames = 
 {
-  "Generate Profiles (SH+R)",  // 0
-  "Play Game (g)",  // 1
-  "VOID",  // 2
-  "Toggle Profile (p)",    // 3
-  "Toggle Site (s)",  // 4
-  "Toggle Existing Build (SH+S)", //5
-  "Toggle New Build (b)",  // 6
-  "VOID",  // 7
-  "Deploy Selection (d)",  // 8
-  "Remove Selection (r)",  // 9
-  "Repurpose Selection (e)",  // 10
-  "VOID",  // 11
-  "End Turn (SPACE)",    // 12
-  "VOID",  // 13
+  "Load Random Data (SH+R)",  // 0
+  "Load XLS Data (SH+X)",  // 1
+  "Play Game (g)",  // 2
+  "VOID",  // 3
+  "Toggle Profile (p)",    // 4
+  "Toggle Site (s)",  // 5
+  "Toggle Existing Build (SH+S)", //6
+  "Toggle New Build (b)",  // 7
+  "VOID",  // 8
+  "Deploy Selection (d)",  // 9
+  "Remove Selection (r)",  // 10
+  "Repurpose Selection (e)",  // 11
+  "VOID",  // 12
+  "End Turn (SPACE)",    // 13
   "VOID",  // 14
   "VOID",  // 15
-  "Invert Colors (i)", // 16
-  "Project Table (`)", // 17
+  "VOID",  // 16
+  "Invert Colors (i)", // 17
+  "Project Table (`)", // 18
   
   
 };
@@ -57,50 +58,56 @@ void mouseClicked() {
   }
   
   if(mainMenu.buttons[0].over()){ 
+    loadOriginal = false;
     regenerateGame();
   }
   
   if(mainMenu.buttons[1].over()){ 
+    loadOriginal = true;
+    regenerateGame();
+  }
+  
+  if(mainMenu.buttons[2].over()){ 
     toggleGame();
   }
   
-  if(mainMenu.buttons[3].over()){ 
+  if(mainMenu.buttons[4].over()){ 
     nextProfile();
   }
   
-  if(mainMenu.buttons[4].over()){ 
+  if(mainMenu.buttons[5].over()){ 
     nextSite();
   }
   
-  if(mainMenu.buttons[5].over()){ 
+  if(mainMenu.buttons[6].over()){ 
     nextSiteBuild();
   }
   
-  if(mainMenu.buttons[6].over()){ 
+  if(mainMenu.buttons[7].over()){ 
     nextBuild();
   }
   
-  if(mainMenu.buttons[8].over()){ 
+  if(mainMenu.buttons[9].over()){ 
     deploySelection();
   }
   
-  if(mainMenu.buttons[9].over()){ 
+  if(mainMenu.buttons[10].over()){ 
     removeSelection();
   }
   
-  if(mainMenu.buttons[10].over()){ 
+  if(mainMenu.buttons[11].over()){ 
     repurposeSelection();
   }
   
-  if(mainMenu.buttons[12].over()){ 
+  if(mainMenu.buttons[13].over()){ 
     endTurn();
   }
   
-  if(mainMenu.buttons[16].over()){ 
+  if(mainMenu.buttons[17].over()){ 
     invertColors();
   }
   
-  if(mainMenu.buttons[17].over()){ 
+  if(mainMenu.buttons[18].over()){ 
     toggleProjection();
   }
   
@@ -115,7 +122,12 @@ void keyPressed() {
     case 'i': // "Invert Colors (i)"
       invertColors();
       break;
-    case 'R': // "Regenerate Profile Data (SH+R)"
+    case 'R': // "Regenerate Random Game Data (SH+R)"
+      loadOriginal = false;
+      regenerateGame();
+      break;
+    case 'X': // "Regenerate XLS Game Data (SH+X)"
+      loadOriginal = true;
       regenerateGame();
       break;
     case 'g': // "Play Game (g)"
@@ -198,19 +210,19 @@ void invertColors() {
 void toggleGame() {
   if (gameMode) {
     gameMode = false;
-    mainMenu.buttons[1].label = "Play Game (g)";
-    mainMenu.buttons[12].isVoid = true;
-    mainMenu.buttons[8].isVoid = true;
+    mainMenu.buttons[2].label = "Play Game (g)";
+    mainMenu.buttons[13].isVoid = true;
     mainMenu.buttons[9].isVoid = true;
     mainMenu.buttons[10].isVoid = true;
+    mainMenu.buttons[11].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[1].label = "God Mode (g)";
-    mainMenu.buttons[12].isVoid = false;
-    mainMenu.buttons[8].isVoid = false;
+    mainMenu.buttons[2].label = "God Mode (g)";
+    mainMenu.buttons[13].isVoid = false;
     mainMenu.buttons[9].isVoid = false;
     mainMenu.buttons[10].isVoid = false;
+    mainMenu.buttons[11].isVoid = false;
   }
   
   println("gameMode: " + gameMode);

@@ -4,7 +4,6 @@ boolean gameMode = false;
 void regenerateGame() {
   
   boolean interrupt = false;
-  loadOriginal = false;
   
   // Cannot reset game while in active game mode
   if (gameMode) {

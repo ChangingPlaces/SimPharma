@@ -129,8 +129,8 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
-  mainMenu.buttons[12].isVoid = !gameMode;
-  mainMenu.buttons[8].isVoid = !gameMode;
+  mainMenu.buttons[13].isVoid = !gameMode;
   mainMenu.buttons[9].isVoid = !gameMode;
   mainMenu.buttons[10].isVoid = !gameMode;
+  mainMenu.buttons[11].isVoid = !gameMode;
 }
