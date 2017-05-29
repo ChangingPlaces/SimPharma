@@ -25,8 +25,8 @@ void regenerateGame() {
     gameMode = false;
   }
   
-  // Initiate System and Objects
-  agileModel = new System();
+  // Initiate MFG_System and Objects
+  agileModel = new MFG_System();
   //Initiate Game
   loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
   
@@ -35,6 +35,9 @@ void regenerateGame() {
   if (interrupt) {
     gameMode = true;
   }
+  
+  // Generate New Basins for Sites
+//  generateBasins();
   
   //resets Scores for debugging
   for (int i=0; i<kpi.nRadar; i++) {

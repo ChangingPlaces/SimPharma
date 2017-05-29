@@ -5,6 +5,13 @@
 
  String VERSION = "ALPHA V1.3";
  
+ int screenWidth = 1280;
+ int screenHeight = 800;
+ 
+ int projectorWidth = 1920;
+ int projectorHeight = 1200;
+ int projectorOffset = 1280;
+ 
  /* Release Notes:
  /
  /  ALPHA V1.3 Release
@@ -93,18 +100,18 @@
 import java.awt.event.*;
 
 // Initialize (1)system and (2)objects of model:
-System agileModel;
+MFG_System agileModel;
 Game session;
 
-// Specify to "true" if reading System Values from an XLS spreadsheet file in the "data/" folder"
+// Specify to "true" if reading MFG_System Values from an XLS spreadsheet file in the "data/" folder"
 // (Do not set to false unless you provide for default initialization values for system)
 boolean readXLS = true;
 
 // "setup()" runs once upon executing script
 void setup() {
   
-  // Initiate System and Objects
-  agileModel = new System();
+  // Initiate MFG_System and Objects
+  agileModel = new MFG_System();
   
   // Load Model XLS
   if (readXLS) {
@@ -125,7 +132,7 @@ void setup() {
   session = new Game();
   
   // Setup for Canvas Visualization
-  size(1280, 800);
+  size(screenWidth, screenHeight);
   
   // Window may be resized after initialized
   frame.setResizable(true);
@@ -183,8 +190,8 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   mainMenu = new Menu(canvasWidth, canvasHeight, 150, 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
-  mainMenu.buttons[14].isVoid = !gameMode;
-  mainMenu.buttons[10].isVoid = !gameMode;
-  mainMenu.buttons[11].isVoid = !gameMode;
   mainMenu.buttons[12].isVoid = !gameMode;
+  mainMenu.buttons[8].isVoid = !gameMode;
+  mainMenu.buttons[9].isVoid = !gameMode;
+  mainMenu.buttons[10].isVoid = !gameMode;
 }

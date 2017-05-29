@@ -58,20 +58,20 @@ import de.bezier.data.*;
 XlsReader reader;         
 
 // reads the XLS file and assigns values to System and Objects
-void loadModel_XLS(System model, String name) {
+void loadModel_XLS(MFG_System model, String name) {
   
   // open xls file for reading
   reader = new XlsReader( this, name );  
   
-  // Read System Information
+  // Read MFG_System Information
   reader.openSheet(SYSTEM_SHEET);
     
-  // Read System: Units
+  // Read MFG_System: Units
   model.WEIGHT_UNITS = reader.getString(SITE_ROW, SITE_COL+2);
   model.TIME_UNITS = reader.getString(GMS_ROW+2, 1);
   model.COST_UNITS = reader.getString(GMS_ROW+7, 1).substring(0,1);
 
-  // Read System: Labor Types
+  // Read MFG_System: Labor Types
   model.LABOR_TYPES.addColumn(reader.getString(LABOR_ROW, LABOR_COL));
   model.LABOR_TYPES.addColumn(reader.getString(LABOR_ROW, LABOR_COL+1));
   for (int i=0; i<NUM_LABOR; i++) {
@@ -80,7 +80,7 @@ void loadModel_XLS(System model, String name) {
     model.LABOR_TYPES.setFloat(i, 1, reader.getFloat(LABOR_ROW+1+i, LABOR_COL+1));
   }
 
-  // Read System: GMS Build Types
+  // Read MFG_System: GMS Build Types
   int index = -1;
   boolean valid;
   for (int i=0; i<NUM_GMS_BUILDS; i++) {
@@ -104,7 +104,7 @@ void loadModel_XLS(System model, String name) {
       model.GMS_BUILDS.get(index).repurpCost   = 1000000 * reader.getFloat(GMS_ROW + 3, GMS_COL + i);
       model.GMS_BUILDS.get(index).repurpTime   = reader.getFloat(GMS_ROW + 4, GMS_COL + i);
       
-      // Read System: GMS Build Labor
+      // Read MFG_System: GMS Build Labor
       for (int j=0; j<NUM_LABOR; j++) {
         int num = reader.getInt(GMS_ROW + 5 + 3*j, GMS_COL + i);
         for (int k=0; k<num; k++) {
@@ -118,7 +118,7 @@ void loadModel_XLS(System model, String name) {
     }
   }
   
-  // Read System: RND Build Types
+  // Read MFG_System: RND Build Types
   index = -1;
   for (int i=0; i<NUM_RND_BUILDS; i++) {
   
@@ -139,7 +139,7 @@ void loadModel_XLS(System model, String name) {
       model.RND_BUILDS.get(index).repurpCost    = 1000000 * reader.getFloat(RND_ROW + 2, RND_COL + i);
       model.RND_BUILDS.get(index).repurpTime    = reader.getFloat(RND_ROW + 1, RND_COL + i);
       
-      // Read System: RND Build Labor
+      // Read MFG_System: RND Build Labor
       for (int j=0; j<NUM_LABOR; j++) {
         int num = reader.getInt(RND_ROW + 3 + 3*j, RND_COL + i);
         for (int k=0; k<num; k++) {
@@ -153,7 +153,7 @@ void loadModel_XLS(System model, String name) {
     }
   }
   
-  // Read System: Sites
+  // Read MFG_System: Sites
   for (int i=0; i<NUM_SITES; i++) {
     model.SITES.add(new Site(
       "" + reader.getInt(SITE_ROW + i, SITE_COL),
@@ -163,7 +163,7 @@ void loadModel_XLS(System model, String name) {
     ));
   }
   
-  // Read System: MAX_SAFE_UTILIZATION
+  // Read MFG_System: MAX_SAFE_UTILIZATION
   model.MAX_SAFE_UTILIZATION = reader.getFloat(SAFE_ROW, SAFE_COL)/100.0;
   
   // Read Profile Information
