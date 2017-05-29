@@ -57,6 +57,7 @@ class Game {
     selectedSiteBuild = 0;
     selectedBuild = 0;
     turnLog = new ArrayList<Turn>();
+    tableHistory.clear();
     
     // Only adds profiles with 5 years advance forecast
     agileModel.activeProfiles.clear();
@@ -81,7 +82,12 @@ class Game {
   
   // End the turn and commit all events to the Log
   void execute() {
+    
     if (current.TURN < NUM_INTERVALS) {
+      if (connection) {
+        tableHistory.add(tablePieceInput);
+        println("Colortizer state logged #" + (tableHistory.size() - 1));
+      }
       turnLog.add(current);
       println("Turn " + current.TURN + " logged");
       

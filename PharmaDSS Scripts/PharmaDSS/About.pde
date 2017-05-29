@@ -75,6 +75,8 @@
   *               - Randomization of Site (2-3 of various sizes)
   *               - Allow Resetting of Values to Original Spreadsheet
   *               - Added Button for loading original XLS game data
+  *               - Create turn-by-turn record or table state
+  *               - Draw Colortizer/Table State onto 'offscreen'
   */
   
 String VERSION = "BETA V1.0";  
@@ -90,18 +92,17 @@ Nina:
 */
   
  /* TO DO:        
+  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
+  *               
+  *               - Create Legends for Build Units
+  *               - Add R&D slot to table visualization
+  *               - Prompt user if trying to place capacity into GMS prior to R&D
+  *
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   *               - Add Turn-By-Turn Graph of Performance
   *               - Add Dock for filtering NEC performance
   *               - Add Docks performance metric filter
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
-  *
-  *               - Create turn-by-turn record or table state
-  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
-  *               - Draw Colortizer/Table State onto 'offscreen'
-  *               - Create Legends for Build Units
-  *               - Add R&D slot to table visualization
-  *               - Prompt user if trying to place capacity into GMS prior to R&D
   *
   *               - Redo card structure for the right hand side/middle
   *                

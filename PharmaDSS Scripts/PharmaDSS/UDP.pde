@@ -9,13 +9,17 @@
   int V_MAX = 22;
   int ID_MAX = 15;
     
-  // Arrays that holds ID information of rectilinear tile arrangement.
-  int tablePieceInput[][][] = new int[U_MAX][V_MAX][2];
+// Arrays that holds current ID information of rectilinear tile arrangement.
+int tablePieceInput[][][] = new int[U_MAX][V_MAX][2];
+
+// Arraylist for storing table input values for each previous turns
+ArrayList<int[][][]> tableHistory = new ArrayList<int[][][]>();
 
 int portIN = 6152;
 import hypermedia.net.*;
 UDP udp;  // define the UDP object
 
+boolean connection = false;
 boolean busyImporting = false;
 boolean changeDetected = false;
 boolean outputReady = false;
@@ -28,6 +32,7 @@ void initUDP() {
 
 void ImportData(String inputStr[]) {
   if (inputStr[0].equals("COLORTIZER")) {
+    if (!connection) connection = true;
     parseColortizerStrings(inputStr);
   } 
   busyImporting = false;
@@ -59,6 +64,7 @@ void parseColortizerStrings(String data[]) {
             // Sets ID
             tablePieceInput[v_temp][u_temp][0] = int(split[0]);
             changeDetected = true;
+            loop();
           }
         }
 
@@ -72,6 +78,7 @@ void parseColortizerStrings(String data[]) {
             //Identifies rotation vector of piece [WARNING: Colortizer supplies rotation in degrees (0, 90, 180, and 270)]
             tablePieceInput[v_temp][u_temp][1] = int(split[3])/90;
             changeDetected = true;
+            loop();
           }
         }
       }

@@ -77,6 +77,7 @@ class TableSurface {
     p.beginDraw();
     p.background(50);
 
+    // Draw Site Boundaries (Existing and Greenfield)
     if (enableSites) {
       if (inputArea.size() > 0) {
         for (int i=0; i<inputArea.size (); i++) {
@@ -90,15 +91,25 @@ class TableSurface {
       }
     }
 
-    p.noFill();
-    p.stroke(0);
-    p.strokeWeight(3);
-
-    // Draw black edges where Lego grad gaps are
+    // Cycle through each table grid, skipping margin
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
+          
+          // Draw Colortizer Input Pieces
+          println(u, v);
+          if (tablePieceInput[u - MARGIN_W][v][0] != -1) {
+            p.fill(#FF0000);
+            p.noStroke();
+            p.rect(u*cellW, v*cellH, cellW, cellH);
+          }
+          
+          // Draw black edges where Lego grad gaps are
+          p.noFill();
+          p.stroke(0);
+          p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
+          
         }
       }
     }

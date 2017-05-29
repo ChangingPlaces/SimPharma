@@ -249,7 +249,7 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(FISCAL);
   rect(MARGIN + profilesX + 100, profilesY + 24, 3, 12);
   fill(textColor);
-  text("Fiscal Year", MARGIN + profilesX+115, profilesY + 36);
+  text("Now", MARGIN + profilesX+115, profilesY + 36);
   }
   text("Launch", MARGIN + profilesX+220, profilesY);
   
