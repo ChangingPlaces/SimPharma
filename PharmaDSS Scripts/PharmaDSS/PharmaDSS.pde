@@ -109,7 +109,8 @@ boolean readXLS = true;
 
 // "setup()" runs once upon executing script
 void setup() {
-  
+//  PFont main = createFont("Arial", 19, false);
+//  textFont(main);
   // Initiate MFG_System and Objects
   agileModel = new MFG_System();
   
@@ -153,7 +154,7 @@ void setup() {
   phasing = loadImage("data/phasing.png");
   sitePNG = loadImage("data/site.png");
   sitePNG_BW = loadImage("data/site_BW.png");
-  
+  logo = loadImage("data/GSK-logo-2014.png");
   setupRadar();
   setupTable();
 }

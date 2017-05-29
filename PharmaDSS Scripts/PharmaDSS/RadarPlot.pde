@@ -71,6 +71,7 @@ class RadarPlot {
         //Draw Score Axes
         stroke(#999999);
         line(x, y, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
+        text(i, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
       }
       
       //Draw Labels
