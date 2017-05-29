@@ -179,13 +179,9 @@ void drawScreen() {
 void drawLargeProfile(Profile selected) {
   textAlign(LEFT);
   text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
-  selected.draw(
-    MARGIN + profilesX,
-    int(height - 1.75*MARGIN), 
-    profilesW, 
-    int(0.10*height),
-    true, false, true
-  );
+//  selected.initGraph( MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
+//  selected.graph.drawProfileGraph();
+  selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
 }
 
 void drawProfiles(ArrayList<Profile> list) {
@@ -205,20 +201,23 @@ void drawProfiles(ArrayList<Profile> list) {
   
   boolean axis;
   boolean selected;
-  //int numProf = list.size();
-  int numProf = 10;
+  int numProf = list.size();
+//  int numProf = 10;
   for (int i=1; i<=list.size(); i++) {
     selected = false;
     axis = false;
     if (!gameMode || list.get(i-1).timeLead <= session.current.TURN ) {
       if (i == numProf) axis = true;
       if (i == session.selectedProfile+1) selected = true;
-      list.get(i-1).draw(
-        MARGIN + profilesX, 
+//      list.get(i-1).initGraph(MARGIN + profilesX, 
+//        2*MARGIN + profilesY + int(0.45*height*(i-1)/float(numProf+1)), 
+//        profilesW, profilesH,
+//        axis, selected, false);
+//      list.get(i-1).graph.drawProfileGraph();
+        list.get(i-1).draw(MARGIN + profilesX, 
         2*MARGIN + profilesY + int(0.45*height*(i-1)/float(numProf+1)), 
         profilesW, profilesH,
-        axis, selected, false
-      );
+        axis, selected, false);
     }
   }
   

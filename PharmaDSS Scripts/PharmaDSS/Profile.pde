@@ -6,6 +6,9 @@ color FISCAL = color(255, 180, 4);
 
 class Profile {
   
+  //Graph for displaying the Profile
+  BarGraph graph;
+  
   // Name of NCE Demand Profile
   String name; 
   
@@ -57,7 +60,7 @@ class Profile {
   //  - Ideal Capacity (weight per time)
   Table capacityProfile;
 
-  
+
   // Basic Constructor
   Profile(int INDEX) {
     productionCost = new ArrayList<Float>();
@@ -79,8 +82,10 @@ class Profile {
     this.demandProfile = demandProfile;
     ABSOLUTE_INDEX = INDEX;
     launched = false;
+     
   }
   
+
   void calc() {
     // Based on Profile, compute the peak forecast demand
     peak();
@@ -128,6 +133,7 @@ class Profile {
   }
   
   // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
+  //For graph class
   void lead() {
     timeLead = 0;
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
@@ -142,6 +148,7 @@ class Profile {
   }
   
   // Based on Profile, compute the date that NCE Profile "terminates" (i.e. is no longer viable)
+  //for graph class
   void end() {
     timeEnd = Float.POSITIVE_INFINITY;
     boolean viable = false;
@@ -197,6 +204,14 @@ class Profile {
     capacityProfile.setFloat(1, session.current.TURN, globalProductionLimit);
   }
   
+  void initGraph(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail ){
+    graph = new BarGraph(w, h, x, y, axis, detail, demandProfile.getColumnCount());
+    graph.timeLead = timeLead;
+    graph.timeEnd = timeEnd;
+    graph.isProfileGraph = true;
+    graph.profile = this;
+  }
+ 
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     float unit = 5000;
     float scalerH, scalerW;
@@ -208,8 +223,6 @@ class Profile {
     // Draw Profile Selection
     if (selected) {
       fill(HIGHLIGHT, 40);
-      //stroke(HIGHLIGHT, 80);
-      //strokeWeight(1);
       noStroke(); 
       rect(x - 15, y - h - 7, w + 30, h+18, 5);
       noStroke();
@@ -296,7 +309,7 @@ class Profile {
         noStroke();
       }
     }
-    
+//    
     // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
     if (!detail) {

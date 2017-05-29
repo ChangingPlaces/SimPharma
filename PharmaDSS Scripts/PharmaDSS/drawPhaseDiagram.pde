@@ -19,9 +19,7 @@ void drawPhaseDiagram(){
   drawArrow((profilesW + 1.75*MARGIN)/6, (profilesW + 1.75*MARGIN)/12, (profilesW + 1.75*MARGIN)/20, color(100));
   
 
-  fill(255);
-  //textAlign(CENTER, CENTER);
-  //text("Candidate\nSelection",0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12, MARGIN - 10 + (profilesW + 1.75*MARGIN)/24);
+
   s.setFill(color(100, 100, 100, 150));
   shape(s, 0.25*MARGIN + profilesX, MARGIN - 10);
   shape(s, 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/5, MARGIN - 10);
@@ -31,4 +29,9 @@ void drawPhaseDiagram(){
   shape(s,0.25*MARGIN + profilesX + 3*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
   s.setFill(Launch);
   shape(s,0.25*MARGIN + profilesX + 4*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);  
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+  println(0.25*MARGIN + profilesX, MARGIN - 10 + (profilesW + 1.75*MARGIN)/12);
+  text("Candidate Selection",0.25*MARGIN + profilesX, MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24);
 }
