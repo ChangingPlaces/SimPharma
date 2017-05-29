@@ -22,21 +22,26 @@ boolean showMainMenu = true;
 // what they are named by editing this String array:
 String[] buttonNames = 
 {
-  "Invert Colors (i)", //0
-  "VOID",  // 1
-  "Generate Profiles (SH+R)",  // 2
-  "Play Game (g)",  // 3
-  "VOID",  // 4
-  "Toggle Profile (p)",    // 5
-  "Toggle Site (s)",  // 6
-  "Toggle Existing Build (SH+S)", //7
-  "Toggle New Build (b)",  // 8
-  "VOID",  // 9
-  "Deploy Selection (d)",  // 10
-  "Remove Selection (r)",  // 11
-  "Repurpose Selection (e)",  // 12
+  "Generate Profiles (SH+R)",  // 0
+  "Play Game (g)",  // 1
+  "VOID",  // 2
+  "Toggle Profile (p)",    // 3
+  "Toggle Site (s)",  // 4
+  "Toggle Existing Build (SH+S)", //5
+  "Toggle New Build (b)",  // 6
+  "VOID",  // 7
+  "Deploy Selection (d)",  // 8
+  "Remove Selection (r)",  // 9
+  "Repurpose Selection (e)",  // 10
+  "VOID",  // 11
+  "End Turn (SPACE)",    // 12
   "VOID",  // 13
-  "End Turn (SPACE)",    // 14
+  "VOID",  // 14
+  "VOID",  // 15
+  "Invert Colors (i)", // 16
+  "Project Table (`)", // 17
+  
+  
 };
 
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
@@ -51,48 +56,52 @@ void mouseClicked() {
     toggleMainMenu();
   }
   
-  if(mainMenu.buttons[2].over()){ 
+  if(mainMenu.buttons[0].over()){ 
     regenerateGame();
   }
   
-  if(mainMenu.buttons[3].over()){ 
+  if(mainMenu.buttons[1].over()){ 
     toggleGame();
   }
   
-  if(mainMenu.buttons[5].over()){ 
+  if(mainMenu.buttons[3].over()){ 
     nextProfile();
   }
   
-  if(mainMenu.buttons[6].over()){ 
+  if(mainMenu.buttons[4].over()){ 
     nextSite();
   }
   
-  if(mainMenu.buttons[7].over()){ 
+  if(mainMenu.buttons[5].over()){ 
     nextSiteBuild();
   }
   
-  if(mainMenu.buttons[8].over()){ 
+  if(mainMenu.buttons[6].over()){ 
     nextBuild();
   }
   
-  if(mainMenu.buttons[10].over()){ 
+  if(mainMenu.buttons[8].over()){ 
     deploySelection();
   }
   
-  if(mainMenu.buttons[11].over()){ 
+  if(mainMenu.buttons[9].over()){ 
     removeSelection();
   }
   
-  if(mainMenu.buttons[12].over()){ 
+  if(mainMenu.buttons[10].over()){ 
     repurposeSelection();
   }
   
-  if(mainMenu.buttons[14].over()){ 
+  if(mainMenu.buttons[12].over()){ 
     endTurn();
   }
   
-  if(mainMenu.buttons[0].over()){ 
+  if(mainMenu.buttons[16].over()){ 
     invertColors();
+  }
+  
+  if(mainMenu.buttons[17].over()){ 
+    toggleProjection();
   }
   
   loop();
@@ -136,14 +145,8 @@ void keyPressed() {
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
       break;
-    case '`': 
-      if (displayProjection2D) {
-        displayProjection2D = false;
-        closeProjection2D();
-      } else {
-        displayProjection2D = true;
-        showProjection2D();
-      }
+    case '`': //  "Enable Projection (`)"
+      toggleProjection();
       break;
   }
   loop();
@@ -192,22 +195,35 @@ void invertColors() {
 void toggleGame() {
   if (gameMode) {
     gameMode = false;
-    mainMenu.buttons[3].label = "Play Game (g)";
-    mainMenu.buttons[14].isVoid = true;
-    mainMenu.buttons[10].isVoid = true;
-    mainMenu.buttons[11].isVoid = true;
+    mainMenu.buttons[1].label = "Play Game (g)";
     mainMenu.buttons[12].isVoid = true;
+    mainMenu.buttons[8].isVoid = true;
+    mainMenu.buttons[9].isVoid = true;
+    mainMenu.buttons[10].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
-    mainMenu.buttons[3].label = "God Mode (g)";
-    mainMenu.buttons[14].isVoid = false;
-    mainMenu.buttons[10].isVoid = false;
-    mainMenu.buttons[11].isVoid = false;
+    mainMenu.buttons[1].label = "God Mode (g)";
     mainMenu.buttons[12].isVoid = false;
+    mainMenu.buttons[8].isVoid = false;
+    mainMenu.buttons[9].isVoid = false;
+    mainMenu.buttons[10].isVoid = false;
   }
   
   println("gameMode: " + gameMode);
+}
+
+void toggleProjection() {
+  toggle2DProjection();
+  println("displayProjection2D = " + displayProjection2D);
+}
+
+void pressButton(boolean bool, int button) {
+  if (bool) {
+    mainMenu.buttons[button].isPressed = false;
+  } else {
+    mainMenu.buttons[button].isPressed = true;
+  }
 }
 
 // iterates an index parameter
