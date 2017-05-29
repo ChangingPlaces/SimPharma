@@ -1,12 +1,9 @@
-/*  PharmaDSS, Copyright 2017
- *  Ira Winder, jiw@mit.edu
- *  Cambridge, MA
+/*  PharmaDSS, Copyright 2017 Ira Winder et al
  *
- *  
  *  Check "About" tab for:
- *  A. MIT Licensing
- *  B. Project Description
- *  C. Development History
+ *    A. MIT Licensing
+ *    B. Project Description
+ *    C. Development History
  */
  
 int screenWidth = 1280;

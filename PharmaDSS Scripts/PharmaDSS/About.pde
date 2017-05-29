@@ -1,4 +1,5 @@
- /* 
+ /* PharmaDSS - Pharmaceutical Decision Support System
+  *
   * MIT LICENSE:  Copyright 2017 Ira Winder et al.
   *
   *               Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
@@ -16,7 +17,7 @@
   *               DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   *               OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   *
-  * DESCRIPTION:  Enclosed scripts demonstrate an environment for "PharmaDSS" (Pharmacuetical Decision Support System)
+  * DESCRIPTION:  Enclosed scripts demonstrate an environment for "PharmaDSS" (Pharmaceutical Decision Support System)
   *               The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
   *               developed by Mason Briner and Giovonni Giorgio in U.K. 
   *
