@@ -5,7 +5,7 @@ boolean gameMode = false;
 class Game {
   
   // turn element tracks the passage of time in discrete intervals
-  // Units of Time are defined in the "System" as "TIME_UNITS"
+  // Units of Time are defined in the "MFG_System" as "TIME_UNITS"
   Turn current;
   ArrayList<Turn> turnLog;
   

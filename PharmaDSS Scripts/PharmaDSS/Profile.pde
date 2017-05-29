@@ -7,7 +7,7 @@ class Profile {
   // Name of NCE Demand Profile
   String name; 
   
-  // This static index should always refer to the profile's "ideal" state located in "System.PROFILES"
+  // This static index should always refer to the profile's "ideal" state located in "MFG_System.PROFILES"
   int ABSOLUTE_INDEX;
 
   // Breif Descriptor of Profile (i.e. "Blockbuster" or "Never Manufactured")
@@ -83,7 +83,7 @@ class Profile {
     // Based on Profile, compute the peak forecast demand
     peak();
     
-    // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) System.LEAD_TIME
+    // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
     lead();
     
     // Based on Profile, compute the date that NCE Profile "terminates"
@@ -125,7 +125,7 @@ class Profile {
     }
   }
   
-  // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) System.LEAD_TIME
+  // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
   void lead() {
     timeLead = 0;
     for (int i=0; i<demandProfile.getColumnCount(); i++) {

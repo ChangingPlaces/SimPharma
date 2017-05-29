@@ -1,8 +1,15 @@
+/*  GSK Orange:
+ *  RGB 255 108 47 
+ *  HEX/HTML FF6C2F 
+ *  CMYK 0 45 86 0
+ */
+
 PImage phasing, sitePNG, sitePNG_BW;
 
 int MARGIN = 50;
 int HIGHLIGHT = #99CCCC;
-int THEME = #cccc00;
+int THEME = #CCCC00;
+int GSK_ORANGE = #FF6C2F;
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY;

@@ -1,7 +1,8 @@
-// System specifies highest level, global constraints for the entire manufacturing system.  
+// MFG_System specifies highest level, global constraints for the entire manufacturing system.  
 // Rules specified here universally apply to classes within the "Objects" tab.
 
-class System {
+//RENAME TO SOMETHING
+class MFG_System {
   
   // Units for Describing Weight (i.e. "tons")
   String WEIGHT_UNITS;
@@ -29,7 +30,7 @@ class System {
   // Time Profile is know in advance of first expected demand;
   float LEAD_TIME = 5;
   
-  System() {
+  MFG_System() {
     LABOR_TYPES = new Table();
     
     // The possible Universe/Reality of Profiles

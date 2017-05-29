@@ -136,7 +136,15 @@ void keyPressed() {
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
       break;
-
+    case '`': 
+      if (displayProjection2D) {
+        displayProjection2D = false;
+        closeProjection2D();
+      } else {
+        displayProjection2D = true;
+        showProjection2D();
+      }
+      break;
   }
   loop();
 }
