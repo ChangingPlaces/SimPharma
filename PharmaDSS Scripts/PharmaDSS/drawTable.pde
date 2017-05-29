@@ -29,13 +29,13 @@ void drawTable() {
   mfg.draw(offscreen);
   
   if (testProjectorOnMac) {
-    
-    fill(textColor, 150);
-    noStroke();
-    rect(0, 0, screenWidth, screenHeight);
+
+//    fill(#000000, 100);
+//    noStroke();
+//    rect(0, 0, screenWidth, screenHeight);
     
     stroke(background);
-    fill(255, 150);
+    fill(textColor, 150);
     rect((width - int(0.85*height) ) / 2, (height - int(0.85*height) ) / 2, int(0.85*height), int(0.85*height), 10);
     
     image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
