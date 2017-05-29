@@ -234,6 +234,9 @@ void loadModel_XLS(MFG_System model, String name) {
       int randomCap = int(random(capacityToUseGMS.length));
       float randomMag = 1000*random(1.0, 3.0);
       model.PROFILES.get(i).setPeak(randomMag*capacityToUseGMS[randomCap]);
+    } else {
+      float pk = model.PROFILES.get(i).demandPeak_F;
+      model.PROFILES.get(i).setPeak(10.0*pk);
     }
     
     // Re-Calculates peak forecast demand value, lead years, etc

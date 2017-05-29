@@ -309,7 +309,7 @@ class Profile {
         noStroke();
       }
     }
-//    
+    
     // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
     if (!detail) {
