@@ -242,18 +242,13 @@ void drawProfiles(ArrayList<Profile> list) {
   textAlign(LEFT);
   text("Lead (Ph.III)", MARGIN + profilesX+110, profilesY);
   text("End", MARGIN + profilesX+110, profilesY + 17);
-  if(gameMode){
-  fill(FISCAL);
-  rect(MARGIN + profilesX + 100, profilesY + 24, 3, 12);
-  fill(textColor);
-  text("Now", MARGIN + profilesX+110, profilesY + 36);
-  }
   text("Launch", MARGIN + profilesX+215, profilesY);
   
   fill(textColor);
   rect(MARGIN + profilesX+200, profilesY + 10, 15, 1.5);
   text("Capacity", MARGIN + profilesX+220, profilesY + 15);
   }
+  
   else{
     fill(THEME, 200);
   rect(MARGIN + profilesX, profilesY - 9, 15, 10);
