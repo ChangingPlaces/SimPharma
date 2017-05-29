@@ -1,6 +1,22 @@
- /* Release Notes:
+ /* 
+  * MIT LICENSE:  Copyright 2017 Ira Winder et al.
   *
-  * ALPHA V1.0:   The following scripts demonstrate a basic environment for "PharmaDSS" (Decision Support System)
+  *               Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+  *               and associated documentation files (the "Software"), to deal in the Software without restriction, 
+  *               including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+  *               sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+  *               furnished to do so, subject to the following conditions:
+  *
+  *               The above copyright notice and this permission notice shall be included in all copies or 
+  *               substantial portions of the Software.
+  *
+  *               THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+  *               NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+  *               NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+  *               DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+  *               OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  *
+  * DESCRIPTION:  Enclosed scripts demonstrate an environment for "PharmaDSS" (Pharmacuetical Decision Support System)
   *               The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
   *               developed by Mason Briner and Giovonni Giorgio in U.K. 
   *
@@ -12,27 +28,24 @@
   *               (b) Site: Factory Location/Area
   *               (c) Build: Manufacturing Unit/Process
   *               (d) Person: "Human Beans", as the BFG would say (i.e. Labor)
-  *
-  *               The Alpha is designed with the following minimum viable features:
-  *                 - Object-oriented framework for model components
-  *                 - Profiles, Sites, Builds, and Persons
-  *                 - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
-  *                 - Basic Visualization of System Inputs
+  *  
+  * ALPHA V1.0:   - Object-oriented framework for model components
+  *               - Profiles, Sites, Builds, and Persons
+  *               - Directly read values from Microsoft Excel, linking GSK (Excel-based) and MIT (Java-based) workflows
+  *               - Basic Visualization of System Inputs
   *
   * ALPHA V1.1:   - Dynamic, Turn-based interaction using mouse and keyboard commands
-  *               - Misc Visual:
-  *                 - Added peak forecast demand tag to Profiles
-  *                 - Added Color Inversion
-  *                 - Added turn-based Profile explorer
-  *                 - Incorporate 5-yr lead times
+  *               - Added peak forecast demand tag to Profiles
+  *               - Added Color Inversion
+  *               - Added turn-based Profile explorer
+  *               - Incorporate 5-yr lead times
   *
   * ALPHA V1.2:   - Dynamic, Turn-based interaction using button and keyboard commands
   *               - Added UI for selecting specific (a)Profiles, (b)Sites, and (c)Builds
   *               - Allocate NCE "Build" capacity between sites
   *               - Enabled "deploy" event that allocates capacity to site in a given turn
-  *               - Misc Visual:
-  *                 - Add Large-scale format for selected profile for greater legibility
-  *                 - Build capacity has 3 states: (1) Under Construction, (2) Active, (3) Inactive/Not utilized 
+  *               - Add Large-scale format for selected profile for greater legibility
+  *               - Build capacity has 3 states: (1) Under Construction, (2) Active, (3) Inactive/Not utilized 
   *
   * ALPHA V1.3:   - Select Subset of builds in site...remove or repurpose site builds
   *               - Prepopulate Builds
@@ -49,7 +62,7 @@
   *               - Relative scaling for Large-format Profile visualization
   *               - Implement stochastic events not easily performed in excel
   *
-  * BETA V1.0:    The 'BETA' is the first version of PharmaDSS that is compatible with a Tactile Matrix.
+  * BETA V1.0:    - The 'BETA' is the first version of PharmaDSS that is compatible with a Tactile Matrix.
   *               - Added Table Surface Canvas
   *               - Added Projection Mapping
   *               - Added Colortizer port
@@ -79,3 +92,4 @@ String VERSION = "BETA V1.0";
   *               - Update Capacity into future
   *               - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
   */
+ 

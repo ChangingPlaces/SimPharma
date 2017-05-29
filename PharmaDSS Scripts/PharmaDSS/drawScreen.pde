@@ -66,7 +66,7 @@ void drawScreen() {
   // Draw Title
       fill(textColor);
       textAlign(RIGHT);
-      text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
+      text("PharmaDSS " + VERSION + ", MIT License", width - MARGIN, MARGIN);
       text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + 15);
       text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + 30);
   
