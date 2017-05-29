@@ -7,7 +7,7 @@
 Menu mainMenu, hideMenu;
 
 // Global Text and Background Color
-int textColor = 0;
+int textColor = 50;
 int background = 255;
 int BUTTON_OFFSET_H = 40;
 int BUTTON_OFFSET_W = 50;
@@ -181,11 +181,11 @@ void alignCenter() {
 }
 
 void invertColors() {
-  if (background == 0) {
+  if (background == 50) {
     background = 255;
-    textColor = 0;
+    textColor = 50;
   } else {
-    background = 0;
+    background = 50;
     textColor = 255;
   }
   println ("background: " + background + ", textColor: " + textColor);
@@ -270,18 +270,17 @@ class Button{
   //Button Objects are draw to a PGraphics object rather than directly to canvas
   void draw(PGraphics p){
     if (!isVoid) {
-      p.smooth();
       p.noStroke();
       p.textSize(10);
       if( over() ) {  // Darkens button if hovering mouse over it
-        p.fill(textColor, hover);
+        p.fill(100, hover);
       } else if (isPressed){
-        p.fill(textColor, pressed);
+        p.fill(100, pressed);
       } else {
-        p.fill(textColor, active);
+        p.fill(100, active);
       }
       p.rect(x, y, w, h, 5);
-      p.fill(background);
+      p.fill(255);
       p.text(label, x + (w/2-textWidth(label)/2), y + 0.6*h); //text(str, x1, y1, x2, y2) text(label, x + 5, y + 15)
     }
   } 
