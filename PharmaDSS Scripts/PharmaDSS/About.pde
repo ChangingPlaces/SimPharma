@@ -95,6 +95,7 @@ Nina:
   
  /* TO DO:        
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
+  *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               
   *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization
