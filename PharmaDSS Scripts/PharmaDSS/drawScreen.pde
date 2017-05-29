@@ -8,7 +8,7 @@ PImage phasing, sitePNG, sitePNG_BW, logo;
 
 int MARGIN = 50;
 
-color HIGHLIGHT = color(174, 229, 229);
+color HIGHLIGHT = color(174, 240, 240);
 color THEME = color(255, 108,47);
 color GSK_ORANGE = color(255, 108,47);
 

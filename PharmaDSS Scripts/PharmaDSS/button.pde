@@ -281,7 +281,7 @@ class Button{
       }
       p.rect(x, y, w, h, 5);
       p.fill(255);
-      p.text(label, x + (w/2-textWidth(label)/2), y + 0.6*h); //text(str, x1, y1, x2, y2) text(label, x + 5, y + 15)
+      p.text(label, x + (w/2-textWidth(label)/2), y + 0.6*h); 
     }
   } 
   
