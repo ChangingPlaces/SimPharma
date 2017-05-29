@@ -70,26 +70,31 @@
   
 String VERSION = "BETA V1.0";  
   
- /* TO DO:        - R&D Slot tonnage is not terribly important
-  *               - Have 2 modes for batch vs. continuous - continuous effectively makes sites have higher capacity
+ /* TO DO:        
+  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
+  *               - Add Turn-By-Turn Graph of Performance
+  *               - Add Dock for filtering NEC performance
+  *               - Add Docks performance metric filter
   *
-  *               - Output summary of 5 KPIs
-  *                - CAPEX
-  *                - OPEX
-  *                - Ability to Meet Demand
-  *                - Cost of Goods
-  *                - Security of Supply
+  *               - Create turn-by-turn record or table state
+  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
+  *               - Draw Colortizer/Table State onto 'offscreen'
+  *               - Link Site Basins to PharmaDSS Basins
+  *               - Add Greenfield capacity to Site Basins
+  *               - Create Legends for Build Units
+  *               - Add R&D slot to table visualization
+  *               - Prompt user if trying to place capacity into GMS prior to R&D
+  *                
+  *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
+  *               - Only fill up production capacities partially on sites
+  *               - Update Capacity into future
+  *               
+  *               - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
   *
   *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
   *               - Include Salary modifier for different Sites
   *               - Switch between weight/cost metrics for Build Types
   *               - Allow user to compare performance with baseline scenario(s)
-  *
-  *               - Make click-based interface?
-  *               - Add Batch/Continuous Mode
-  *               - Place into R&D First
-  *               - Only fill up production capacities partially on sites
-  *               - Update Capacity into future
-  *               - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
+  *               - Make click-based interface?         
   */
  
