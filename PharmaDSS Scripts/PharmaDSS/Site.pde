@@ -65,7 +65,7 @@ class Site {
     int picH = infoGap*MARGIN - RnD_gap;
     PImage pic;
     //rect(x, y, picW, picH, 5);
-    if (textColor == 0) {
+    if (textColor == 50) {
       pic = sitePNG_BW;
     } else {
       pic = sitePNG;

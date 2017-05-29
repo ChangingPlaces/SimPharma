@@ -71,7 +71,7 @@ class RadarPlot {
         //Draw Score Axes
         stroke(#999999);
         line(x, y, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
-        text(i, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
+       
       }
       
       //Draw Labels
@@ -103,15 +103,19 @@ class RadarPlot {
       
       //Draw Score Fills
       for (int i=0; i<nRadar; i++) {
-        
+        noStroke();
         //Draw Score Fills
         if (radarMode == 0) {
           fill(#00FFFF);
+
         } else if (radarMode == 1) {
           fill(255*(1- (scores.get(i)+scores.get((i+1)%nRadar))/2 ), 255*(scores.get(i)+scores.get((i+1)%nRadar))/2, 0);
+
         } else if (radarMode == 2) {
           fill(255*(1-avgScore), 255*avgScore, 0);
+
         }
+        
         triangle(x, y, scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, scores.get((i+1)%nRadar)*d*sin(rot+(i+1)%nRadar*2*PI/nRadar) + y);
       }
       
@@ -128,10 +132,10 @@ class RadarPlot {
         strokeWeight(2);
         line(scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, scores.get((i+1)%nRadar)*d*sin(rot+(i+1)%nRadar*2*PI/nRadar) + y);
       }
-      
+
       for (int i=0; i<nRadar; i++) {
         //Draw Score Dots
-        strokeWeight(1);
+//        strokeWeight(1);
         if (radarMode == 0) {
           fill(#238586);
         } else if (radarMode == 1) {
@@ -140,7 +144,7 @@ class RadarPlot {
           fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
         }
         
-        //ellipse(scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, 5, 5);
+        ellipse(scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, 5, 5);
       }
       
       for (int i=0; i<nRadar; i++) {
@@ -152,14 +156,15 @@ class RadarPlot {
         } else if (radarMode == 2) {
           fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
         }
-        
-        if (PI/2 < (2*PI*i/nRadar+rot) && (2*PI*i/nRadar+rot) < 3*PI/2) { //Flips text upside down
-          textAlign(RIGHT);
-          text(int(100*scores.get(i)), 1.2*scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, 1.2*scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y + 0.6*48);
-          textAlign(LEFT);
-        } else {
-          text(int(100*scores.get(i)), 1.2*scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, 1.2*scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y + 0.6*48);
-        }
+         text(int(100*scores.get(i)), d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
+//        if (PI/2 < (2*PI*i/nRadar+rot) && (2*PI*i/nRadar+rot) < 3*PI/2) { //Flips text upside down
+//          textAlign(RIGHT);
+//         text(int(100*scores.get(i)), 1.2*scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, 1.2*scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y + 0.6*48);
+////          text(int(100*scores.get(i)), d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
+//          textAlign(LEFT);
+//        } else {
+//          text(int(100*scores.get(i)), 1.2*scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, 1.2*scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y + 0.6*48);
+//        }
       }
     }
   }
