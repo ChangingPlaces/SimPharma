@@ -69,6 +69,18 @@
   */
   
 String VERSION = "BETA V1.0";  
+
+/*
+Nina:
+  - Fix buttons
+  - ****Handle profile widget look/proportions*****
+  - Phase graphic + communication inside the graphics 
+  - Radar clean
+  - Handle site widget look/proportions
+  - Output graph clean (once Ira does thing)
+  - Click based 
+  - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
+*/
   
  /* TO DO:        
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
@@ -84,17 +96,16 @@ String VERSION = "BETA V1.0";
   *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization
   *               - Prompt user if trying to place capacity into GMS prior to R&D
+  *
+  *               - Redo card structure for the right hand side/middle
   *                
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
   *               - Only fill up production capacities partially on sites
   *               - Update Capacity into future
   *               
-  *               - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
-  *
   *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
   *               - Include Salary modifier for different Sites
   *               - Switch between weight/cost metrics for Build Types
-  *               - Allow user to compare performance with baseline scenario(s)
-  *               - Make click-based interface?         
+  *               - Allow user to compare performance with baseline scenario(s)       
   */
  
