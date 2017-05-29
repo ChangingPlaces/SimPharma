@@ -90,7 +90,9 @@ void drawScreen() {
   // Draw Sites
       fill(textColor);
       textAlign(LEFT);
+       textSize(min(18, textSize+2));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
+      textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
@@ -189,7 +191,7 @@ void drawLargeProfile(Profile selected) {
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
-  textSize(min(14, textSize));
+  textSize(min(18, textSize+2));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
   
   // Current Year
@@ -232,20 +234,27 @@ void drawProfiles(ArrayList<Profile> list) {
   text("Forecast", MARGIN + profilesX+20, profilesY + 15);
   
   noStroke();
-  fill(#00CC00);
-  rect(MARGIN + profilesX+100, profilesY - 9, 3, 10);
-  fill(#CC0000);
-  rect(MARGIN + profilesX+100, profilesY + 6, 3, 10);
-  fill(#0000CC);
-  rect(MARGIN + profilesX+205, profilesY - 9, 3, 10);
+  fill(P3);
+  rect(MARGIN + profilesX+100, profilesY - 12, 3, 12);
+  fill(END);
+  rect(MARGIN + profilesX+100, profilesY + 6, 3, 12);
+  fill(Launch);
+  rect(MARGIN + profilesX+205, profilesY - 12, 3, 12);
+  
   fill(textColor);
   textAlign(LEFT);
   text("Lead (Ph.III)", MARGIN + profilesX+115, profilesY);
-  text("End", MARGIN + profilesX+115, profilesY + 15);
+  text("End", MARGIN + profilesX+115, profilesY + 17);
+  if(gameMode){
+  fill(FISCAL);
+  rect(MARGIN + profilesX + 100, profilesY + 24, 3, 12);
+  fill(textColor);
+  text("Fiscal Year", MARGIN + profilesX+115, profilesY + 36);
+  }
   text("Launch", MARGIN + profilesX+220, profilesY);
   
   fill(textColor);
-  rect(MARGIN + profilesX+200, profilesY + 10, 15, 3);
+  rect(MARGIN + profilesX+200, profilesY + 10, 15, 1.5);
   text("Capacity", MARGIN + profilesX+220, profilesY + 15);
   
 }

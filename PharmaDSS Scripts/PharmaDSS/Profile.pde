@@ -1,6 +1,8 @@
 // Demand profile for a chemical entity (i.e. NCE)
 
 float MAX_PROFILE_VALUE = 0;
+color END = color(249, 60, 60);
+color FISCAL = color(255, 180, 4);
 
 class Profile {
   
@@ -240,8 +242,13 @@ class Profile {
       }
       noStroke();
       
-      // Draw Forecast Demand Bars
-      fill(abs(textColor-200));
+      //Draw forecast and actual bars
+      if(background == 255){
+      fill(120);
+      }
+      else{
+      fill(180);
+      }
       rect(x + scalerW * i +1, y - barF, scalerW - 1, barF);
 
       // If game is on, only shows actual demand bars for finished turns
@@ -282,9 +289,9 @@ class Profile {
           capLast = globalCap;
         }
         strokeWeight(1.5);
-        // Draw Vertical Line
+        // Draw Vertical line
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0), y - capLast);
-        // Draw Horizontal Line
+        // Draw Horizontal line
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
         noStroke();
       }
@@ -308,7 +315,7 @@ class Profile {
     
     // Lead Date
     if (timeLead >=0) {
-      fill(#00CC00);
+      fill(P3);
       rect(x + scalerW * timeLead - 3, y - markerH*h, 3, markerH*h);
       if (detail) {
         textAlign(CENTER);
@@ -318,10 +325,11 @@ class Profile {
 
     // Launch Date
     if (timeLaunch >=0) {
-      fill(#0000CC);
+      fill(Launch);
       rect(x + scalerW * timeLaunch - 3, y - markerH*h, 3, markerH*h);
       if (detail) {
         textAlign(CENTER);
+        fill(textColor);
         text("Launch", x + scalerW * timeLaunch - 3, y-markerH*h-5);
       }
     }
@@ -329,7 +337,7 @@ class Profile {
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       if (timeEnd >=0) {
-        fill(#CC0000);
+         fill(END);
         rect(x + scalerW * timeEnd - 3, y - markerH*h, 3, markerH*h);
         if (detail) {
           textAlign(CENTER);
@@ -357,7 +365,8 @@ class Profile {
       if (detail) {
         rect(X, Y, 4, max(3, barA) );
       } else {
-        if (session.current.TURN != timeLead) rect(X, Y, 3, h );
+        fill(FISCAL);
+       if (session.current.TURN != timeLead) rect(X, Y, 3, h ); //this is the game moving rectangle
       }
       if (detail) {
         fill(abs(textColor - 150));
