@@ -125,6 +125,7 @@ void keyPressed() {
     case 'R': // "Regenerate Random Game Data (SH+R)"
       loadOriginal = false;
       regenerateGame();
+      fauxPieces(0, tablePieceInput, 15);
       break;
     case 'X': // "Regenerate XLS Game Data (SH+X)"
       loadOriginal = true;

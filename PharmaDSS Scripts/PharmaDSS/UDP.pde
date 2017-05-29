@@ -12,6 +12,15 @@
 // Arrays that holds current ID information of rectilinear tile arrangement.
 int tablePieceInput[][][] = new int[U_MAX][V_MAX][2];
 
+void initInputData() {
+  for (int u=0; u<U_MAX; u++) {
+    for (int v=0; v<V_MAX; v++) {
+      tablePieceInput[u][v][0] = -1; // ID
+      tablePieceInput[u][v][0] = 0; //Rotation
+    }
+  }
+}
+
 // Arraylist for storing table input values for each previous turns
 ArrayList<int[][][]> tableHistory = new ArrayList<int[][][]>();
 
@@ -30,12 +39,7 @@ void initUDP() {
   udp.listen( true );
   
   // Initialize tablePieceInput
-  for (int u=0; u<U_MAX; u++) {
-    for (int v=0; v<V_MAX; v++) {
-      tablePieceInput[u][v][0] = -1;
-      tablePieceInput[u][v][1] = 0;
-    }
-  }
+  initInputData();
 }
 
 void ImportData(String inputStr[]) {

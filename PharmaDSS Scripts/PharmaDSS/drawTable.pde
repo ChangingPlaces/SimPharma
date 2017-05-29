@@ -121,6 +121,7 @@ class TableSurface {
               }
               p.noStroke();
               p.rect(u*cellW, v*cellH, cellW, cellH);
+              p.image(nce, u*cellW, v*cellH, cellW, cellH);
             }
           }
           
@@ -256,3 +257,44 @@ class TableSurface {
   }
 }
 
+void fauxPieces(int code, int[][][] pieces, int maxID) {
+  if (code == 2 ) {
+    
+    // Sets all grids to have "no object" (-1) with no rotation (0)
+    for (int i=0; i<pieces.length; i++) {
+      for (int j=0; j<pieces[0].length; j++) {
+        pieces[i][j][0] = -1;
+        pieces[i][j][1] = 0;
+      }
+    }
+  } else if (code == 1 ) {
+    
+    // Sets grids to be alternating one of each N piece types (0-N) with no rotation (0)
+    for (int i=0; i<pieces.length; i++) {
+      for (int j=0; j<pieces[0].length; j++) {
+        pieces[i][j][0] = i  % maxID+1;
+        pieces[i][j][1] = 0;
+      }
+    }
+  } else if (code == 0 ) {
+    
+    // Sets grids to be random piece types (0-N) with random rotation (0-3)
+    for (int i=0; i<pieces.length; i++) {
+      for (int j=0; j<pieces[0].length; j++) {
+        if (random(0, 1) > 0.95) {
+          pieces[i][j][0] = int(random(-1.99, maxID+1));
+          pieces[i][j][1] = int(random(0, 4));
+        } else { // 95% of pieces are blank
+          pieces[i][j][0] = -1;
+          pieces[i][j][1] = 0;
+        }
+      }
+    }
+  }
+  
+  decodePieces();
+}
+
+void decodePieces() {
+  
+}
