@@ -14,40 +14,6 @@ float buildTime(float capacity) {
   }
 }
 
-// Regenerate Game
-void regenerateGame() {
-  
-  boolean interrupt = false;;
-  
-  // Cannot reset game while in active game mode
-  if (gameMode) {
-    interrupt = true;
-    gameMode = false;
-  }
-  
-  // Initiate MFG_System and Objects
-  agileModel = new MFG_System();
-  //Initiate Game
-  loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
-  
-  session = new Game();
-  // Turns game back on if interrupted so god mode is never seen
-  if (interrupt) {
-    gameMode = true;
-  }
-  
-  // Calculates Max Capacity Site
-  agileModel.maxCapacity();
-  
-  // Generate New Basins for Sites
-  generateBasins();
-  
-  //resets Scores for debugging
-  for (int i=0; i<kpi.nRadar; i++) {
-    kpi.setScore(i, random(1.0));
-  }
-}
-
 // Returns an array of integers (0 - amt) but randomized.
 // For example, if amt = 10, outputs: {2, 6, 9, 7, 0, 8, 5, 1, 3, 4}
 
@@ -67,5 +33,14 @@ int[] randomIndex(int amt) {
       allocated ++;
     }
   }
+  return list;
+}
+
+// Returns an array of integers (0 - amt) in accending order.
+// For example, if amt = 10, outputs: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+int[] accendingIndex(int amt) {
+  int[] list = new int[amt];
+  for (int i=0; i<amt; i++) list[i] = i;
   return list;
 }

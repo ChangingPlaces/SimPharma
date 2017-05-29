@@ -66,6 +66,10 @@
   *               - Added Table Surface Canvas
   *               - Added Projection Mapping
   *               - Added Colortizer port
+  *               - Link Site Basins to PharmaDSS Basins
+  *               - Add Greenfield capacity to Site Basins
+  *               - Randomization of Site (2-3 of various sizes)
+  *               - Allow Resetting of Values to Original Spreadsheet
   */
   
 String VERSION = "BETA V1.0";  
@@ -89,8 +93,6 @@ Nina:
   *               - Create turn-by-turn record or table state
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Draw Colortizer/Table State onto 'offscreen'
-  *               - Link Site Basins to PharmaDSS Basins
-  *               - Add Greenfield capacity to Site Basins
   *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization
   *               - Prompt user if trying to place capacity into GMS prior to R&D

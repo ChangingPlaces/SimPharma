@@ -3,6 +3,8 @@
  /  (b) write the values into local objects/classes that are used in the model
 */
 
+boolean loadOriginal = true;
+
 // Library for reading XLS files into Processing
 import de.bezier.data.*;  
 
@@ -21,6 +23,7 @@ import de.bezier.data.*;
     // Cell C38
     int SITE_ROW = 37; 
     int SITE_COL = 1;
+    int NUM_XLS_SITES = 2;
     int NUM_SITES = 2;
     
     // Cell D3
@@ -154,13 +157,28 @@ void loadModel_XLS(MFG_System model, String name) {
   }
   
   // Read MFG_System: Sites
-  for (int i=0; i<NUM_SITES; i++) {
-    model.SITES.add(new Site(
-      "" + reader.getInt(SITE_ROW + i, SITE_COL),
-      reader.getFloat(SITE_ROW + i, SITE_COL + 1),
-      reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1),
-      reader.getInt(RND_LIMIT_ROW + i, RND_LIMIT_COL)
-    ));
+  if (loadOriginal) {
+    NUM_SITES = 2;
+    for (int i=0; i<NUM_XLS_SITES; i++) {
+      model.SITES.add(new Site(
+        "" + reader.getInt(SITE_ROW + i, SITE_COL),
+        reader.getFloat(SITE_ROW + i, SITE_COL + 1),
+        reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1),
+        reader.getInt(RND_LIMIT_ROW + i, RND_LIMIT_COL)
+      ));
+    }
+    
+  } else {
+    
+    NUM_SITES = int(random(2, 4));
+    agileModel.SITES.clear();
+    for (int i=0; i<NUM_SITES; i++) {
+      // Sites(String name, float capEx, float capGn, int limitRnD)
+      agileModel.SITES.add(
+        new Site( "Site " + (i+1), 25*int(random( 1, 10) ), 25*int(random( 1, 10) ), int(random( 2, 5) ) 
+      ));
+    }
+    
   }
   
   // Read MFG_System: MAX_SAFE_UTILIZATION
@@ -169,7 +187,12 @@ void loadModel_XLS(MFG_System model, String name) {
   // Read Profile Information
   reader.openSheet(PROFILE_SHEET);
   
-  int[] profileList = randomIndex(NUM_PROFILES);
+  int[] profileList;
+  if (loadOriginal) {
+    profileList = accendingIndex(NUM_PROFILES);
+  } else {
+    profileList = randomIndex(NUM_PROFILES);
+  }
   
   // Read Profile: Attributes
   for (int i=0; i<NUM_PROFILES; i++) {
@@ -186,7 +209,7 @@ void loadModel_XLS(MFG_System model, String name) {
     model.PROFILES.get(i).timeStart = reader.getString(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 6);
     
     // Read Profile: Site Costs
-    for (int j=0; j<NUM_SITES; j++) {
+    for (int j=0; j<NUM_XLS_SITES; j++) {
       model.PROFILES.get(i).productionCost.add( reader.getFloat(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 7 + j) );
     }
     
@@ -207,9 +230,11 @@ void loadModel_XLS(MFG_System model, String name) {
     model.PROFILES.get(i).calc();
     
     //Rescale peak NCE values to be within reasonable orders of magnitude of GMS Build Options
-    int randomCap = int(random(capacityToUseGMS.length));
-    float randomMag = 1000*random(1.0, 3.0);
-    model.PROFILES.get(i).setPeak(randomMag*capacityToUseGMS[randomCap]);
+    if (!loadOriginal) {
+      int randomCap = int(random(capacityToUseGMS.length));
+      float randomMag = 1000*random(1.0, 3.0);
+      model.PROFILES.get(i).setPeak(randomMag*capacityToUseGMS[randomCap]);
+    }
     
     // Re-Calculates peak forecast demand value, lead years, etc
     model.PROFILES.get(i).calc();

@@ -1,7 +1,7 @@
 // The following scripts stage the drawing that is eventually projected upon a Tactile Matrix
 
 TableSurface mfg;
-float[] siteCapacity;
+float[][] siteCapacity;
 boolean enableSites;
 
 /*      ---------------> + U-Axis
@@ -39,10 +39,11 @@ void drawTable() {
 }
 
 void generateBasins() {
-  siteCapacity = new float[NUM_SITES];
+  siteCapacity = new float[NUM_SITES][2];
   for (int i=0; i<NUM_SITES; i++) { 
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
-    siteCapacity[i] = agileModel.SITES.get(i).capEx;
+    siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
+    siteCapacity[i][1] = agileModel.SITES.get(i).capGn;
   }
 
   mfg.clearBasins();
@@ -110,12 +111,12 @@ class TableSurface {
     p.endDraw();
   }
 
-  void addBasins(float[] basinSize) {
+  void addBasins(float[][] basinSize) {
     int num = basinSize.length;
     int availableWidth = U - MARGIN_W;
     int basinWidth = int(float(availableWidth)/num);
     for (int i=0; i<num; i++) {
-      inputArea.add( new Basin(MARGIN_W + 1 + i*basinWidth, BASINS_Y, int(basinSize[i]), basinWidth - 2) );
+      inputArea.add( new Basin(MARGIN_W + 1 + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2) );
     }
   }
 
@@ -126,55 +127,63 @@ class TableSurface {
   // A basin is an area on the table grid representing a total quantity 
   // of some available parameter. Typically, basins are "filled in" by tagged lego pieces.
   class Basin {
-    int basinX, basinY, basinSize, basinWidth;
-    float basinCap;
+    int basinX, basinY, basinWidth;
+    int[] basinSize;
+    float[] basinCap;
     int[] CORNER_BEVEL;
     int MAX_SIZE;
     boolean isQuad = true;
     PShape[] s;
 
-    Basin(int basinX, int basinY, float basinCap, int basinWidth) {
+    Basin(int basinX, int basinY, float[] basinCap, int basinWidth) {
       this.basinX = basinX;
       this.basinY = basinY;
       this.basinCap = basinCap;
       this.basinWidth = basinWidth;
 
-      MAX_SIZE = basinWidth * ( V_MAX - basinY - 2);
-      basinSize = int(basinCap / agileModel.maxCap * MAX_SIZE);
+      MAX_SIZE = basinWidth * ( V_MAX - basinY - 5);
+      basinSize = new int[2];
+      basinSize[0] = int((basinCap[0] + basinCap[1]) / agileModel.maxCap * MAX_SIZE);
+      basinSize[1] = int( basinCap[0] / agileModel.maxCap * MAX_SIZE);
 
       CORNER_BEVEL = new int[2];
-      CORNER_BEVEL[0] = 15;
-      CORNER_BEVEL[1] =int( 0.75*CORNER_BEVEL[0] );
+      CORNER_BEVEL[0] = 10;
+      CORNER_BEVEL[1] = 5;
       s = new PShape[2];
 
-      if (basinSize%basinWidth != 0) {
-        isQuad = false;
-      }
-
-      // Outline
+      // Outline (0 = Existing Capacity; 1 = Greenfield Capacity);
       for (int i=0; i<2; i++) {
+        
+        if (basinSize[i]%basinWidth != 0) {
+          isQuad = false;
+        } else {
+          isQuad = true;
+        }
+      
         s[i] = createShape();
         s[i].beginShape();
 
         s[i].noFill();
-        s[i].strokeWeight(1.5*CORNER_BEVEL[i]);
+        
+        s[i].strokeWeight(2*CORNER_BEVEL[i]);
 
         if (i==0) {
-          s[i].stroke(255);
+          s[i].stroke(255, 150);
+          
         } else {
-          s[i].stroke(GSK_ORANGE, 200);
+          s[i].stroke(GSK_ORANGE);
         }
 
         s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, - CORNER_BEVEL[i] +  basinY*cellH);
         s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, - CORNER_BEVEL[i] +  basinY*cellH);
         if (isQuad) {
-          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
+          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth) * cellH);
         } else {
-          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth - 1) * cellH);
-          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth - 1) * cellH);
-          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
+          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth - 1) * cellH);
+          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize[i]%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth - 1) * cellH);
+          s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize[i]%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth) * cellH);
         }
-        s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, + CORNER_BEVEL[i] + (basinY + basinSize / basinWidth) * cellH);
+        s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth) * cellH);
 
         s[i].endShape(CLOSE);
       }

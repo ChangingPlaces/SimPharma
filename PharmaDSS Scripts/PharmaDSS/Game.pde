@@ -1,5 +1,40 @@
 boolean gameMode = false;
 
+// Regenerate Game
+void regenerateGame() {
+  
+  boolean interrupt = false;
+  loadOriginal = false;
+  
+  // Cannot reset game while in active game mode
+  if (gameMode) {
+    interrupt = true;
+    gameMode = false;
+  }
+  
+  // Initiate MFG_System and Objects
+  agileModel = new MFG_System();
+  //Initiate Game
+  loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
+  
+  session = new Game();
+  // Turns game back on if interrupted so god mode is never seen
+  if (interrupt) {
+    gameMode = true;
+  }
+  
+  // Calculates Max Capacity Site
+  agileModel.maxCapacity();
+  
+  // Generate New Basins for Sites
+  generateBasins();
+  
+  //resets Scores for debugging
+  for (int i=0; i<kpi.nRadar; i++) {
+    kpi.setScore(i, random(1.0));
+  }
+}
+
 // Game, Turn, Event classes help log and manage actions over the passage of time
 // Games are made up of a series of Turns, and Turns are made up of 0 or more events that effect the system.
 class Game {
