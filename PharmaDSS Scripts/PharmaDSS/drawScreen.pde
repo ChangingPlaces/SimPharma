@@ -97,66 +97,66 @@ void drawScreen() {
         agileModel.SITES.get(i).draw(MARGIN + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, sitesW, sitesH, agileModel.maxCap, selected);
       }
   
-  // Draw Build/Repurpose Units
-      
-      // Build Var
-      fill(textColor);
-      textAlign(LEFT);
-      text("Pre-Engineered Production Units:", buildsX, titlesY);
-      float spread = 3.0;
-      
-      // Draw GMS Build Options
-      fill(textColor);
-      textAlign(LEFT);
-      text("GMS", buildsX, buildsY + 1.4*MARGIN);
-//      text("Build", MARGIN + buildsX, buildsY - 10);
-//      text("Repurpose", MARGIN + buildsX + 80, buildsY - 10);
-      for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
-        selected = false;
-        if (i == session.selectedBuild) selected = true;
-        agileModel.GMS_BUILDS.get(i).draw(buildsX, 2*MARGIN + buildsY + int(spread*buildsH*i), buildsW, buildsH, "GMS", selected);
-      }
-      
-      // Draw R&D Build Options
-      fill(textColor);
-      textAlign(LEFT);
-      float vOffset = buildsY + spread*buildsH*(agileModel.GMS_BUILDS.size()+1);
-      text("R&D", buildsX, vOffset + 1.4*MARGIN);
-      for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
-        selected = false;
-        // if (...) selected = true;
-        agileModel.RND_BUILDS.get(i).draw(buildsX, 2*MARGIN + int(vOffset + spread*buildsH*i ), buildsW, buildsH, "R&D", selected);
-      }
-      
-      // Draw Personnel Legend
-      int vOff = -50;
-      fill(textColor);
-      textAlign(LEFT);
-//      text("Personnel:", titlesY, MARGIN);
-      for (int i=0; i<NUM_LABOR; i++) {
-        if (i==0) {
-          fill(#CC0000);
-        } else if (i==1) {
-          fill(#00CC00);
-        } else if (i==2) {
-          fill(#0000CC);
-        } else if (i==3) {
-          fill(#CCCC00);
-        } else if (i==4) {
-          fill(#CC00CC);
-        } else {
-          fill(#00CCCC);
-        }
-        
-        int xOff = 0;
-        if (i > 2) {
-          xOff = 100;
-        }
-        
-        ellipse(buildsX + xOff, 15*(i%3) - 4 + profilesY, 3, 10);
-        fill(textColor);
-        text(agileModel.LABOR_TYPES.getString(i,0), buildsX + 10 + xOff, 15*(i%3) + profilesY);
-      }
+//  // Draw Build/Repurpose Units
+//      
+//      // Build Var
+//      fill(textColor);
+//      textAlign(LEFT);
+//      text("Pre-Engineered Production Units:", buildsX, titlesY);
+//      float spread = 3.0;
+//      
+//      // Draw GMS Build Options
+//      fill(textColor);
+//      textAlign(LEFT);
+//      text("GMS", buildsX, buildsY + 1.4*MARGIN);
+////      text("Build", MARGIN + buildsX, buildsY - 10);
+////      text("Repurpose", MARGIN + buildsX + 80, buildsY - 10);
+//      for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
+//        selected = false;
+//        if (i == session.selectedBuild) selected = true;
+//        agileModel.GMS_BUILDS.get(i).draw(buildsX, 2*MARGIN + buildsY + int(spread*buildsH*i), buildsW, buildsH, "GMS", selected);
+//      }
+//      
+//      // Draw R&D Build Options
+//      fill(textColor);
+//      textAlign(LEFT);
+//      float vOffset = buildsY + spread*buildsH*(agileModel.GMS_BUILDS.size()+1);
+//      text("R&D", buildsX, vOffset + 1.4*MARGIN);
+//      for (int i=0; i<agileModel.RND_BUILDS.size(); i++) {
+//        selected = false;
+//        // if (...) selected = true;
+//        agileModel.RND_BUILDS.get(i).draw(buildsX, 2*MARGIN + int(vOffset + spread*buildsH*i ), buildsW, buildsH, "R&D", selected);
+//      }
+//      
+//      // Draw Personnel Legend
+//      int vOff = -50;
+//      fill(textColor);
+//      textAlign(LEFT);
+////      text("Personnel:", titlesY, MARGIN);
+//      for (int i=0; i<NUM_LABOR; i++) {
+//        if (i==0) {
+//          fill(#CC0000);
+//        } else if (i==1) {
+//          fill(#00CC00);
+//        } else if (i==2) {
+//          fill(#0000CC);
+//        } else if (i==3) {
+//          fill(#CCCC00);
+//        } else if (i==4) {
+//          fill(#CC00CC);
+//        } else {
+//          fill(#00CCCC);
+//        }
+//        
+//        int xOff = 0;
+//        if (i > 2) {
+//          xOff = 100;
+//        }
+//        
+//        ellipse(buildsX + xOff, 15*(i%3) - 4 + profilesY, 3, 10);
+//        fill(textColor);
+//        text(agileModel.LABOR_TYPES.getString(i,0), buildsX + 10 + xOff, 15*(i%3) + profilesY);
+//      }
   
   //Draw Selected Profile in Large Format
   if (!gameMode) {
