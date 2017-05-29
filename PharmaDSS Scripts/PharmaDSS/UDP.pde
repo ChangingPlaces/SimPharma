@@ -28,6 +28,14 @@ void initUDP() {
   udp = new UDP( this, portIN );
   //udp.log( true );     // <-- printout the connection activity
   udp.listen( true );
+  
+  // Initialize tablePieceInput
+  for (int u=0; u<U_MAX; u++) {
+    for (int v=0; v<V_MAX; v++) {
+      tablePieceInput[u][v][0] = -1;
+      tablePieceInput[u][v][1] = 0;
+    }
+  }
 }
 
 void ImportData(String inputStr[]) {

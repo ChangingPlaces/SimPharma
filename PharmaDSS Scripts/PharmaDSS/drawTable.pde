@@ -97,8 +97,7 @@ class TableSurface {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
           
           // Draw Colortizer Input Pieces
-          println(u, v);
-          if (tablePieceInput[u - MARGIN_W][v][0] != -1) {
+          if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < ID_MAX) {
             p.fill(#FF0000);
             p.noStroke();
             p.rect(u*cellW, v*cellH, cellW, cellH);
@@ -118,6 +117,10 @@ class TableSurface {
     if (LEFT_MARGIN) {
       p.rect(0, 0, MARGIN_W*cellW, p.height);
     }
+    
+    // Draw Logo
+    int buffer = 30;
+    p.image(logo, buffer, buffer, MARGIN_W*cellW - 2*buffer, MARGIN_W*cellW - 2*buffer); 
 
     p.endDraw();
   }

@@ -18,9 +18,8 @@ int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titl
 // Width and Height
 int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH;
   
-//Here are some functions to test drawing the visualization
+//methods for drawing model onto a screen
 void drawScreen() {
-  // 1800, 1100
   
   textSize(textSize);
   
@@ -40,7 +39,6 @@ void drawScreen() {
   radarH    = int(0.06*width);
   radarX    = int(sitesX + radarH + 60);
   radarY    = int(0.8*height);
-  
   
   //Builds
   buildsX = sitesX + radarH*3;
