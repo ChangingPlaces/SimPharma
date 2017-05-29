@@ -59,36 +59,18 @@ class RadarPlot {
   }
   
   float rot = 0.25*PI;
-  void draw(int x, int y, int d) {
-    
-    fill(textColor);
-    strokeWeight(1);
-    
+  void draw(int x, int y, int d) {  
+
+    strokeWeight(1);   
     if (nRadar > 2) {
       
-      //Draw Score Axes
+      //Draws radar plot
       for (int i=0; i<nRadar; i++) {
-        //Draw Score Axes
+        
+        //Draws axes
         stroke(#999999);
         line(x, y, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
-       
-      }
-      
-      //Draw Labels
-      for (int i=0; i<nRadar; i++) {
-        //Draw Labels
-        if (hilite == i) {
-          fill(#CCCCCC);
-        } else {
-          fill(#666666);
-        }
-         textAlign(CENTER);
-         text(names.get(i), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y - 7);
-
-      }
-
-      //Draw Score Fills
-      for (int i=0; i<nRadar; i++) {
+        
         noStroke();
         //Draw Score Fills
         if (radarMode == 0) {
@@ -101,37 +83,47 @@ class RadarPlot {
           fill(255*(1-avgScore), 255*avgScore, 0);
 
         }
-        
+        //draw fills
         triangle(x, y, scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, scores.get((i+1)%nRadar)*d*sin(rot+(i+1)%nRadar*2*PI/nRadar) + y);
-      }
-
-
-      for (int i=0; i<nRadar; i++) {
-        //Draw Score Dots
-//        strokeWeight(1);
-        if (radarMode == 0) {
-          fill(#238586);
-        } else if (radarMode == 1) {
-          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
-        } else if (radarMode == 2) {
-          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
-        }
         
+        //draw end dots
         //ellipse(scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, 5, 5);
-      }
-      
-      for (int i=0; i<nRadar; i++) {
-        //Draw Score Numbers
-        if (radarMode == 0) {
-          fill(#CCCCCC);
-        } else if (radarMode == 1) {
-          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
-        } else if (radarMode == 2) {
-          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
-        }
-        textAlign(CENTER, CENTER);
+        
+        
+        //scores
+         textAlign(CENTER, CENTER);
+         if((d+12)*sin(rot+i*2*PI/nRadar) + y < y){
          text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y);
+         }
+         else{
+           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 13);
+         }
+         
+         //names
+         fill(textColor);
+         textAlign(CENTER);
+         if((d+12)*sin(rot+i*2*PI/nRadar) + y - 7 < y){
+         text(names.get(i), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y - 7);
+         }
+         else{
+         text(names.get(i), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 5);
+         }
       }
+
+//
+//   Relic code from number score drawing    
+//      for (int i=0; i<nRadar; i++) {
+//        //Draw Score Numbers
+//        if (radarMode == 0) {
+//          fill(#CCCCCC);
+//        } else if (radarMode == 1) {
+//          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
+//        } else if (radarMode == 2) {
+//          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
+//        }
+//        textAlign(CENTER, CENTER);
+//         text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y);
+//      }
     }
   }
 }

@@ -284,7 +284,8 @@ class Button{
       p.rect(x, y, w, h, 5);
       p.fill(255);
       p.textSize(11);
-      p.text(label, x + (w/2-textWidth(label)/2), y + 0.6*h); 
+      p.textAlign(CENTER);
+      p.text(label, x + (w/2), y + 0.6*h); 
     }
   } 
   

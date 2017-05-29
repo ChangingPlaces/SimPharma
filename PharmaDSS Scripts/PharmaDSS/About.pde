@@ -72,10 +72,8 @@ String VERSION = "BETA V1.0";
 
 /*
 Nina:
-  - Fix buttons
   - ****Handle profile widget look/proportions*****
   - Phase graphic + communication inside the graphics 
-  - Radar clean
   - Handle site widget look/proportions
   - Output graph clean (once Ira does thing)
   - Click based 
