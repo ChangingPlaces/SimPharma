@@ -26,8 +26,9 @@ boolean readXLS = true;
 
 // "setup()" runs once upon executing script
 void setup() {
-//  PFont main = createFont("Arial", 19, false);
-//  textFont(main);
+//  PFont main = createFont("Arial", 20, false);
+  PFont main = loadFont("data/ArialUnicodeMS-20.vlw");
+  textFont(main);
   // Initiate MFG_System and Objects
   agileModel = new MFG_System();
   
@@ -86,7 +87,7 @@ int textSize = 12;
 
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
-  textSize = min(11,int(width/100));
+  textSize = min(16,int(width/100));
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
     decodePieces();
