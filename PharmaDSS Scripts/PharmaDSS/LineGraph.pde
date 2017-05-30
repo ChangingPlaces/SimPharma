@@ -4,8 +4,8 @@ class LineGraph{
   int num_intervals;
   ArrayList<ArrayList<Float>> Values = new ArrayList<ArrayList<Float>>();
 
-  color[] colarray;
-    
+  color[] colarray = new color[5];
+
   
   LineGraph( ArrayList<ArrayList<Float>> _Values, float _x, float _y, float _w, float _h, int _num_intervals){
     Values = _Values;
@@ -15,6 +15,11 @@ class LineGraph{
     h = _h;
     w = _w;
     num_intervals = _num_intervals;
+      colarray[0] = color(255, 0, 0);
+      colarray[1]=  color(0, 255, 0);
+      colarray[2]=  color(0, 255, 255);
+      colarray[3]=  color(0, 0, 255);
+      colarray[4]=  color(200, 0, 255);
   }
   
   void draw(){
@@ -22,7 +27,6 @@ class LineGraph{
     try{
   //  for(int i = 0; i<Values.size(); i++){
     for(int i = 0; i<5; i++){
-      int k = 0; 
       for(int j = 0; j<19; j++){
         
          posx  = j*(w/num_intervals) + minx; 
@@ -33,9 +37,9 @@ class LineGraph{
 
          fill(textColor);
          strokeWeight(1);
-         stroke(textColor);
+         stroke(colarray[i]);
          line(posx, posy, posx2, posy2);
-         stroke(textColor);
+//         stroke(textColor);
       }
     }
   }
