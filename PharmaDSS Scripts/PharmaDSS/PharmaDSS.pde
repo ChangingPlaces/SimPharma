@@ -99,6 +99,8 @@ void draw() {
   // Refers to "drawScreen" tab
   drawScreen();
   
+  drawPhaseDiagram();
+  
   // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
   noStroke();
   drawTable();
