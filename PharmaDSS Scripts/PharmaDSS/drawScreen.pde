@@ -212,75 +212,49 @@ void drawProfiles(ArrayList<Profile> list) {
 //        profilesW, profilesH,
 //        axis, selected, false);
 //      list.get(i-1).graph.drawProfileGraph();
-        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY +   int(0.55*height*(i-1)/float(numProf+1)), 
+        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.55*height*(i-1)/float(numProf+1)), 
         profilesW, profilesH,
         axis, selected, false);
     }
   }
   
   // Draw Profile Legend
-  if(!gameMode){
+ 
+  noStroke();
   fill(THEME, 200);
-  rect(MARGIN + profilesX, profilesY - 9, 15, 10);
+  rect(MARGIN + profilesX, titlesY + textSize*1.5, 15, 10);
   fill(textColor, 150);
-  rect(MARGIN + profilesX, profilesY + 6, 15, 10);
-  fill(textColor);
-  textAlign(LEFT);
-//  text("Legend:", MARGIN + profilesX, profilesY);
-  text("Actual", MARGIN + profilesX+20, profilesY);
-  text("Forecast", MARGIN + profilesX+20, profilesY + 15);
-  
-  noStroke();
+  rect(MARGIN + profilesX, titlesY + textSize*2.7, 15, 10);
   fill(P3);
-  rect(MARGIN + profilesX+100, profilesY - 12, 3, 12);
-  fill(END);
-  rect(MARGIN + profilesX+100, profilesY + 6, 3, 12);
+  rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
   fill(Launch);
-  rect(MARGIN + profilesX+205, profilesY - 12, 3, 12);
+  rect(MARGIN + profilesX+210 +textSize*4, titlesY + textSize*1.5, 3, textSize-2);
   
   fill(textColor);
   textAlign(LEFT);
-  text("Lead (Ph.III)", MARGIN + profilesX+110, profilesY);
-  text("End", MARGIN + profilesX+110, profilesY + 17);
-  text("Launch", MARGIN + profilesX+215, profilesY);
+  text("Actual", MARGIN + profilesX+20, titlesY + textSize*1.5 + 10);
+  text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 10);
+  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 1.5);
+  text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 10);
+  text("Launch", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*1.5 + 10);
+  text("Lead (Ph.III)", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*1.5 + 10);
   
-  fill(textColor);
-  rect(MARGIN + profilesX+200, profilesY + 10, 15, 1.5);
-  text("Capacity", MARGIN + profilesX+220, profilesY + 15);
+  
+  
+  if(!gameMode){
+    text("End", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*2.7 + 12);
+    fill(END);
+    rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*2.7 , 3, textSize-2);
   }
-  
+
   else{
-    fill(THEME, 200);
-  rect(MARGIN + profilesX, profilesY - 9, 15, 10);
-  fill(textColor, 150);
-  rect(MARGIN + profilesX, profilesY + 6, 15, 10);
-  fill(textColor);
-  textAlign(LEFT);
-  text("Actual", MARGIN + profilesX+20, profilesY);
-  text("Forecast", MARGIN + profilesX+20, profilesY + 15);
-  
-  noStroke();
-  fill(P3);
-  rect(MARGIN + profilesX+80, profilesY - 12, 3, 12);
-  fill(END);
-  rect(MARGIN + profilesX+80, profilesY + 6, 3, 12);
-  fill(Launch);
-  rect(MARGIN + profilesX+185, profilesY - 12, 3, 12);
-  fill(FISCAL);
-  rect(MARGIN + profilesX + 140, profilesY + 6, 3, 12);
-  
-  fill(textColor);
-  textAlign(LEFT);
-  text("Lead (Ph.III)", MARGIN + profilesX+90, profilesY);
-  text("End", MARGIN + profilesX+90, profilesY + 17);
-  text("Now", MARGIN + profilesX+150, profilesY + 17);
-  text("Launch", MARGIN + profilesX+195, profilesY);
-
-
-  
-  fill(textColor);
-  rect(MARGIN + profilesX+210, profilesY + 10, 15, 1.5);
-  text("Capacity", MARGIN + profilesX+230, profilesY + 15);
+    fill(END);
+    rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 , 3, textSize-2);
+    fill(FISCAL);
+    rect(MARGIN + profilesX+140 +textSize*3, titlesY + textSize*2.7 , 3, textSize-2);
+    fill(textColor);
+    text("End", MARGIN + profilesX+90  +textSize*2, titlesY + textSize*2.7 + 12);
+    text("Now", MARGIN + profilesX+150  +textSize*3, titlesY + textSize*2.7 + 12);
   }
   
 }
