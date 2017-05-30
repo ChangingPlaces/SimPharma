@@ -11,9 +11,9 @@
 int screenWidth = 1280;
 int screenHeight = 800;
  
-int projectorWidth = 1920;
-int projectorHeight = 1200;
-int projectorOffset = 1280;
+int projectorWidth = 1280;
+int projectorHeight = 800;
+int projectorOffset = 0;
 
 // Library needed for ComponentAdapter()
 import java.awt.event.*;
@@ -87,7 +87,6 @@ void setup() {
 
 int textSize = 12;
 
-// "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
 
   textSize = min(14,int(width/100));

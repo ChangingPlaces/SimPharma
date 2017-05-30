@@ -90,13 +90,13 @@ public class projApplet extends PApplet {
   public void setup() {
     // Keystone will only work with P3D or OPENGL renderers, 
     // since it relies on texture mapping to deform
-    size(projectorWidth, projectorHeight, P3D);
+    size(projectorWidth, projectorHeight, P2D);
     
     // Initialize projection-mapping objects
     ks = new Keystone(this);
     surface = ks.createCornerPinSurface(projectorHeight, projectorHeight, 20);
 
-    offscreen = createGraphics(projectorHeight, projectorHeight, P3D);
+    offscreen = createGraphics(projectorHeight, projectorHeight);
     
     try{
       // Loads the corner position of a previously callibrated projection map
@@ -153,19 +153,4 @@ public class projApplet extends PApplet {
   }
 }
 
-// Turns Projection Mapping Applet On and Off
-void toggle2DProjection() {
-  if (System.getProperty("os.name").substring(0,3).equals("Mac")) {
-    testProjectorOnMac = !testProjectorOnMac;
-    println("Test on Mac = " + testProjectorOnMac);
-    println("Projection Mapping Currently not Supported for MacOS");
-  } else {
-    if (displayProjection2D) {
-      displayProjection2D = false;
-      closeProjection2D();
-    } else {
-      displayProjection2D = true;
-      showProjection2D();
-    }
-  }
-}
+
