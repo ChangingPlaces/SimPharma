@@ -72,7 +72,6 @@ void drawScreen() {
       //Line Graph and Outputs
       fill(textColor);
       textSize(max(18, textSize));
-      text("Outputs:", 0.5*MARGIN + sitesX + 50, 2.2*MARGIN + 40 + canH*.6);
       LineGraph lineGraph = new LineGraph(lineList, 0.5*MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/2, 2.2*MARGIN + 20 + canH*.6, (width - sitesX - 1.25*MARGIN)/2 - 50, canH*.4 - 50, 20);
       
   // Draw Title
@@ -97,6 +96,7 @@ void drawScreen() {
       textAlign(LEFT);
       textSize(max(18, textSize));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
+      text("Outputs:", MARGIN + sitesX , canH*.6 + titlesY + MARGIN/2.5);
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;

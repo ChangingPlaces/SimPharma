@@ -158,6 +158,7 @@ void keyPressed() {
       if (gameMode) repurposeSelection();
       break;
     case ' ': // "Next Turn (SPACE)"
+      lineList.clear();
       if (gameMode) endTurn();
       break;
     case '`': //  "Enable Projection (`)"
