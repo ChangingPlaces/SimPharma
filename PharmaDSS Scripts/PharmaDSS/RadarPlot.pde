@@ -110,20 +110,6 @@ class RadarPlot {
          }
       }
 
-//
-//   Relic code from number score drawing    
-//      for (int i=0; i<nRadar; i++) {
-//        //Draw Score Numbers
-//        if (radarMode == 0) {
-//          fill(#CCCCCC);
-//        } else if (radarMode == 1) {
-//          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
-//        } else if (radarMode == 2) {
-//          fill(255*(1-scores.get(i)), 255*scores.get(i), 0);
-//        }
-//        textAlign(CENTER, CENTER);
-//         text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y);
-//      }
     }
   }
 }

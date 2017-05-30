@@ -271,7 +271,7 @@ class Profile {
         fill(THEME, 150);
         
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
-        Coords.add(y - barA);
+        Coords.add(random(100));
       }
       
 

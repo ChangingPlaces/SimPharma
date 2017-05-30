@@ -63,6 +63,7 @@ void drawScreen() {
       rect(0.25*MARGIN + profilesX+5, 2.2*MARGIN+5, profilesW + 1.75*MARGIN, canH, 4);
       rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN+5, width - sitesX - 1.25*MARGIN, canH*.6, 4);
       rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN + 25 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 4);
+      
       // Canvas
       fill(abs(background - 0));
       rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
@@ -70,9 +71,9 @@ void drawScreen() {
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
       
       //Line Graph and Outputs
-      fill(textColor);
-      textSize(max(18, textSize));
-      LineGraph lineGraph = new LineGraph(lineList, MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/3, 2.2*MARGIN + 20 + canH*.6, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.4 - 50, 20);
+      float lineY = 2.2*MARGIN + 70 + canH*.6;
+      float lineX = MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20;
+      LineGraph lineGraph = new LineGraph(lineList, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25, 20);
       
   // Draw Title
       fill(textColor);
@@ -81,9 +82,6 @@ void drawScreen() {
       text("PharmaDSS" + VERSION, width - MARGIN, MARGIN);
       text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + textSize + 3);
       text("Ira Winder, Nina Lutz, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
-  
-  // Draw Phasing Diagram
-      //image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
   
   // Draw Profiles
       if (!gameMode) {
