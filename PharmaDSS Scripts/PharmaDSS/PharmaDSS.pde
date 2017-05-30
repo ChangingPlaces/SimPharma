@@ -11,9 +11,9 @@
 int screenWidth = 1280;
 int screenHeight = 800;
  
-int projectorWidth = 1280;
-int projectorHeight = 800;
-int projectorOffset = 0;
+int projectorWidth = 1920;
+int projectorHeight = 1200;
+int projectorOffset = 1280;
 
 // Library needed for ComponentAdapter()
 import java.awt.event.*;
