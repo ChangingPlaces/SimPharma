@@ -70,22 +70,19 @@ class Site {
     int picW = w + RnD_gap + RnD_W;
     int picH = infoGap*MARGIN - RnD_gap;
     PImage pic;
-    //rect(x, y, picW, picH, 5);
     if (textColor == 50) {
       pic = sitePNG_BW;
     } else {
       pic = sitePNG;
     }
     tint(255, 75);
-    image(pic, x, y, picW, picH);
+    image(pic, x, y, picW*.75, picH*.75);
     tint(255, 255);
     
     // Draw Baseline Total External and Green Field Rectangle Capacities
     stroke(textColor, 100);
     strokeWeight(2);
     fill(textColor, 50);
-    //rect(x, infoGap*MARGIN + y, w, sideGn + 10, 5);
-   //  newbound = map(sideGn + 10, infoGap*MARGIN + y, height, y - 30, boxLimit- infoGap*MARGIN);
     rect(x, infoGap*MARGIN + y, w, newbound, 5);
     noStroke();
     fill(background);
@@ -99,8 +96,6 @@ class Site {
     text("Site " + name, x, y - 5);
     fill(textColor);
     textAlign(CENTER);
-    //text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);
-//    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
     text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, newbound + infoGap*MARGIN + y + 20);
     
     // Draw RND Capacity Slots
@@ -143,7 +138,6 @@ class Site {
       if(size > 30){
         size  = 30;
       }
-//      fill(200, 200, 0);
       rect(x + 7, y + 5 + 1 + offset + infoGap*MARGIN, w - 14, size - 2, 5);
       offset += size;
       noStroke();

@@ -16,7 +16,7 @@ boolean enableSites;
  */
 
 void setupTable() {
-  offscreen = createGraphics(projectorHeight, projectorHeight, P3D);
+  offscreen = createGraphics(projectorHeight, projectorHeight);
   // TableSurface(int u, int v, boolean left_margin)
   mfg = new TableSurface(projectorHeight, projectorHeight, V_MAX, V_MAX, true);
   enableSites = true;
@@ -29,7 +29,6 @@ void drawTable() {
   mfg.draw(offscreen);
 
   if (testProjectorOnMac) {
-
     stroke(background);
     strokeWeight(1);
     fill(textColor, 100);
@@ -255,7 +254,7 @@ class TableSurface {
           s[i].vertex( + CORNER_BEVEL[i] + (basinX + basinSize[i]%basinWidth) * cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth + 1) * cellH);
           s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, + CORNER_BEVEL[i] + (basinY + basinSize[i] / basinWidth + 1) * cellH);
         }
-        
+         s[i].vertex( - CORNER_BEVEL[i] +  basinX*cellW, - CORNER_BEVEL[i] +  basinY*cellH);
 
         s[i].endShape(CLOSE);
       }
