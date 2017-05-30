@@ -26,12 +26,12 @@ class LineGraph{
       for(int j = 0; j<19; j++){
         
          posx  = k + k*(w/num_intervals) + minx;
-         posy = map(Values.get(i).get(j), 0, 100, miny, miny - h - 20);
+         posy = map(Values.get(i).get(j), 100, 1000, miny, miny - h - 20);
          k+=1;
          posx2  = (k + 1) + (k+1)*(w/num_intervals) + minx;
-         posy2 = map(Values.get(i).get(j+1), 0, 100,  miny, miny - h - 20); 
+         posy2 = map(Values.get(i).get(j+1), 100, 1000,  miny, miny - h - 20); 
 
-           
+
          fill(textColor);
         
          strokeWeight(1);
