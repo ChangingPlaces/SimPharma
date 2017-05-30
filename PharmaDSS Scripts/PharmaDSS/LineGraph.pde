@@ -1,12 +1,12 @@
 class LineGraph{
   float minx, miny, h, w;
   int num_intervals;
-  ArrayList<ArrayList<Float>> Values = new ArrayList<ArrayList<Float>>();
+  ArrayList<float[]> Values = new ArrayList<float[]>();
 
   color[] colarray = new color[5];
 
   
-  LineGraph( ArrayList<ArrayList<Float>> _Values, float _x, float _y, float _w, float _h, int _num_intervals){
+  LineGraph( ArrayList<float[]> _Values, float _x, float _y, float _w, float _h){
       Values = _Values;
   
       minx = _x;
@@ -14,7 +14,6 @@ class LineGraph{
       miny = _y + _h;
    
       w = _w;
-      num_intervals = _num_intervals;
     
       //Making a color array of different colors. 
       colarray[0] = color(33, 139, 204);
@@ -29,7 +28,8 @@ class LineGraph{
     
     //Implement try catch in case of memory leak of array
     try{
-    for(int i = 0; i<Values.size(); i++){
+      
+    for(int i = 0; i<NUM_OUTPUTS; i++){
       
        //draws legend
        noStroke();
@@ -38,16 +38,16 @@ class LineGraph{
        fill(textColor);
        textAlign(LEFT);
        textSize(textSize-1);
-       text(kpi.names.get(i), minx + i*w/4.5 + 12, miny - h );
+       text(outputNames[i], minx + i*w/4.5 + 12, miny - h );
        
-      for(int j = 0; j<19; j++){
-
-         posx  = j*(w/num_intervals) + minx; 
-         posy = map(Values.get(i).get(j), 0, 100, miny - h + 30, miny - 10);
+      for(int j = 0; j<Values.size()-1; j++){
+         
+         posx  = j*(w/Values.size()) + minx; 
+         posy = map(100*Values.get(j)[i], 0, 100, miny - h + 30, miny - 10);
         
-         posx2  = posx + (w/num_intervals);
-         posy2 = map(Values.get(i).get(j+1), 0, 100, miny - h + 30, miny - 10);
-
+         posx2  = posx + (w/Values.size());
+         posy2 = map(100*Values.get(j+1)[i], 0, 100, miny - h + 30, miny - 10);
+         
          //set colors with the appropriate profile
          fill(colarray[i]);
          strokeWeight(2);

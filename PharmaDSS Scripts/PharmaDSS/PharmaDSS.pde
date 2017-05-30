@@ -79,7 +79,11 @@ void setup() {
   sitePNG_BW = loadImage("data/site_BW.png");
   logo = loadImage("data/GSK-logo-2014.png");
   nce = loadImage("data/coumpound2.png");
+  
+  initOutputs();
   setupRadar();
+  
+  randomOutputs();
   setupTable();
 
   initUDP();
@@ -123,10 +127,6 @@ void draw() {
 
 // Refreshes when there's a mouse mouse movement
 void mouseMoved() {
-//  lineList.clear();
-    for(int i = 0; i<agileModel.PROFILES.size(); i++){
-      agileModel.PROFILES.get(i).Coords.clear();
-    }
   loop();
 }
 

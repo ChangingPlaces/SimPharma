@@ -3,16 +3,12 @@ RadarPlot kpi;
 
 void setupRadar() {
   
-  kpi = new RadarPlot(5);
-  kpi.setName(4, "CAPEX");
-  kpi.setName(3, "OPEX");
-  kpi.setName(2, "COGs");
-  kpi.setName(1, "ATMDEM");
-  kpi.setName(0, "SECSUP");
-  
-  for (int i=0; i<kpi.nRadar; i++) {
+  kpi = new RadarPlot(NUM_OUTPUTS);
+  for (int i=0; i<NUM_OUTPUTS; i++) {
+    kpi.setName(i, outputNames[i]);
     kpi.setScore(i, random(1.0));
   }
+  
 }
 
 // A class to hold information related to a radar plot

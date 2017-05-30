@@ -9,8 +9,6 @@ class Profile {
   //Graph for displaying the Profile
   BarGraph graph;
   
-  ArrayList<Float>Coords = new ArrayList<Float>();
-  
   // Name of NCE Demand Profile
   String name; 
   
@@ -271,7 +269,6 @@ class Profile {
         fill(THEME, 150);
         
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
-        Coords.add(random(100));
       }
       
 

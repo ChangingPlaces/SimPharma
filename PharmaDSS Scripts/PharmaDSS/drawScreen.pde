@@ -17,6 +17,8 @@ int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titl
 
 // Width and Height
 int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH;
+
+LineGraph outputGraph;
   
 //methods for drawing model onto a screen
 void drawScreen() {
@@ -73,7 +75,7 @@ void drawScreen() {
       //Line Graph and Outputs
       float lineY = 2.2*MARGIN + 70 + canH*.6;
       float lineX = MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20;
-      LineGraph lineGraph = new LineGraph(lineList, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25, 20);
+      outputGraph = new LineGraph(outputs, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25);
       
   // Draw Title
       fill(textColor);
@@ -96,6 +98,7 @@ void drawScreen() {
       textSize(max(18, textSize));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
       text("Outputs:", MARGIN + sitesX , canH*.6 + titlesY + MARGIN/2.5);
+      
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
@@ -174,7 +177,7 @@ void drawScreen() {
   // Draw Radar Plot
   if (displayRadar) {
     kpi.draw(radarX, radarY, radarH);
-    lineGraph.draw();
+    outputGraph.draw();
   }
 
   image(logo, MARGIN, height-MARGIN - 70); 
@@ -189,15 +192,11 @@ void drawLargeProfile(Profile selected) {
   selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
 }
 
-ArrayList<ArrayList<Float>>lineList = new ArrayList<ArrayList<Float>>();
-
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
-  
-//  lineList.clear();
   
   // Current Year
   fill(textColor, 80);
@@ -223,13 +222,10 @@ void drawProfiles(ArrayList<Profile> list) {
 //        profilesW, profilesH,
 //        axis, selected, false);
 //      list.get(i-1).graph.drawProfileGraph();
-        lineList.add(list.get(i-1).Coords);
         list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
         profilesW, profilesH,
         axis, selected, false);
-        //list.get(i-1).Coords.clear();
     }
- //  list.get(i-1).Coords.clear();
   }
   
 

@@ -30,9 +30,7 @@ void regenerateGame() {
   generateBasins();
   
   //resets Scores for debugging
-  for (int i=0; i<kpi.nRadar; i++) {
-    kpi.setScore(i, random(1.0));
-  }
+  randomOutputs();
 }
 
 // Game, Turn, Event classes help log and manage actions over the passage of time

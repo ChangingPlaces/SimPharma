@@ -93,8 +93,7 @@ Nina:
   - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
 */
   
- /* TO DO:        
-  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
+ /* TO DO:        - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               
   *               - Create Legends for Build Units
