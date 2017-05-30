@@ -2,7 +2,6 @@ boolean displayRadar = true;
 RadarPlot kpi;
 
 void setupRadar() {
-  
   kpi = new RadarPlot(NUM_OUTPUTS);
   for (int i=0; i<NUM_OUTPUTS; i++) {
     kpi.setName(i, outputNames[i]);

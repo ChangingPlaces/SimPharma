@@ -78,17 +78,20 @@
   *               - Create turn-by-turn record or table state
   *               - Draw Colortizer/Table State onto 'offscreen'
   *               - Included GSK Logo
-  *               - Add cell Identifiers for Tabletop
+  *               - Add cell Identifiers for Tabletop#
+  *               - Phase graphic + communication inside the graphics 
+  *               - Radar clean
+  *               - Stable buttons
+  *               - Spatial reorganization of cards
+  *               - Dynamic font resizing
   */
   
 String VERSION = "BETA V1.0";  
 
 /*
 Nina:
-  - ****Handle profile widget look/proportions*****
-  - Phase graphic + communication inside the graphics 
-  - Handle site widget look/proportions
-  - Output graph clean (once Ira does thing)
+  - Clean clean
+  - Visualize site bins
   - Click based 
   - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
 */
@@ -105,8 +108,6 @@ Nina:
   *               - Add Dock for filtering NEC performance
   *               - Add Docks performance metric filter
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
-  *
-  *               - Redo card structure for the right hand side/middle
   *                
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
   *               - Only fill up production capacities partially on sites
