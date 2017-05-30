@@ -99,12 +99,12 @@ class TableSurface {
           p.fill(255);
           p.textAlign(BOTTOM);
           p.textSize(cellH/2);
-          p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 1.1)*cellH);
+          p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 3.1)*cellH);
           p.shape(inputArea.get(i).s[0]);
           p.shape(inputArea.get(i).s[1]);
           
           p.tint(150);
-          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 2.5)*cellH);
+          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 4.5)*cellH);
         }
       }
     }
