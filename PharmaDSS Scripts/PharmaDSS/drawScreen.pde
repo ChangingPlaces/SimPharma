@@ -73,7 +73,7 @@ void drawScreen() {
       textAlign(RIGHT);
       text("PharmaDSS" + VERSION, width - MARGIN, MARGIN);
       text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + textSize + 3);
-      text("Ira Winder, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
+      text("Ira Winder, Nina Lutz, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
   
   // Draw Phasing Diagram
       //image(phasing, 0.25*MARGIN + profilesX, MARGIN - 10, profilesW + 1.75*MARGIN, (profilesW+MARGIN)/7);
