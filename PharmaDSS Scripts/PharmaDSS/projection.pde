@@ -43,6 +43,23 @@ void initializeProjection2D() {
   println("Projector Info: " + projectorWidth + ", " + projectorHeight + ", " + projectorOffset);
 }
 
+  // Turns Projection Mapping Applet On and Off
+void toggle2DProjection() {
+  if (System.getProperty("os.name").substring(0,3).equals("Mac")) {
+    testProjectorOnMac = !testProjectorOnMac;
+    println("Test on Mac = " + testProjectorOnMac);
+    println("Projection Mapping Currently not Supported for MacOS");
+  } else {
+    if (displayProjection2D) {
+      displayProjection2D = false;
+      closeProjection2D();
+    } else {
+      displayProjection2D = true;
+      showProjection2D();
+    }
+  }
+}
+
 public class PFrame extends JFrame {
   public PFrame() {
     setBounds(0, 0, projectorWidth, projectorHeight );
@@ -105,6 +122,8 @@ public class projApplet extends PApplet {
       println("No Keystone.xml.  Save one first if you want to load one.");
     }
   }
+  
+
   
   public void draw() {
     

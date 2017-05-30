@@ -28,14 +28,14 @@ void drawTable() {
   // Draw the scene, offscreen
   mfg.draw(offscreen);
 
-  if (testProjectorOnMac) {
+  //if (testProjectorOnMac) {
 
     stroke(background);
     strokeWeight(1);
     fill(textColor, 100);
     rect((width - int(0.85*height) ) / 2, (height - int(0.85*height) ) / 2, int(0.85*height), int(0.85*height), 10);
     image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
-  }
+  //}
 }
 
 void generateBasins() {

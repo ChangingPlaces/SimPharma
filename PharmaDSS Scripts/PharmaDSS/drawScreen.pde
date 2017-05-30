@@ -189,7 +189,6 @@ void drawLargeProfile(Profile selected) {
   selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
 }
 
-ArrayList<ArrayList<Float>>lineList = new ArrayList<ArrayList<Float>>();
 
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);

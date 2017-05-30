@@ -1,3 +1,5 @@
+ArrayList<ArrayList<Float>>lineList = new ArrayList<ArrayList<Float>>();
+
 class LineGraph{
   float minx, miny, h, w;
   int num_intervals;
