@@ -44,6 +44,5 @@ void drawPhaseDiagram(){
     text("File", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 3*(profilesW + 1.75*MARGIN)/5  , elly );
      textAlign(CENTER, CENTER);
     text("Launch", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 4*(profilesW + 1.75*MARGIN)/5  +textSize , elly );
- // text("Candidate",0.25*MARGIN + profilesX , MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24 - 6);
-  //text("Selection",0.25*MARGIN + profilesX, MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24 + textSize -6);
+
 }

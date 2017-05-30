@@ -100,6 +100,7 @@ void draw() {
   drawScreen();
   
   // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
+  noStroke();
   drawTable();
   drawTable();
   
@@ -109,7 +110,7 @@ void draw() {
     mainMenu.draw();
   }
   
-  drawPhaseDiagram();  
+//  drawPhaseDiagram();  
   fill(0);
 //  rect(width-50, height-50, width/100, width/100);
   noLoop();
