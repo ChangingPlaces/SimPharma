@@ -36,9 +36,9 @@ void drawScreen() {
   sitesH    = int(height) - 2*MARGIN - sitesY;
   
   //Radar
-  radarH    = int(0.06*width);
-  radarX    = int(sitesX + radarH + 60);
-  radarY    = int(0.8*height);
+  radarH    = int(0.05*width);
+  radarX    = int(sitesX + radarH + 70);
+  radarY    = int(0.8*height + 30);
   
   //Builds
   buildsX = sitesX + radarH*3;
@@ -61,12 +61,15 @@ void drawScreen() {
       // Shadows
       fill(abs(background - 50));
       rect(0.25*MARGIN + profilesX+5, 2.2*MARGIN+5, profilesW + 1.75*MARGIN, canH, 4);
-      rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN+5, width - sitesX - 1.25*MARGIN, canH, 4);
-      
+      rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN+5, width - sitesX - 1.25*MARGIN, canH*.6, 4);
+      rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN + 25 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 4);
       // Canvas
       fill(abs(background - 0));
       rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
+      rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
+      //ArrayList<ArrayList<Float>> _Values, float _x, float _y, float _w, float _h, int num_intervals
+      LineGraph lineGraph = new LineGraph(lineList, 0.5*MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/2, 2.2*MARGIN + 20 + canH*.6, (width - sitesX - 1.25*MARGIN)/2 - 20, 200, 20);
       
   // Draw Title
       fill(textColor);
@@ -168,6 +171,7 @@ void drawScreen() {
   // Draw Radar Plot
   if (displayRadar) {
     kpi.draw(radarX, radarY, radarH);
+    lineGraph.draw();
   }
 
   image(logo, MARGIN, height-MARGIN - 70); 
@@ -182,11 +186,15 @@ void drawLargeProfile(Profile selected) {
   selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
 }
 
+ArrayList<ArrayList<Float>>lineList = new ArrayList<ArrayList<Float>>();
+
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(16, textSize));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
+  
+//  lineList.clear();
   
   // Current Year
   fill(textColor, 80);
@@ -212,11 +220,16 @@ void drawProfiles(ArrayList<Profile> list) {
 //        profilesW, profilesH,
 //        axis, selected, false);
 //      list.get(i-1).graph.drawProfileGraph();
+        lineList.add(list.get(i-1).Coords);
         list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
         profilesW, profilesH,
         axis, selected, false);
+        //list.get(i-1).Coords.clear();
     }
+   list.get(i-1).Coords.clear();
   }
+  
+
   
   // Draw Profile Legend
  

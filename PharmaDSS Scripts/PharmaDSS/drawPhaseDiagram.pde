@@ -34,7 +34,7 @@ void drawPhaseDiagram(){
   float ellx = 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12;
 
   float elly =  MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24;
-  textSize(textSize - 2);
+  textSize(textSize);
     text("Candidate",ellx + textSize, elly - textSize/2);
     text("Selection",ellx + textSize, elly + textSize/2);
     textSize(textSize - 1);

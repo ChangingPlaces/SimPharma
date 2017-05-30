@@ -9,6 +9,8 @@ class Profile {
   //Graph for displaying the Profile
   BarGraph graph;
   
+  ArrayList<Float>Coords = new ArrayList<Float>();
+  
   // Name of NCE Demand Profile
   String name; 
   
@@ -267,7 +269,9 @@ class Profile {
       // If game is on, only shows actual demand bars for finished turns
       if (!gameMode || session.current.TURN > i) {
         fill(THEME, 150);
+        
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
+        Coords.add(y - barA);
       }
       
 

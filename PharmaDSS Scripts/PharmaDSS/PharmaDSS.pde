@@ -90,7 +90,7 @@ int textSize = 12;
 // "draw()" runs as infinite loop after setup() is performed, unless "noLoop()" is instantiated.
 void draw() {
 
-  textSize = min(12,int(width/100));
+  textSize = min(14,int(width/100));
 
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
@@ -122,6 +122,7 @@ void draw() {
 
 // Refreshes when there's a mouse mouse movement
 void mouseMoved() {
+//  lineList.clear();
   loop();
 }
 

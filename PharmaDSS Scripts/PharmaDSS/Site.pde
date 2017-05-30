@@ -50,13 +50,20 @@ class Site {
     int RnD_W = 35;
     int RnD_gap = 10;
     
+    fill(255);     
+    float canH = height - 2.8*MARGIN;
+    float boxLimit =  canH*.6 - 2.2*MARGIN;
+    float newbound = map(sideGn + 10, infoGap*MARGIN + y, height, y - 30, boxLimit- infoGap*MARGIN);
+    
     // Draw Site Selection
     if (selected) {
       fill(HIGHLIGHT, 40);
       //stroke(HIGHLIGHT, 80);
       //strokeWeight(1);
       noStroke(); 
-      rect(x - 10, y - 30, w + RnD_W + 2*RnD_gap + 10, height - MARGIN - y + 15, 5);
+ 
+      rect(x - 10,  y - 30, w + RnD_W + 2*RnD_gap + 10,  canH*.6 -(sitesY-titlesY) - 10, 5);
+      
       noStroke();
     }
     
@@ -78,29 +85,34 @@ class Site {
     stroke(textColor, 100);
     strokeWeight(2);
     fill(textColor, 50);
-    rect(x, infoGap*MARGIN + y, w, sideGn + 10, 5);
+    //rect(x, infoGap*MARGIN + y, w, sideGn + 10, 5);
+   //  newbound = map(sideGn + 10, infoGap*MARGIN + y, height, y - 30, boxLimit- infoGap*MARGIN);
+    rect(x, infoGap*MARGIN + y, w, newbound, 5);
     noStroke();
     fill(background);
-    rect(x + 5, infoGap*MARGIN + y + 5, w - 10, sideEx, 5);
+    float newy = map(sideEx, infoGap*MARGIN + y + 5, height, y - 40, boxLimit -infoGap*MARGIN) - 5;
+    rect(x + 5, infoGap*MARGIN + y + 5, w - 10, newy, 5);
     
     // Draw Label Text
     fill(textColor);
     textAlign(LEFT);
+    textSize(textSize);
     text("Site " + name, x, y - 15);
     fill(textColor);
     textAlign(CENTER);
     //text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);
-    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
+//    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, infoGap*MARGIN + y + sideGn + 0.5*MARGIN);
+    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, newbound + infoGap*MARGIN + y + 20);
     
     // Draw RND Capacity Slots
     for (int i=0; i<limitRnD; i++) {
       fill(background);
       stroke(textColor, 100);
       strokeWeight(2);
-      rect(x + w + RnD_gap, infoGap*MARGIN + y + i*(RnD_W + RnD_gap), RnD_W, RnD_W, 5);
+      rect(x + w + RnD_gap, infoGap*MARGIN + y + i*(RnD_W), RnD_W, RnD_W-10, 5);
       textAlign(CENTER);
-      fill(textColor, 150);
-      text("R&D", x + w + RnD_gap + 0.5*RnD_W, infoGap*MARGIN + y + i*(RnD_W + RnD_gap) + 0.5*RnD_W + 5);
+      fill(textColor);
+      text("R&D", x + w + RnD_gap + 0.5*RnD_W, infoGap*MARGIN + y + i*(RnD_W) + 0.5*RnD_W);
     }
     noStroke();
     fill(textColor);
@@ -128,10 +140,15 @@ class Site {
         strokeWeight(1);
       }
       size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
+      
+      if(size > 30){
+        size  = 30;
+      }
+//      fill(200, 200, 0);
       rect(x + 7, y + 5 + 1 + offset + infoGap*MARGIN, w - 14, size - 2, 5);
       offset += size;
       noStroke();
-      fill(textColor);
+      fill(255);
       textAlign(CENTER);
       text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
     }
