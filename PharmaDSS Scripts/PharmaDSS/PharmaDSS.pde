@@ -1,4 +1,6 @@
 /*  PharmaDSS, Copyright 2017 Ira Winder et al
+ *   Ira Winder, jiw@mit.edu
+ *   Nina Lutz, nlutz@mit.edu
  *
  *  Check "About" tab for:
  *    A. MIT Licensing
