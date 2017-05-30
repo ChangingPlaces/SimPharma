@@ -11,8 +11,9 @@ class LineGraph{
     Values = _Values;
 
     minx = _x;
-    miny = _y + _h ;
-    h = _h;
+    h = _h/2;
+    miny = _y + _h;
+ 
     w = _w;
     num_intervals = _num_intervals;
       colarray[0] = color(255, 0, 0);
@@ -27,6 +28,13 @@ class LineGraph{
     try{
   //  for(int i = 0; i<Values.size(); i++){
     for(int i = 0; i<5; i++){
+        noStroke();
+       fill(colarray[i]);
+       rect(minx + i*w/4.5 + 10, miny - h - 50, 10, 10);
+       fill(textColor);
+       textAlign(LEFT);
+       textSize(textSize-1);
+       text(kpi.names.get(i), minx + i*w/4.5 + 22, miny - h - 40);
       for(int j = 0; j<19; j++){
         
          posx  = j*(w/num_intervals) + minx; 
@@ -39,7 +47,7 @@ class LineGraph{
          strokeWeight(1);
          stroke(colarray[i]);
          line(posx, posy, posx2, posy2);
-//         stroke(textColor);
+         
       }
     }
   }

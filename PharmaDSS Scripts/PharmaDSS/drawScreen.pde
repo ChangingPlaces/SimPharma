@@ -72,7 +72,7 @@ void drawScreen() {
       //Line Graph and Outputs
       fill(textColor);
       textSize(max(18, textSize));
-      LineGraph lineGraph = new LineGraph(lineList, 0.5*MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/2, 2.2*MARGIN + 20 + canH*.6, (width - sitesX - 1.25*MARGIN)/2 - 50, canH*.4 - 50, 20);
+      LineGraph lineGraph = new LineGraph(lineList, MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/3, 2.2*MARGIN + 20 + canH*.6, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.4 - 50, 20);
       
   // Draw Title
       fill(textColor);
