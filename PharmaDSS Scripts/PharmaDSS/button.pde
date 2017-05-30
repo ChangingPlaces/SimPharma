@@ -125,6 +125,7 @@ void keyPressed() {
     case 'R': // "Regenerate Random Game Data (SH+R)"
       loadOriginal = false;
       regenerateGame();
+      lineList.clear();
       fauxPieces(0, tablePieceInput, 15);
       break;
     case 'X': // "Regenerate XLS Game Data (SH+X)"
@@ -133,6 +134,7 @@ void keyPressed() {
       break;
     case 'g': // "Play Game (g)"
       toggleGame();
+      lineList.clear();
       break;
     case 'p': // "Toggle Profile (p)"
       nextProfile();

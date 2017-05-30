@@ -68,8 +68,12 @@ void drawScreen() {
       rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
-      //ArrayList<ArrayList<Float>> _Values, float _x, float _y, float _w, float _h, int num_intervals
-      LineGraph lineGraph = new LineGraph(lineList, 0.5*MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/2, 2.2*MARGIN + 20 + canH*.6, (width - sitesX - 1.25*MARGIN)/2 - 20, 200, 20);
+      
+      //Line Graph and Outputs
+      fill(textColor);
+      textSize(max(18, textSize));
+      text("Outputs:", 0.5*MARGIN + sitesX + 50, 2.2*MARGIN + 40 + canH*.6);
+      LineGraph lineGraph = new LineGraph(lineList, 0.5*MARGIN + sitesX + (width - sitesX - 1.25*MARGIN)/2, 2.2*MARGIN + 20 + canH*.6, (width - sitesX - 1.25*MARGIN)/2 - 50, canH*.4 - 50, 20);
       
   // Draw Title
       fill(textColor);
@@ -91,7 +95,7 @@ void drawScreen() {
   // Draw Sites
       fill(textColor);
       textAlign(LEFT);
-      textSize(max(16, textSize));
+      textSize(max(18, textSize));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
@@ -191,7 +195,7 @@ ArrayList<ArrayList<Float>>lineList = new ArrayList<ArrayList<Float>>();
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
-  textSize(max(16, textSize));
+  textSize(max(18, textSize));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
   
 //  lineList.clear();
@@ -226,7 +230,7 @@ void drawProfiles(ArrayList<Profile> list) {
         axis, selected, false);
         //list.get(i-1).Coords.clear();
     }
-   list.get(i-1).Coords.clear();
+ //  list.get(i-1).Coords.clear();
   }
   
 

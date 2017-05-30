@@ -58,11 +58,10 @@ class Site {
     // Draw Site Selection
     if (selected) {
       fill(HIGHLIGHT, 40);
-      //stroke(HIGHLIGHT, 80);
-      //strokeWeight(1);
+
       noStroke(); 
  
-      rect(x - 10,  y - 30, w + RnD_W + 2*RnD_gap + 10,  canH*.6 -(sitesY-titlesY) - 10, 5);
+      rect(x - 10,  y - 20, w + RnD_W + 2*RnD_gap + 10,  canH*.6 -(sitesY-titlesY) - 25, 5);
       
       noStroke();
     }
@@ -97,7 +96,7 @@ class Site {
     fill(textColor);
     textAlign(LEFT);
     textSize(textSize);
-    text("Site " + name, x, y - 15);
+    text("Site " + name, x, y - 5);
     fill(textColor);
     textAlign(CENTER);
     //text(capEx + agileModel.WEIGHT_UNITS, x + w/2, infoGap*MARGIN + y + 10 + sideEx/2);

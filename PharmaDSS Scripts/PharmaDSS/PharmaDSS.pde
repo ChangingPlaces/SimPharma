@@ -107,6 +107,7 @@ void draw() {
   noStroke();
   drawTable();
   drawTable();
+ 
   
   // Draws Menu
   hideMenu.draw();
@@ -123,6 +124,9 @@ void draw() {
 // Refreshes when there's a mouse mouse movement
 void mouseMoved() {
 //  lineList.clear();
+    for(int i = 0; i<agileModel.PROFILES.size(); i++){
+      agileModel.PROFILES.get(i).Coords.clear();
+    }
   loop();
 }
 
