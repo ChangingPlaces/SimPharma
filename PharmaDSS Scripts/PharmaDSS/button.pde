@@ -200,9 +200,11 @@ void invertColors() {
   if (background == 50) {
     background = 255;
     textColor = 50;
+    HIGHLIGHT = color(160, 190, 200);
   } else {
     background = 50;
     textColor = 255;
+    HIGHLIGHT = color(174, 240, 240);
   }
   println ("background: " + background + ", textColor: " + textColor);
 }
