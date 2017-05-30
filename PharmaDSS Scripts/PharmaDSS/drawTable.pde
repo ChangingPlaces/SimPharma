@@ -117,7 +117,7 @@ class TableSurface {
               if (inExisting(u, v)) {
                 p.fill(GSK_ORANGE, 100);
               } else {
-                p.fill(#00FF00, 100);
+                p.fill(#00CC00, 100);
               }
               p.noStroke();
               p.rect(u*cellW, v*cellH, cellW, cellH);
@@ -305,8 +305,8 @@ void drawBuilds(PGraphics p) {
   // Draw Build/Repurpose Units
   
   //Builds
-  buildsX = 15;
-  buildsY = int(0.65*p.height);
+  buildsX = 20;
+  buildsY = int(0.75*p.height);
   buildsW   = int(0.135*p.width);
   buildsH   = profilesH;
   

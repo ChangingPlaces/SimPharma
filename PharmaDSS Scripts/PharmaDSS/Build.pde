@@ -68,19 +68,20 @@ class Build {
 
   void draw(PGraphics p, int x, int y, int w, int h, String type, boolean selected) {
 
-    // Draw Build Selection Box
-    if (selected) {
-      p.fill(HIGHLIGHT, 40);
-      //stroke(HIGHLIGHT, 80);
-      //strokeWeight(1);
-
-      p.noStroke();     
-      p.rect(x - 15, y - h - 7, w + 40, h+32, 5);
-      p.noStroke();
-    }
+//    // Draw Build Selection Box
+//    if (selected) {
+//      p.fill(HIGHLIGHT, 40);
+//      //stroke(HIGHLIGHT, 80);
+//      //strokeWeight(1);
+//
+//      p.noStroke();     
+//      p.rect(x - 15, y - h - 7, w + 40, h+32, 5);
+//      p.noStroke();
+//    }
 
     // Draw Build Characteristics
     int scaler = 3;
+    p.noStroke();    
     p.fill(abs(255 - 75));
     p.rect(x + 35, y - 5, scaler*capacity, 10, 3);
     p.textAlign(LEFT);

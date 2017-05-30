@@ -88,7 +88,7 @@ void drawScreen() {
   // Draw Sites
       fill(textColor);
       textAlign(LEFT);
-       textSize(min(18, textSize+2));
+      textSize(min(16, textSize));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
@@ -185,7 +185,7 @@ void drawLargeProfile(Profile selected) {
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
-  textSize(min(18, textSize+2));
+  textSize(min(16, textSize));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
   
   // Current Year
