@@ -16,7 +16,7 @@ boolean enableSites;
  */
 
 void setupTable() {
-  offscreen = createGraphics(projectorHeight, projectorHeight, P3D);
+  offscreen = createGraphics(projectorHeight, projectorHeight);
   // TableSurface(int u, int v, boolean left_margin)
   mfg = new TableSurface(projectorHeight, projectorHeight, V_MAX, V_MAX, true);
   enableSites = true;
