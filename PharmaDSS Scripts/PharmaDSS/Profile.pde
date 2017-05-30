@@ -222,9 +222,9 @@ class Profile {
     
     // Draw Profile Selection
     if (selected) {
-      fill(HIGHLIGHT, 40);
+      fill(HIGHLIGHT, 50);
       noStroke(); 
-      rect(x - 15, y - h - 7, w + 30, h+18, 5);
+      rect(x - 15, y - h - 7, w + 30, h+20, 5);
       noStroke();
     }
     
@@ -270,16 +270,7 @@ class Profile {
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
       }
       
-      // Draw Peak Forcast
-      if (peakTime_F == demandProfile.getFloat(0, i)) {
-        fill(textColor);
-        ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
-        fill(textColor);
-        textAlign(CENTER);
-         textSize(textSize);
-        text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
-      }
-      
+
       // Draw Details such as axis
       fill(textColor);
       textAlign(CENTER);
@@ -308,6 +299,16 @@ class Profile {
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
         noStroke();
       }
+      
+                if (peakTime_F == demandProfile.getFloat(0, i)) {
+        fill(textColor);
+        ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
+        fill(textColor);
+        textAlign(CENTER);
+         textSize(textSize);
+        text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
+      }
+      
     }
     
     // Draw Profile Name and Summary
@@ -404,5 +405,6 @@ class Profile {
         text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 35, y - scalerH*(i-0.25)*unit);
       }
     }
+
   } 
 }

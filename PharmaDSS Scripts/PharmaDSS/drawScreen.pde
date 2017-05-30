@@ -31,9 +31,9 @@ void drawScreen() {
   
   //Sites
   sitesX    = int(profilesX + profilesW + 100);
-  sitesY    = int(0.23*height);
+  sitesY    = int(0.21*height);
   sitesW    = int(0.08*width);
-  sitesH    = height - 2*MARGIN - sitesY;
+  sitesH    = int(height) - 2*MARGIN - sitesY;
   
   //Radar
   radarH    = int(0.06*width);
@@ -66,7 +66,7 @@ void drawScreen() {
       // Canvas
       fill(abs(background - 0));
       rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
-      rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH, 3);
+      rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
       
   // Draw Title
       fill(textColor);
@@ -88,7 +88,7 @@ void drawScreen() {
   // Draw Sites
       fill(textColor);
       textAlign(LEFT);
-      textSize(min(16, textSize));
+      textSize(max(16, textSize));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
@@ -185,7 +185,7 @@ void drawLargeProfile(Profile selected) {
 void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
-  textSize(min(16, textSize));
+  textSize(max(16, textSize));
   text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
   
   // Current Year
@@ -212,7 +212,7 @@ void drawProfiles(ArrayList<Profile> list) {
 //        profilesW, profilesH,
 //        axis, selected, false);
 //      list.get(i-1).graph.drawProfileGraph();
-        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.55*height*(i-1)/float(numProf+1)), 
+        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
         profilesW, profilesH,
         axis, selected, false);
     }
