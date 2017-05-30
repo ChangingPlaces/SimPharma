@@ -60,7 +60,8 @@ class TableSurface {
 
   boolean LEFT_MARGIN;
   int MARGIN_W = 4;
-  int BASINS_Y = 5;
+  int BASINS_Y = 8;
+  int BASINS_H = 10;
 
   ArrayList<Basin> inputArea;
 
@@ -96,11 +97,14 @@ class TableSurface {
       if (inputArea.size() > 0) {
         for (int i=0; i<inputArea.size (); i++) {
           p.fill(255);
-          p.textAlign(CENTER, CENTER);
+          p.textAlign(BOTTOM);
           p.textSize(cellH/2);
-          p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 1.5)*cellH);
+          p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 1.1)*cellH);
           p.shape(inputArea.get(i).s[0]);
           p.shape(inputArea.get(i).s[1]);
+          
+          p.tint(150);
+          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 2.5)*cellH);
         }
       }
     }
@@ -283,7 +287,7 @@ void fauxPieces(int code, int[][][] pieces, int maxID) {
     // Sets grids to be random piece types (0-N) with random rotation (0-3)
     for (int i=0; i<pieces.length; i++) {
       for (int j=0; j<pieces[0].length; j++) {
-        if (random(0, 1) > 0.95) {
+        if (random(0, 1) > 0.5) {
           pieces[i][j][0] = int(random(-1.99, maxID+1));
           pieces[i][j][1] = int(random(0, 4));
         } else { // 95% of pieces are blank
