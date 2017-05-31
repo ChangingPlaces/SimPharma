@@ -102,11 +102,11 @@ Nina:
       - Can't Repurpose while Under Construction
       - Site has no production!
       - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
-      -Fast facts for scene...
+      - Fast facts for scene...
            - Site info 
            - Build info 
            - GMS Build type 
-      
+      - button movement  
 */
   
  /* TO DO:        - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
