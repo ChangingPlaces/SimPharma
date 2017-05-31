@@ -143,7 +143,7 @@ void drawProfiles(ArrayList<Profile> list) {
   
   boolean axis;
   boolean selected;
-  int numProf = list.size();
+  int numProf = agileModel.PROFILES.size();
   for (int i=1; i<=list.size(); i++) {
     selected = false;
     axis = false;
