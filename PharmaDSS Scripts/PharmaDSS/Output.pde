@@ -34,3 +34,28 @@ void randomOutputs() {
     kpi.setScore(i, o[i]);
   }
 }
+
+// Returns the operating expenses for the current turn
+float calcOPEX() {
+  return 0.0;
+}
+
+// Returns the operating expenses for the current turn
+float calcCAPEX() {
+  return 0.0;
+}
+
+// Returns the Cost of Goods for the current turn
+float calcCOGs() {
+  return 0.0;
+}
+
+// Returns the security of the supply chain network for a given turn
+float calcSecurity() {
+  return 0.0;
+}
+
+// Returns the % ability to meet demand for a given turn
+float calcDemandMeetAbility() {
+  return 0.0;
+}

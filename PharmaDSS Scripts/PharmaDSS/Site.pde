@@ -171,8 +171,9 @@ class Site {
     }
     
     // Draw Site/Factory PNG
-    int picW = w + RnD_gap;
+    //int picW = w + RnD_gap;
     int picH = int(infoGap*MARGIN*.75);
+    int picW = picH;
     PImage pic;
     if (textColor == 50) {
       pic = sitePNG_BW;

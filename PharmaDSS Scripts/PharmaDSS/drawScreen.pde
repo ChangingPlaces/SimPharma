@@ -99,7 +99,7 @@ void drawScreen() {
       textAlign(LEFT);
       textSize(max(18, textSize));
       text("Site Characteristics:", MARGIN + sitesX, titlesY);
-      text("Outputs:", MARGIN + sitesX , canH*.6 + titlesY + MARGIN/2.5);
+      text("Performance:", MARGIN + sitesX , canH*.6 + titlesY + MARGIN/2.5);
       
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {

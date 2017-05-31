@@ -31,30 +31,42 @@ class LineGraph{
     try{
       
     for(int i = 0; i<NUM_OUTPUTS; i++){
-       //draws legend
-       noStroke();
-       fill(colarray[i]);
-       rect(minx + i*w/4.5 , miny - h - 10, 10, 10);
-       fill(textColor);
-       textAlign(LEFT);
-       textSize(textSize-1);
-       text(outputNames[i], minx + i*w/4.5 + 12, miny - h );
+      
+      //draws legend
+      noStroke();
+      fill(colarray[i]);
+      rect(minx + i*w/4.5 , miny - h - 10, 10, 10);
+      fill(textColor);
+      textAlign(LEFT);
+      textSize(textSize-1);
+      text(outputNames[i], minx + i*w/4.5 + 12, miny - h );   
        
-
-      for(int j = 0; j<Values.size()-1; j++){
+      // Only show values for current and prior turns
+      int intervals;
+      if (gameMode && session.current.TURN > 0) {
+        intervals = min(Values.size()-1, session.current.TURN-1);
+      } else if (!gameMode) {
+        intervals = Values.size()-1;
+      } else {
+        intervals = 0;
+      }
+      
+      for(int j = 0; j<intervals; j++){
          posx  = j*(w/Values.size()) + minx;         
          posy = map(100*Values.get(j)[i], 0, 100, miny - 10, miny - h + 30);
         
          posx2  = posx + (w/Values.size());
          posy2 = map(100*Values.get(j+1)[i], 0, 100, miny - 10, miny - h + 30);
          
-         ellipse(posx2, posy2, 2, 2);
-         line(posx, posy, posx2, posy2);
-         
          //set colors with the appropriate profile
          fill(colarray[i]);
          strokeWeight(2);
          stroke(colarray[i], 150);
+         
+         int dim = 2;
+         if (j == intervals-1) dim = 5;
+         ellipse(posx2, posy2, dim, dim);
+         line(posx, posy, posx2, posy2);
          
          if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5){
            fill(textColor);
@@ -67,13 +79,23 @@ class LineGraph{
          }
       }
       
+      
+      
       //special start and end case to begin the line from the axis
       //unsure why this isn't picking up
+      if (!gameMode || session.current.TURN > 0) {
+         fill(colarray[i]);
+         strokeWeight(2);
+         stroke(colarray[i], 150);
          posx  = minx;         
          posy = map(100*Values.get(0)[i], 0, 100, miny - 10, miny - h + 30);
          posx2  = posx + (w/Values.size());
          posy2 = map(100*Values.get(1)[i], 0, 100, miny - 10, miny - h + 30);
-         line(posx, posy, posx2, posy2);
+         ellipse(posx, posy, 2, 2);
+         if (!gameMode || session.current.TURN > 1) {
+           line(posx, posy, posx2, posy2);
+         }
+      }
  
     }
   }
@@ -81,6 +103,7 @@ class LineGraph{
   
   //Axes
   stroke(textColor);
+  strokeWeight(1);
   line(minx, miny, minx + w, miny);
   line(minx, miny, minx, miny - h + 20);
   
