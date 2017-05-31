@@ -23,7 +23,7 @@ void randomOutputs() {
   for (int i=0; i<NUM_INTERVALS; i++) {
     o = new float[NUM_OUTPUTS];
     for(int j=0; j<NUM_OUTPUTS; j++) {
-      o[j] = 0.9/(j+1) * (i+1)/20.0;
+      o[j] = 0.9/(j+1) * (i+1)/20.0 + random(-0.1, 0.1);
     }
     outputs.add(o);
   }

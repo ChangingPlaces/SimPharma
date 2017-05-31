@@ -100,11 +100,15 @@ Nina:
  /* TO DO:        - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *
+  *               - Make Capital Cost Very Prominent (show cost per ton)
+  *               - Add Clear Legend for NCE Typology in Game
   *               - Make NCE Dock for NCE selection
   *               - Make Selected NCE Profile Full Screen When Docked
-  *               - Emphasize Graph during game.
+  *               - Emphasize Output "Graph" during game (not radar)
   *               - Only use radar at end of game
   *               - Isolate Monetary Summaries from Percentage Summaries
+  *               - Show "Futurevision" for capacity
+  *               - Add Site "Filler" That decays over time;
   *               
   *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization
