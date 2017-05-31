@@ -42,6 +42,8 @@ class Site {
       }
     }
   }
+  
+   int[][] grid = new int[100][100];
 
   void draw(int x, int y, int w, int h, float max, boolean selected) {
     int infoGap = 3; // number of MARGIN widths
@@ -69,6 +71,7 @@ class Site {
     // Draw Site/Factory PNG
     int picW = w - RnD_gap;
     int picH = int(infoGap*MARGIN*.75);
+    println(picH);
     //int picW = picH;
     PImage pic;
     if (textColor == 50) {
@@ -83,25 +86,67 @@ class Site {
     // Draw Baseline Total External and Green Field Rectangle Capacities
     stroke(textColor, 100);
     strokeWeight(2);
-    fill(#00ff00, 50);
+    fill(textColor, 50);
     float startY = y + picH + infoGap*3;
     float maxHeight = picH*1.5;
     float maxCapSites = agileModel.maxCapacity();
     float siteCap = capGn+capEx;
     
-    float siteHeight = map(siteCap, 0, maxCapSites, 0, maxHeight);
+    int BoxesPerRow = 15;
+    int BoxesPerCol  = int(map(siteCap, 0, maxCapSites, 0, (picH*2 - 50)/BoxesPerRow));
     
-    int TonsPerSquare = int(siteCap/((picW/15)*(picH*1.5/15)));
-    int BoxesPerRow = 10;
+    int TonsPerSquare = int(siteCap/(BoxesPerRow*BoxesPerCol));
     
-    for(int i = 0; i < (picW)/(picW/BoxesPerRow); i++){
-      for(int j = 0; j < (siteHeight)/(picW/BoxesPerRow); j++){
-         stroke(i*5);
+    //Below we need to set grid[i][j] as appropriate to 0, 1, 2, 3
+        for (int k=0; k<siteBuild.size(); k++) {
+          grid[3][1] = 3;
+          grid[5][10] = 2;
+           grid[6][10] = 2;
+            grid[5][9] = 2;
+            if ( agileModel.PROFILES.get(siteBuild.get(k).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(k).demolish == true) {
+              // Color NCE Not Viable or build flagged for demolition
+              fill(#CC0000, 150);
+            } else if (siteBuild.get(k).built == false) {
+              // Color Under Construction
+              fill(abs(100-textColor), 150);
+            } else {
+              // Color NCE Active Production
+              fill(#0000CC, 150);
+            }
+            if (session.selectedSiteBuild == k && selected) {
+              stroke(HIGHLIGHT);
+              strokeWeight(3);
+            } else {
+              stroke(255, 200);
+              strokeWeight(1);
+            }
+        }
+    
+    
+    //Use grid to color the squares
+    for(int i = 0; i < BoxesPerRow; i++){
+      for(int j = 0; j < BoxesPerCol; j++){
          strokeWeight(1);
-          rect(i*(picW/BoxesPerRow) + x, j*(picW/BoxesPerRow) + startY, (picW/BoxesPerRow), (picW/BoxesPerRow), 0);
+         stroke(textColor);
+         if(grid[i][j] == 0){
+           fill(0, 200, 0, 150); // Color Under Construction
+         }
+         else if (grid[i][j] == 1){
+         fill(255, 0, 0, 150); // Color NCE Not Viable or build flagged for demolition
+         }
+         else if (grid[i][j] == 2){
+           fill(0, 0, 255, 150); // Color NCE Active Production
+         }
+         else{
+          fill(textColor, 150);  //open
+         }
+         rect(i*(picW/BoxesPerRow) + x, j*(picW/BoxesPerRow) + startY, (picW/BoxesPerRow), (picW/BoxesPerRow), 0);
+         
       }
     }
     
+
+
     // Draw Label Text
     fill(textColor);
     textAlign(LEFT);
@@ -109,7 +154,7 @@ class Site {
     text("Site " + name, x, y - 5);
     fill(textColor);
     textAlign(CENTER);
-    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + picW/2, startY + siteHeight + 30);
+    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + picW/2, BoxesPerCol*(picW/BoxesPerRow)+ 20 + startY);
     
     // Draw RND Capacity Slots
     for (int i=0; i<limitRnD; i++) {
@@ -124,11 +169,12 @@ class Site {
     noStroke();
     fill(textColor);
     
-//    // Draw Build Allocations within Site Square
+    // Draw Build Allocations within Site Square
 //    float offset = 0;
 //    float size;
+//    int indexX, indexY = 0;
 //    for (int i=0; i<siteBuild.size(); i++) {
-//      
+//      color status_color;
 //      if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
 //        // Color NCE Not Viable or build flagged for demolition
 //        fill(#CC0000, 150);
@@ -151,13 +197,28 @@ class Site {
 //      if(size > 30){
 //        size  = 30;
 //      }
-//      rect(x + 7, y + 5 + 1 + offset + infoGap*MARGIN, w - 14, size - 2, 5);
+//      //rect(x + 7, y + 5 + 1 + offset + infoGap*MARGIN, w - 14, size - 2, 5);
+//      void drawNCE(int amount, color NCEfill){
+//    int numSqaures = amount*TonsPerSquare;
+//    for(int i = 0; i < numSquares; i++){
+//      for(int j = 0; j < numSquares-BoxesPerRow; j++){
+//         stroke(i*5);
+//         strokeWeight(1);
+//         fill(NCEfill);
+//         rect(i*(picW/BoxesPerRow) + x, j*(picW/BoxesPerRow) + startY, (picW/BoxesPerRow), (picW/BoxesPerRow), 0);
+//      }
+//    }
+//   }
+//     // drawNCE(siteBuild.get(i).capacity, status_color);
 //      offset += size;
 //      noStroke();
 //      fill(255);
 //      textAlign(CENTER);
 //      text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
 //    }
-  }
-  
+
+
+   }
+   
+   
 }
