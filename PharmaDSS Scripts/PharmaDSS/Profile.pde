@@ -1,8 +1,7 @@
 // Demand profile for a chemical entity (i.e. NCE)
-
 float MAX_PROFILE_VALUE = 0;
 color END = color(249, 60, 60);
-color FISCAL = color(255, 180, 4);
+
 
 class Profile {
   // Name of NCE Demand Profile

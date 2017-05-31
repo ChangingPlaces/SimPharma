@@ -11,7 +11,8 @@ int MARGIN = 50;
 color HIGHLIGHT = color(174, 230, 230);
 color THEME = color(255, 108,47);
 color GSK_ORANGE = color(255, 108,47);
-color CAPACITY_COLOR = #9975b9;
+color CAPACITY_COLOR = color(200, 95, 224); 
+color FISCAL = color(255, 220, 4);
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY;
