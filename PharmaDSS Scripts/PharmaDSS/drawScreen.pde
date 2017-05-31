@@ -172,8 +172,18 @@ void drawProfiles(ArrayList<Profile> list) {
   // Draw Profile Legend
  
   noStroke();
-  fill(THEME, 200);
-  rect(MARGIN + profilesX, titlesY + textSize*1.5, 15, 10);
+  
+  // Draw Rainbow Icon
+  colorMode(HSB);
+  float ht = 10;
+  float fraction = ht / agileModel.profileColor.length;
+  for (int i=0; i<agileModel.profileColor.length; i++) {
+    fill(agileModel.profileColor[i], 200);
+    rect(MARGIN + profilesX, titlesY + textSize*1.5 + i*fraction, 15, fraction);
+  }
+  colorMode(RGB); 
+  // Always set back to RGB!!!
+  
   fill(textColor, 150);
   rect(MARGIN + profilesX, titlesY + textSize*2.7 + 2, 15, 10);
   fill(P3);
