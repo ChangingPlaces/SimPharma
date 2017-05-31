@@ -198,16 +198,16 @@ class Profile {
       }
       globalProductionLimit += 1000*localProductionLimit.get(i);
     }
-    capacityProfile.setFloat(1, session.current.TURN, globalProductionLimit);
+    capacityProfile.setFloat(1, session.current.TURN-1, globalProductionLimit);
   }
   
 
  
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
-    xClick = x;
-    yClick = y;
-    wClick = w + 60;
-    hClick = h;
+    xClick = x - 15;
+    yClick = y - h - 7;
+    wClick = w + 90;
+    hClick = h + 20;
     float unit = 5000;
     float scalerH, scalerW;
     float markerH = 1.00;

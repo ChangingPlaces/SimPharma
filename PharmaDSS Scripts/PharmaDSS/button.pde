@@ -56,16 +56,16 @@ void mouseClicked() {
   if (!gameMode) {
     numProfiles = agileModel.PROFILES.size();
       for(int i =0; i<numProfiles; i++){
-        if(mouseX <= agileModel.PROFILES.get(i).xClick + agileModel.PROFILES.get(i).wClick && mouseX >= agileModel.PROFILES.get(i).xClick - agileModel.PROFILES.get(i).wClick 
-        && mouseY <= agileModel.PROFILES.get(i).yClick + agileModel.PROFILES.get(i).hClick && mouseY >= agileModel.PROFILES.get(i).yClick - agileModel.PROFILES.get(i).hClick){
+        if(mouseX <= agileModel.PROFILES.get(i).xClick + agileModel.PROFILES.get(i).wClick && mouseX >= agileModel.PROFILES.get(i).xClick 
+        && mouseY <= agileModel.PROFILES.get(i).yClick + agileModel.PROFILES.get(i).hClick && mouseY >= agileModel.PROFILES.get(i).yClick){
           session.setProfile(i);
         }
       }
   } else {
     numProfiles = agileModel.activeProfiles.size();
           for(int i =0; i<numProfiles; i++){
-        if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick - agileModel.activeProfiles.get(i).wClick 
-        && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick - agileModel.activeProfiles.get(i).hClick){
+        if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
+        && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
           session.setProfile(i);
         }
       }

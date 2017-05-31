@@ -4,8 +4,8 @@ String[] outputNames = {
   "CAPEX",
   "OPEX",
   "COGs",
-  "ATMDEM",
-  "SECSUP"
+  "Demand",
+  "Security"
 };
 
 float[] outputMax = {
