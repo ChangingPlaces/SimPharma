@@ -11,6 +11,7 @@ int MARGIN = 50;
 color HIGHLIGHT = color(174, 230, 230);
 color THEME = color(255, 108,47);
 color GSK_ORANGE = color(255, 108,47);
+color CAPACITY_COLOR = #9975b9;
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY;
@@ -174,7 +175,9 @@ void drawProfiles(ArrayList<Profile> list) {
   textAlign(LEFT);
   text("Actual", MARGIN + profilesX+20, titlesY + textSize*1.5 + 10);
   text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 12);
-  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 1.5);
+  fill(CAPACITY_COLOR);
+  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 3);
+  fill(textColor);
   text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 12);
   text("Launch", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*1.5 + 10);
   text("Lead (Ph.III)", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*1.5 + 10);

@@ -284,13 +284,13 @@ class Profile {
       if (gameMode) {
         noFill();
         if (i <= session.current.TURN) {
-          stroke(textColor);
+          stroke(CAPACITY_COLOR);
         } else {
-          stroke(abs(textColor-100));
+          stroke(CAPACITY_COLOR, 50);
           cap = globalCap;
           capLast = globalCap;
         }
-        strokeWeight(1.5);
+        strokeWeight(3);
         // Draw Vertical line
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0), y - capLast);
         // Draw Horizontal line
