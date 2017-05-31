@@ -106,6 +106,10 @@ class Game {
       for (int i=0; i<agileModel.activeProfiles.size(); i++) {
         agileModel.activeProfiles.get(i).calcProduction(agileModel.SITES);
       }
+      
+      for (int i=0; i<NUM_OUTPUTS; i++) {
+        kpi.setScore(i, outputs.get(session.current.TURN - 1)[i]);
+      }
     }
   }
   

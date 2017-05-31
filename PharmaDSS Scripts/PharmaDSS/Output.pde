@@ -30,6 +30,7 @@ void randomOutputs() {
   
   // Set KPI Radar to Last Available Output array
   o = outputs.get(outputs.size() - 1);
+  
   for (int i=0; i<NUM_OUTPUTS; i++) {
     kpi.setScore(i, o[i]);
   }

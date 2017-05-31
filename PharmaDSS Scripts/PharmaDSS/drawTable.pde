@@ -335,7 +335,6 @@ void drawBuilds(PGraphics p) {
     if (i == session.selectedBuild) selected = true;
     agileModel.GMS_BUILDS.get(i).draw(p, buildsX, 2*MARGIN + buildsY + int(spread*buildsH*i), buildsW, buildsH, "GMS", selected);
   }
-  
   // Draw R&D Build Options
   p.fill(255);
   p.textAlign(LEFT);
