@@ -74,11 +74,6 @@ void drawScreen() {
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
       
-      //Line Graph and Outputs
-      float lineY = 2.2*MARGIN + 65 + canH*.6;
-      float lineX = MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20;
-      outputGraph = new LineGraph(outputs, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25);
-      
   // Draw Title
       fill(textColor);
       textAlign(RIGHT);
@@ -107,7 +102,11 @@ void drawScreen() {
         if (i == session.selectedSite) selected = true;
         agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
       }
-  
+   
+  //Line Graph and Outputs
+      float lineY = 2.2*MARGIN + 65 + canH*.6;
+      float lineX = MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20;
+      outputGraph = new LineGraph(outputs, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25);
   
   //Draw Selected Profile in Large Format
   if (!gameMode) {
@@ -126,10 +125,12 @@ void drawScreen() {
   
 }
 
+int nceW = 15;
+
 void drawLargeProfile(Profile selected) {
   textAlign(LEFT);
   text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
-  selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
+  selected.draw(MARGIN + profilesX - nceW, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
 }
 
 void drawProfiles(ArrayList<Profile> list) {
@@ -153,12 +154,12 @@ void drawProfiles(ArrayList<Profile> list) {
       if (i == numProf) axis = true;
       if (i == session.selectedProfile+1) selected = true;
          if(!gameMode){
-            list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+            list.get(i-1).draw(MARGIN + profilesX - nceW, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
             profilesW, profilesH,
             axis, selected, false);
          }
          else{
-             list.get(i-1).draw(MARGIN + profilesX + 20, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+             list.get(i-1).draw(MARGIN + profilesX - nceW, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
              profilesW, profilesH,
              axis, selected, false);
          }
@@ -176,36 +177,30 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(textColor, 150);
   rect(MARGIN + profilesX, titlesY + textSize*2.7 + 2, 15, 10);
   fill(P3);
-  rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
+  rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
   fill(Launch);
   rect(MARGIN + profilesX+210 +textSize*4, titlesY + textSize*1.5, 3, textSize-2);
+  fill(END);
+  rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
+  fill(textColor);
+  fill(CAPACITY_COLOR);
+  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 3);
   
   fill(textColor);
   textAlign(LEFT);
   text("Actual", MARGIN + profilesX+20, titlesY + textSize*1.5 + 10);
   text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 12);
-  fill(CAPACITY_COLOR);
-  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 3);
-  fill(textColor);
   text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 12);
   text("Launch", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*1.5 + 10);
-  text("Lead (Ph.III)", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*1.5 + 10);
-  
-  
-  
-  if(!gameMode){
-    text("End", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*2.7 + 12);
-    fill(END);
-    rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
-  }
+  text("Lead (Ph.III)", MARGIN + profilesX+90  +textSize*2, titlesY + textSize*1.5 + 10);
+  text("End", MARGIN + profilesX+90  +textSize*2, titlesY + textSize*2.7 + 12);
 
-  else{
-    fill(END);
-    rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
+  
+  
+  if(gameMode) {
     fill(FISCAL);
-    rect(MARGIN + profilesX+140 +textSize*3, titlesY + textSize*2.7 , 3, textSize-2);
+    rect(MARGIN + profilesX+140 +textSize*3, titlesY + textSize*2.7 + 2, 3, textSize-2);
     fill(textColor);
-    text("End", MARGIN + profilesX+90  +textSize*2, titlesY + textSize*2.7 + 12);
     text("Now", MARGIN + profilesX+150  +textSize*3, titlesY + textSize*2.7 + 12);
   }
   

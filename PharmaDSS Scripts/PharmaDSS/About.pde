@@ -87,6 +87,8 @@
   *               - Dynamic font resizing
   *               - Line graph for metrics over time
   *               - Mouse interaction with Profiles and line graph
+  *               - Added Ability to Meet Demand Calc
+  *               - Added Unique Colors for Icons
   */
   
 String VERSION = "BETA V1.0";  
@@ -126,6 +128,7 @@ Nina:
   *               - Add R&D slot to table visualization
   *               - Prompt user if trying to place capacity into GMS prior to R&D
   *
+  *               - Have Security of Supply influenced by monte carlo calc
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   *               - Add Turn-By-Turn Graph of Performance
   *               - Add Dock for filtering NEC performance

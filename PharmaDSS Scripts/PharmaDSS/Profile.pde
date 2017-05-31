@@ -206,7 +206,7 @@ class Profile {
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     xClick = x;
     yClick = y;
-    wClick = w;
+    wClick = w + 60;
     hClick = h;
     float unit = 5000;
     float scalerH, scalerW;
@@ -224,6 +224,19 @@ class Profile {
       noStroke();
     }
     
+    // Draw Molecule Icon
+    if (!detail) {
+      fill(agileModel.profileColor[ABSOLUTE_INDEX], 150);
+      if (selected) {
+        stroke(textColor);
+        strokeWeight(1);
+      } else {
+        noStroke();
+      }
+      rect(x + w + 28, y-h-7, 29, h+20, 5);
+      image(nceMini,x + w + 30, y-19, 23, 23);
+    }
+    
     noStroke();
     
     // Time Bar
@@ -231,13 +244,11 @@ class Profile {
       fill(#CCCCCC, 80);
       float begin = max(0, timeLead);
       float end = max(0, timeEnd);
+      
       if (!gameMode) {
         rect(x + scalerW * begin, y - h, scalerW * (min(end, demandProfile.getColumnCount()) - begin), h);
       } else {
-        fill(HIGHLIGHT, 90);
-        rect(x- 45, y-20, 25, 25);
-       image(nceMini,x- 44, y-19, 23, 23);
-       fill(#CCCCCC, 80);
+        fill(#CCCCCC, 80);
         rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - begin), h);
       }
     }
@@ -266,8 +277,7 @@ class Profile {
 
       // If game is on, only shows actual demand bars for finished turns
       if (!gameMode || session.current.TURN > i) {
-        fill(THEME, 150);
-        
+        fill(agileModel.profileColor[ABSOLUTE_INDEX], 150);
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
       }
       
@@ -275,12 +285,14 @@ class Profile {
       // Draw Details such as axis
       fill(textColor);
       textAlign(CENTER);
+      stroke(textColor);
+      strokeWeight(1);
       if (detail && (i==0 || (i+1)%5 == 0)) {
-        stroke(textColor);
-        strokeWeight(1);
         line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
         noStroke();
         text((agileModel.YEAR_0+i), x + scalerW * (i+.5) + 1, y + 15);
+      } else {
+        line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
       }
       
       // Draw Global Manufacturing Capacity
@@ -299,35 +311,35 @@ class Profile {
         // Draw Horizontal line
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
         noStroke();
-      }
-      
-       if (peakTime_F == demandProfile.getFloat(0, i)) {
-        fill(textColor);
-        ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
-        fill(textColor);
-        textAlign(CENTER);
-         textSize(textSize);
-        text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+i) + 1, y - barF - 5);
-      }
-      
+      } 
     }
     
     // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
+    fill(textColor);
+    textAlign(LEFT);
+    textSize(textSize);
+    int Y_SHIFT;
     if (!detail) {
-
-      fill(textColor);
-      textAlign(LEFT);
-      if (gameMode && timeEnd != session.current.TURN-1 && session.current.TURN != NUM_INTERVALS) {
-        text(name, x, y + 10);
-      } else {
-        text(name + ", " + summary, x, y + 10);
-      }
-      if (axis) {
-        textAlign(RIGHT);
-        text(NUM_INTERVALS + " " + agileModel.TIME_UNITS, x + w, y + 10);
-      }
+      Y_SHIFT = 0;
+    } else {
+      Y_SHIFT = 28;
     }
+    if (gameMode && timeEnd != session.current.TURN-1 && session.current.TURN != NUM_INTERVALS) {
+      text(name, x, y + 10 + Y_SHIFT);
+    } else {
+      text(name + ", " + summary, x, y + 10 + Y_SHIFT);
+    }
+    
+    // Draw Demand Peak Value
+    fill(textColor);
+    ellipse(x + scalerW * (0.5+int(peakTime_F-1)), y - scalerH * demandProfile.getFloat(1, int(peakTime_F-1)), 3, 3);
+    fill(textColor);
+    textAlign(CENTER);
+    textSize(textSize);
+    text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+int(peakTime_F-1)) + 1, y - scalerH * demandProfile.getFloat(1, int(peakTime_F-1)) - 5);
+      
+    noStroke();
     
     // Lead Date
     if (timeLead >=0) {
@@ -353,7 +365,7 @@ class Profile {
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       if (timeEnd >=0) {
-         fill(END);
+        fill(END);
         rect(x + scalerW * timeEnd - 3, y - markerH*h, 3, markerH*h);
         if (detail) {
           textAlign(CENTER);
@@ -378,20 +390,20 @@ class Profile {
         Y = y - h;
       }
       X = x + scalerW * (min(demandProfile.getColumnCount(), session.current.TURN)) - 3;
+      fill(FISCAL);
       if (detail) {
         rect(X, Y, 4, max(3, barA) );
       } else {
-        fill(FISCAL);
-       if (session.current.TURN != timeLead) rect(X, Y, 3, h ); //this is the game moving rectangle
+        if (session.current.TURN != timeLead) rect(X, Y, 3, h ); //this is the game moving rectangle
       }
       if (detail) {
         fill(abs(textColor - 150));
-        rect(X+1, y, 2, 35);
-        fill(textColor);
+        rect(X + scalerW/2 + 1, y, 2, 35);
+        fill(GSK_ORANGE);
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X, Y-5);
         textAlign(CENTER);
-        text((agileModel.YEAR_0 + session.current.TURN), X, y + MARGIN);
+        text((agileModel.YEAR_0 + session.current.TURN), X + scalerW/2, y + MARGIN);
       }
     }
     

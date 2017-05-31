@@ -107,9 +107,15 @@ class Game {
         agileModel.activeProfiles.get(i).calcProduction(agileModel.SITES);
       }
       
+      // Updates the status of the radar plot to current turn
       for (int i=0; i<NUM_OUTPUTS; i++) {
         kpi.setScore(i, outputs.get(session.current.TURN - 1)[i]);
       }
+      
+      // Update current turn values for key performance metrics
+      
+        // Ability to meet Demand
+        outputs.get(session.current.TURN-1)[3] = calcDemandMeetAbility();
     }
   }
   

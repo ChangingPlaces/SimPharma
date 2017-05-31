@@ -53,10 +53,10 @@ class LineGraph{
       
       for(int j = 0; j<intervals; j++){
          posx  = j*(w/Values.size()) + minx;         
-         posy = map(100*Values.get(j)[i], 0, 100, miny - 10, miny - h + 30);
+         posy = map(outputMax[i]*Values.get(j)[i], 0, 100, miny - 10, miny - h + 30);
         
          posx2  = posx + (w/Values.size());
-         posy2 = map(100*Values.get(j+1)[i], 0, 100, miny - 10, miny - h + 30);
+         posy2 = map(outputMax[i]*Values.get(j+1)[i], 0, 100, miny - 10, miny - h + 30);
          
          //set colors with the appropriate profile
          fill(colarray[i]);
@@ -73,7 +73,7 @@ class LineGraph{
            textAlign(CENTER);
            int val = str(100*Values.get(j+1)[i]).substring(0, str(100*Values.get(j+1)[i]).indexOf(".")).length();
            
-           text(nf(100*Values.get(j+1)[i], val, 1), posx2, posy2-10);
+           text(nf(outputMax[i]*Values.get(j+1)[i], val, 1), posx2, posy2-10);
            fill(colarray[i], 50);
            ellipse(posx2, posy2, 10, 10);
          }
@@ -91,7 +91,9 @@ class LineGraph{
          posy = map(100*Values.get(0)[i], 0, 100, miny - 10, miny - h + 30);
          posx2  = posx + (w/Values.size());
          posy2 = map(100*Values.get(1)[i], 0, 100, miny - 10, miny - h + 30);
-         ellipse(posx, posy, 2, 2);
+         int dim = 2;
+         if (session.current.TURN == 1) dim = 4;
+         ellipse(posx, posy, dim, dim);
          if (!gameMode || session.current.TURN > 1) {
            line(posx, posy, posx2, posy2);
          }

@@ -242,4 +242,6 @@ void loadModel_XLS(MFG_System model, String name) {
     // Re-Calculates peak forecast demand value, lead years, etc
     model.PROFILES.get(i).calc();
   }
+  
+  model.generateColors();
 }

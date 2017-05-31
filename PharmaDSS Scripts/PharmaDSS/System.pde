@@ -21,6 +21,8 @@ class MFG_System {
   ArrayList<Site> SITES;
   ArrayList<Build> GMS_BUILDS, RND_BUILDS;
   
+  color[] profileColor;
+  
   // Max capacity value for a Site. (capEx + capGn)
   float maxCap;
   
@@ -44,6 +46,19 @@ class MFG_System {
     SITES = new ArrayList<Site>();
     GMS_BUILDS = new ArrayList<Build>();
     RND_BUILDS = new ArrayList<Build>();
+  }
+  
+  void generateColors() {
+    colorMode(HSB);
+    
+    profileColor = new color[PROFILES.size()];
+    float hue;
+    for (int i=0; i<profileColor.length; i++) {
+      hue = i * 200.0 / profileColor.length;
+      profileColor[i] = color(hue, 255, 255);
+    }
+    
+    colorMode(RGB);
   }
   
   float maxCapacity() {

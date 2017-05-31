@@ -8,6 +8,14 @@ String[] outputNames = {
   "SECSUP"
 };
 
+float[] outputMax = {
+  100.0,
+  100.0,
+  100.0,
+  100.0,
+  100.0
+};
+
 int NUM_OUTPUTS = outputNames.length;
 
 void initOutputs() {
@@ -58,5 +66,25 @@ float calcSecurity() {
 
 // Returns the % ability to meet demand for a given turn
 float calcDemandMeetAbility() {
-  return 0.0;
+  float percent; // 0.0 - 1.0
+  float totDemandMet = 0;
+  float totDemand = 0;
+  
+  float profileCapacity, profileActualDemand;
+  
+  for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+    profileCapacity = agileModel.activeProfiles.get(i).globalProductionLimit;
+    profileActualDemand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
+    
+    totDemandMet += min(profileCapacity, profileActualDemand);
+    totDemand += profileActualDemand;
+  }
+  
+  if (totDemand > 0) {
+    percent = totDemandMet / totDemand;
+  } else {
+    percent = 1.0;
+  }
+  return percent;
+
 }
