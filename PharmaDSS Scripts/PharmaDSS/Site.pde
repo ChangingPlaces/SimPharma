@@ -67,9 +67,9 @@ class Site {
     }
     
     // Draw Site/Factory PNG
-    //int picW = w + RnD_gap;
+    int picW = w - RnD_gap;
     int picH = int(infoGap*MARGIN*.75);
-    int picW = picH;
+    //int picW = picH;
     PImage pic;
     if (textColor == 50) {
       pic = sitePNG_BW;
@@ -92,12 +92,13 @@ class Site {
     float siteHeight = map(siteCap, 0, maxCapSites, 0, maxHeight);
     
     int TonsPerSquare = int(siteCap/((picW/15)*(picH*1.5/15)));
+    int BoxesPerRow = 10;
     
-    for(int i = 0; i < (picW)/15; i++){
-      for(int j = 0; j < (siteHeight)/15; j++){
+    for(int i = 0; i < (picW)/(picW/BoxesPerRow); i++){
+      for(int j = 0; j < (siteHeight)/(picW/BoxesPerRow); j++){
          stroke(i*5);
          strokeWeight(1);
-          rect(i*15 + x, j*15 + startY, 15, 15, 0);
+          rect(i*(picW/BoxesPerRow) + x, j*(picW/BoxesPerRow) + startY, (picW/BoxesPerRow), (picW/BoxesPerRow), 0);
       }
     }
     
@@ -108,7 +109,7 @@ class Site {
     text("Site " + name, x, y - 5);
     fill(textColor);
     textAlign(CENTER);
-    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, startY + siteHeight + 20);
+    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + picW/2, startY + siteHeight + 30);
     
     // Draw RND Capacity Slots
     for (int i=0; i<limitRnD; i++) {
