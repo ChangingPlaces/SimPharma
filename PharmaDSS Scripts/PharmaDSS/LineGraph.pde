@@ -1,4 +1,3 @@
-
 class LineGraph{
   float minx, miny, h, w;
   int num_intervals;
@@ -60,7 +59,9 @@ class LineGraph{
          if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5){
            fill(textColor);
            textAlign(CENTER);
-           text(100*Values.get(j+1)[i], posx2, posy2-10);
+           int val = str(100*Values.get(j+1)[i]).substring(0, str(100*Values.get(j+1)[i]).indexOf(".")).length();
+           
+           text(nf(100*Values.get(j+1)[i], val, 1), posx2, posy2-10);
            fill(colarray[i], 50);
            ellipse(posx2, posy2, 10, 10);
          }

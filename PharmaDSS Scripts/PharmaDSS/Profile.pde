@@ -221,6 +221,7 @@ class Profile {
       fill(HIGHLIGHT, 50);
       noStroke(); 
       rect(x - 15, y - h - 7, w + 30, h+20, 5);
+      //rect(0.25*MARGIN + profilesX, y - h - 7, profilesW + MARGIN*1.75, h+20, 2);
       noStroke();
     }
     
@@ -234,6 +235,7 @@ class Profile {
       if (!gameMode) {
         rect(x + scalerW * begin, y - h, scalerW * (min(end, demandProfile.getColumnCount()) - begin), h);
       } else {
+       image(nceMini,x-30, y-20, 25, 25);
         rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - begin), h);
       }
     }
@@ -311,6 +313,7 @@ class Profile {
     // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
     if (!detail) {
+
       fill(textColor);
       textAlign(LEFT);
       if (gameMode && timeEnd != session.current.TURN-1 && session.current.TURN != NUM_INTERVALS) {

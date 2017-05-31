@@ -4,7 +4,7 @@
  *  CMYK 0 45 86 0
  */
 
-PImage phasing, sitePNG, sitePNG_BW, logo, nce;
+PImage phasing, sitePNG, sitePNG_BW, logo, nce, nceMini;
 
 int MARGIN = 50;
 

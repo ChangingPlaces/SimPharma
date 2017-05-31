@@ -79,6 +79,7 @@ void setup() {
   sitePNG_BW = loadImage("data/site_BW.png");
   logo = loadImage("data/GSK-logo-2014.png");
   nce = loadImage("data/coumpound2.png");
+  nceMini = loadImage("data/compound.png");
   
   initOutputs();
   setupRadar();
