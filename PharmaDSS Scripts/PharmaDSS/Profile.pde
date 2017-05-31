@@ -298,7 +298,7 @@ class Profile {
       // Draw Global Manufacturing Capacity
       if (gameMode) {
         noFill();
-        if (i <= session.current.TURN) {
+        if (i < session.current.TURN) {
           stroke(CAPACITY_COLOR);
         } else {
           stroke(CAPACITY_COLOR, 50);
