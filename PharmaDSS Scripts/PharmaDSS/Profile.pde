@@ -5,10 +5,6 @@ color END = color(249, 60, 60);
 color FISCAL = color(255, 180, 4);
 
 class Profile {
-  
-  //Graph for displaying the Profile
-  BarGraph graph;
-  
   // Name of NCE Demand Profile
   String name; 
   
@@ -204,13 +200,7 @@ class Profile {
     capacityProfile.setFloat(1, session.current.TURN, globalProductionLimit);
   }
   
-  void initGraph(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail ){
-    graph = new BarGraph(w, h, x, y, axis, detail, demandProfile.getColumnCount());
-    graph.timeLead = timeLead;
-    graph.timeEnd = timeEnd;
-    graph.isProfileGraph = true;
-    graph.profile = this;
-  }
+
  
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     float unit = 5000;

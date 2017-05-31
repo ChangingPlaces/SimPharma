@@ -72,7 +72,16 @@ class RadarPlot {
           fill(#00FFFF);
 
         } else if (radarMode == 1) {
-          fill(255*(1- (scores.get(i)+scores.get((i+1)%nRadar))/2 ), 255*(scores.get(i)+scores.get((i+1)%nRadar))/2, 0);
+          //fill(255*(1- (scores.get(i)+scores.get((i+1)%nRadar))/2 ), 255*(scores.get(i)+scores.get((i+1)%nRadar))/2, 0);
+          //Does a nice red --> yellow --> green gradient instead of showing browns
+          color RG = color(0);
+          if((scores.get(i)+scores.get((i+1)%nRadar))/2 <= .5){
+            RG = lerpColor(color(250, 0, 0),color(250, 250, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);
+          }
+          else{
+            RG = lerpColor(color(250, 250, 0),color(0, 200, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);
+          }
+          fill(RG);
 
         } else if (radarMode == 2) {
           fill(255*(1-avgScore), 255*avgScore, 0);

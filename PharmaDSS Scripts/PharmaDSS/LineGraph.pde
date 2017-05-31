@@ -1,4 +1,3 @@
-ArrayList<ArrayList<Float>>lineList = new ArrayList<ArrayList<Float>>();
 
 class LineGraph{
   float minx, miny, h, w;
@@ -26,13 +25,13 @@ class LineGraph{
   }
   
   void draw(){
-    float posx, posy, posx2, posy2 = 0;
+    float posx, posy, posx2, posy2, posx3, posy3= 0;
+    
     
     //Implement try catch in case of memory leak of array
     try{
       
     for(int i = 0; i<NUM_OUTPUTS; i++){
-      
        //draws legend
        noStroke();
        fill(colarray[i]);
@@ -42,23 +41,39 @@ class LineGraph{
        textSize(textSize-1);
        text(outputNames[i], minx + i*w/4.5 + 12, miny - h );
        
+
       for(int j = 0; j<Values.size()-1; j++){
-         
-         posx  = j*(w/Values.size()) + minx; 
-         posy = map(100*Values.get(j)[i], 0, 100, miny - h + 30, miny - 10);
+         posx  = j*(w/Values.size()) + minx;         
+         posy = map(100*Values.get(j)[i], 0, 100, miny - 10, miny - h + 30);
         
          posx2  = posx + (w/Values.size());
-         posy2 = map(100*Values.get(j+1)[i], 0, 100, miny - h + 30, miny - 10);
+         posy2 = map(100*Values.get(j+1)[i], 0, 100, miny - 10, miny - h + 30);
+         
+         ellipse(posx2, posy2, 2, 2);
+         line(posx, posy, posx2, posy2);
          
          //set colors with the appropriate profile
          fill(colarray[i]);
          strokeWeight(2);
          stroke(colarray[i], 150);
          
-         ellipse(posx, posy, 2, 2);
-         line(posx, posy, posx2, posy2);
-         
+         if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5){
+           fill(textColor);
+           println(posy2, posy2+5, posx2);
+           textAlign(CENTER);
+           text(100*Values.get(j+1)[i], posx2, posy2-10);
+           fill(colarray[i], 50);
+           ellipse(posx2, posy2, 10, 10);
+         }
       }
+      
+      //special start and end case
+         posx  = minx;         
+         posy = map(100*Values.get(0)[i], 0, 100, miny - 10, miny - h + 30);
+         posx2  = posx + (w/Values.size());
+         posy2 = map(100*Values.get(1)[i], 0, 100, miny - 10, miny - h + 30);
+         line(posx, posy, posx2, posy2);
+ 
     }
   }
   catch(Exception e){}
@@ -73,8 +88,12 @@ class LineGraph{
   textSize(textSize);
   textAlign(CENTER);
   float canH = height - 2.8*MARGIN;
-  float bottomAxisY = canH*.4 - 20 + 2.2*MARGIN + 20 + canH*.6 - 10;
+  float bottomAxisY = miny + textSize*2.2;
   text("Year", minx + w/2, bottomAxisY);
+  for(int i = 0; i<Values.size()+1; i+=5){
+    int curyear = 2017+i;
+    text(curyear, i*(w/Values.size()) + minx, miny + textSize);
+  }
   float x = minx - 20;
   float y = miny - h/2;
   

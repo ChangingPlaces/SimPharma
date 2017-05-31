@@ -236,7 +236,7 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(THEME, 200);
   rect(MARGIN + profilesX, titlesY + textSize*1.5, 15, 10);
   fill(textColor, 150);
-  rect(MARGIN + profilesX, titlesY + textSize*2.7, 15, 10);
+  rect(MARGIN + profilesX, titlesY + textSize*2.7 + 2, 15, 10);
   fill(P3);
   rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
   fill(Launch);
@@ -245,9 +245,9 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   text("Actual", MARGIN + profilesX+20, titlesY + textSize*1.5 + 10);
-  text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 10);
+  text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 12);
   rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 1.5);
-  text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 10);
+  text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 12);
   text("Launch", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*1.5 + 10);
   text("Lead (Ph.III)", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*1.5 + 10);
   
@@ -256,12 +256,12 @@ void drawProfiles(ArrayList<Profile> list) {
   if(!gameMode){
     text("End", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*2.7 + 12);
     fill(END);
-    rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*2.7 , 3, textSize-2);
+    rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
   }
 
   else{
     fill(END);
-    rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 , 3, textSize-2);
+    rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
     fill(FISCAL);
     rect(MARGIN + profilesX+140 +textSize*3, titlesY + textSize*2.7 , 3, textSize-2);
     fill(textColor);
