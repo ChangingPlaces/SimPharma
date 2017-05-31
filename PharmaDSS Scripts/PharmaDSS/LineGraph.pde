@@ -67,7 +67,8 @@ class LineGraph{
          }
       }
       
-      //special start and end case
+      //special start and end case to begin the line from the axis
+      //unsure why this isn't picking up
          posx  = minx;         
          posy = map(100*Values.get(0)[i], 0, 100, miny - 10, miny - h + 30);
          posx2  = posx + (w/Values.size());
@@ -88,15 +89,24 @@ class LineGraph{
   textSize(textSize);
   textAlign(CENTER);
   float canH = height - 2.8*MARGIN;
-  float bottomAxisY = miny + textSize*2.2;
-  text("Year", minx + w/2, bottomAxisY);
-  for(int i = 0; i<Values.size()+1; i+=5){
-    int curyear = 2017+i;
-    text(curyear, i*(w/Values.size()) + minx, miny + textSize);
-  }
-  float x = minx - 20;
-  float y = miny - h/2;
+  float bottomAxisY = miny + textSize*2.5;
   
+  //Year marks and labels
+  text("Year", minx + w/2, bottomAxisY); 
+  for(int i = 0; i<Values.size()+1; i++){
+    int curyear = 2017+i;
+    strokeWeight(1);
+    line(minx + i*(w/Values.size()), miny + 2, minx + i*(w/Values.size()), miny-2);
+    if(i % 5 == 0){
+    text(curyear, i*(w/Values.size()) + minx, miny + textSize + 2);
+    }
+  }
+  
+  //Score marks and labels
+  text(100, minx - 20, miny - h + 23);
+  text(0, minx - 10, miny);
+  float x = minx - textSize*2;
+  float y = miny - h/2;
   pushMatrix();
   translate(x,y);
   rotate(-HALF_PI);

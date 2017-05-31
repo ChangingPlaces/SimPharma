@@ -200,7 +200,7 @@ void invertColors() {
   if (background == 50) {
     background = 255;
     textColor = 50;
-    HIGHLIGHT = color(160, 190, 200);
+    HIGHLIGHT = color(144, 200, 200);
   } else {
     background = 50;
     textColor = 255;
@@ -269,8 +269,8 @@ class Button{
   // String of the Button Text
   String label;
   // Various Shades of button states (0-255)
-  int active  = 180; // lightest
-  int hover   = 160;
+  int active = 180; // lightest
+  int hover = 120;
   int pressed = 120; // darkest
   
   boolean isPressed = false;

@@ -67,37 +67,40 @@ class RadarPlot {
         line(x, y, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
         
         noStroke();
-        //Draw Score Fills
+        //Determine color
+        color RG = color(0);
         if (radarMode == 0) {
-          fill(#00FFFF);
-
-        } else if (radarMode == 1) {
-          //fill(255*(1- (scores.get(i)+scores.get((i+1)%nRadar))/2 ), 255*(scores.get(i)+scores.get((i+1)%nRadar))/2, 0);
+          fill(#00FFFF); }      
+        else if (radarMode == 1) {
           //Does a nice red --> yellow --> green gradient instead of showing browns
-          color RG = color(0);
           if((scores.get(i)+scores.get((i+1)%nRadar))/2 <= .5){
-            RG = lerpColor(color(250, 0, 0),color(250, 250, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);
-          }
+            RG = lerpColor(color(250, 0, 0),color(255, 255, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);}
           else{
-            RG = lerpColor(color(250, 250, 0),color(0, 200, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);
-          }
-          fill(RG);
-
-        } else if (radarMode == 2) {
-          fill(255*(1-avgScore), 255*avgScore, 0);
-
-        }
+            RG = lerpColor(color(255, 255, 0),color(0, 200, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);}
+          fill(RG);} 
+        else if (radarMode == 2) {
+          fill(255*(1-avgScore), 255*avgScore, 0);}
+          
+          
         //draw fills
         triangle(x, y, scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, scores.get((i+1)%nRadar)*d*sin(rot+(i+1)%nRadar*2*PI/nRadar) + y);
         
+        
         //draw end dots
         //ellipse(scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, 5, 5);
-        
-        
+             
+                
         //scores
          textAlign(CENTER, CENTER);
+         //recolor for the scores
+          if(scores.get(i) <= .5){
+            RG = lerpColor(color(250, 0, 0),color(255, 255, 0), scores.get(i));}
+          else{
+            RG = lerpColor(color(255, 255, 0),color(0, 200, 0), scores.get(i));}
+         
+         fill(RG); 
          if((d+12)*sin(rot+i*2*PI/nRadar) + y < y){
-         text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y);
+           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y);
          }
          else{
            text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 13);

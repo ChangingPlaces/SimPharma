@@ -43,6 +43,110 @@ class Site {
     }
   }
   
+//  void draw(int x, int y, int w, int h, float max, boolean selected) {
+//    int infoGap = 3; // number of MARGIN widths
+//    float sideEx = (h - infoGap*MARGIN)*(capEx)/max;
+//    float sideGn = (h - infoGap*MARGIN)*(capEx + capGn)/max;
+//    int RnD_W = 35;
+//    int RnD_gap = 10;
+//    
+//    fill(255);     
+//    float canH = height - 2.8*MARGIN;
+//    float boxLimit =  canH*.6 - 2.2*MARGIN;
+//    float newbound = map(sideGn + 10, infoGap*MARGIN + y, height, y - 30, boxLimit- infoGap*MARGIN);
+//    
+//    // Draw Site Selection
+//    if (selected) {
+//      fill(HIGHLIGHT, 40);
+//
+//      noStroke(); 
+// 
+//      rect(x - 10,  y - 20, w + RnD_W + 2*RnD_gap + 10,  canH*.6 -(sitesY-titlesY) - 25, 5);
+//      
+//      noStroke();
+//    }
+//    
+//    // Draw Site/Factory PNG
+//    int picW = w + RnD_gap + RnD_W;
+//    int picH = infoGap*MARGIN - RnD_gap;
+//    PImage pic;
+//    if (textColor == 50) {
+//      pic = sitePNG_BW;
+//    } else {
+//      pic = sitePNG;
+//    }
+//    tint(255, 75);
+//    image(pic, x, y, picW*.75, picH*.75);
+//    tint(255, 255);
+//    
+//    // Draw Baseline Total External and Green Field Rectangle Capacities
+//    stroke(textColor, 100);
+//    strokeWeight(2);
+//    fill(textColor, 50);
+//    rect(x, infoGap*MARGIN + y, w, newbound, 5);
+//    noStroke();
+//    fill(background);
+//    float newy = map(sideEx, infoGap*MARGIN + y + 5, height, y - 40, boxLimit -infoGap*MARGIN) - 5;
+//    rect(x + 5, infoGap*MARGIN + y + 5, w - 10, newy, 5);
+//    
+//    // Draw Label Text
+//    fill(textColor);
+//    textAlign(LEFT);
+//    textSize(textSize);
+//    text("Site " + name, x, y - 5);
+//    fill(textColor);
+//    textAlign(CENTER);
+//    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, newbound + infoGap*MARGIN + y + 20);
+//    
+//    // Draw RND Capacity Slots
+//    for (int i=0; i<limitRnD; i++) {
+//      fill(background);
+//      stroke(textColor, 100);
+//      strokeWeight(2);
+//      rect(x + w + RnD_gap, infoGap*MARGIN + y + i*(RnD_W), RnD_W, RnD_W-10, 5);
+//      textAlign(CENTER);
+//      fill(textColor);
+//      text("R&D", x + w + RnD_gap + 0.5*RnD_W, infoGap*MARGIN + y + i*(RnD_W) + 0.5*RnD_W);
+//    }
+//    noStroke();
+//    fill(textColor);
+//    
+//    // Draw Build Allocations within Site Square
+//    float offset = 0;
+//    float size;
+//    for (int i=0; i<siteBuild.size(); i++) {
+//      
+//      if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
+//        // Color NCE Not Viable or build flagged for demolition
+//        fill(#CC0000, 150);
+//      } else if (siteBuild.get(i).built == false) {
+//        // Color Under Construction
+//        fill(abs(100-textColor), 150);
+//      } else {
+//        // Color NCE Active Production
+//        fill(#0000CC, 150);
+//      }
+//      if (session.selectedSiteBuild == i && selected) {
+//        stroke(HIGHLIGHT);
+//        strokeWeight(3);
+//      } else {
+//        stroke(255, 200);
+//        strokeWeight(1);
+//      }
+//      size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
+//      
+//      if(size > 30){
+//        size  = 30;
+//      }
+//      rect(x + 7, y + 5 + 1 + offset + infoGap*MARGIN, w - 14, size - 2, 5);
+//      offset += size;
+//      noStroke();
+//      fill(255);
+//      textAlign(CENTER);
+//      text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, y + offset + 10 - size/2 + infoGap*MARGIN);
+//    }
+//  }
+
   void draw(int x, int y, int w, int h, float max, boolean selected) {
     int infoGap = 3; // number of MARGIN widths
     float sideEx = (h - infoGap*MARGIN)*(capEx)/max;
@@ -67,8 +171,8 @@ class Site {
     }
     
     // Draw Site/Factory PNG
-    int picW = w + RnD_gap + RnD_W;
-    int picH = infoGap*MARGIN - RnD_gap;
+    int picW = w + RnD_gap;
+    int picH = int(infoGap*MARGIN*.75);
     PImage pic;
     if (textColor == 50) {
       pic = sitePNG_BW;
@@ -76,7 +180,7 @@ class Site {
       pic = sitePNG;
     }
     tint(255, 75);
-    image(pic, x, y, picW*.75, picH*.75);
+    image(pic, x, y, picW, picH);
     tint(255, 255);
     
     // Draw Baseline Total External and Green Field Rectangle Capacities

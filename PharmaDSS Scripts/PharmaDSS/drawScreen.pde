@@ -8,7 +8,7 @@ PImage phasing, sitePNG, sitePNG_BW, logo, nce;
 
 int MARGIN = 50;
 
-color HIGHLIGHT = color(174, 240, 240);
+color HIGHLIGHT = color(174, 230, 230);
 color THEME = color(255, 108,47);
 color GSK_ORANGE = color(255, 108,47);
 
@@ -73,7 +73,7 @@ void drawScreen() {
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
       
       //Line Graph and Outputs
-      float lineY = 2.2*MARGIN + 70 + canH*.6;
+      float lineY = 2.2*MARGIN + 65 + canH*.6;
       float lineX = MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20;
       outputGraph = new LineGraph(outputs, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25);
       
@@ -103,7 +103,7 @@ void drawScreen() {
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
-        agileModel.SITES.get(i).draw(MARGIN + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, sitesW, sitesH, agileModel.maxCap, selected);
+        agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
       }
   
 //  // Draw Build/Repurpose Units
@@ -196,15 +196,17 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
-  text("NCE Demand Profiles:", MARGIN + profilesX, titlesY);
+  text("NCE Demand Profiles", MARGIN + profilesX, titlesY);
   
   // Current Year
-  fill(textColor, 80);
-//  rect(profilesX + profilesW + 0.5*MARGIN+3, titlesY - 15+3, 40, 20, 5);
-  fill(THEME);
-//  rect(profilesX + profilesW + 0.5*MARGIN, titlesY - 15, 40, 20, 5);
   textAlign(RIGHT);
-  fill(textColor);
+//  if(background == 50){
+//  fill(FISCAL);
+//  }
+//  else{
+//  fill(textColor);
+//  }
+  fill(THEME);
   text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
   
   boolean axis;
