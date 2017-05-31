@@ -19,6 +19,7 @@
   *
   * DESCRIPTION:  Enclosed scripts demonstrate an environment for "PharmaDSS" (Pharmaceutical Decision Support System)
   *               The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
+  
   *               developed by Mason Briner and Giovonni Giorgio in U.K. 
   *
   *               The primary purpose of this work is to overcome various limitations of excel such as: 
@@ -98,6 +99,12 @@ Nina:
   
  /* TO DO:        - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
+  *
+  *               - Make NCE Dock for NCE selection
+  *               - Make Selected NCE Profile Full Screen When Docked
+  *               - Emphasize Graph during game.
+  *               - Only use radar at end of game
+  *               - Isolate Monetary Summaries from Percentage Summaries
   *               
   *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization

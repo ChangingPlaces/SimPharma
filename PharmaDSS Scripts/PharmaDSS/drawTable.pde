@@ -98,7 +98,7 @@ class TableSurface {
           p.fill(255);
           p.textAlign(BOTTOM);
           p.textSize(cellH/2);
-          p.text(i, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 3.1)*cellH);
+          p.text(i+1, (inputArea.get(i).basinX - 0.5)*cellW, (inputArea.get(i).basinY - 3.1)*cellH);
           p.shape(inputArea.get(i).s[0]);
           p.shape(inputArea.get(i).s[1]);
           
