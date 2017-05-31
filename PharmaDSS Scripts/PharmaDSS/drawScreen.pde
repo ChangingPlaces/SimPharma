@@ -106,6 +106,102 @@ void drawScreen() {
         agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
       }
   
+  
+  //Draw Selected Profile in Large Format
+  if (!gameMode) {
+    drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
+  } else {
+    drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  }
+  
+  // Draw Radar Plot
+  if (displayRadar) {
+    kpi.draw(radarX, radarY, radarH);
+    outputGraph.draw();
+  }
+
+  image(logo, MARGIN, height-MARGIN - 70); 
+  
+}
+
+void drawLargeProfile(Profile selected) {
+  textAlign(LEFT);
+  text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
+  selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
+}
+
+void drawProfiles(ArrayList<Profile> list) {
+  fill(textColor);
+  textAlign(LEFT);
+  textSize(max(18, textSize));
+  text("NCE Demand Profiles", MARGIN + profilesX, titlesY);
+  
+  // Current Year
+  textAlign(RIGHT);
+  fill(THEME);
+  text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
+  
+  boolean axis;
+  boolean selected;
+  int numProf = list.size();
+  for (int i=1; i<=list.size(); i++) {
+    selected = false;
+    axis = false;
+    if (!gameMode || list.get(i-1).timeLead <= session.current.TURN ) {
+      if (i == numProf) axis = true;
+      if (i == session.selectedProfile+1) selected = true;
+        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+        profilesW, profilesH,
+        axis, selected, false);
+    }
+  }
+  
+
+  
+  // Draw Profile Legend
+ 
+  noStroke();
+  fill(THEME, 200);
+  rect(MARGIN + profilesX, titlesY + textSize*1.5, 15, 10);
+  fill(textColor, 150);
+  rect(MARGIN + profilesX, titlesY + textSize*2.7 + 2, 15, 10);
+  fill(P3);
+  rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
+  fill(Launch);
+  rect(MARGIN + profilesX+210 +textSize*4, titlesY + textSize*1.5, 3, textSize-2);
+  
+  fill(textColor);
+  textAlign(LEFT);
+  text("Actual", MARGIN + profilesX+20, titlesY + textSize*1.5 + 10);
+  text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 12);
+  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 1.5);
+  text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 12);
+  text("Launch", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*1.5 + 10);
+  text("Lead (Ph.III)", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*1.5 + 10);
+  
+  
+  
+  if(!gameMode){
+    text("End", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*2.7 + 12);
+    fill(END);
+    rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
+  }
+
+  else{
+    fill(END);
+    rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
+    fill(FISCAL);
+    rect(MARGIN + profilesX+140 +textSize*3, titlesY + textSize*2.7 , 3, textSize-2);
+    fill(textColor);
+    text("End", MARGIN + profilesX+90  +textSize*2, titlesY + textSize*2.7 + 12);
+    text("Now", MARGIN + profilesX+150  +textSize*3, titlesY + textSize*2.7 + 12);
+  }
+  
+  
+
+  
+}
+
 //  // Draw Build/Repurpose Units
 //      
 //      // Build Var
@@ -166,109 +262,3 @@ void drawScreen() {
 //        fill(textColor);
 //        text(agileModel.LABOR_TYPES.getString(i,0), buildsX + 10 + xOff, 15*(i%3) + profilesY);
 //      }
-  
-  //Draw Selected Profile in Large Format
-  if (!gameMode) {
-    drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
-  } else {
-    drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
-  }
-  
-  // Draw Radar Plot
-  if (displayRadar) {
-    kpi.draw(radarX, radarY, radarH);
-    outputGraph.draw();
-  }
-
-  image(logo, MARGIN, height-MARGIN - 70); 
-  
-}
-
-void drawLargeProfile(Profile selected) {
-  textAlign(LEFT);
-  text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
-//  selected.initGraph( MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
-//  selected.graph.drawProfileGraph();
-  selected.draw(MARGIN + profilesX, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
-}
-
-void drawProfiles(ArrayList<Profile> list) {
-  fill(textColor);
-  textAlign(LEFT);
-  textSize(max(18, textSize));
-  text("NCE Demand Profiles", MARGIN + profilesX, titlesY);
-  
-  // Current Year
-  textAlign(RIGHT);
-//  if(background == 50){
-//  fill(FISCAL);
-//  }
-//  else{
-//  fill(textColor);
-//  }
-  fill(THEME);
-  text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
-  
-  boolean axis;
-  boolean selected;
-  int numProf = list.size();
-//  int numProf = 10;
-  for (int i=1; i<=list.size(); i++) {
-    selected = false;
-    axis = false;
-    if (!gameMode || list.get(i-1).timeLead <= session.current.TURN ) {
-      if (i == numProf) axis = true;
-      if (i == session.selectedProfile+1) selected = true;
-//      list.get(i-1).initGraph(MARGIN + profilesX, 
-//        2*MARGIN + profilesY + int(0.45*height*(i-1)/float(numProf+1)), 
-//        profilesW, profilesH,
-//        axis, selected, false);
-//      list.get(i-1).graph.drawProfileGraph();
-        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
-        profilesW, profilesH,
-        axis, selected, false);
-    }
-  }
-  
-
-  
-  // Draw Profile Legend
- 
-  noStroke();
-  fill(THEME, 200);
-  rect(MARGIN + profilesX, titlesY + textSize*1.5, 15, 10);
-  fill(textColor, 150);
-  rect(MARGIN + profilesX, titlesY + textSize*2.7 + 2, 15, 10);
-  fill(P3);
-  rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
-  fill(Launch);
-  rect(MARGIN + profilesX+210 +textSize*4, titlesY + textSize*1.5, 3, textSize-2);
-  
-  fill(textColor);
-  textAlign(LEFT);
-  text("Actual", MARGIN + profilesX+20, titlesY + textSize*1.5 + 10);
-  text("Forecast", MARGIN + profilesX+20, titlesY + textSize*2.7 + 12);
-  rect(MARGIN + profilesX+210  +textSize*3, titlesY + textSize*2.7 + 5, 15, 1.5);
-  text("Capacity", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*2.7 + 12);
-  text("Launch", MARGIN + profilesX+220  +textSize*4, titlesY + textSize*1.5 + 10);
-  text("Lead (Ph.III)", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*1.5 + 10);
-  
-  
-  
-  if(!gameMode){
-    text("End", MARGIN + profilesX+110  +textSize*2, titlesY + textSize*2.7 + 12);
-    fill(END);
-    rect(MARGIN + profilesX+100 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
-  }
-
-  else{
-    fill(END);
-    rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
-    fill(FISCAL);
-    rect(MARGIN + profilesX+140 +textSize*3, titlesY + textSize*2.7 , 3, textSize-2);
-    fill(textColor);
-    text("End", MARGIN + profilesX+90  +textSize*2, titlesY + textSize*2.7 + 12);
-    text("Now", MARGIN + profilesX+150  +textSize*3, titlesY + textSize*2.7 + 12);
-  }
-  
-}

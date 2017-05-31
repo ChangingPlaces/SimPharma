@@ -57,6 +57,9 @@ class Profile {
   Table capacityProfile;
 
 
+  //Parameters for click interface
+  int xClick, yClick, wClick, hClick;
+  
   // Basic Constructor
   Profile(int INDEX) {
     productionCost = new ArrayList<Float>();
@@ -203,6 +206,10 @@ class Profile {
 
  
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
+    xClick = x;
+    yClick = y;
+    wClick = w;
+    hClick = h;
     float unit = 5000;
     float scalerH, scalerW;
     float markerH = 1.00;
