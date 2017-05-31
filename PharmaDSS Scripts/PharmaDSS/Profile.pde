@@ -234,7 +234,10 @@ class Profile {
       if (!gameMode) {
         rect(x + scalerW * begin, y - h, scalerW * (min(end, demandProfile.getColumnCount()) - begin), h);
       } else {
-       image(nceMini,x-30, y-20, 25, 25);
+        fill(HIGHLIGHT, 90);
+        rect(x- 45, y-20, 25, 25);
+       image(nceMini,x- 44, y-19, 23, 23);
+       fill(#CCCCCC, 80);
         rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - begin), h);
       }
     }
@@ -292,13 +295,13 @@ class Profile {
         }
         strokeWeight(3);
         // Draw Vertical line
-        line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0), y - capLast);
+        line(x +  scalerW * (i-0), y - cap, x + scalerW * (i-0), y - capLast);
         // Draw Horizontal line
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
         noStroke();
       }
       
-                if (peakTime_F == demandProfile.getFloat(0, i)) {
+       if (peakTime_F == demandProfile.getFloat(0, i)) {
         fill(textColor);
         ellipse(x + scalerW * (0.5+i), y - barF, 3, 3);
         fill(textColor);

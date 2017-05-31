@@ -152,10 +152,18 @@ void drawProfiles(ArrayList<Profile> list) {
     if (!gameMode || list.get(i-1).timeLead <= session.current.TURN ) {
       if (i == numProf) axis = true;
       if (i == session.selectedProfile+1) selected = true;
-        list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
-        profilesW, profilesH,
-        axis, selected, false);
+         if(!gameMode){
+            list.get(i-1).draw(MARGIN + profilesX, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+            profilesW, profilesH,
+            axis, selected, false);
+         }
+         else{
+             list.get(i-1).draw(MARGIN + profilesX + 20, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+             profilesW, profilesH,
+             axis, selected, false);
+         }
     }
+
   }
   
 
