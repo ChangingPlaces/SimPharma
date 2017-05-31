@@ -85,19 +85,19 @@ class Site {
     strokeWeight(2);
     fill(#00ff00, 50);
     float startY = y + picH + infoGap*3;
-    float maxHeight = sitesH - infoGap*MARGIN - MARGIN*.8 - y;
+    float maxHeight = picH*1.5;
     float maxCapSites = agileModel.maxCapacity();
     float siteCap = capGn+capEx;
     
     float siteHeight = map(siteCap, 0, maxCapSites, 0, maxHeight);
     
-    int TonsPerSquare = int(siteCap/((w/15)*(siteHeight/15)));
+    int TonsPerSquare = int(siteCap/((picW/15)*(picH*1.5/15)));
     
-    for(int i = 0; i < (w)/15; i++){
+    for(int i = 0; i < (picW)/15; i++){
       for(int j = 0; j < (siteHeight)/15; j++){
          stroke(i*5);
          strokeWeight(1);
-         rect(i*15 + x, j*15 + startY, 15, 15);
+          rect(i*15 + x, j*15 + startY, 15, 15, 0);
       }
     }
     
@@ -108,7 +108,7 @@ class Site {
     text("Site " + name, x, y - 5);
     fill(textColor);
     textAlign(CENTER);
-    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, maxHeight + infoGap*MARGIN + y);
+    text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2, startY + siteHeight + 20);
     
     // Draw RND Capacity Slots
     for (int i=0; i<limitRnD; i++) {
