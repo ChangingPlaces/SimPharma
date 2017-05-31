@@ -85,6 +85,8 @@
   *               - Stable buttons
   *               - Spatial reorganization of cards
   *               - Dynamic font resizing
+  *               - Line graph for metrics over time
+  *               - Mouse interaction with Profiles and line graph
   */
   
 String VERSION = "BETA V1.0";  
@@ -94,7 +96,17 @@ Nina:
   - Clean clean
   - Visualize site bins
   - Click based 
+        - Deployment and switching sites?
   - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
+  - Text feed back for game play (Can't repurpose under construction) and stuff like that 
+      - Can't Repurpose while Under Construction
+      - Site has no production!
+      - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
+      -Fast facts for scene...
+           - Site info 
+           - Build info 
+           - GMS Build type 
+      
 */
   
  /* TO DO:        - Link Colortizer Variables (ID + rot) to PharmaDSS Variables

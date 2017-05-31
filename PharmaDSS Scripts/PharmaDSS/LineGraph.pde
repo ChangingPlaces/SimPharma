@@ -59,7 +59,6 @@ class LineGraph{
          
          if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5){
            fill(textColor);
-           println(posy2, posy2+5, posx2);
            textAlign(CENTER);
            text(100*Values.get(j+1)[i], posx2, posy2-10);
            fill(colarray[i], 50);

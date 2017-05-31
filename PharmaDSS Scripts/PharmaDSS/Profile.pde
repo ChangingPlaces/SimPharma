@@ -137,7 +137,6 @@ class Profile {
     timeLead = 0;
     for (int i=0; i<demandProfile.getColumnCount(); i++) {
       float value = demandProfile.getFloat(1, i);
-      //println(value);
       if (value > 0) {
         timeLaunch = i;
         timeLead = i - agileModel.LEAD_TIME;
