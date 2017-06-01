@@ -11,8 +11,8 @@
 int screenWidth = 1280;
 int screenHeight = 800;
  
-int projectorWidth = 1920;
-int projectorHeight = 1200;
+int projectorWidth = 1280;
+int projectorHeight = 768;
 int projectorOffset = 1280;
 
 // Library needed for ComponentAdapter()
