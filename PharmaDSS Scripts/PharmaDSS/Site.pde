@@ -153,21 +153,21 @@ class Site {
         float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i}; //property array for clicking
         NCEClicks.add(props);
         
-      //  if(!gameMode){
+       if(!gameMode){
           rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
-       // }
-//        
-//        else{
-////          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, i);
-////          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).capacityProfile.getFloat(1, i);
-////          float capWidth = map(demand, 0,cap, 0, w - 14);
-////          if(capWidth > w - 14){
-////            capWidth = w -14;
-////          }
-////          rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
-////          fill(background, 100);
-////          rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
-//        }
+        }
+
+      else{
+          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, i);
+          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).capacityProfile.getFloat(1, i);
+          float capWidth = map(demand, 0,cap, 0, w - 14);
+          if(capWidth > w - 14){
+            capWidth = w -14;
+          }
+          rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
+          fill(background, 100);
+          rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
+        }
         
         offset += size;
         noStroke();
@@ -175,7 +175,6 @@ class Site {
         textAlign(CENTER, CENTER);
         text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
       }
-     // println(NCEClicks.size());
     }
     
 

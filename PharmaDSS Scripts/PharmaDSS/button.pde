@@ -103,6 +103,7 @@ void mouseClicked() {
           float NCEClickHeight = NCEClicks.get(j)[3];  
             if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX- NCEClickWidth  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2){
               session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
+            //  println(siteBuild.get(int(NCEClicks.get(j)[4])).PROFILE_INDEX);
             }
    }
   

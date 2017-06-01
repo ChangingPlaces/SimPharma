@@ -303,7 +303,7 @@ void nextSiteBuild() {
     println("Site has no Production!");
   } else {
     if (session.selectedSiteBuild >= agileModel.SITES.get(session.selectedSite).siteBuild.size() - 1) {
-      //session.selectedSiteBuild = 0;
+      session.selectedSiteBuild = 0;
     } else {
       session.selectedSiteBuild++;
     }
