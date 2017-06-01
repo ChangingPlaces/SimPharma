@@ -54,6 +54,7 @@ void setup() {
   
   //Initiate Game
   session = new Game();
+  updateProfileCapacities();
     
   // Setup for Canvas Visualization
   size(screenWidth, screenHeight, P2D);

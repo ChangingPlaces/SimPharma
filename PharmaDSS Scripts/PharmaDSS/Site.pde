@@ -71,7 +71,6 @@ class Site {
     // Draw Site/Factory PNG
     int picW = w - RnD_gap;
     int picH = int(infoGap*MARGIN*.75);
-    println(picH);
     //int picW = picH;
     PImage pic;
     if (textColor == 50) {

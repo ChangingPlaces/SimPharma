@@ -128,8 +128,6 @@ void drawScreen() {
 int nceW = 15;
 
 void drawLargeProfile(Profile selected) {
-  textAlign(LEFT);
-  text("Selected Profile: " + selected.name, MARGIN + profilesX, height - MARGIN );
   selected.draw(MARGIN + profilesX - nceW, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
 }
 
