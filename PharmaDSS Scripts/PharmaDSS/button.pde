@@ -88,7 +88,7 @@ void mouseClicked() {
           float NCEClickY = NCEClicks.get(j)[1];
           float NCEClickWidth = NCEClicks.get(j)[2];
           float NCEClickHeight = NCEClicks.get(j)[3];  
-            if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2 +5){
+            if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
               session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
               session.selectedProfile = int(NCEClicks.get(j)[5]);
             }
