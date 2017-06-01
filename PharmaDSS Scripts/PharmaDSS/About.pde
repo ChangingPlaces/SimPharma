@@ -93,6 +93,7 @@
   *               - Add Turn-By-Turn Graph of Performance
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   *               - Added CAPEX Calc
+  *               - Emphasize Output "Graph" during game (not radar)
   */
   
 String VERSION = "BETA V1.0";  
@@ -117,30 +118,29 @@ Nina:
   
  /* TO DO:     
 
-  *               - Add Dock for filtering NEC performance
+  *               - Add Clear Legend for NCE Typology in Game
+  
+  *               - Make NCE Dock for NCE selection
+  *               - Make Selected NCE Profile Full Screen When Docked
+  
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Add Site "Filler" That decays over time;
   
+  *               - "Ghost" for hypothetical scores next turn
+  *               - "Ghost" of hypothetical player to play against
+  
   *               - Added OPEX Calc
   *               - Added COGs Calc
-  *               - Added SecSup Calc
+  *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   
-  *               - Make Capital Cost Very Prominent (show cost per ton)
-  *               - Add Clear Legend for NCE Typology in Game
-  *               - Make NCE Dock for NCE selection
-  *               - Make Selected NCE Profile Full Screen When Docked
-  *               - Emphasize Output "Graph" during game (not radar)
+  *               - Make Capital Cost Very Prominent (show cost per ton?)
   *               - Only use radar at end of game
   *               - Isolate Monetary Summaries from Percentage Summaries
   *               
-  *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization
   *               - Prompt user if trying to place capacity into GMS prior to R&D
-  *
-  *               - Have Security of Supply influenced by monte carlo calc
-  *               - Add Docks performance metric filter
   *                
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
   *               - Only fill up production capacities partially on sites
@@ -149,5 +149,6 @@ Nina:
   *               - Include Salary modifier for different Sites
   *               - Switch between weight/cost metrics for Build Types
   *               - Allow user to compare performance with baseline scenario(s)    
+  *               - Add Dock for filtering NEC performance?
   */
  
