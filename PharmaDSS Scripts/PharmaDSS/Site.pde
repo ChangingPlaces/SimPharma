@@ -169,7 +169,7 @@ class Site {
           fill(background, 100);
           rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
         }
-        
+
         offset += size;
         noStroke();
         fill(255);

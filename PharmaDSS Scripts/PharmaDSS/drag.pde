@@ -1,5 +1,23 @@
 void checkDrag(){
-
+    int numProfiles;
+    if (!gameMode) {
+      numProfiles = agileModel.PROFILES.size();
+        for(int i =0; i<numProfiles; i++){
+          if(mouseX <= agileModel.PROFILES.get(i).iconX + agileModel.PROFILES.get(i).iconW && mouseX >= agileModel.PROFILES.get(i).iconX
+          && mouseY <= agileModel.PROFILES.get(i).iconY + agileModel.PROFILES.get(i).iconH && mouseY >= agileModel.PROFILES.get(i).iconY){
+            session.setProfile(i);
+          }
+        }
+    } else {
+      numProfiles = agileModel.activeProfiles.size();
+            for(int i =0; i<numProfiles; i++){
+          if(mouseX <= agileModel.activeProfiles.get(i).iconX + agileModel.activeProfiles.get(i).iconW && mouseX >= agileModel.activeProfiles.get(i).iconX 
+          && mouseY <= agileModel.activeProfiles.get(i).iconY + agileModel.activeProfiles.get(i).iconH && mouseY >= agileModel.activeProfiles.get(i).iconY){
+            session.setProfile(i);
+            deploySelection();
+        }  
+    }
+    }
 }
 
 
@@ -11,7 +29,7 @@ void checkDrag(){
 //boolean locked = false;
 //float bdifx = 0.0; 
 //float bdify = 0.0; 
-//
+
 //
 //void setup() 
 //
