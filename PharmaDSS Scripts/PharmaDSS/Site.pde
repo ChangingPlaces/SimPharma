@@ -158,7 +158,6 @@ class Site {
           rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
         } else {
           if (session.current.TURN > 0) {
-            println(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, session.current.TURN-1));
             float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
             float cap = agileModel.activeProfiles.get(i).globalProductionLimit;
             float meetPercent = min(1.0, demand/cap);
@@ -178,7 +177,6 @@ class Site {
         textAlign(CENTER, CENTER);
         text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
       }
-      println("--");
     }
     
 
