@@ -324,6 +324,13 @@ class Site {
         textAlign(CENTER, CENTER);
         text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
       }
+      
+      //Draws Greenfield Line
+      float greenLine = map(capGn, 0, maxCapSites, 0, sitesH/3);
+      stroke(#00ff00, 100);
+      line(x + 5, siteStart + greenLine, x + w - 5.5, siteStart + greenLine);
     }
+    
+
    
 }
