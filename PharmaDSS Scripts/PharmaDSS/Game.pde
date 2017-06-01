@@ -96,7 +96,7 @@ class Game {
       
       // Only adds profiles to game within known Lead Time
       populateProfiles();
-      println("There are now " + agileModel.activeProfiles.size() + " Active Profiles.");
+      //println("There are now " + agileModel.activeProfiles.size() + " Active Profiles.");
       
       // Updates the Status of builds on each site at end of each turn (age, etc)
       for (int i=0; i<agileModel.SITES.size(); i++) {

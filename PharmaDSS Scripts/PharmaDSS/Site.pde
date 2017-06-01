@@ -87,6 +87,7 @@ class Site {
       image(pic, x, y, picW*.75, picH*.75);
       tint(255, 255);
       
+
       //Draws Greenfield Line and fill
       float greenLine = map(capGn, 0, maxCapSites, 0, sitesH/3);
 //      strokeWeight(3);
@@ -94,12 +95,20 @@ class Site {
       noStroke();
       fill(color(0, 100, 0), 100);
       rect(x+5, siteStart + greenLine, w-10, siteBound - greenLine, 5);
+
+      //Draws Existing Line and fill
+      float existLine = map(capEx, 0, maxCapSites, 0, sitesH/3);
+      strokeWeight(3);
+      stroke(GSK_ORANGE, 200);
+      noFill();
+      rect(x+5, siteStart, w-10, siteBound - existLine, 5);
+
       
       // Draw Baseline Total External and Green Field Rectangle Capacities
-      stroke(textColor, 100);
-      strokeWeight(2);
+      stroke(textColor, 150);
+      strokeWeight(3);
       fill(background, 50);
-      rect(x + 5, siteStart, w - 10, siteBound, 5);
+      rect(x+2, siteStart - 3, w-2, siteBound + 6, 5);
       
       // Draw Label Text
       fill(textColor);
@@ -125,19 +134,79 @@ class Site {
       
       // Draw Build Allocations within Site Square
       float offset = 0;
-      float size;
+      float BLD_X = x + 10;
+      float BLD_Y = siteStart + 5;
+      float BLD_W = w - 20;
+      float BLD_H; 
      
       for (int i=0; i<siteBuild.size(); i++) {
+        
+        BLD_H = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
         
         if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
           // Color NCE Not Viable or build flagged for demolition
           fill(#CC0000, 150);
-        } else if (siteBuild.get(i).built == false) {
-            fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
         } else {
-          // Color NCE Active Production
-          fill(#0000CC, 150);
+          fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
         }
+        
+        if(BLD_H > 30){
+          BLD_H  = 30;
+        }
+        
+        float[] props = {BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX}; //property array for clicking
+        NCEClicks.add(props);
+        
+        // Draw Site Builds on Sites
+        if(!gameMode){
+          
+          // Draws Solid NCE colors before game starts
+          fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
+          rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+          fill(background, 100);
+          rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+          
+        } else if (gameMode) {
+          
+          if (session.current.TURN > 0 && siteBuild.get(i).built) {
+            
+            // Calculate percent of build module being utilized to meet demand
+            float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, session.current.TURN-1);
+            float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).globalProductionLimit;
+            float meetPercent;
+            if (cap == 0) {
+              meetPercent = 0.0;
+            } else {
+              meetPercent = min(1.0, demand/cap);
+            }
+            
+            // Translate percent to pixel dimension
+            float capWidth = map(meetPercent, 0, 1.0, 0, w - 14);
+            if(capWidth > BLD_W){ // Check that is not greater than 1
+              capWidth = BLD_W;
+            }
+            
+            noStroke();
+            
+            // Draw Background Rectangle
+            fill(0);
+            rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+            
+            // Draw colored rectangle
+            fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
+            rect(BLD_X, BLD_Y + offset, capWidth, BLD_H - 2, 5);
+            
+          } 
+//          else if (!siteBuild.get(i).built) {
+//            noFill();
+//            stroke(255, 200);
+//            strokeWeight(1);
+//            rect(x + 7, siteStart + offset + 5, w - 14, BLD_H - 2, 5);
+//          }
+          
+        }
+        
+        // Highlight Build if Selected
         if (session.selectedSiteBuild == i && selected) {
           stroke(HIGHLIGHT);
           strokeWeight(3);
@@ -145,38 +214,16 @@ class Site {
           stroke(255, 200);
           strokeWeight(1);
         }
-        size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
         
-        if(size > 30){
-          size  = 30;
-        }
-        
-        float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX}; //property array for clicking
-        NCEClicks.add(props);
-        
-        // Draw Site Builds on Sites
-        if(!gameMode){
-          rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
-        } else {
-          if (session.current.TURN > 0) {
-            float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
-            float cap = agileModel.activeProfiles.get(i).globalProductionLimit;
-            float meetPercent = min(1.0, demand/cap);
-            float capWidth = map(meetPercent, 0, 1.0, 0, w - 14);
-            if(capWidth > w - 14){
-              capWidth = w -14;
-            }
-            rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
-          }
-          fill(background, 100);
-          rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
-        }
+        noFill();
+        rect(BLD_X, BLD_Y + offset, BLD_W, BLD_H - 2, 5);
 
-        offset += size;
+        offset += BLD_H;
         noStroke();
-        fill(255);
+        fill(textColor);
         textAlign(CENTER, CENTER);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
+        //text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, BLD_Y + offset - 10);
+        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name, x + 0.5*w, BLD_Y + offset - 10);
       }
     }
     
