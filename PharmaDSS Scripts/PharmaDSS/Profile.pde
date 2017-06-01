@@ -6,7 +6,7 @@ color END = color(249, 60, 60);
 class Profile {
   // Name of NCE Demand Profile
   String name; 
-
+ 
   // This static index should always refer to the profile's "ideal" state located in "MFG_System.PROFILES"
   int ABSOLUTE_INDEX;
 
@@ -58,7 +58,9 @@ class Profile {
 
   //Parameters for click interface
   int xClick, yClick, wClick, hClick;
-  int dragClickX, dragClickY, dragClickW, dragClickH;
+  int dragClickX, dragClickY, dragClickW, dragClickH;  
+  boolean over, locked;
+
 
   // Basic Constructor
   Profile(int INDEX) {
@@ -232,7 +234,7 @@ class Profile {
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     xClick = x - 15;
     yClick = y - h - 7;
-    wClick = w + 20;
+    wClick = w + 80;
     hClick = h + 20;
     float unit = 5000;
     float scalerH, scalerW;

@@ -89,8 +89,9 @@ class Site {
       
       //Draws Greenfield Line and fill
       float greenLine = map(capGn, 0, maxCapSites, 0, sitesH/3);
-      strokeWeight(3);
-      stroke(color(0, 250, 0), 100);
+//      strokeWeight(3);
+//      stroke(color(0, 250, 0), 100);
+      noStroke();
       fill(color(0, 100, 0), 100);
       rect(x+5, siteStart + greenLine, w-10, siteBound - greenLine, 5);
       
