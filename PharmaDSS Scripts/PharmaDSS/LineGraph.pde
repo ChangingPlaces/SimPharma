@@ -17,8 +17,8 @@ class LineGraph{
     
       //Making a color array of different colors. 
       colarray[0] = color(33, 139, 204);
-      colarray[1]=  color(149, 75, 209);
-      colarray[2]=  color(67, 255, 226);
+      colarray[1]=  color(67, 255, 226);
+      colarray[2]=  color(149, 75, 209);
       colarray[3]=  color(255, 136, 116);
       colarray[4]=  color(204, 40, 41);
   }
