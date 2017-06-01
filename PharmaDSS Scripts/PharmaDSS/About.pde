@@ -89,6 +89,9 @@
   *               - Mouse interaction with Profiles and line graph
   *               - Added Ability to Meet Demand Calc
   *               - Added Unique Colors for Icons
+  *               - Show "Futurevision" for capacity
+  *               - Add Turn-By-Turn Graph of Performance
+  *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   */
   
 String VERSION = "BETA V1.0";  
@@ -111,8 +114,12 @@ Nina:
       - button movement  
 */
   
- /* TO DO:        - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
+ /* TO DO:        
+  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
+  *               - Add Dock for filtering NEC performance
+  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
+  *               - Add Site "Filler" That decays over time;
   *
   *               - Make Capital Cost Very Prominent (show cost per ton)
   *               - Add Clear Legend for NCE Typology in Game
@@ -121,27 +128,20 @@ Nina:
   *               - Emphasize Output "Graph" during game (not radar)
   *               - Only use radar at end of game
   *               - Isolate Monetary Summaries from Percentage Summaries
-  *               - Show "Futurevision" for capacity
-  *               - Add Site "Filler" That decays over time;
   *               
   *               - Create Legends for Build Units
   *               - Add R&D slot to table visualization
   *               - Prompt user if trying to place capacity into GMS prior to R&D
   *
   *               - Have Security of Supply influenced by monte carlo calc
-  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
-  *               - Add Turn-By-Turn Graph of Performance
-  *               - Add Dock for filtering NEC performance
   *               - Add Docks performance metric filter
-  *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   *                
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
   *               - Only fill up production capacities partially on sites
-  *               - Update Capacity into future
   *               
   *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
   *               - Include Salary modifier for different Sites
   *               - Switch between weight/cost metrics for Build Types
-  *               - Allow user to compare performance with baseline scenario(s)       
+  *               - Allow user to compare performance with baseline scenario(s)    
   */
  
