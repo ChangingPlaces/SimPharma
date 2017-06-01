@@ -19,8 +19,8 @@ class LineGraph{
       colarray[0] = color(33, 139, 204);
       colarray[1]=  color(67, 255, 226);
       colarray[2]=  color(149, 75, 209);
-      colarray[3]=  color(255, 136, 116);
-      colarray[4]=  color(204, 40, 41);
+      colarray[4]=  color(255, 136, 116);
+      colarray[3]=  color(204, 40, 41);
   }
   
   void draw(){
@@ -35,11 +35,11 @@ class LineGraph{
       //draws legend
       noStroke();
       fill(colarray[i]);
-      rect(minx + i*w/4.5 , miny - h - 10, 10, 10);
+      rect(minx + i*w/4 + 88, miny - h - 10, 10, 10);
       fill(textColor);
       textAlign(LEFT);
-      textSize(textSize-1);
-      text(outputNames[i], minx + i*w/4.5 + 12, miny - h );   
+      textSize(textSize);
+      text(outputNames[i], minx + i*w/4 + 100, miny - h );   
        
       // Only show values for current and prior turns
       int intervals;
@@ -60,11 +60,11 @@ class LineGraph{
          
          //set colors with the appropriate profile
          fill(colarray[i]);
-         strokeWeight(2);
+         strokeWeight(3);
          stroke(colarray[i], 150);
          
-         int dim = 2;
-         if (j == intervals-1) dim = 5;
+         int dim = 4;
+         if (j == intervals-1) dim = 10;
          ellipse(posx2, posy2, dim, dim);
          line(posx, posy, posx2, posy2);
          

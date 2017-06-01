@@ -102,6 +102,9 @@ String VERSION = "BETA V1.0";
 Nina:
   - Clean clean
   - Visualize site bins
+      -Capacity loading bar colors
+      -click
+      -greenfield line
   - Click based 
         - Deployment and switching sites?
   - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)

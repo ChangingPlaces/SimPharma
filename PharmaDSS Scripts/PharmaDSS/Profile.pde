@@ -249,7 +249,7 @@ class Profile {
 
     // Draw Molecule Icon
     if (!detail) {
-      fill(agileModel.profileColor[ABSOLUTE_INDEX], 150);
+      fill(agileModel.profileColor[ABSOLUTE_INDEX], 180);
       if (selected) {
         stroke(textColor);
         strokeWeight(1);

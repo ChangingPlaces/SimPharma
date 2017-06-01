@@ -54,7 +54,7 @@ class MFG_System {
     profileColor = new color[PROFILES.size()];
     float hue;
     for (int i=0; i<profileColor.length; i++) {
-      hue = i * 200.0 / profileColor.length;
+      hue = i * 205.0 / profileColor.length;
       profileColor[i] = color(hue, 255, 255);
     }
     
