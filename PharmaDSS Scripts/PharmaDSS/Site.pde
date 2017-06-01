@@ -91,8 +91,7 @@ class Site {
       float greenLine = map(capGn, 0, maxCapSites, 0, sitesH/3);
       strokeWeight(3);
       stroke(color(0, 250, 0), 100);
-      fill(color(0, 75, 0), 100);
-      //fill(200, 100);
+      fill(color(0, 100, 0), 100);
       rect(x+5, siteStart + greenLine, w-10, siteBound - greenLine, 5);
       
       // Draw Baseline Total External and Green Field Rectangle Capacities
@@ -108,8 +107,8 @@ class Site {
       text("Site " + name, x, y - 5);
       fill(textColor);
       textAlign(CENTER);
-      text((capGn+capEx) + agileModel.WEIGHT_UNITS, x + w/2,  siteStart - 10);
-      
+      text("( " + int(capEx) + agileModel.WEIGHT_UNITS + " / " + int(capEx + capGn) + agileModel.WEIGHT_UNITS + " )", x + w/2,  siteStart - 10);
+       
       // Draw RND Capacity Slots
       for (int i=0; i<limitRnD; i++) {
         fill(background);
@@ -154,22 +153,22 @@ class Site {
         float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX}; //property array for clicking
         NCEClicks.add(props);
         
- //      if(!gameMode){
+       if(!gameMode){
           rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
-//        }
+        }
 
-//      else{
-//          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, i);
-//          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).capacityProfile.getFloat(1, i);
-//          float capWidth = map(demand, 0,cap, 0, w - 14);
-//          if(capWidth > w - 14){
-//            capWidth = w -14;
-//          }
-//          rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
-//          fill(background, 100);
-//          rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
-//        }
-//        
+      else{
+          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, i);
+          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).capacityProfile.getFloat(1, i);
+          float capWidth = map(demand, 0,cap, 0, w - 14);
+          if(capWidth > w - 14){
+            capWidth = w -14;
+          }
+          rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
+          fill(background, 100);
+          rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
+        }
+        
         offset += size;
         noStroke();
         fill(255);

@@ -4,6 +4,8 @@ TableSurface mfg;
 float[][] siteCapacity;
 boolean enableSites;
 
+int BASIN_HEIGHT = 6;
+
 /*      ---------------> + U-Axis
  *     |
  *     |
@@ -182,7 +184,7 @@ class TableSurface {
     }
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
-      inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2, 6) );
+      inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2, BASIN_HEIGHT) );
     }
   }
 
