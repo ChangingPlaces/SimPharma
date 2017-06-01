@@ -81,9 +81,8 @@ void mouseClicked() {
         }
         
 //        for(int j = 0; j<agileModel.SITES.get(i).NCEClicks.size(); i++){
-//          
 //          float NCEClickX = agileModel.SITES.get(i).NCEClicks.get(j)[0];
-//          println(agileModel.SITES.get(i).NCEClicks.get(j)[0]);
+//          println(agileModel.SITES.get(i).NCEClicks.get(j)[0], j);
 //          float NCEClickY = agileModel.SITES.get(i).NCEClicks.get(j)[1];
 //          
 //          float NCEClickWidth = agileModel.SITES.get(i).NCEClicks.get(j)[2];
@@ -93,6 +92,19 @@ void mouseClicked() {
 //        }
         
       }
+      
+   
+   for(int j = 0; j<NCEClicks.size(); j++){
+         float NCEClickX = NCEClicks.get(j)[0];
+         
+          float NCEClickY = NCEClicks.get(j)[1];
+          
+          float NCEClickWidth = NCEClicks.get(j)[2];
+          float NCEClickHeight = NCEClicks.get(j)[3];  
+            if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX- NCEClickWidth  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2){
+              session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
+            }
+   }
   
   //Hide/Show Menu
   if(hideMenu.buttons[0].over()){  

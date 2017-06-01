@@ -1,8 +1,10 @@
 // Site Characteristics for a given manufacturing site (i.e. Cork, Jurong)
+    ArrayList<float[]> NCEClicks = new ArrayList<float[]>();
+    
 class Site {
   
   //Array of coords for NCE stuff
-    ArrayList<float[]> NCEClicks = new ArrayList<float[]>();
+
     //gives x, y, width, height, id
   
   // Name of Site
@@ -123,7 +125,7 @@ class Site {
       // Draw Build Allocations within Site Square
       float offset = 0;
       float size;
-         NCEClicks.clear();
+     
       for (int i=0; i<siteBuild.size(); i++) {
         
         if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
@@ -148,7 +150,7 @@ class Site {
           size  = 30;
         }
         
-        float[] props = {x + 7,siteStart + offset + 5,  w - 14, size - 2, i};
+        float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i}; //property array for clicking
         NCEClicks.add(props);
         
       //  if(!gameMode){
@@ -173,7 +175,7 @@ class Site {
         textAlign(CENTER, CENTER);
         text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
       }
-      
+     // println(NCEClicks.size());
     }
     
 

@@ -58,6 +58,7 @@ class Profile {
 
   //Parameters for click interface
   int xClick, yClick, wClick, hClick;
+  int dragClickX, dragClickY, dragClickW, dragClickH;
 
   // Basic Constructor
   Profile(int INDEX) {
@@ -229,7 +230,7 @@ class Profile {
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     xClick = x - 15;
     yClick = y - h - 7;
-    wClick = w + 90;
+    wClick = w + 20;
     hClick = h + 20;
     float unit = 5000;
     float scalerH, scalerW;

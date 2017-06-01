@@ -110,6 +110,7 @@ void drawScreen() {
       text("Performance", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5);
       
       textSize(min(16, textSize));
+       NCEClicks.clear();
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
