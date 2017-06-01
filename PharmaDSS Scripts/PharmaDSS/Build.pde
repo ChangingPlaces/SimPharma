@@ -15,7 +15,7 @@ class Build {
 
   // Operators (Amount, Shifts, Cost)
   ArrayList<Person> labor;
-
+  
   // Status of Build when allocated to a site:
 
   // NCE profile produced by build
@@ -28,6 +28,8 @@ class Build {
   boolean demolish = false;
   // Is the build being repurposed?
   boolean repurpose = false;
+  
+  boolean capEx_Logged = false;
 
   // Basic Constructor
   Build() {

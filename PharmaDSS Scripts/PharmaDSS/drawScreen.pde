@@ -15,10 +15,10 @@ color CAPACITY_COLOR = color(200, 95, 224);
 color NOW = color(255, 220, 4);
 
 // Upper Left Corners
-int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY;
+int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY;
 
 // Width and Height
-int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH;
+int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH;
 
 LineGraph outputGraph;
   
@@ -45,11 +45,26 @@ void drawScreen() {
   radarY    = int(0.8*height + 30);
   
   //Builds
-  buildsX = sitesX + radarH*3;
-  buildsY = sitesY + sitesH/2;
+  buildsX   = sitesX + radarH*3;
+  buildsY   = sitesY + sitesH/2;
   buildsW   = int(0.13*width);
   buildsH   = profilesH;
   
+  float canH = height - 2.8*MARGIN;
+  
+  // Output Graph
+  if (displayRadar) {
+    lineX     = int(MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20);
+    lineY     = int(2.2*MARGIN + 65 + canH*.6);
+    lineW     = int(2*(width - sitesX - 1.25*MARGIN)/3 - 100);
+    lineH     = int(canH*.25);
+  } else {
+    lineX     = int(MARGIN*1.5 + sitesX);
+    lineY     = int(2.2*MARGIN + 65 + canH*.6);
+    lineW     = int(width - sitesX - 3.25*MARGIN);
+    lineH     = int(canH*.25);
+  }
+      
   //Titles
   titlesY   = int(2.80*MARGIN);
 
@@ -57,8 +72,6 @@ void drawScreen() {
   boolean selected;
   
   // Draw Background Canvases
-      
-      float canH = height - 2.8*MARGIN;
       
       noStroke();
       
@@ -93,8 +106,8 @@ void drawScreen() {
       fill(textColor);
       textAlign(LEFT);
       textSize(max(18, textSize));
-      text("Site Characteristics:", MARGIN + sitesX, titlesY);
-      text("Performance:", MARGIN + sitesX , canH*.6 + titlesY + MARGIN/2.5);
+      text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
+      text("Performance", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5);
       
       textSize(min(16, textSize));
       for (int i=0; i<NUM_SITES; i++) {
@@ -104,9 +117,7 @@ void drawScreen() {
       }
    
   //Line Graph and Outputs
-      float lineY = 2.2*MARGIN + 65 + canH*.6;
-      float lineX = MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20;
-      outputGraph = new LineGraph(outputs, lineX, lineY, 2*(width - sitesX - 1.25*MARGIN)/3 - 100, canH*.25);
+      outputGraph = new LineGraph(outputs, lineX, lineY, lineW, lineH);
   
   //Draw Selected Profile in Large Format
   if (!gameMode) {
@@ -118,8 +129,8 @@ void drawScreen() {
   // Draw Radar Plot
   if (displayRadar) {
     kpi.draw(radarX, radarY, radarH);
-    outputGraph.draw();
   }
+  outputGraph.draw();
 
   image(logo, MARGIN, height-MARGIN - 70); 
   
@@ -135,7 +146,7 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
-  text("NCE Demand Profiles", MARGIN + profilesX, titlesY);
+  text("NCE Demand Profiles", MARGIN + profilesX - 25, titlesY);
   
   // Current Year
   textAlign(RIGHT);

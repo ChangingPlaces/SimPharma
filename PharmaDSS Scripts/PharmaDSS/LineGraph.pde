@@ -53,10 +53,10 @@ class LineGraph{
       
       for(int j = 0; j<intervals; j++){
          posx  = j*(w/Values.size()) + minx;         
-         posy = map(outputMax[i]*Values.get(j)[i], 0, 100, miny - 10, miny - h + 30);
+         posy = map(100*Values.get(j)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
         
          posx2  = posx + (w/Values.size());
-         posy2 = map(outputMax[i]*Values.get(j+1)[i], 0, 100, miny - 10, miny - h + 30);
+         posy2 = map(100*Values.get(j+1)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
          
          //set colors with the appropriate profile
          fill(colarray[i]);
@@ -68,29 +68,27 @@ class LineGraph{
          ellipse(posx2, posy2, dim, dim);
          line(posx, posy, posx2, posy2);
          
-         if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5){
+         if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == Values.size()-2) ){
            fill(textColor);
            textAlign(CENTER);
-           int val = str(100*Values.get(j+1)[i]).substring(0, str(100*Values.get(j+1)[i]).indexOf(".")).length();
+           int val = str(100*Values.get(j+1)[i]/outputMax[i]).substring(0, str(100*Values.get(j+1)[i]/outputMax[i]).indexOf(".")).length();
            
-           text(nf(outputMax[i]*Values.get(j+1)[i], val, 1), posx2, posy2-10);
+           text(nf(100*Values.get(j+1)[i]/outputMax[i], val, 1) + " " +outputUnits[i], posx2, posy2-10);
            fill(colarray[i], 50);
            ellipse(posx2, posy2, 10, 10);
          }
       }
       
-      
-      
       //special start and end case to begin the line from the axis
       //unsure why this isn't picking up
-      if (!gameMode || session.current.TURN > 0) {
+      if (!gameMode || session.current.TURN >= 0) {
          fill(colarray[i]);
          strokeWeight(2);
          stroke(colarray[i], 150);
-         posx  = minx;         
-         posy = map(100*Values.get(0)[i], 0, 100, miny - 10, miny - h + 30);
+         posx  = minx; 
+         posy = map(100*Values.get(0)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
          posx2  = posx + (w/Values.size());
-         posy2 = map(100*Values.get(1)[i], 0, 100, miny - 10, miny - h + 30);
+         posy2 = map(100*Values.get(1)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
          int dim = 2;
          if (session.current.TURN == 1) dim = 4;
          ellipse(posx, posy, dim, dim);

@@ -213,10 +213,12 @@ class Profile {
         if (!current.built) {
           if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
             int yearsToOperate = int(current.buildTime - current.age);
-            float newCapacity = capacityProfile.getFloat(1, session.current.TURN-1 + yearsToOperate);
-            // Sets Remaining Capacity to Future Turn's Status Quo:
-            for (int k=session.current.TURN-1+yearsToOperate; k<NUM_INTERVALS; k++) {
-              capacityProfile.setFloat(1, k, newCapacity + 1000*current.capacity);
+            if (yearsToOperate + session.current.TURN < NUM_INTERVALS) { // Checks to make sure relevant
+              float newCapacity = capacityProfile.getFloat(1, session.current.TURN-1 + yearsToOperate);
+              // Sets Remaining Capacity to Future Turn's Status Quo:
+              for (int k=session.current.TURN-1+yearsToOperate; k<NUM_INTERVALS; k++) {
+                capacityProfile.setFloat(1, k, newCapacity + 1000*current.capacity);
+              }
             }
           }
         }

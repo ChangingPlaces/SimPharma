@@ -1,27 +1,44 @@
 ArrayList<float[]> outputs;
 
+// Uses first N outputs in below list only. Increase to activate
+int NUM_OUTPUTS = 2;
+
 String[] outputNames = {
-  "CAPEX",
+  "Capital Expenses",
+  "Ability to Meet Demand",
   "OPEX",
   "COGs",
-  "Demand",
   "Security"
 };
 
 float[] outputMax = {
-  100.0,
-  100.0,
-  100.0,
-  100.0,
-  100.0
+  100000000.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0
 };
 
-int NUM_OUTPUTS = outputNames.length;
+String[] outputUnits = {
+  "mil GBP",
+  "%",
+  "mil GBP",
+  "mil GBP",
+  "%"
+};
 
 void initOutputs() {
   for (int i=0; i<NUM_OUTPUTS; i++) {
     outputs = new ArrayList<float[]>();
   }
+}
+
+void calcOutputs(int turn) {
+  // Ability to meet Demand
+  outputs.get(turn)[1] = calcDemandMeetAbility();
+  
+  // Capital Expenditures
+  outputs.get(turn)[0] = calcCAPEX();
 }
 
 void randomOutputs() {
@@ -49,9 +66,20 @@ float calcOPEX() {
   return 0.0;
 }
 
-// Returns the operating expenses for the current turn
+// Returns the capital expenses for the current turn
 float calcCAPEX() {
-  return 0.0;
+  float expenses = 0.0;
+  Build current;
+  for (int i=0; i<agileModel.SITES.size(); i++) {
+    for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+      current = agileModel.SITES.get(i).siteBuild.get(j);
+      if (!current.capEx_Logged) {
+        expenses += current.buildCost;
+        if (current.age != 0) current.capEx_Logged = false;
+      }
+    }
+  }
+  return expenses;
 }
 
 // Returns the Cost of Goods for the current turn
@@ -59,12 +87,7 @@ float calcCOGs() {
   return 0.0;
 }
 
-// Returns the security of the supply chain network for a given turn
-float calcSecurity() {
-  return 0.0;
-}
-
-// Returns the % ability to meet demand for a given turn
+// Returns the % ability to meet demand for a given turn (0.0 - 1.0)
 float calcDemandMeetAbility() {
   float percent; // 0.0 - 1.0
   float totDemandMet = 0;
@@ -87,4 +110,9 @@ float calcDemandMeetAbility() {
   }
   return percent;
 
+}
+
+// Returns the security of the supply chain network for a given turn
+float calcSecurity() {
+  return 0.0;
 }

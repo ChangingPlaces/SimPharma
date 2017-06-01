@@ -92,6 +92,7 @@
   *               - Show "Futurevision" for capacity
   *               - Add Turn-By-Turn Graph of Performance
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
+  *               - Added CAPEX Calc
   */
   
 String VERSION = "BETA V1.0";  
@@ -114,13 +115,18 @@ Nina:
       - button movement  
 */
   
- /* TO DO:        
-  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
+ /* TO DO:     
+
   *               - Add Dock for filtering NEC performance
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Add Site "Filler" That decays over time;
-  *
+  
+  *               - Added OPEX Calc
+  *               - Added COGs Calc
+  *               - Added SecSup Calc
+  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
+  
   *               - Make Capital Cost Very Prominent (show cost per ton)
   *               - Add Clear Legend for NCE Typology in Game
   *               - Make NCE Dock for NCE selection

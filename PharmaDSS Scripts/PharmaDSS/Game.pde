@@ -111,8 +111,7 @@ class Game {
         kpi.setScore(i, outputs.get(session.current.TURN - 1)[i]);
       }
       
-      // Ability to meet Demand
-      outputs.get(session.current.TURN-1)[3] = calcDemandMeetAbility();
+      calcOutputs(session.current.TURN-1);
     }
   }
   
@@ -236,6 +235,7 @@ class Event {
     // Customizes a Build for a given NCE
     event.assignProfile(profileIndex);
     event.age          = int(event.buildTime - agileModel.PROFILES.get(profileIndex).timeLaunch);
+    event.capEx_Logged = true;
     
     // Add the NCE-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);

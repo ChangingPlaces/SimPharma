@@ -1,4 +1,4 @@
-boolean displayRadar = true;
+boolean displayRadar = false;
 RadarPlot kpi;
 
 void setupRadar() {
@@ -83,7 +83,10 @@ class RadarPlot {
           
           
         //draw fills
-        triangle(x, y, scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, scores.get((i+1)%nRadar)*d*sin(rot+(i+1)%nRadar*2*PI/nRadar) + y);
+        triangle(x, y, scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, 
+                       scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, 
+                       scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, 
+                       scores.get((i+1)%nRadar)*d*sin(rot+(i+1)%nRadar*2*PI/nRadar) + y);
         
         
         //draw end dots
