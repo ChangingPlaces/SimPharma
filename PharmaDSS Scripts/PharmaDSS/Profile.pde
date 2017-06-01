@@ -424,7 +424,7 @@ class Profile {
       if (detail) {
         fill(abs(textColor - 150));
         rect(X + scalerW/2 + 1, y, 2, 35);
-        fill(GSK_ORANGE);
+        fill(textColor, 200);
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X, Y-5);
         textAlign(CENTER);

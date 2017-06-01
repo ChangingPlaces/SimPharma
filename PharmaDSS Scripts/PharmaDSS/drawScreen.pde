@@ -151,7 +151,7 @@ void drawProfiles(ArrayList<Profile> list) {
   
   // Current Year
   textAlign(RIGHT);
-  fill(THEME);
+  fill(textColor, 200);
   text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
   
   boolean axis;
