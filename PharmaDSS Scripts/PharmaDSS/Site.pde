@@ -108,7 +108,7 @@ class Site {
       fill(textColor);
       textAlign(CENTER);
       text("( " + int(capEx) + agileModel.WEIGHT_UNITS + " / " + int(capEx + capGn) + agileModel.WEIGHT_UNITS + " )", x + w/2,  siteStart - 10);
-       
+             
       // Draw RND Capacity Slots
       for (int i=0; i<limitRnD; i++) {
         fill(background);
@@ -153,19 +153,21 @@ class Site {
         float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX}; //property array for clicking
         NCEClicks.add(props);
         
-       if(!gameMode){
+        // Draw Site Builds on Sites
+        if(!gameMode){
           rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
-        }
-
-       else if (session.current.TURN > 0) {
-          float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
-          float cap = agileModel.activeProfiles.get(i).globalProductionLimit;
-          float meetPercent = min(1.0, demand/cap);
-          float capWidth = map(meetPercent, 0, 1.0, 0, w - 14);
-          if(capWidth > w - 14){
-            capWidth = w -14;
+        } else {
+          if (session.current.TURN > 0) {
+            println(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, session.current.TURN-1));
+            float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
+            float cap = agileModel.activeProfiles.get(i).globalProductionLimit;
+            float meetPercent = min(1.0, demand/cap);
+            float capWidth = map(meetPercent, 0, 1.0, 0, w - 14);
+            if(capWidth > w - 14){
+              capWidth = w -14;
+            }
+            rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
           }
-          rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
           fill(background, 100);
           rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
         }
@@ -176,6 +178,7 @@ class Site {
         textAlign(CENTER, CENTER);
         text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
       }
+      println("--");
     }
     
 
