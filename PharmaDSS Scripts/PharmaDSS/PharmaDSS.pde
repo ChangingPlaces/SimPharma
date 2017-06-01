@@ -98,6 +98,8 @@ String game_message = " ";
 void draw() {
 
   textSize = min(12,int(width/100));
+  
+  
 
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
@@ -125,13 +127,9 @@ void draw() {
   if(!gameMode){
     game_message = " ";
   }
-//  drawPhaseDiagram();  
 
-//  rect(width-50, height-50, width/100, width/100);
-  textAlign(LEFT);
-  fill(END);
-  textSize(textSize+ 2);
-  text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
+ gameText();
+  
   noLoop();
 }
 
@@ -157,4 +155,11 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   mainMenu.buttons[9].isVoid = !gameMode;
   mainMenu.buttons[10].isVoid = !gameMode;
   mainMenu.buttons[11].isVoid = !gameMode;
+}
+
+void gameText(){
+ textAlign(LEFT);
+  fill(END);
+  textSize(textSize+ 2);
+  text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
 }
