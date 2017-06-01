@@ -150,7 +150,7 @@ class Site {
           size  = 30;
         }
         
-        float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i}; //property array for clicking
+        float[] props = {x + 7, siteStart + offset + 5,  w - 14, size - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX}; //property array for clicking
         NCEClicks.add(props);
         
        if(!gameMode){
