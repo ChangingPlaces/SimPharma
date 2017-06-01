@@ -157,10 +157,11 @@ class Site {
           rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
         }
 
-      else{
-          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, i);
-          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).capacityProfile.getFloat(1, i);
-          float capWidth = map(demand, 0,cap, 0, w - 14);
+       else if (session.current.TURN > 0) {
+          float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
+          float cap = agileModel.activeProfiles.get(i).globalProductionLimit;
+          float meetPercent = min(1.0, demand/cap);
+          float capWidth = map(meetPercent, 0, 1.0, 0, w - 14);
           if(capWidth > w - 14){
             capWidth = w -14;
           }

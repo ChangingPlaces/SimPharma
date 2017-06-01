@@ -212,10 +212,8 @@ class TableSurface {
 
       MAX_SIZE = basinWidth * basinHeight;
       basinSize = new int[2];
-      println(basinWidth, MAX_SIZE, basinCap[0], basinCap[1], agileModel.maxCap);
       basinSize[0] = int((basinCap[0] + basinCap[1]) / agileModel.maxCap * MAX_SIZE);
       basinSize[1] = int( basinCap[0] / agileModel.maxCap * MAX_SIZE);
-      println(basinSize[0], basinSize[1]);
       CORNER_BEVEL = new int[2];
       CORNER_BEVEL[0] = 10;
       CORNER_BEVEL[1] = 5;
