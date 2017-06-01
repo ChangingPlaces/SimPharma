@@ -31,7 +31,8 @@ import de.bezier.data.*;
     int GMS_COL = 3;
     int NUM_GMS_BUILDS = 12;
     // Constrain the list of capacities that are acceptable for the game.
-    float[] capacityToUseGMS = {20};
+    // 0.5  1  2  5  7  10  15  20  25  30  40  50
+    float[] capacityToUseGMS = {2};
     
     // Cell U3
     int RND_ROW = 2; 
@@ -162,8 +163,8 @@ void loadModel_XLS(MFG_System model, String name) {
     for (int i=0; i<NUM_XLS_SITES; i++) {
       model.SITES.add(new Site(
         "" + reader.getInt(SITE_ROW + i, SITE_COL),
-        reader.getFloat(SITE_ROW + i, SITE_COL + 1),
-        reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1),
+        reader.getFloat(SITE_ROW + i, SITE_COL + 1)/10,
+        reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1)/10,
         reader.getInt(RND_LIMIT_ROW + i, RND_LIMIT_COL)
       ));
     }
@@ -235,8 +236,12 @@ void loadModel_XLS(MFG_System model, String name) {
       float randomMag = 1000*random(1.0, 3.0);
       model.PROFILES.get(i).setPeak(randomMag*capacityToUseGMS[randomCap]);
     } else {
-      float pk = model.PROFILES.get(i).demandPeak_F;
-      model.PROFILES.get(i).setPeak(10.0*pk);
+      int[] ind = {8, 2, 5, 9, 6, 0, 7, 1, 3, 4};
+      float mag = 1000*(ind[i]+3);
+      model.PROFILES.get(i).setPeak(mag);
+      
+//      float pk = model.PROFILES.get(i).demandPeak_F;
+//      model.PROFILES.get(i).setPeak(10.0*pk);
     }
     
     // Re-Calculates peak forecast demand value, lead years, etc

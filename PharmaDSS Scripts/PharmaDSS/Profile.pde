@@ -6,42 +6,42 @@ color END = color(249, 60, 60);
 class Profile {
   // Name of NCE Demand Profile
   String name; 
-  
+
   // This static index should always refer to the profile's "ideal" state located in "MFG_System.PROFILES"
   int ABSOLUTE_INDEX;
 
   // Breif Descriptor of Profile (i.e. "Blockbuster" or "Never Manufactured")
   String summary;
-  
+
   // Success/ Failure (due to clinical trail failure, competition enters market, etc)
   boolean success;
   boolean launched;
-  
+
   // (TBA) Criticality to Patient
   // (TBA) Number of Stages
-  
+
   // Peak Demands (Forecast and Actual)
   float demandPeak_F, demandPeak_A; // calculate from demandProfile
   float peakTime_F, peakTime_A;
-  
+
   // Peak Actual Demand
-  
+
   // Start Time  
   String timeStart;
-  
+
   // Lead Date
   float timeLead;
   float timeLaunch;
-  
+
   // End Date (date when demand drops to zero)
   float timeEnd;
-  
+
   //  Recoveries (cost per weight)
   float recoveries;
-  
+
   // Each element describes unique production cost associated with a Site (cost per time)
   ArrayList<Float> productionCost; 
-  
+
   //  Columns of consecutive, discrete time intervals describing:
   //  - Time
   //  - Forecast demand (weight per time)
@@ -58,7 +58,7 @@ class Profile {
 
   //Parameters for click interface
   int xClick, yClick, wClick, hClick;
-  
+
   // Basic Constructor
   Profile(int INDEX) {
     productionCost = new ArrayList<Float>();
@@ -66,10 +66,10 @@ class Profile {
     ABSOLUTE_INDEX = INDEX;
     launched = false;
   }
-  
+
   ArrayList<Float> localProductionLimit;
   float globalProductionLimit;
-  
+
   // The Class Constructor
   Profile(String name, String summary, boolean success, String timeStart, float recoveries, ArrayList<Float> productionCost, Table demandProfile, int INDEX) {
     this.name = name;
@@ -80,46 +80,45 @@ class Profile {
     this.demandProfile = demandProfile;
     ABSOLUTE_INDEX = INDEX;
     launched = false;
-     
   }
-  
+
 
   void calc() {
     // Based on Profile, compute the peak forecast demand
     peak();
-    
+
     // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
     lead();
-    
+
     // Based on Profile, compute the date that NCE Profile "terminates"
     end();
-    
+
     //Initialize Table for holding capacity values
     initCapacityProfile();
   }
-  
+
   // Given an existing profile, rescales all demand values (forecast and actual) according to a new peak value
   void setPeak(float newPeak) {
     float scaler = newPeak/demandPeak_F;
-    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+    for (int i=0; i<demandProfile.getColumnCount (); i++) {
       demandProfile.setFloat(1, i, demandProfile.getFloat(1, i) * scaler); // Forecast
       demandProfile.setFloat(2, i, demandProfile.getFloat(2, i) * scaler); // Actual
     }
   }
-  
+
   // Based on Profile, compute the peak forecast demand
   void peak() {
     demandPeak_F = 0;
     demandPeak_A = 0;
     float value_F, value_A, time;
-    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+    for (int i=0; i<demandProfile.getColumnCount (); i++) {
       time = demandProfile.getFloat(0, i);
       value_F = demandProfile.getFloat(1, i); // Forecast
       value_A = demandProfile.getFloat(2, i); // Actual
       if (demandPeak_F < value_F ) {
         demandPeak_F = value_F;
         peakTime_F = time;
-        
+
         // Sets global max profile value
         if (MAX_PROFILE_VALUE < value_F) MAX_PROFILE_VALUE = value_F;
       }
@@ -129,12 +128,12 @@ class Profile {
       }
     }
   }
-  
+
   // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
   //For graph class
   void lead() {
     timeLead = 0;
-    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+    for (int i=0; i<demandProfile.getColumnCount (); i++) {
       float value = demandProfile.getFloat(1, i);
       if (value > 0) {
         timeLaunch = i;
@@ -143,14 +142,14 @@ class Profile {
       }
     }
   }
-  
+
   // Based on Profile, compute the date that NCE Profile "terminates" (i.e. is no longer viable)
   //for graph class
   void end() {
     timeEnd = Float.POSITIVE_INFINITY;
     boolean viable = false;
     float current, previous;
-    for (int i=1; i<demandProfile.getColumnCount(); i++) {
+    for (int i=1; i<demandProfile.getColumnCount (); i++) {
       current = demandProfile.getFloat(2, i);
       previous = demandProfile.getFloat(2, i-1);
       // If actual demand reaches zero, profile is no longer viable
@@ -165,25 +164,27 @@ class Profile {
     }
     if (!viable) timeEnd = timeLead;
   }
-  
+
   void initCapacityProfile() {
     capacityProfile = new Table();
     capacityProfile.addRow(); //Time
     capacityProfile.addRow(); //Capacity (Actual)
-    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+    for (int i=0; i<demandProfile.getColumnCount (); i++) {
       capacityProfile.addColumn();
-      capacityProfile.setFloat(0, i, demandProfile.getFloat(0,i)); //Time
+      capacityProfile.setFloat(0, i, demandProfile.getFloat(0, i)); //Time
       capacityProfile.setFloat(1, i, 0.0); // Capacity
     }
   }
-  
+
   void calcProduction(ArrayList<Site> factories) {
-    
+
+
     localProductionLimit = new ArrayList<Float>();
     globalProductionLimit = 0;
     int numSites, numBuilds;
     Build current;
-    
+
+    // Update Current Turn's Production Information
     numSites = factories.size();
     for (int i=0; i<numSites; i++) {
       localProductionLimit.add(0.0);
@@ -198,11 +199,34 @@ class Profile {
       }
       globalProductionLimit += 1000*localProductionLimit.get(i);
     }
-    capacityProfile.setFloat(1, session.current.TURN-1, globalProductionLimit);
-  }
-  
+    
+    // Sets Remaining Capacity to Current Turn's Status Quo:
+    for (int i=max(session.current.TURN-1, 0); i<NUM_INTERVALS; i++) {
+      capacityProfile.setFloat(1, i, globalProductionLimit);
+    }
 
- 
+    // If Demand is yet to be built, adds potential to future capacity as "ghost"
+    for (int i=0; i<numSites; i++) {
+      numBuilds = factories.get(i).siteBuild.size();
+      for (int j=0; j<numBuilds; j++) {
+        current = factories.get(i).siteBuild.get(j);
+        if (!current.built) {
+          if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
+            int yearsToOperate = int(current.buildTime - current.age);
+            println(current.buildTime, current.age, session.current.TURN, yearsToOperate);
+            float newCapacity = capacityProfile.getFloat(1, session.current.TURN-1 + yearsToOperate);
+            // Sets Remaining Capacity to Future Turn's Status Quo:
+            for (int k=session.current.TURN-1+yearsToOperate; k<NUM_INTERVALS; k++) {
+              capacityProfile.setFloat(1, k, newCapacity + 1000*current.capacity);
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     xClick = x - 15;
     yClick = y - h - 7;
@@ -214,7 +238,7 @@ class Profile {
     float forecastScalerH = 2.0; // leaves room for actual demand to overshoot forecast
     scalerH = h/(forecastScalerH*demandPeak_F);
     scalerW = float(w)/demandProfile.getColumnCount();
-    
+
     // Draw Profile Selection
     if (selected) {
       fill(HIGHLIGHT, 50);
@@ -223,7 +247,7 @@ class Profile {
       //rect(0.25*MARGIN + profilesX, y - h - 7, profilesW + MARGIN*1.75, h+20, 2);
       noStroke();
     }
-    
+
     // Draw Molecule Icon
     if (!detail) {
       fill(agileModel.profileColor[ABSOLUTE_INDEX], 150);
@@ -234,17 +258,17 @@ class Profile {
         noStroke();
       }
       rect(x + w + 28, y-h-7, 29, h+20, 5);
-      image(nceMini,x + w + 30, y-19, 23, 23);
+      image(nceMini, x + w + 30, y-19, 23, 23);
     }
-    
+
     noStroke();
-    
+
     // Time Bar
     if (!detail) {
       fill(#CCCCCC, 80);
       float begin = max(0, timeLead);
       float end = max(0, timeEnd);
-      
+
       if (!gameMode) {
         rect(x + scalerW * begin, y - h, scalerW * (min(end, demandProfile.getColumnCount()) - begin), h);
       } else {
@@ -252,8 +276,8 @@ class Profile {
         rect(x + scalerW * begin, y - h, scalerW * (min(min(end, demandProfile.getColumnCount()), session.current.TURN) - begin), h);
       }
     }
-    
-    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+
+    for (int i=0; i<demandProfile.getColumnCount (); i++) {
       float barF, barA, cap, capLast, globalCap;
       barF = scalerH * demandProfile.getFloat(1, i); // Forecast Demand
       barA = scalerH * demandProfile.getFloat(2, i); // Actual Demand
@@ -262,16 +286,15 @@ class Profile {
       if (i==0) {
         capLast = 0;
       } else {
-        capLast = scalerH * capacityProfile.getFloat(1, i-1); 
+        capLast = scalerH * capacityProfile.getFloat(1, i-1);
       }
       noStroke();
-      
+
       //Draw forecast and actual bars
-      if(background == 255){
-      fill(120);
-      }
-      else{
-      fill(180);
+      if (background == 255) {
+        fill(120);
+      } else {
+        fill(180);
       }
       rect(x + scalerW * i +1, y - barF, scalerW - 1, barF);
 
@@ -280,21 +303,23 @@ class Profile {
         fill(agileModel.profileColor[ABSOLUTE_INDEX], 150);
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
       }
-      
+
 
       // Draw Details such as axis
       fill(textColor);
       textAlign(CENTER);
       stroke(textColor);
       strokeWeight(1);
-      if (detail && (i==0 || (i+1)%5 == 0)) {
-        line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
-        noStroke();
-        text((agileModel.YEAR_0+i), x + scalerW * (i+.5) + 1, y + 15);
-      } else {
-        line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
+      if (detail) {
+        if (i==0 || (i+1)%5 == 0) {
+          line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
+          noStroke();
+          text((agileModel.YEAR_0+i), x + scalerW * (i+.5) + 1, y + 15);
+        } else {
+          line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
+        }
       }
-      
+
       // Draw Global Manufacturing Capacity
       if (gameMode) {
         noFill();
@@ -302,8 +327,8 @@ class Profile {
           stroke(CAPACITY_COLOR);
         } else {
           stroke(CAPACITY_COLOR, 50);
-          cap = globalCap;
-          capLast = globalCap;
+          //          cap = globalCap;
+          //          capLast = globalCap;
         }
         strokeWeight(3);
         // Draw Vertical line
@@ -311,9 +336,9 @@ class Profile {
         // Draw Horizontal line
         line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
         noStroke();
-      } 
+      }
     }
-    
+
     // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
     fill(textColor);
@@ -330,7 +355,7 @@ class Profile {
     } else {
       text(name + ", " + summary, x, y + 10 + Y_SHIFT);
     }
-    
+
     // Draw Demand Peak Value
     fill(textColor);
     ellipse(x + scalerW * (0.5+int(peakTime_F-1)), y - scalerH * demandProfile.getFloat(1, int(peakTime_F-1)), 3, 3);
@@ -338,9 +363,9 @@ class Profile {
     textAlign(CENTER);
     textSize(textSize);
     text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+int(peakTime_F-1)) + 1, y - scalerH * demandProfile.getFloat(1, int(peakTime_F-1)) - 5);
-      
+
     noStroke();
-    
+
     // Lead Date
     if (timeLead >=0) {
       fill(P3);
@@ -361,7 +386,7 @@ class Profile {
         text("Launch", x + scalerW * timeLaunch - 3, y-markerH*h-5);
       }
     }
-    
+
     // End Date
     if (!gameMode || session.current.TURN > timeEnd) {
       if (timeEnd >=0) {
@@ -373,7 +398,7 @@ class Profile {
         }
       }
     }
-    
+
     // Draw Time Details
     if (gameMode) {
       float barA = 0;
@@ -406,19 +431,26 @@ class Profile {
         text((agileModel.YEAR_0 + session.current.TURN), X + scalerW/2, y + MARGIN);
       }
     }
-    
+
     // Y-Axis for Large-scale graphic
     if (detail) {
-      unit = demandPeak_F/3;
+      //unit = demandPeak_F/3;
+      unit = 1000*agileModel.GMS_BUILDS.get(0).capacity;
       stroke(textColor, 20);
       strokeWeight(1);
-      for (int i=0; i<=int(forecastScalerH*demandPeak_F/unit); i++) {
+      for (int i=0; i<=int (forecastScalerH*demandPeak_F/unit); i++) {
         line(x, y - scalerH*i*unit, x+w, y - scalerH*i*unit);
         fill(textColor, 50);
         textAlign(RIGHT);
         text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 35, y - scalerH*(i-0.25)*unit);
       }
     }
+  }
+}
 
-  } 
+void updateProfileCapacities() {
+  // Updates the production capacities for each NCE
+  for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+    agileModel.activeProfiles.get(i).calcProduction(agileModel.SITES);
+  }
 }

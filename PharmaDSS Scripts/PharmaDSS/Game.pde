@@ -73,7 +73,6 @@ class Game {
     }
     
     for (int i=0; i<agileModel.activeProfiles.size(); i++) {
-      
       Event initialize = new Event("initialize", int(random(NUM_SITES-0.01)), int(random(agileModel.GMS_BUILDS.size()-0.01)), agileModel.activeProfiles.get(i).ABSOLUTE_INDEX);
       current.event.add(initialize);
     }
@@ -103,9 +102,7 @@ class Game {
       }
       
       // Updates the production capacities for each NCE
-      for (int i=0; i<agileModel.activeProfiles.size(); i++) {
-        agileModel.activeProfiles.get(i).calcProduction(agileModel.SITES);
-      }
+      updateProfileCapacities();
       
       // Updates the status of the radar plot to current turn
       for (int i=0; i<NUM_OUTPUTS; i++) {
@@ -236,7 +233,7 @@ class Event {
     
     // Customizes a Build for a given NCE
     event.assignProfile(profileIndex);
-    event.age          = int(0 - agileModel.PROFILES.get(profileIndex).timeLead);
+    event.age          = int(0 - agileModel.PROFILES.get(profileIndex).timeLaunch);
     
     // Add the NCE-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);
@@ -316,18 +313,21 @@ void nextSiteBuild() {
 void deploySelection() {
   Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
   session.current.event.add(deploy);
+  updateProfileCapacities();
 }
 
 // Remove Selected Manufacturing Option
 void removeSelection() {
   Event remove = new Event("remove", session.selectedSite, session.selectedSiteBuild);
   session.current.event.add(remove);
+  updateProfileCapacities();
 }
 
 // Repurpose Selected Manufacturing Option
 void repurposeSelection() {
   Event repurpose = new Event("repurpose", session.selectedSite, session.selectedSiteBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
   session.current.event.add(repurpose);
+  updateProfileCapacities();
 }
 
 // Advance to Next Turn
