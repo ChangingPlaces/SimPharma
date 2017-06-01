@@ -115,23 +115,27 @@ Nina:
       - button movement  
 */
   
- /* TO DO:     
-
-  *               - Add Clear Legend for NCE Typology in Game
-  
-  *               - Make NCE Dock for NCE selection
-  *               - Make Selected NCE Profile Full Screen When Docked
-  
+ /* TO DO:    
+ 
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Add Site "Filler" That decays over time;
+  *               - Polish Screen-based Site Visualization
+  
+  *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
+  *               - Account for repurposing / building cost differently
+  *               - Add Clear Legend for NCE Typology in Game
+  *               - Check that launch dates are correct...
+  
+  *               - Make NCE Dock for NCE selection
+  *               - Make Selected NCE Profile Full Screen When Docked
+  *               - Add Per-site COGs to large Profile Visualization
   
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
   
   *               - Added OPEX Calc
   *               - Added COGs Calc
-  *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   
   *               - Make Capital Cost Very Prominent (show cost per ton?)

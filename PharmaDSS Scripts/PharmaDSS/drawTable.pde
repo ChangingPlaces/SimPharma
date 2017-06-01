@@ -89,7 +89,8 @@ class TableSurface {
   void draw(PGraphics p) {
 
     p.beginDraw();
-    p.background(0);
+    p.background(50);
+    //p.background(0);
 
     // Draw Site Boundaries (Existing and Greenfield)
     if (enableSites) {
