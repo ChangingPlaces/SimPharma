@@ -226,6 +226,8 @@ class Profile {
       }
     }
   }
+  
+  int iconX, iconY, iconW, iconH;
 
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     xClick = x - 15;
@@ -259,6 +261,10 @@ class Profile {
       }
       rect(x + w + 28, y-h-7, 29, h+20, 5);
       image(nceMini, x + w + 30, y-19, 23, 23);
+      iconX = x +w;
+      iconY = y - h - 7;
+      iconW = 29;
+      iconH = h + 20;
     }
 
     noStroke();
