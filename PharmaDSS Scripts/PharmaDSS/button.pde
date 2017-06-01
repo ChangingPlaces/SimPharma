@@ -240,6 +240,7 @@ void toggleGame() {
   } else {
     gameMode = true;
     session = new Game();
+    updateProfileCapacities();
     mainMenu.buttons[2].label = "God Mode (g)";
     mainMenu.buttons[13].isVoid = false;
     mainMenu.buttons[9].isVoid = false;

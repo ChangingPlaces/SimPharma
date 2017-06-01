@@ -213,7 +213,6 @@ class Profile {
         if (!current.built) {
           if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
             int yearsToOperate = int(current.buildTime - current.age);
-            println(current.buildTime, current.age, session.current.TURN, yearsToOperate);
             float newCapacity = capacityProfile.getFloat(1, session.current.TURN-1 + yearsToOperate);
             // Sets Remaining Capacity to Future Turn's Status Quo:
             for (int k=session.current.TURN-1+yearsToOperate; k<NUM_INTERVALS; k++) {
@@ -224,8 +223,6 @@ class Profile {
       }
     }
   }
-
-
 
   void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
     xClick = x - 15;

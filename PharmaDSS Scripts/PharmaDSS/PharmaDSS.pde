@@ -54,10 +54,7 @@ void setup() {
   
   //Initiate Game
   session = new Game();
-  
-  // Initiates the production capacities for each NCE
-  //updateProfileCapacities();
-  
+    
   // Setup for Canvas Visualization
   size(screenWidth, screenHeight, P2D);
   

@@ -17,6 +17,8 @@ void regenerateGame() {
   loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
   
   session = new Game();
+  updateProfileCapacities();
+  
   // Turns game back on if interrupted so god mode is never seen
   if (interrupt) {
     gameMode = true;
@@ -233,7 +235,7 @@ class Event {
     
     // Customizes a Build for a given NCE
     event.assignProfile(profileIndex);
-    event.age          = int(0 - agileModel.PROFILES.get(profileIndex).timeLaunch);
+    event.age          = int(event.buildTime - agileModel.PROFILES.get(profileIndex).timeLaunch);
     
     // Add the NCE-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);

@@ -176,7 +176,7 @@ void loadModel_XLS(MFG_System model, String name) {
     for (int i=0; i<NUM_SITES; i++) {
       // Sites(String name, float capEx, float capGn, int limitRnD)
       agileModel.SITES.add(
-        new Site( "Site " + (i+1), 25*int(random( 1, 10) ), 25*int(random( 1, 10) ), int(random( 2, 5) ) 
+        new Site( "Site " + (i+1), 7.5*int(random( 1, 4) ), 7.5*int(random( 1, 4) ), int(random( 2, 5) ) 
       ));
     }
     
@@ -232,9 +232,8 @@ void loadModel_XLS(MFG_System model, String name) {
     
     //Rescale peak NCE values to be within reasonable orders of magnitude of GMS Build Options
     if (!loadOriginal) {
-      int randomCap = int(random(capacityToUseGMS.length));
-      float randomMag = 1000*random(1.0, 3.0);
-      model.PROFILES.get(i).setPeak(randomMag*capacityToUseGMS[randomCap]);
+      float mag = 1000*(random(10)+3);
+      model.PROFILES.get(i).setPeak(mag);
     } else {
       int[] ind = {8, 2, 5, 9, 6, 0, 7, 1, 3, 4};
       float mag = 1000*(ind[i]+3);
