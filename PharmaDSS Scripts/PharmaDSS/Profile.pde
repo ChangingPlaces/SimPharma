@@ -439,7 +439,7 @@ class Profile {
         line(x, y - scalerH*i*unit, x+w, y - scalerH*i*unit);
         fill(textColor, 50);
         textAlign(RIGHT);
-        text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 35, y - scalerH*(i-0.25)*unit);
+        if (i%2 == 0) text(i*int(unit/100)/10.0 + agileModel.WEIGHT_UNITS, x + w + 35, y - scalerH*(i-0.25)*unit);
       }
     }
   }
