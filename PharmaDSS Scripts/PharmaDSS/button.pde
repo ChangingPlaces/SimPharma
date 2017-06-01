@@ -7,8 +7,8 @@
 Menu mainMenu, hideMenu;
 
 // Global Text and Background Color
-int textColor = 50;
-int background = 255;
+int textColor = 255;
+int background = 50;
 int BUTTON_OFFSET_H = 40;
 int BUTTON_OFFSET_W = 50;
 

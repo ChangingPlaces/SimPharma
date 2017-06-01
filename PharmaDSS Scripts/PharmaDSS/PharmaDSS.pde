@@ -8,8 +8,6 @@
  *    C. Development History
  */
  
- // test edit
- 
 int screenWidth = 1280;
 int screenHeight = 800;
  
