@@ -79,32 +79,20 @@ void mouseClicked() {
         if(mouseX <= clickX + clickW && mouseX >= clickX  && mouseY <= sitesY + sitesH && mouseY >= sitesY){
           session.selectedSite = int(agileModel.SITES.get(i).name) - 1;
         }
-        
-//        for(int j = 0; j<agileModel.SITES.get(i).NCEClicks.size(); i++){
-//          float NCEClickX = agileModel.SITES.get(i).NCEClicks.get(j)[0];
-//          println(agileModel.SITES.get(i).NCEClicks.get(j)[0], j);
-//          float NCEClickY = agileModel.SITES.get(i).NCEClicks.get(j)[1];
-//          
-//          float NCEClickWidth = agileModel.SITES.get(i).NCEClicks.get(j)[2];
-//          float NCEClickHeight = agileModel.SITES.get(i).NCEClicks.get(j)[3];  
-//            if(mouseX <= NCEClickX + NCEClickWidth/2 && mouseX >= NCEClickX- NCEClickWidth/2  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2){
-//            }
-//        }
-        
+
       }
       
-   
+   if(!gameMode){
    for(int j = 0; j<NCEClicks.size(); j++){
-         float NCEClickX = NCEClicks.get(j)[0];
-         
+          float NCEClickX = NCEClicks.get(j)[0];
           float NCEClickY = NCEClicks.get(j)[1];
-          
           float NCEClickWidth = NCEClicks.get(j)[2];
           float NCEClickHeight = NCEClicks.get(j)[3];  
-            if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX- NCEClickWidth  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2){
+            if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2 +5){
               session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
               session.selectedProfile = int(NCEClicks.get(j)[5]);
             }
+   }
    }
   
   //Hide/Show Menu
@@ -212,6 +200,7 @@ void keyPressed() {
       break;
     case ' ': // "Next Turn (SPACE)"
       if (gameMode) endTurn();
+      game_message = "";
       break;
     case '`': //  "Enable Projection (`)"
       toggleProjection();

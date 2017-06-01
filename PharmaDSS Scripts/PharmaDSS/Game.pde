@@ -247,12 +247,14 @@ class Event {
   
   void flagRepurpose() {
     if (agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built == false) {
+      game_message ="Can't repurpose while under construction";
       println("Can't Repurpose while Under Construction");
     } else {
       agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).repurpose = true;
       agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built = false;
       agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).age = 0;
       agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).PROFILE_INDEX = profileIndex;
+      game_message = " ";
     }
   }
 }
@@ -278,7 +280,7 @@ void nextProfile() {
 
 // User Selects Next Available Site
 void nextSite() {
- // session.selectedSiteBuild = 0;
+  session.selectedSiteBuild = 0;
   if (session.selectedSite >= agileModel.SITES.size() - 1) {
     session.selectedSite = 0;
   } else {
@@ -300,8 +302,10 @@ void nextBuild() {
 // User Selects Next Available Build on a specific site
 void nextSiteBuild() {
   if (agileModel.SITES.get(session.selectedSite).siteBuild.size() == 0) {
+    game_message = "Site has no Production!";
     println("Site has no Production!");
   } else {
+    game_message = " ";
     if (session.selectedSiteBuild >= agileModel.SITES.get(session.selectedSite).siteBuild.size() - 1) {
       session.selectedSiteBuild = 0;
     } else {
@@ -313,6 +317,7 @@ void nextSiteBuild() {
 
 // Build Selected Manufacturing Option
 void deploySelection() {
+  game_message = " ";
   Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
   session.current.event.add(deploy);
   updateProfileCapacities();

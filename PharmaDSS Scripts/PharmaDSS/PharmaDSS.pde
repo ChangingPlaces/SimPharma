@@ -93,6 +93,8 @@ void setup() {
 
 int textSize = 12;
 
+String game_message = " ";
+
 void draw() {
 
   textSize = min(12,int(width/100));
@@ -120,9 +122,16 @@ void draw() {
     mainMenu.draw();
   }
   
+  if(!gameMode){
+    game_message = " ";
+  }
 //  drawPhaseDiagram();  
-  fill(0);
+
 //  rect(width-50, height-50, width/100, width/100);
+  textAlign(LEFT);
+  fill(END);
+  textSize(textSize+ 2);
+  text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
   noLoop();
 }
 
