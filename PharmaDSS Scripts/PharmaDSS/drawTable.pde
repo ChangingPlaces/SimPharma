@@ -170,11 +170,19 @@ class TableSurface {
   }
   
   void addBasins(float[][] basinSize) {
-    int num = basinSize.length;
+    int num = basinSize.length; // Number of Sites
     int availableWidth = U - MARGIN_W;
-    int basinWidth = int(float(availableWidth)/num);
+    int basinWidth, step;
+    if (num == 2) {
+      basinWidth = 8;
+      step = 2;
+    } else {
+      basinWidth = int(float(availableWidth)/num);
+      step = 1;
+    }
     for (int i=0; i<num; i++) {
-      inputArea.add( new Basin(i, MARGIN_W + 1 + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2) );
+      // Creates Existing/Greenfield Basins for Site
+      inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2, 6) );
     }
   }
 
@@ -185,7 +193,7 @@ class TableSurface {
   // A basin is an area on the table grid representing a total quantity 
   // of some available parameter. Typically, basins are "filled in" by tagged lego pieces.
   class Basin {
-    int basinX, basinY, basinWidth;
+    int basinX, basinY, basinWidth, basinHeight;
     int[] basinSize;
     float[] basinCap;
     int[] CORNER_BEVEL;
@@ -193,17 +201,19 @@ class TableSurface {
     boolean isQuad = true;
     PShape[] s;
 
-    Basin(int index, int basinX, int basinY, float[] basinCap, int basinWidth) {
+    Basin(int index, int basinX, int basinY, float[] basinCap, int basinWidth, int basinHeight) {
       this.basinX = basinX;
       this.basinY = basinY;
       this.basinCap = basinCap;
       this.basinWidth = basinWidth;
+      this.basinHeight = basinHeight;
 
-      MAX_SIZE = basinWidth * ( V_MAX - basinY - 5);
+      MAX_SIZE = basinWidth * basinHeight;
       basinSize = new int[2];
+      println(basinWidth, MAX_SIZE, basinCap[0], basinCap[1], agileModel.maxCap);
       basinSize[0] = int((basinCap[0] + basinCap[1]) / agileModel.maxCap * MAX_SIZE);
       basinSize[1] = int( basinCap[0] / agileModel.maxCap * MAX_SIZE);
-
+      println(basinSize[0], basinSize[1]);
       CORNER_BEVEL = new int[2];
       CORNER_BEVEL[0] = 10;
       CORNER_BEVEL[1] = 5;
