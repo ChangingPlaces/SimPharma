@@ -415,11 +415,11 @@ class Profile {
         Y = y - h;
       }
       X = x + scalerW * (min(demandProfile.getColumnCount(), session.current.TURN)) - 3;
-      fill(FISCAL);
+      fill(NOW);
       if (detail) {
         rect(X, Y, 4, max(3, barA) );
       } else {
-        if (session.current.TURN != timeLead) rect(X, Y, 3, h ); //this is the game moving rectangle
+        if (session.current.TURN != timeLead) rect(X, Y + h/2, 3, h/2 ); //this is the game moving rectangle
       }
       if (detail) {
         fill(abs(textColor - 150));
