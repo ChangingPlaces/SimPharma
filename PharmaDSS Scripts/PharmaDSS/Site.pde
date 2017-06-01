@@ -1,6 +1,10 @@
 // Site Characteristics for a given manufacturing site (i.e. Cork, Jurong)
 class Site {
   
+  //Array of coords for NCE stuff
+    ArrayList<float[]> NCEClicks = new ArrayList<float[]>();
+    //gives x, y, width, height, id
+  
   // Name of Site
   String name;
   
@@ -42,7 +46,140 @@ class Site {
       }
     }
   }
-  
+
+  void draw(int x, int y, int w, int h, float max, boolean selected) {
+    
+      //Display constants for whole card
+      int infoGap = 3; // number of MARGIN widths
+      float highlightH = (height - 2.8*MARGIN)*.6 -(sitesY-titlesY) - 25; //height of highlighted region
+      
+      //icon/picture constants
+      int RnD_W = 35;
+      int RnD_gap = 10;
+      int picW = w + RnD_gap + RnD_W;
+      int picH = infoGap*MARGIN - RnD_gap;
+      PImage pic;  
+      
+      //Site constants
+      float maxCapSites = agileModel.maxCapacity();
+      float siteBound = map(capGn+capEx,0, maxCapSites, 0, sitesH/3);
+      float siteStart = picH + sitesY;;      
+      
+      fill(255);
+      
+      // Draw Site Selection
+      if (selected) {
+          fill(HIGHLIGHT, 40);
+          noStroke(); 
+          rect(x - 10,  y - 20, w + RnD_W + 2*RnD_gap + 10,  highlightH, 5);
+          noStroke();
+      }
+      
+      // Draw Site/Factory PNG
+      if (textColor == 50) {
+        pic = sitePNG_BW;
+      } else {
+        pic = sitePNG;
+      }
+      tint(255, 75);
+      image(pic, x, y, picW*.75, picH*.75);
+      tint(255, 255);
+      
+      //Draws Greenfield Line and fill
+      float greenLine = map(capGn, 0, maxCapSites, 0, sitesH/3);
+      strokeWeight(3);
+      stroke(color(0, 250, 0), 100);
+      fill(color(0, 100, 0), 100);
+      rect(x+5, siteStart + greenLine, w-10, siteBound - greenLine, 5);
+      
+      // Draw Baseline Total External and Green Field Rectangle Capacities
+      stroke(textColor, 100);
+      strokeWeight(2);
+      fill(background, 50);
+      rect(x + 5, siteStart, w - 10, siteBound, 5);
+      
+      // Draw Label Text
+      fill(textColor);
+      textAlign(LEFT);
+      textSize(textSize);
+      text("Site " + name, x, y - 5);
+      fill(textColor);
+      textAlign(CENTER);
+      text((capGn+capEx) + agileModel.WEIGHT_UNITS, x + w/2,  siteStart - 10);
+      
+      // Draw RND Capacity Slots
+      for (int i=0; i<limitRnD; i++) {
+        fill(background);
+        stroke(textColor, 100);
+        strokeWeight(2);
+        rect(x + w + RnD_gap, infoGap*MARGIN + y + i*(RnD_W), RnD_W, RnD_W-5, 5);
+        textAlign(CENTER);
+        fill(textColor);
+        text("R&D", x + w + RnD_gap + 0.5*RnD_W, infoGap*MARGIN + y + i*(RnD_W) + 0.5*RnD_W);
+      }
+      noStroke();
+      fill(textColor);
+      
+      // Draw Build Allocations within Site Square
+      float offset = 0;
+      float size;
+         NCEClicks.clear();
+      for (int i=0; i<siteBuild.size(); i++) {
+        
+        if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
+          // Color NCE Not Viable or build flagged for demolition
+          fill(#CC0000, 150);
+        } else if (siteBuild.get(i).built == false) {
+            fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
+        } else {
+          // Color NCE Active Production
+          fill(#0000CC, 150);
+        }
+        if (session.selectedSiteBuild == i && selected) {
+          stroke(HIGHLIGHT);
+          strokeWeight(3);
+        } else {
+          stroke(255, 200);
+          strokeWeight(1);
+        }
+        size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
+        
+        if(size > 30){
+          size  = 30;
+        }
+        
+        float[] props = {x + 7,siteStart + offset + 5,  w - 14, size - 2, i};
+        NCEClicks.add(props);
+        
+      //  if(!gameMode){
+          rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
+       // }
+//        
+//        else{
+////          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, i);
+////          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).capacityProfile.getFloat(1, i);
+////          float capWidth = map(demand, 0,cap, 0, w - 14);
+////          if(capWidth > w - 14){
+////            capWidth = w -14;
+////          }
+////          rect(x + 7, siteStart + offset + 5, capWidth, size - 2, 5);
+////          fill(background, 100);
+////          rect(x + 7, siteStart + offset + 5, w-14, size - 2, 5);
+//        }
+        
+        offset += size;
+        noStroke();
+        fill(255);
+        textAlign(CENTER, CENTER);
+        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
+      }
+      
+    }
+    
+
+}
+
+
 //Nina's site code (very rough n stuff) 
 //   int[][] grid = new int[100][100];
 //  void draw(int x, int y, int w, int h, float max, boolean selected) {
@@ -218,119 +355,3 @@ class Site {
 //
 //
 //   }
-   
-  void draw(int x, int y, int w, int h, float max, boolean selected) {
-      int infoGap = 3; // number of MARGIN widths
-      float sideEx = (h - infoGap*MARGIN)*(capEx)/max;
-      float sideGn = (h - infoGap*MARGIN)*(capEx + capGn)/max;
-      int RnD_W = 35;
-      int RnD_gap = 10;
-      
-      int picW = w + RnD_gap + RnD_W;
-      int picH = infoGap*MARGIN - RnD_gap;
-      PImage pic;
-      
-      fill(255);     
-      float canH = height - 2.8*MARGIN;
-      float boxLimit =  canH*.6 - 2.2*MARGIN;
-      float maxCapSites = agileModel.maxCapacity();
-      
-      //ellipse(width/2, picH + sitesY, 20, 20);
-      float siteBound = map(capGn+capEx,0, maxCapSites, 0, sitesH/3);
-      float siteStart = picH + sitesY;;      
-      
-      // Draw Site Selection
-      if (selected) {
-        fill(HIGHLIGHT, 40);
-        noStroke(); 
-        rect(x - 10,  y - 20, w + RnD_W + 2*RnD_gap + 10,  canH*.6 -(sitesY-titlesY) - 25, 5);
-        noStroke();
-      }
-      
-      // Draw Site/Factory PNG
-      if (textColor == 50) {
-        pic = sitePNG_BW;
-      } else {
-        pic = sitePNG;
-      }
-      tint(255, 75);
-      image(pic, x, y, picW*.75, picH*.75);
-      tint(255, 255);
-      
-      // Draw Baseline Total External and Green Field Rectangle Capacities
-      stroke(textColor, 100);
-      strokeWeight(2);
-      fill(textColor, 50);
-//      rect(x, infoGap*MARGIN + y, w, newbound, 5);
-    //  noStroke();
-      fill(background);
-     // float siteBound = map(capGn+capEx,0, , y - 40, boxLimit -infoGap*MARGIN) - 5);
-      rect(x + 5, siteStart, w - 10, siteBound, 5);
-      
-      // Draw Label Text
-      fill(textColor);
-      textAlign(LEFT);
-      textSize(textSize);
-      text("Site " + name, x, y - 5);
-      fill(textColor);
-      textAlign(CENTER);
-      text("( " + (capGn+capEx) + agileModel.WEIGHT_UNITS + " )", x + w/2,  siteStart - 10);
-      
-      // Draw RND Capacity Slots
-      for (int i=0; i<limitRnD; i++) {
-        fill(background);
-        stroke(textColor, 100);
-        strokeWeight(2);
-        rect(x + w + RnD_gap, infoGap*MARGIN + y + i*(RnD_W), RnD_W, RnD_W-5, 5);
-        textAlign(CENTER);
-        fill(textColor);
-        text("R&D", x + w + RnD_gap + 0.5*RnD_W, infoGap*MARGIN + y + i*(RnD_W) + 0.5*RnD_W);
-      }
-      noStroke();
-      fill(textColor);
-      
-      // Draw Build Allocations within Site Square
-      float offset = 0;
-      float size;
-      for (int i=0; i<siteBuild.size(); i++) {
-        
-        if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
-          // Color NCE Not Viable or build flagged for demolition
-          fill(#CC0000, 150);
-        } else if (siteBuild.get(i).built == false) {
-          // Color Under Construction
-//          fill(0, 255, 0, 150);
-            fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
-        } else {
-          // Color NCE Active Production
-          fill(#0000CC, 150);
-        }
-        if (session.selectedSiteBuild == i && selected) {
-          stroke(HIGHLIGHT);
-          strokeWeight(3);
-        } else {
-          stroke(255, 200);
-          strokeWeight(1);
-        }
-        size = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
-        
-        if(size > 30){
-          size  = 30;
-        }
-        rect(x + 7, siteStart + offset + 5, w - 14, size - 2, 5);
-        offset += size;
-        noStroke();
-        fill(255);
-        textAlign(CENTER, CENTER);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, siteStart + offset -5);
-      }
-      
-      //Draws Greenfield Line
-      float greenLine = map(capGn, 0, maxCapSites, 0, sitesH/3);
-      stroke(#00ff00, 100);
-      line(x + 5, siteStart + greenLine, x + w - 5.5, siteStart + greenLine);
-    }
-    
-
-   
-}

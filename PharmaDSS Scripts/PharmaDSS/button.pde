@@ -67,9 +67,32 @@ void mouseClicked() {
         if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
         && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
           session.setProfile(i);
-        }
-      }
+      }  
   }
+  }
+  
+    
+
+    for(int i = 0; i< NUM_SITES; i++){
+          float clickX = MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES);
+          float clickW = ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2;
+        if(mouseX <= clickX + clickW && mouseX >= clickX  && mouseY <= sitesY + sitesH && mouseY >= sitesY){
+          session.selectedSite = int(agileModel.SITES.get(i).name) - 1;
+        }
+        
+//        for(int j = 0; j<agileModel.SITES.get(i).NCEClicks.size(); i++){
+//          
+//          float NCEClickX = agileModel.SITES.get(i).NCEClicks.get(j)[0];
+//          println(agileModel.SITES.get(i).NCEClicks.get(j)[0]);
+//          float NCEClickY = agileModel.SITES.get(i).NCEClicks.get(j)[1];
+//          
+//          float NCEClickWidth = agileModel.SITES.get(i).NCEClicks.get(j)[2];
+//          float NCEClickHeight = agileModel.SITES.get(i).NCEClicks.get(j)[3];  
+//            if(mouseX <= NCEClickX + NCEClickWidth/2 && mouseX >= NCEClickX- NCEClickWidth/2  && mouseY <= NCEClickY + NCEClickHeight/2 && mouseY >= NCEClickY - NCEClickHeight/2){
+//            }
+//        }
+        
+      }
   
   //Hide/Show Menu
   if(hideMenu.buttons[0].over()){  
