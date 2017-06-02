@@ -102,20 +102,20 @@ class TableSurface {
         
         if (cellType[u][v][0].substring(0,4).equals("SITE") ) {
           if (gameMode) {
-            if (!inUse[u][v]) {
+            //if (!inUse[u][v]) {
               
               
               if (cellType[u - MARGIN_W][v][0].equals("SITE_0")) site = 0;
               if (cellType[u - MARGIN_W][v][0].equals("SITE_1")) site = 1;
               if (cellType[u - MARGIN_W][v][0].equals("SITE_2")) site = 2;
-              println(site, u, v);
+              //println(site, u, v);
               if (site != -1 && tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
                 Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
                 session.current.event.add(deploy);
                 inUse[u][v] = true;
               }
               
-            }
+            //}
           } 
         } 
       }
@@ -138,7 +138,7 @@ class TableSurface {
       p.fill(agileModel.profileColor[i]);
       p.noStroke();
       p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight);
-      p.fill(0);
+       p.fill(0);
       p.textSize(30);
       p.textAlign(CENTER, CENTER);
       p.text(i+1, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo.height + spotLightHeight/2 - 2);
