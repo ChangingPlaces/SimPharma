@@ -138,6 +138,10 @@ class TableSurface {
       p.fill(agileModel.profileColor[i]);
       p.noStroke();
       p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight);
+      p.fill(0);
+      p.textSize(30);
+      p.textAlign(CENTER, CENTER);
+      p.text(i+1, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo.height + spotLightHeight/2 - 2);
     }
     
     // Draw Site Boundaries (Existing and Greenfield)
