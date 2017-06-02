@@ -117,6 +117,11 @@ void draw() {
   noStroke();
   drawTable();
   drawTable();
+  
+  // Draws Overlay Graphic to describe NCE attributes
+  if (infoOverlay) {
+      drawInfoOverlay();
+  }
  
   
   // Draws Menu

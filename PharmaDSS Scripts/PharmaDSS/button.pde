@@ -214,6 +214,13 @@ void keyPressed() {
       // Randomize pieces just for debugging....
       fauxPieces(3, tablePieceInput, 15);
       break;
+    case 'P':
+      // Toggle InfoOverlay
+      if (infoOverlay) {
+        infoOverlay = false;
+      } else {
+        infoOverlay = true;
+      }
 
   }
   loop();
