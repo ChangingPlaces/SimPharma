@@ -74,10 +74,10 @@ class Game {
       agileModel.SITES.get(i).siteBuild.clear();
     }
     
-    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
-      Event initialize = new Event("initialize", int(random(NUM_SITES-0.01)), int(random(agileModel.GMS_BUILDS.size()-0.01)), agileModel.activeProfiles.get(i).ABSOLUTE_INDEX);
-      current.event.add(initialize);
-    }
+//    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+//      Event initialize = new Event("initialize", int(random(NUM_SITES-0.01)), int(random(agileModel.GMS_BUILDS.size()-0.01)), agileModel.activeProfiles.get(i).ABSOLUTE_INDEX);
+//      current.event.add(initialize);
+//    }
     
   }
   
@@ -210,6 +210,7 @@ class Event {
     event.repurpCost   = agileModel.GMS_BUILDS.get(buildIndex).repurpCost;
     event.repurpTime   = agileModel.GMS_BUILDS.get(buildIndex).repurpTime;
     event.labor        = agileModel.GMS_BUILDS.get(buildIndex).labor;
+    event.editing      = true;
     
     // Customizes a Build for a given NCE
     event.assignProfile(profileIndex);
@@ -230,7 +231,7 @@ class Event {
     event.repurpCost   = agileModel.GMS_BUILDS.get(buildIndex).repurpCost;
     event.repurpTime   = agileModel.GMS_BUILDS.get(buildIndex).repurpTime;
     event.labor        = agileModel.GMS_BUILDS.get(buildIndex).labor;
-    event.built        = false;
+    event.editing      = true;
     
     // Customizes a Build for a given NCE
     event.assignProfile(profileIndex);
@@ -242,7 +243,13 @@ class Event {
   }
   
   void flagRemove() {
-    agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
+    Build current = agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex);
+    if (current.editing) {
+      agileModel.SITES.get(siteIndex).siteBuild.remove(siteBuildIndex);
+    } else {
+      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
+    }
+    
   }
   
   void flagRepurpose() {

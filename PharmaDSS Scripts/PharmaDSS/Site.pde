@@ -40,6 +40,7 @@ class Site {
   // Update the state of all builds on site
   void updateBuilds() {
     for(int i=siteBuild.size()-1; i>=0; i--) {
+      siteBuild.get(i).editing = false;
       if (siteBuild.get(i).demolish) {
         siteBuild.remove(i);
         if (session.selectedSiteBuild >= i && i != 0) session.selectedSiteBuild--; // moves index back to avoid crash
@@ -161,6 +162,7 @@ class Site {
         
         // Draw Site Builds on Sites
         if(!gameMode){
+          
           // Draws Solid NCE colors before game starts
           fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
           rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
@@ -190,7 +192,7 @@ class Site {
             noStroke();
             
             // Draw Background Rectangle
-            fill(background);
+            fill(abs(background - 50));
             rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
             
             // Draw colored rectangle

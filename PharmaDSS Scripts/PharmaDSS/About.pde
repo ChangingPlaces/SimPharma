@@ -94,22 +94,31 @@
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   *               - Added CAPEX Calc
   *               - Emphasize Output "Graph" during game (not radar)
-  *               - Click based interface outside of just buttons
-  *               - Visualizing NCE capcity in real time in the site
-  *               - Text feedback to user
   *               - Polish Screen-based Site Visualization
   */
   
 String VERSION = "BETA V1.0";  
 
 /*
-Nina To Do:
+Nina:
   - Clean clean
-  - Drag functionality 
+  - Visualize site bins
+      -Capacity loading bar colors
+      -click
+      -greenfield line
+  - Click based 
+        - Deployment and switching sites?
+  - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
+  - Text feed back for game play (Can't repurpose under construction) and stuff like that 
+      - Can't Repurpose while Under Construction
+      - Site has no production!
+      - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
+      - button movement  
 */
   
  /* TO DO:    
- 
+  
+  *               - if add/remove a piece in the same turn, no penalty
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Add Site "Filler" That decays over time;

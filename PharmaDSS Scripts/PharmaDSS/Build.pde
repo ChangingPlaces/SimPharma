@@ -30,6 +30,8 @@ class Build {
   boolean repurpose = false;
   
   boolean capEx_Logged = false;
+  
+  boolean editing = false;
 
   // Basic Constructor
   Build() {
@@ -37,7 +39,7 @@ class Build {
   }
 
   // The Class Constructor
-  Build(String name, float capacity, float buildCost, float buildTime, float repurpCost, float repurpTime, ArrayList<Person> labor) {
+  Build(String name, float capacity, float buildCost, float buildTime, float repurpCost, float repurpTime, ArrayList<Person> labor, boolean editing) {
     this.name = name;
     this.capacity = capacity;
     this.buildCost = buildCost;

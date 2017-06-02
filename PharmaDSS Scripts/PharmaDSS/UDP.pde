@@ -16,7 +16,7 @@ void initInputData() {
   for (int u=0; u<U_MAX; u++) {
     for (int v=0; v<V_MAX; v++) {
       tablePieceInput[u][v][0] = -1; // ID
-      tablePieceInput[u][v][0] = 0; //Rotation
+      tablePieceInput[u][v][1] = 0; //Rotation
     }
   }
 }

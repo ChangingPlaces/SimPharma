@@ -117,12 +117,11 @@ class TableSurface {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
           
           if (inBasin(u, v)) {
-            
             Build current;
             
             // Draw Colortizer Input Pieces
             if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
-
+              
               p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
               
               p.noStroke();
@@ -304,6 +303,17 @@ void fauxPieces(int code, int[][][] pieces, int maxID) {
           pieces[i][j][0] = -1;
           pieces[i][j][1] = 0;
         }
+      }
+    }
+  } else if (code == 3) {
+    
+    // Adds N random pieces to existing configuration
+    for (int i=0; i<50; i++) {
+      int u = int(random(0,pieces.length)); 
+      int v = int(random(0,pieces[0].length)); 
+      if (pieces[u][v][0] == -1) {
+        pieces[u][v][0] = int(random(-1.99, maxID+1));
+        pieces[u][v][1] = int(random(0, 4));
       }
     }
   }
