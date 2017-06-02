@@ -191,7 +191,7 @@ class Site {
             noStroke();
             
             // Draw Background Rectangle
-            fill(0);
+            fill(abs(background - 50));
             rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
             
             // Draw colored rectangle
@@ -199,12 +199,6 @@ class Site {
             rect(BLD_X, BLD_Y + offset, capWidth, BLD_H - 2, 5);
             
           } 
-//          else if (!siteBuild.get(i).built) {
-//            noFill();
-//            stroke(255, 200);
-//            strokeWeight(1);
-//            rect(x + 7, siteStart + offset + 5, w - 14, BLD_H - 2, 5);
-//          }
           
         }
         
@@ -213,7 +207,7 @@ class Site {
           stroke(HIGHLIGHT);
           strokeWeight(3);
         } else {
-          stroke(255, 200);
+          stroke(textColor, 200);
           strokeWeight(1);
         }
         

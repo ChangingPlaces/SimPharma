@@ -94,6 +94,7 @@
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   *               - Added CAPEX Calc
   *               - Emphasize Output "Graph" during game (not radar)
+  *               - Polish Screen-based Site Visualization
   */
   
 String VERSION = "BETA V1.0";  
@@ -120,7 +121,6 @@ Nina:
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Add Site "Filler" That decays over time;
-  *               - Polish Screen-based Site Visualization
   
   *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
   *               - Account for repurposing / building cost differently
