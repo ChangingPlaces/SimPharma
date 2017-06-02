@@ -222,6 +222,13 @@ void keyPressed() {
     case 'y':
       println(mouseX, mouseY);
       break;
+      
+    // Debugging (no formal buttons)
+    case 'x':
+      // Randomize pieces just for debugging....
+      fauxPieces(0, tablePieceInput, 15);
+      break;
+
   }
   loop();
 }

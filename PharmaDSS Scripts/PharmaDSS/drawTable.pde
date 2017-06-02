@@ -117,14 +117,14 @@ class TableSurface {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
           
           if (inBasin(u, v)) {
+            
+            Build current;
+            
             // Draw Colortizer Input Pieces
-            if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < ID_MAX) {
+            if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
+
+              p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
               
-              if (inExisting(u, v)) {
-                p.fill(GSK_ORANGE, 100);
-              } else {
-                p.fill(#00CC00, 100);
-              }
               p.noStroke();
               p.rect(u*cellW, v*cellH, cellW, cellH);
               p.image(nce, u*cellW, v*cellH, cellW, cellH);
