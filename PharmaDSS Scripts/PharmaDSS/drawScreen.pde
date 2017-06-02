@@ -101,7 +101,7 @@ void drawScreen() {
       textSize(textSize);
       text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
       text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + textSize + 3);
-      text("Ira Winder, Nina Lutz, Giovonni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
+      text("Ira Winder, Nina Lutz, Giovanni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
   
   // Draw Profiles
       if (!gameMode) {

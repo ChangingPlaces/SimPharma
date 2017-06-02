@@ -99,8 +99,6 @@ String game_message = " ";
 void draw() {
 
   textSize = min(12,int(width/100));
-  
-  
 
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
