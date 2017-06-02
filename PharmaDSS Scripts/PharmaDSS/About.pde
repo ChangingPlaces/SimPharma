@@ -20,7 +20,7 @@
   * DESCRIPTION:  Enclosed scripts demonstrate an environment for "PharmaDSS" (Pharmaceutical Decision Support System)
   *               The scripts are a parametric implementation of GSK's "Agile Network Meta-model v7"
   
-  *               developed by Mason Briner and Giovonni Giorgio in U.K. 
+  *               developed by Mason Briner and Giovanni Giorgio in U.K. 
   *
   *               The primary purpose of this work is to overcome various limitations of excel such as: 
   *               graphics, arithmatic operations, usability, and stochastic variability.

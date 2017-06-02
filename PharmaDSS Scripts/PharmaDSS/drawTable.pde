@@ -67,6 +67,8 @@ class TableSurface {
   int BASINS_H = 10;
 
   ArrayList<Basin> inputArea;
+  
+  boolean[][] inUse;
 
   TableSurface(int W, int H, int U, int V, boolean left_margin) {
     this.U = U;
@@ -74,11 +76,13 @@ class TableSurface {
     LEFT_MARGIN = left_margin;
     inputArea = new ArrayList<Basin>();
     cellType = new String[U][V][2];
-
+    inUse = new boolean[U][V];
+    
     cellW = float(W)/U;
     cellH = float(H)/V;
     
     resetCellTypes();
+    
   }
   
   void resetCellTypes() {
@@ -86,10 +90,42 @@ class TableSurface {
       for (int v=0; v<V; v++) {
         cellType[u][v][0] = "NULL";
         cellType[u][v][1] = "NULL";
+        inUse[u][v] = false;
       }
     }
   }
-
+  
+  void checkTableDeploy() {
+    for (int u=0; u<U; u++) {
+      for (int v=0; v<V; v++) {
+        int site = -1;
+        
+        if (cellType[u][v][0].substring(0,4).equals("SITE") ) {
+          if (gameMode) {
+            if (!inUse[u][v]) {
+              
+              
+              if (cellType[u - MARGIN_W][v][0].equals("SITE_0")) site = 0;
+              if (cellType[u - MARGIN_W][v][0].equals("SITE_1")) site = 1;
+              if (cellType[u - MARGIN_W][v][0].equals("SITE_2")) site = 2;
+              
+              println(cellType[u - MARGIN_W][v][0], site);
+              
+              if (site != -1 && tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
+                Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
+                session.current.event.add(deploy);
+                inUse[u][v] = true;
+              }
+              
+            }
+          } 
+        } 
+      }
+    }
+    
+    updateProfileCapacities();
+  }
+  
   void draw(PGraphics p) {
     int buffer = 30;
     int spotLightHeight = 42;
@@ -342,7 +378,7 @@ void fauxPieces(int code, int[][][] pieces, int maxID) {
 }
 
 void decodePieces() {
-  
+  mfg.checkTableDeploy();
 }
 
 void drawBuilds(PGraphics p) {
