@@ -74,10 +74,10 @@ class Game {
       agileModel.SITES.get(i).siteBuild.clear();
     }
     
-//    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
-//      Event initialize = new Event("initialize", int(random(NUM_SITES-0.01)), int(random(agileModel.GMS_BUILDS.size()-0.01)), agileModel.activeProfiles.get(i).ABSOLUTE_INDEX);
-//      current.event.add(initialize);
-//    }
+    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+      Event initialize = new Event("initialize", int(random(NUM_SITES-0.01)), int(random(agileModel.GMS_BUILDS.size()-0.01)), agileModel.activeProfiles.get(i).ABSOLUTE_INDEX);
+      current.event.add(initialize);
+    }
     
   }
   
