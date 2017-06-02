@@ -1,7 +1,7 @@
 ArrayList<float[]> outputs;
 
 // Uses first N outputs in below list only. Increase to activate
-int NUM_OUTPUTS = 3;
+int NUM_OUTPUTS = 2;
 
 String[] outputNames = {
   "Capital\nExpenses",
