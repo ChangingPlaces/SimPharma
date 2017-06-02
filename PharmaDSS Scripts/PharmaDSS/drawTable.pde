@@ -91,11 +91,21 @@ class TableSurface {
   }
 
   void draw(PGraphics p) {
-
+    int buffer = 30;
+    int spotLightHeight = 42;
+    int spotLightWidth = 55;
+    
     p.beginDraw();
-    p.background(50);
-    //p.background(0);
-
+  //  p.background(50);
+    p.background(0);
+    
+    //draw spotlights
+    for(int i = 0; i<agileModel.profileColor.length; i++){
+      p.fill(agileModel.profileColor[i]);
+      p.noStroke();
+      p.rect(buffer*1.5, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight);
+    }
+    
     // Draw Site Boundaries (Existing and Greenfield)
     if (enableSites) {
       if (inputArea.size() > 0) {
@@ -107,7 +117,7 @@ class TableSurface {
           p.shape(inputArea.get(i).s[0]);
           p.shape(inputArea.get(i).s[1]);
           
-          p.tint(150);
+         // p.tint(180);
           p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 4.5)*cellH);
         }
       }
@@ -148,7 +158,6 @@ class TableSurface {
     }
     
     // Draw Logo
-    int buffer = 30;
     p.image(logo, buffer, buffer, MARGIN_W*cellW - 2*buffer, MARGIN_W*cellW - 2*buffer); 
 
     //drawBuilds(p);
