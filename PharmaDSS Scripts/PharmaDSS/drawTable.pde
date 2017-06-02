@@ -134,14 +134,14 @@ class TableSurface {
     p.background(0);
     
     //draw spotlights
-    for(int i = 0; i<agileModel.profileColor.length; i++){
-      p.fill(agileModel.profileColor[i]);
+    for(int i = agileModel.profileColor.length-1; i>=0; i--){
+      p.fill(agileModel.profileColor[NUM_PROFILES - i - 1]);
       p.noStroke();
-      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight);
+      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight, 10);
        p.fill(0);
       p.textSize(30);
       p.textAlign(CENTER, CENTER);
-      p.text(i+1, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo.height + spotLightHeight/2 - 2);
+      p.text(NUM_PROFILES - i, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo.height + spotLightHeight/2 - 2);
     }
     
     // Draw Site Boundaries (Existing and Greenfield)
@@ -198,6 +198,7 @@ class TableSurface {
           //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
           if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
             infoOverlay = true;
+            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
             p.noStroke();
             p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
             p.noStroke();
