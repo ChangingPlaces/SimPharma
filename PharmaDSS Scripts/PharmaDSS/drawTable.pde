@@ -93,7 +93,7 @@ class TableSurface {
   void draw(PGraphics p) {
     int buffer = 30;
     int spotLightHeight = 42;
-    int spotLightWidth = 55;
+    int spotLightWidth = 110;
     
     p.beginDraw();
   //  p.background(50);
@@ -103,7 +103,7 @@ class TableSurface {
     for(int i = 0; i<agileModel.profileColor.length; i++){
       p.fill(agileModel.profileColor[i]);
       p.noStroke();
-      p.rect(buffer*1.5, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight);
+      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight);
     }
     
     // Draw Site Boundaries (Existing and Greenfield)
@@ -140,6 +140,7 @@ class TableSurface {
               p.rect(u*cellW, v*cellH, cellW, cellH);
               p.image(nce, u*cellW, v*cellH, cellW, cellH);
             }
+
           }
           
           // Draw black edges where Lego grad gaps are
@@ -148,6 +149,14 @@ class TableSurface {
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
+          p.fill(255);
+          p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
+          p.textSize(20);
+          p.text("Select\nNCE", 50, (V-2)*cellH);
+          p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
+          p.fill(0);
+          p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+          p.noFill();
         }
       }
     }
