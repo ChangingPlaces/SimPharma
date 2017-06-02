@@ -94,25 +94,18 @@
   *               - Graph Class for (a) holding output metrics and (b) allowing clickable mouse interface
   *               - Added CAPEX Calc
   *               - Emphasize Output "Graph" during game (not radar)
+  *               - Click based interface outside of just buttons
+  *               - Visualizing NCE capcity in real time in the site
+  *               - Text feedback to user
   */
   
 String VERSION = "BETA V1.0";  
 
 /*
-Nina:
+Nina To Do:
   - Clean clean
-  - Visualize site bins
-      -Capacity loading bar colors
-      -click
-      -greenfield line
-  - Click based 
-        - Deployment and switching sites?
-  - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
-  - Text feed back for game play (Can't repurpose under construction) and stuff like that 
-      - Can't Repurpose while Under Construction
-      - Site has no production!
-      - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
-      - button movement  
+  - Fix click for NCE (not working in game yet)
+  - Drag functionality 
 */
   
  /* TO DO:    

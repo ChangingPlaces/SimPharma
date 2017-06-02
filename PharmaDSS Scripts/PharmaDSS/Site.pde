@@ -189,7 +189,7 @@ class Site {
             noStroke();
             
             // Draw Background Rectangle
-            fill(0);
+            fill(background);
             rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
             
             // Draw colored rectangle
