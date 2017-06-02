@@ -190,7 +190,8 @@ class TableSurface {
           p.fill(255);
           p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
           p.textSize(20);
-          p.text("Select\nNCE", 50, (V-2)*cellH);
+          p.textAlign(RIGHT);
+          p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
           p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
           p.fill(0);
           p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
