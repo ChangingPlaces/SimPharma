@@ -35,11 +35,11 @@ class LineGraph{
       //draws legend
       noStroke();
       fill(colarray[i]);
-      rect(minx + i*w/4 + 88, miny - h - 10, 10, 10);
+      rect(minx + (4-i)*w/4 - 45, miny - h - 30, 10, 10);
       fill(textColor);
       textAlign(LEFT);
       textSize(textSize);
-      text(outputNames[i], minx + i*w/4 + 100, miny - h );   
+      text(outputNames[i], minx + (4-i)*w/4 - 30, miny - h - 21 );   
        
       // Only show values for current and prior turns
       int intervals;
@@ -63,19 +63,18 @@ class LineGraph{
          strokeWeight(3);
          stroke(colarray[i], 150);
          
-         int dim = 4;
-         if (j == intervals-1) dim = 10;
+         int dim = 2;
          ellipse(posx2, posy2, dim, dim);
          line(posx, posy, posx2, posy2);
          
          if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == Values.size()-2) ){
+           fill(colarray[i], 50);
+           ellipse(posx2, posy2, 10, 10);
+           
            fill(textColor);
            textAlign(CENTER);
            int val = str(100*Values.get(j+1)[i]/outputMax[i]).substring(0, str(100*Values.get(j+1)[i]/outputMax[i]).indexOf(".")).length();
-           
            text(nf(100*Values.get(j+1)[i]/outputMax[i], val, 1) + " " +outputUnits[i], posx2, posy2-10);
-           fill(colarray[i], 50);
-           ellipse(posx2, posy2, 10, 10);
          }
       }
       
@@ -126,7 +125,7 @@ class LineGraph{
   }
   
   //Score marks and labels
-  text(100, minx - 20, miny - h + 23);
+  //text(100, minx - 20, miny - h + 23);
   text(0, minx - 10, miny);
   float x = minx - textSize*2;
   float y = miny - h/2;

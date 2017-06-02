@@ -100,7 +100,7 @@ class Site {
       stroke(textColor, 150);
       strokeWeight(3);
       fill(background, 50);
-      rect(x+1, siteStart - 3, w-2, siteBound + 6, 5);
+      rect(x+1, siteStart - 3, w-2, siteBound + 10, 5);
       rect(x, y + 5.25*textSize, 10, 10, 1);
       
       //Draws Existing Infrastructure on Site
@@ -108,7 +108,7 @@ class Site {
       strokeWeight(1);
       stroke(GSK_ORANGE, 200);
       fill(GSK_ORANGE, 50);
-      rect(x+5, siteStart, w-10, existLine, 5);
+      rect(x+5, siteStart, w-10, existLine + 4, 5);
       rect(x, y + 3.75*textSize, 10, 10, 1);
       
       // Draw Label Text
@@ -140,13 +140,13 @@ class Site {
       float offset = 0;
       float BLD_X = x + 10;
       float BLD_Y = siteStart + 5;
-      float BLD_W = (w - 20)/2;
+      float BLD_W = (w - 20)/3;
       float BLD_H; 
      
       for (int i=0; i<siteBuild.size(); i++) {
         
         // Height of a build Unit
-        BLD_H = map(2*siteBuild.get(i).capacity, 0, maxCapSites, 0, h/3);
+        BLD_H = map(3*siteBuild.get(i).capacity, 0, maxCapSites, 0, h/3);
         
         //property array for clicking
         float[] props = {BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX};
@@ -157,9 +157,9 @@ class Site {
           
           // Draws Solid NCE colors before game starts
           fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
-          rect(BLD_X + BLD_W*(i%2), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+          rect(BLD_X + BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
           fill(background, 100);
-          rect(BLD_X + BLD_W*(i%2), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+          rect(BLD_X + BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
           
         } else if (gameMode) {
           
@@ -174,9 +174,10 @@ class Site {
             } else {
               meetPercent = min(1.0, demand/cap);
             }
+            println(demand, cap, meetPercent);
             
             // Translate percent to pixel dimension
-            float capWidth = map(meetPercent, 0, 1.0, 0, w - 14);
+            float capWidth = map(meetPercent, 0, 1.0, 0, BLD_W);
             if(capWidth > BLD_W){ // Check that is not greater than 1
               capWidth = BLD_W;
             }
@@ -185,11 +186,11 @@ class Site {
             
             // Draw Background Rectangle to Demonstrate "Built" Status
             fill(abs(background - 50));
-            rect(BLD_X + BLD_W*(i%2), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+            rect(BLD_X + BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
             
             // Draw colored rectangle
             fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
-            rect(BLD_X + BLD_W*(i%2), BLD_Y + offset, capWidth, BLD_H - 2, 5);
+            rect(BLD_X + BLD_W*(i%3), BLD_Y + offset, capWidth, BLD_H - 2, 5);
             
           } 
           
@@ -206,15 +207,16 @@ class Site {
         
         // Draw Building Outline
         noFill();
-        rect(BLD_X + BLD_W*(i%2), BLD_Y + offset, BLD_W, BLD_H - 2, 5);
+        rect(BLD_X + BLD_W*(i%3), BLD_Y + offset, BLD_W, BLD_H - 2, 5);
         
         // Draw Build Label
         noStroke();
         fill(textColor);
         textAlign(CENTER, CENTER);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + BLD_W/2  + BLD_W*(i%2) + 10, BLD_Y + offset + textSize/2);
+        //text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + BLD_W/2  + BLD_W*(i%2) + 10, BLD_Y + offset + textSize/2);
+        text(siteBuild.get(i).PROFILE_INDEX+1, x + BLD_W/2  + BLD_W*(i%3) + 10, BLD_Y + offset + textSize/2);
         
-        if (i%2 == 1) {
+        if (i%3 == 2) {
           offset += BLD_H;
         }
       }

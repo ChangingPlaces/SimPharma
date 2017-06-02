@@ -1,14 +1,14 @@
 ArrayList<float[]> outputs;
 
 // Uses first N outputs in below list only. Increase to activate
-int NUM_OUTPUTS = 2;
+int NUM_OUTPUTS = 3;
 
 String[] outputNames = {
-  "Capital Expenses",
-  "Ability to Meet Demand",
-  "OPEX",
-  "COGs",
-  "Security"
+  "Capital\nExpenses",
+  "Demand\nMet",
+  "Security\nof Supply",
+  "Cost of\nGoods",
+  "Operating\nExpenses"
 };
 
 float[] outputMax = {
@@ -22,9 +22,9 @@ float[] outputMax = {
 String[] outputUnits = {
   "mil GBP",
   "%",
+  "%",
   "mil GBP",
-  "mil GBP",
-  "%"
+  "mil GBP"
 };
 
 void initOutputs() {
@@ -39,6 +39,9 @@ void calcOutputs(int turn) {
   
   // Capital Expenditures
   outputs.get(turn)[0] = calcCAPEX();
+  
+  // Security of Supply
+  outputs.get(turn)[2] = calcSecurity();
 }
 
 void randomOutputs() {
@@ -49,6 +52,26 @@ void randomOutputs() {
     o = new float[NUM_OUTPUTS];
     for(int j=0; j<NUM_OUTPUTS; j++) {
       o[j] = 0.9/(j+1) * (i+1)/20.0 + random(-0.1, 0.1);
+    }
+    outputs.add(o);
+  }
+  
+  // Set KPI Radar to Last Available Output array
+  o = outputs.get(outputs.size() - 1);
+  
+  for (int i=0; i<NUM_OUTPUTS; i++) {
+    kpi.setScore(i, o[i]);
+  }
+}
+
+void flatOutputs() {
+  outputs.clear();
+  
+  float[] o;
+  for (int i=0; i<NUM_INTERVALS; i++) {
+    o = new float[NUM_OUTPUTS];
+    for(int j=0; j<NUM_OUTPUTS; j++) {
+      o[j] = 1.0;
     }
     outputs.add(o);
   }
@@ -114,5 +137,5 @@ float calcDemandMeetAbility() {
 
 // Returns the security of the supply chain network for a given turn
 float calcSecurity() {
-  return 0.0;
+  return 0.5;
 }

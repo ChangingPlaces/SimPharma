@@ -115,5 +115,49 @@ class Build {
       p.ellipse(x + 37 + i*5, y + 15, 3, 10);
     }
   }
+  
+  void draw(int x, int y, int w, int h, String type, boolean selected) {
+
+    // Draw Build Characteristics
+    int scaler = 3;
+    noStroke();    
+    fill(abs(255 - 75));
+    //rect(x + 35, y - 5, scaler*capacity, 10, 3);
+    textAlign(LEFT);
+    textSize(12);
+    fill(255);
+    
+    // Draw "Chip" Image
+    image(chip, x, y - 100 , w, 75);
+  
+    text("Production Capacity:" + int(capacity) + " tons", x, y -140);
+
+    if (type.equals("GMS")) {
+      text("Build Time: " + int(buildTime) + " " + agileModel.TIME_UNITS, x, y - 11);
+      text("Build Cost: " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y +4);
+      text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, y + 19);
+      text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 34);
+    } else {
+      text("Repurpose Cost: " + int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, y - 11);
+    }
+    
+    text("Personnel: " , x, y - 115);
+    for (int i=0; i< labor.size (); i++) {
+      if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
+        fill(#CC0000);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(1, 0) )) {
+        fill(#00CC00);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(2, 0) )) {
+        fill(#0000CC);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(3, 0) )) {
+        fill(#CCCC00);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(4, 0) )) {
+        fill(#CC00CC);
+      } else {
+        fill(#00CCCC);
+      }
+      ellipse(x + i*5 + 5, y - 105, 3, 10);
+    }
+  }
 }
 

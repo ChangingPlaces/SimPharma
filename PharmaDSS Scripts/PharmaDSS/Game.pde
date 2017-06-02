@@ -31,8 +31,8 @@ void regenerateGame() {
   mfg.resetCellTypes();
   generateBasins();
   
-  //resets Scores for debugging
-  randomOutputs();
+  //resets Scores
+  flatOutputs();
 }
 
 // Game, Turn, Event classes help log and manage actions over the passage of time

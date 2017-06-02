@@ -149,7 +149,7 @@ class TableSurface {
     int buffer = 30;
     p.image(logo, buffer, buffer, MARGIN_W*cellW - 2*buffer, MARGIN_W*cellW - 2*buffer); 
 
-    drawBuilds(p);
+    //drawBuilds(p);
 
     p.endDraw();
   }

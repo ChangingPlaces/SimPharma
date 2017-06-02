@@ -95,6 +95,11 @@
   *               - Added CAPEX Calc
   *               - Emphasize Output "Graph" during game (not radar)
   *               - Polish Screen-based Site Visualization
+  *               - if add/remove a piece in the same turn, no penalty
+  *               - Add Clear Legend for NCE Typology in Game
+  *               - Check that launch dates are correct...
+  *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
+  *               - Only fill up production capacities partially on sites
   */
   
 String VERSION = "BETA V1.0";  
@@ -118,42 +123,33 @@ Nina:
   
  /* TO DO:    
   
-  *               - if add/remove a piece in the same turn, no penalty
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
-  *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Add Site "Filler" That decays over time;
-  
   *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
-  *               - Account for repurposing / building cost differently
-  *               - Add Clear Legend for NCE Typology in Game
-  *               - Check that launch dates are correct...
-  
   *               - Make NCE Dock for NCE selection
   *               - Make Selected NCE Profile Full Screen When Docked
   *               - Add Per-site COGs to large Profile Visualization
   
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
-  
+  *               - Allow user to compare performance with baseline scenario(s)  
+
+  *               - Account for repurposing / building cost differently
   *               - Don't Allow Player to over-pack a site
+  
   *               - Added OPEX Calc
   *               - Added COGs Calc
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   
-  *               - Make Capital Cost Very Prominent (show cost per ton?)
   *               - Only use radar at end of game
   *               - Isolate Monetary Summaries from Percentage Summaries
   *               
   *               - Add R&D slot to table visualization
-  *               - Prompt user if trying to place capacity into GMS prior to R&D
   *                
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
-  *               - Only fill up production capacities partially on sites
   *               
   *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
-  *               - Include Salary modifier for different Sites
-  *               - Switch between weight/cost metrics for Build Types
-  *               - Allow user to compare performance with baseline scenario(s)    
+  *               - Include Salary modifier for different Sites  
   *               - Add Dock for filtering NEC performance?
   */
  

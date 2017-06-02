@@ -81,6 +81,7 @@ void setup() {
   logo = loadImage("data/GSK-logo-2014.png");
   nce = loadImage("data/coumpound2.png");
   nceMini = loadImage("data/compound.png");
+  chip = loadImage("data/chip.png");
   
   initOutputs();
   setupRadar();

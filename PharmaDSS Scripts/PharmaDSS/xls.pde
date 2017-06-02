@@ -163,8 +163,8 @@ void loadModel_XLS(MFG_System model, String name) {
     for (int i=0; i<NUM_XLS_SITES; i++) {
       model.SITES.add(new Site(
         "" + reader.getInt(SITE_ROW + i, SITE_COL),
-        reader.getFloat(SITE_ROW + i, SITE_COL + 1) / 5,
-        reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1) / 5,
+        reader.getFloat(SITE_ROW + i, SITE_COL + 1),
+        reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1),
         reader.getInt(RND_LIMIT_ROW + i, RND_LIMIT_COL)
       ));
     }
