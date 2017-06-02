@@ -176,6 +176,7 @@ void keyPressed() {
       break;
     case 'g': // "Play Game (g)"
       toggleGame();
+      game_message = "";
       break;
     case 'p': // "Toggle Profile (p)"
       nextProfile();
@@ -191,9 +192,11 @@ void keyPressed() {
       break;
     case 'd': // "Deploy Selection (d)"
       if (gameMode) deploySelection();
+      game_message = "";
       break;
     case 'r': // "Remove Selection (r)"
       if (gameMode) removeSelection();
+       game_message = "";
       break;
     case 'e': // "Repurpose Selection (e)"
       if (gameMode) repurposeSelection();

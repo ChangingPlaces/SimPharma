@@ -185,7 +185,7 @@ class Site {
             noStroke();
             
             // Draw Background Rectangle to Demonstrate "Built" Status
-            fill(abs(background - 50));
+            fill(abs(background - 10));
             rect(BLD_X + BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
             
             // Draw colored rectangle
