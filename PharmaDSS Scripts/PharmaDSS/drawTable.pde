@@ -196,17 +196,20 @@ class TableSurface {
           p.fill(0);
           p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
           
-          //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
-          if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
-            infoOverlay = true;
-            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
-            p.noStroke();
-            p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
-            p.noStroke();
-            p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-            p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
-          } else {
-            infoOverlay = false;
+          try {
+            //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
+            if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+              infoOverlay = true;
+              session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+              p.noStroke();
+              p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
+              p.noStroke();
+              p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+              p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
+            } else {
+              infoOverlay = false;
+            }
+          } catch (Exception e) {
           }
           
           p.noFill();
