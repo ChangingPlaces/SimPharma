@@ -120,12 +120,9 @@ class Build {
 
     // Draw Build Characteristics
     int scaler = 3;
-    noStroke();    
-    fill(abs(255 - 75));
-    //rect(x + 35, y - 5, scaler*capacity, 10, 3);
     textAlign(LEFT);
     textSize(12);
-    fill(255);
+    fill(textColor);
     
     // Draw "Chip" Image
     image(chip, x, y - 100 , w, 75);

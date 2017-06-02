@@ -15,14 +15,15 @@ color CAPACITY_COLOR = color(200, 95, 224);
 color NOW = color(255, 220, 4);
 
 // Upper Left Corners
-int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY;
+int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY, infoX, infoY;
 
 // Width and Height
-int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH;
+int profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH, infoW, infoH;
 
 LineGraph outputGraph;
 
 boolean displayBuilds = true;
+boolean infoOverlay = false;
   
 //methods for drawing model onto a screen
 void drawScreen() {
@@ -51,6 +52,11 @@ void drawScreen() {
   buildsY   = sitesY + sitesH/2;
   buildsW   = int(0.13*width);
   buildsH   = profilesH;
+  
+  infoX     = int(0.05*(width) / 2 + 4*MARGIN);
+  infoY     = int((height - int(0.85*height) ) / 2);
+  infoW     = int(0.95*(width -4*MARGIN));
+  infoH     = int(0.85*height);
   
   float canH = height - 2.8*MARGIN;
   
@@ -148,6 +154,10 @@ int nceW = 15;
 
 void drawLargeProfile(Profile selected) {
   selected.draw(MARGIN + profilesX - nceW, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
+}
+
+void drawInfoProfile(Profile selected) {
+  selected.draw(infoX + 80, height - 160, infoW - 160, infoH - 300,true, false, true);
 }
 
 void drawProfiles(ArrayList<Profile> list) {
@@ -278,5 +288,35 @@ void drawBuilds() {
     ellipse(sitesX + xOff + 1.0*MARGIN - 5, 15*(i%3) - 4 + MARGIN, 3, 10);
     fill(textColor);
     text(agileModel.LABOR_TYPES.getString(i,0), sitesX + 10 + xOff + 1.0*MARGIN - 5, 15*(i%3) + MARGIN);
+  }
+}
+
+void drawInfoOverlay() {
+  if (infoOverlay) {
+    stroke(background);
+    strokeWeight(1);
+    fill(textColor, 100);
+    
+    rect(infoX, infoY, infoW, infoH, 10);
+    fill(background);
+    rect(infoX + 20, infoY + 20, infoW - 40, infoH - 40, 10);
+    
+    //Draw Selected Profile in Large Format
+    if (!gameMode) {
+      drawInfoProfile(agileModel.PROFILES.get(session.selectedProfile));
+    } else {
+      drawInfoProfile(agileModel.activeProfiles.get(session.selectedProfile));
+    }
+    
+    fill(textColor);
+    for (int i=0; i<NUM_SITES; i++) {
+      try {
+        text("Site " + i + ", Cost of Goods: " + agileModel.activeProfiles.get(session.selectedProfile).productionCost.get(i), 
+          infoX + 180 + MARGIN, infoY + 80 + 30*i);
+      } catch(RuntimeException e) {
+        
+      }
+    }
+    
   }
 }

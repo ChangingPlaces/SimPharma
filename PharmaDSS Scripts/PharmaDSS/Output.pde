@@ -12,7 +12,7 @@ String[] outputNames = {
 };
 
 float[] outputMax = {
-  100000000.0,
+  20000000.0,
   1.0,
   1.0,
   1.0,

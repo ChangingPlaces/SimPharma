@@ -4,6 +4,8 @@ TableSurface mfg;
 float[][] siteCapacity;
 boolean enableSites;
 
+boolean dockedNCE = false;
+
 int BASIN_HEIGHT = 6;
 
 /*      ---------------> + U-Axis
