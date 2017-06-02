@@ -149,7 +149,7 @@ class Site {
         BLD_H = map(3*siteBuild.get(i).capacity, 0, maxCapSites, 0, h/3);
         
         //property array for clicking
-        float[] props = {BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX};
+        float[] props = {BLD_X +  BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX};
         NCEClicks.add(props);
         
         // Draw Site Builds on Sites

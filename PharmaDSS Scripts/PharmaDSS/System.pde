@@ -56,10 +56,11 @@ class MFG_System {
     for (int i=0; i<profileColor.length; i++) {
       hue = i * 200.0 / profileColor.length;
       profileColor[i] = color(hue, 255, 255);
-//      if(i > 2){
-//        hue = i * 255.0 / profileColor.length;
-//        profileColor[i] = color(hue, 255, 255);
-//      }
+      
+      if(i > 2){
+        hue = i * 255.0 / profileColor.length;
+        profileColor[i] = color(hue, 255, 255);
+      }
 
     }
     

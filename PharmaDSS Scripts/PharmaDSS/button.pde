@@ -63,6 +63,29 @@ void mouseClicked() {
       }
   } else {
     numProfiles = agileModel.activeProfiles.size();
+    
+        for(int i =0; i<numProfiles; i++){
+          if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
+          && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
+              session.setProfile(i);} 
+       }
+       
+      for(int j = 0; j<NCEClicks.size(); j++){
+        float NCEClickX = NCEClicks.get(j)[0];
+        float NCEClickY = NCEClicks.get(j)[1];
+        float NCEClickWidth = NCEClicks.get(j)[2];
+        float NCEClickHeight = NCEClicks.get(j)[3];  
+          if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
+            session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
+              for(int i = 0; i<agileModel.activeProfiles.size(); i++){
+                  if (NCEClicks.get(j)[5] == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX){
+                      session.selectedProfile = int(i);
+                  }
+              }
+          }
+         }
+     
+    
           for(int i =0; i<numProfiles; i++){
         if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
         && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
