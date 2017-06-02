@@ -86,7 +86,7 @@ class Site {
       tint(255, 75);
       image(pic, x, y, picW*.75, picH*.75);
       tint(255, 255);
-      
+
       // Legend for Site Areas
       textAlign(LEFT);
       fill(GSK_ORANGE);
