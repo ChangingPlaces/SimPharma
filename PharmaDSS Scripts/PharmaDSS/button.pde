@@ -242,10 +242,10 @@ void keyPressed() {
       break;
     case 'P':
       // Toggle InfoOverlay
-      if (infoOverlay) {
-        infoOverlay = false;
+      if (infoOverride) {
+        infoOverride = false;
       } else {
-        infoOverlay = true;
+        infoOverride = true;
       }
 
   }

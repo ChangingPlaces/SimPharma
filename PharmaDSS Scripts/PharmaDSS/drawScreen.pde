@@ -24,6 +24,7 @@ LineGraph outputGraph;
 
 boolean displayBuilds = true;
 boolean infoOverlay = false;
+boolean infoOverride = false;
   
 //methods for drawing model onto a screen
 void drawScreen() {
@@ -292,31 +293,28 @@ void drawBuilds() {
 }
 
 void drawInfoOverlay() {
-  if (infoOverlay) {
-    stroke(background);
-    strokeWeight(1);
-    fill(textColor, 100);
-    
-    rect(infoX, infoY, infoW, infoH, 10);
-    fill(background);
-    rect(infoX + 20, infoY + 20, infoW - 40, infoH - 40, 10);
-    
-    //Draw Selected Profile in Large Format
-    if (!gameMode) {
-      drawInfoProfile(agileModel.PROFILES.get(session.selectedProfile));
-    } else {
-      drawInfoProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  stroke(background);
+  strokeWeight(1);
+  fill(textColor, 100);
+  
+  rect(infoX, infoY, infoW, infoH, 10);
+  fill(background);
+  rect(infoX + 20, infoY + 20, infoW - 40, infoH - 40, 10);
+  
+  //Draw Selected Profile in Large Format
+  if (!gameMode) {
+    drawInfoProfile(agileModel.PROFILES.get(session.selectedProfile));
+  } else {
+    drawInfoProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  }
+  
+  fill(textColor);
+  for (int i=0; i<NUM_SITES; i++) {
+    try {
+      text("Site " + i + ", Cost of Goods: " + agileModel.activeProfiles.get(session.selectedProfile).productionCost.get(i), 
+        infoX + 180 + MARGIN, infoY + 80 + 30*i);
+    } catch(RuntimeException e) {
+      
     }
-    
-    fill(textColor);
-    for (int i=0; i<NUM_SITES; i++) {
-      try {
-        text("Site " + i + ", Cost of Goods: " + agileModel.activeProfiles.get(session.selectedProfile).productionCost.get(i), 
-          infoX + 180 + MARGIN, infoY + 80 + 30*i);
-      } catch(RuntimeException e) {
-        
-      }
-    }
-    
   }
 }

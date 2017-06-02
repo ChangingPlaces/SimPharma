@@ -118,7 +118,7 @@ void draw() {
   drawTable();
   
   // Draws Overlay Graphic to describe NCE attributes
-  if (infoOverlay) {
+  if (infoOverlay || infoOverride) {
       drawInfoOverlay();
   }
  

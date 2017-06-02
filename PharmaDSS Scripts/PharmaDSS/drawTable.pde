@@ -173,7 +173,6 @@ class TableSurface {
             if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
               
               p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
-              
               p.noStroke();
               p.rect(u*cellW, v*cellH, cellW, cellH);
               p.image(nce, u*cellW, v*cellH, cellW, cellH);
@@ -187,6 +186,7 @@ class TableSurface {
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
+          // Select NCE Interface
           p.fill(255);
           p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
           p.textSize(20);
@@ -194,6 +194,19 @@ class TableSurface {
           p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
           p.fill(0);
           p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+          
+          //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
+          if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+            infoOverlay = true;
+            p.noStroke();
+            p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
+            p.noStroke();
+            p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+            p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
+          } else {
+            infoOverlay = false;
+          }
+          
           p.noFill();
         }
       }
