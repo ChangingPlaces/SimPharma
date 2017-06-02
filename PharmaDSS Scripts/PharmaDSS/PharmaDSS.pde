@@ -102,7 +102,7 @@ void draw() {
  
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
-    println("Lego Movement Detected");
+    //println("Lego Movement Detected");
     decodePieces();
     changeDetected = false;
   }

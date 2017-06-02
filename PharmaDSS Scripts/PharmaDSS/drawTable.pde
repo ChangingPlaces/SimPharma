@@ -108,7 +108,7 @@ class TableSurface {
               if (cellType[u - MARGIN_W][v][0].equals("SITE_0")) site = 0;
               if (cellType[u - MARGIN_W][v][0].equals("SITE_1")) site = 1;
               if (cellType[u - MARGIN_W][v][0].equals("SITE_2")) site = 2;
-              
+              println(site, u, v);
               if (site != -1 && tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
                 Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
                 session.current.event.add(deploy);
