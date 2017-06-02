@@ -66,7 +66,7 @@ class Site {
       //Site constants
       float maxCapSites = agileModel.maxCapacity();
       float siteBound = map(capGn+capEx,0, maxCapSites, 0, sitesH/3);
-      float siteStart = picH + sitesY;;      
+      float siteStart = picH + sitesY;
       
       fill(255);
       
@@ -91,24 +91,24 @@ class Site {
       // Legend for Site Areas
       textAlign(LEFT);
       fill(GSK_ORANGE);
-      text("Existing Facility", x+15, y + 4.5*textSize);
+      text("Built Capacity", x+15, y + 4.5*textSize);
       fill(textColor, 225);
-      text("Greenfield Site", x+15, y + 6.0*textSize);
+      text("Available Site", x+15, y + 6.0*textSize);
       noFill();
       
-      // Draw Baseline Total External and Green Field Rectangle Capacities
+      // Draw Total Available Site
       stroke(textColor, 150);
       strokeWeight(3);
       fill(background, 50);
       rect(x+1, siteStart - 3, w-2, siteBound + 6, 5);
       rect(x, y + 5.25*textSize, 10, 10, 1);
       
-      //Draws Existing Line and fill
+      //Draws Existing Infrastructure on Site
       float existLine = map(capEx, 0, maxCapSites, 0, sitesH/3);
       strokeWeight(1);
       stroke(GSK_ORANGE, 200);
       fill(GSK_ORANGE, 50);
-      rect(x+5, siteStart, w-10, siteBound - existLine, 5);
+      rect(x+5, siteStart, w-10, existLine, 5);
       rect(x, y + 3.75*textSize, 10, 10, 1);
       
       // Draw Label Text
@@ -120,7 +120,7 @@ class Site {
       fill(GSK_ORANGE);
       text(int(capEx) + agileModel.WEIGHT_UNITS, x,  siteStart - 15);
       fill(textColor);
-      text(" / " + int(capEx + capGn) + agileModel.WEIGHT_UNITS, x + 25,  siteStart - 15);
+      text(" / " + int(capGn+capEx) + agileModel.WEIGHT_UNITS, x + 25,  siteStart - 15);
              
       // Draw RND Capacity Slots
       for (int i=0; i<limitRnD; i++) {
@@ -136,28 +136,20 @@ class Site {
       fill(textColor);
       
       // Draw Build Allocations within Site Square
+      
       float offset = 0;
       float BLD_X = x + 10;
       float BLD_Y = siteStart + 5;
-      float BLD_W = w - 20;
+      float BLD_W = (w - 20)/2;
       float BLD_H; 
      
       for (int i=0; i<siteBuild.size(); i++) {
         
-        BLD_H = (h - infoGap*MARGIN) * siteBuild.get(i).capacity / max;
+        // Height of a build Unit
+        BLD_H = map(2*siteBuild.get(i).capacity, 0, maxCapSites, 0, h/3);
         
-        if ( agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).timeEnd < session.current.TURN || siteBuild.get(i).demolish == true) {
-          // Color NCE Not Viable or build flagged for demolition
-          fill(#CC0000, 150);
-        } else {
-          fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
-        }
-        
-        if(BLD_H > 30){
-          BLD_H  = 30;
-        }
-        
-        float[] props = {BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX}; //property array for clicking
+        //property array for clicking
+        float[] props = {BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX};
         NCEClicks.add(props);
         
         // Draw Site Builds on Sites
@@ -165,9 +157,9 @@ class Site {
           
           // Draws Solid NCE colors before game starts
           fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
-          rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+          rect(BLD_X + BLD_W*(i%2), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
           fill(background, 100);
-          rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+          rect(BLD_X + BLD_W*(i%2), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
           
         } else if (gameMode) {
           
@@ -191,13 +183,13 @@ class Site {
             
             noStroke();
             
-            // Draw Background Rectangle
+            // Draw Background Rectangle to Demonstrate "Built" Status
             fill(abs(background - 50));
-            rect(BLD_X, BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
+            rect(BLD_X + BLD_W*(i%2), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
             
             // Draw colored rectangle
             fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
-            rect(BLD_X, BLD_Y + offset, capWidth, BLD_H - 2, 5);
+            rect(BLD_X + BLD_W*(i%2), BLD_Y + offset, capWidth, BLD_H - 2, 5);
             
           } 
           
@@ -212,18 +204,19 @@ class Site {
           strokeWeight(1);
         }
         
-        // Draw Build Outline
+        // Draw Building Outline
         noFill();
-        rect(BLD_X, BLD_Y + offset, BLD_W, BLD_H - 2, 5);
+        rect(BLD_X + BLD_W*(i%2), BLD_Y + offset, BLD_W, BLD_H - 2, 5);
         
         // Draw Build Label
-        offset += BLD_H;
         noStroke();
         fill(textColor);
         textAlign(CENTER, CENTER);
-        //text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + 0.5*w, BLD_Y + offset - 10);
-        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name, x + w/2, BLD_Y + offset - 10);
+        text(agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).name + " - " + siteBuild.get(i).capacity + "t", x + BLD_W/2  + BLD_W*(i%2) + 10, BLD_Y + offset + textSize/2);
         
+        if (i%2 == 1) {
+          offset += BLD_H;
+        }
       }
     }
     

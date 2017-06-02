@@ -135,6 +135,7 @@ Nina:
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
   
+  *               - Don't Allow Player to over-pack a site
   *               - Added OPEX Calc
   *               - Added COGs Calc
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)

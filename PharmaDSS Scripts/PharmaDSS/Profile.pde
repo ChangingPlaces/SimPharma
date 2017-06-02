@@ -104,6 +104,13 @@ class Profile {
   void setPeak(float newPeak) {
     float scaler = newPeak/demandPeak_F;
     for (int i=0; i<demandProfile.getColumnCount (); i++) {
+      
+//      // make small values slightly larger
+//      float currentDem = demandProfile.getFloat(1, i);
+//      if (currentDem > 0) {
+//        demandProfile.setFloat(1, i, max(100, currentDem)); // Forecast
+//      }
+
       demandProfile.setFloat(1, i, demandProfile.getFloat(1, i) * scaler); // Forecast
       demandProfile.setFloat(2, i, demandProfile.getFloat(2, i) * scaler); // Actual
     }
