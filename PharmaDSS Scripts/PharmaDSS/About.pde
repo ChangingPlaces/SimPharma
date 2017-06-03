@@ -152,4 +152,40 @@ Nina:
   *               - Include Salary modifier for different Sites  
   *               - Add Dock for filtering NEC performance?
   */
+  
+ /*  Output Specs:
+  *  
+  *  All are ideally normalized to a percentage of an "ideal" actor.
+  *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric
+  
+  *  CAPEX ->  Percentage is relational to (buildCost + repurp Cost):
+  *  0-20%  - 80%
+  *  0-40%  - 60%
+  *  0-60%  - 40%
+  *  0-80%  - 20%
+  *  0-100% - 0%
+  
+  *  OPEX -> Percentgage is relational to (personnel cost)
+  *  0-20%  - 80%
+  *  0-40%  - 60%
+  *  0-60%  - 40%
+  *  0-80%  - 20%
+  *  0-100% - 0%
+  
+  *  COGs -> Related to site production cost
+  *  0-20%  - 80%
+  *  0-40%  - 60%
+  *  0-60%  - 40%
+  *  0-80%  - 20%
+  *  0-100% - 0%
+  
+  *  Ability to Meet Demand -> Weight each NCE the same regardless of total tonnage
+  
+  *  Security of Supply; Composite of Site Security and Capacity Security
+  *  Weight each NCE the same regardless of total tonnage
+  *  50% - Spread between sites? (deviation from equal / half ... i.e. 1t and 4t at site 1 and two repectively has deviation of 1.5/2.5
+  *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
+  *  (Add Buffer somehow?)
+  
+  */
  

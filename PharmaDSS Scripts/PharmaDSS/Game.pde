@@ -33,6 +33,9 @@ void regenerateGame() {
   
   //resets Scores
   flatOutputs();
+  
+  // Reset Table Pieces
+  fauxPieces(0, tablePieceInput, 15);
 }
 
 // Game, Turn, Event classes help log and manage actions over the passage of time
@@ -325,8 +328,14 @@ void nextSiteBuild() {
 // Build Selected Manufacturing Option
 void deploySelection() {
   game_message = " ";
-  Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
-  session.current.event.add(deploy);
+  try {
+    
+    Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
+    session.current.event.add(deploy);
+    
+  } catch (Exception e) {
+    println("deploySelection() failed to execute");
+  }
   updateProfileCapacities();
 }
 

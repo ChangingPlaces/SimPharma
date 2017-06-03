@@ -112,16 +112,15 @@ void draw() {
   
   drawPhaseDiagram();
   
-  // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
-  noStroke();
-  drawTable();
-  drawTable();
-  
   // Draws Overlay Graphic to describe NCE attributes
   if (infoOverlay || infoOverride) {
       drawInfoOverlay();
   }
- 
+  
+  // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
+  noStroke();
+  drawTable();
+  drawTable();
   
   // Draws Menu
   hideMenu.draw();
@@ -163,7 +162,7 @@ void loadMenu(int canvasWidth, int canvasHeight) {
 }
 
 void gameText(){
- textAlign(LEFT);
+  textAlign(LEFT);
   fill(END);
   textSize(textSize+ 2);
   text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);

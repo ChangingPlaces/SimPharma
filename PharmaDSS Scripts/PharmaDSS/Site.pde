@@ -174,7 +174,6 @@ class Site {
             } else {
               meetPercent = min(1.0, demand/cap);
             }
-            println(demand, cap, meetPercent);
             
             // Translate percent to pixel dimension
             float capWidth = map(meetPercent, 0, 1.0, 0, BLD_W);

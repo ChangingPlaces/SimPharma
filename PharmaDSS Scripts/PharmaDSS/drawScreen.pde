@@ -134,10 +134,14 @@ void drawScreen() {
       drawBuilds();
   
   //Draw Selected Profile in Large Format
+  try {
   if (!gameMode) {
     drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
   } else {
     drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  }
+  } catch (Exception e) {
+    println("Could not execute drawLargeProfile() in drawScreen()");
   }
   
   // Draw Radar Plot
@@ -301,11 +305,17 @@ void drawInfoOverlay() {
   fill(background);
   rect(infoX + 20, infoY + 20, infoW - 40, infoH - 40, 10);
   
-  //Draw Selected Profile in Large Format
-  if (!gameMode) {
-    drawInfoProfile(agileModel.PROFILES.get(session.selectedProfile));
-  } else {
-    drawInfoProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  try {
+    
+    //Draw Selected Profile in Large Format
+    if (!gameMode) {
+      drawInfoProfile(agileModel.PROFILES.get(session.selectedProfile));
+    } else {
+      drawInfoProfile(agileModel.activeProfiles.get(session.selectedProfile));
+    }
+    
+  } catch(Exception e) {
+    println("Could not execute drawInfoOverlay() in drawScreen()");
   }
   
   fill(textColor);

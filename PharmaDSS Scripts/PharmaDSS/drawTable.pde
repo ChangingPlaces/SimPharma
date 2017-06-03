@@ -102,7 +102,7 @@ class TableSurface {
         
         if (cellType[u][v][0].substring(0,4).equals("SITE") ) {
           if (gameMode) {
-            //if (!inUse[u][v]) {
+            if (!inUse[u][v]) {
               
               
               if (cellType[u - MARGIN_W][v][0].equals("SITE_0")) site = 0;
@@ -115,7 +115,7 @@ class TableSurface {
                 inUse[u][v] = true;
               }
               
-            //}
+            }
           } 
         } 
       }
@@ -196,20 +196,24 @@ class TableSurface {
           p.fill(0);
           p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
           
-          try {
-            //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
-            if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
-              infoOverlay = true;
-              session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
-              p.noStroke();
-              p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
-              p.noStroke();
-              p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-              p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
-            } else {
-              infoOverlay = false;
-            }
-          } catch (Exception e) {
+          
+          //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
+          int limit;
+          if (gameMode) {
+            limit = agileModel.activeProfiles.size();
+          } else {
+            limit = NUM_PROFILES;
+          }
+          if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+            infoOverlay = true;
+            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+            p.noStroke();
+            p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
+            p.noStroke();
+            p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+            p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
+          } else {
+            infoOverlay = false;
           }
           
           p.noFill();
