@@ -226,8 +226,9 @@ class TableSurface {
       p.rect(0, 0, MARGIN_W*cellW, p.height);
     }
     
-    // Draw logo_GSK
-    p.image(logo_GSK, buffer, buffer, MARGIN_W*cellW - 2*buffer, MARGIN_W*cellW - 2*buffer); 
+    // Draw logo_GSK, logo_MIT
+    p.image(logo_GSK, 0.5*buffer, 1.0*buffer, 2.0*buffer, 2.0*buffer); 
+    p.image(logo_MIT, 2.5*buffer, 2.1*buffer, 1.5*buffer, 0.7*buffer); 
 
     //drawBuilds(p);
 

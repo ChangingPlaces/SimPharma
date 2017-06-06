@@ -104,8 +104,9 @@ void drawScreen() {
       textAlign(RIGHT);
       textSize(textSize);
       text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
-      text("MIT Media Lab + GlaxoSmithKline", width - MARGIN, MARGIN + textSize + 3);
-      text("Ira Winder, Nina Lutz, Giovanni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
+      text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + textSize + 3);
+      
+      //text("Ira Winder, Nina Lutz, Giovanni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
   
   // Draw Profiles
       if (!gameMode) {
@@ -154,7 +155,8 @@ void drawScreen() {
   outputGraph.draw();
 
   // Draw Pork Chop
-  image(logo_GSK, MARGIN, height-MARGIN - 70); 
+  image(logo_GSK, 1.0*MARGIN, height-MARGIN - 70); 
+  image(logo_MIT, 2.9*MARGIN, height-MARGIN - 10, 1.4*MARGIN, 0.6*MARGIN); 
   
 }
 

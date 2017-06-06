@@ -78,10 +78,12 @@ void setup() {
   phasing = loadImage("data/phasing.png");
   sitePNG = loadImage("data/site.png");
   sitePNG_BW = loadImage("data/site_BW.png");
-  logo_GSK = loadImage("data/GSK-logo-2014.png");
   nce = loadImage("data/coumpound2.png");
   nceMini = loadImage("data/compound.png");
   chip = loadImage("data/chip.png");
+  
+  logo_GSK = loadImage("data/GSK-logo-2014.png");
+  logo_MIT = loadImage("data/MIT_logo_BW.png");
   
   initOutputs();
   setupRadar();
