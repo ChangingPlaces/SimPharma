@@ -41,7 +41,7 @@ void calcOutputs(int turn) {
   outputs.get(turn)[0] = calcCAPEX();
   
   // Security of Supply
-  outputs.get(turn)[2] = calcSecurity();
+//  outputs.get(turn)[2] = calcSecurity();
 }
 
 void randomOutputs() {
