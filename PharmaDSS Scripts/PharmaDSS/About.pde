@@ -100,6 +100,9 @@
   *               - Check that launch dates are correct...
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Only fill up production capacities partially on sites
+  *               - Make Selected NCE Profile Full Screen When Docked
+  *               - Add Per-site COGs to large Profile Visualization
+  *               - Make NCE Dock for NCE selection
   */
   
 String VERSION = "BETA V1.0";  
@@ -123,16 +126,16 @@ Nina:
   
  /* TO DO:    
   
+  *               - Make sure screen updates when NCE is docked
+  *               - Make Sure NCE selects ABSOLUTE Profile, not ORDER of Active Profile
+  
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - Add Site "Filler" That decays over time;
   *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
-  *               - Make NCE Dock for NCE selection
-  *               - Make Selected NCE Profile Full Screen When Docked
-  *               - Add Per-site COGs to large Profile Visualization
   
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
-  *               - Allow user to compare performance with baseline scenario(s)  
+  *               - Allow user to compare performance with baseline/ideal scenario(s)  
 
   *               - Account for repurposing / building cost differently
   *               - Don't Allow Player to over-pack a site
@@ -141,7 +144,7 @@ Nina:
   *               - Added COGs Calc
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   
-  *               - Only use radar at end of game
+  *               - Only use radar for normalized values
   *               - Isolate Monetary Summaries from Percentage Summaries
   *               
   *               - Add R&D slot to table visualization
@@ -156,7 +159,7 @@ Nina:
  /*  Output Specs:
   *  
   *  All are ideally normalized to a percentage of an "ideal" actor.
-  *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric
+  *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric.
   
   *  CAPEX ->  Percentage is relational to (buildCost + repurp Cost):
   *  0-20%  - 80%
@@ -185,6 +188,7 @@ Nina:
   *  Weight each NCE the same regardless of total tonnage
   *  50% - Spread between sites? (deviation from equal / half ... i.e. 1t and 4t at site 1 and two repectively has deviation of 1.5/2.5
   *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
+  
   *  (Add Buffer somehow?)
   
   */

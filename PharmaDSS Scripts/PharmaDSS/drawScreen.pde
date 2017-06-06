@@ -4,7 +4,10 @@
  *  CMYK 0 45 86 0
  */
 
-PImage phasing, sitePNG, sitePNG_BW, logo, nce, nceMini, chip;
+PImage phasing, sitePNG, sitePNG_BW, nce, nceMini, chip;
+
+// Logos
+PImage logo_GSK, logo_MIT;
 
 int MARGIN = 50;
 
@@ -151,7 +154,7 @@ void drawScreen() {
   outputGraph.draw();
 
   // Draw Pork Chop
-  image(logo, MARGIN, height-MARGIN - 70); 
+  image(logo_GSK, MARGIN, height-MARGIN - 70); 
   
 }
 

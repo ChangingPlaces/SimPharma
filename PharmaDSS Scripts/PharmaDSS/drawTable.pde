@@ -137,11 +137,11 @@ class TableSurface {
     for(int i = agileModel.profileColor.length-1; i>=0; i--){
       p.fill(agileModel.profileColor[NUM_PROFILES - i - 1]);
       p.noStroke();
-      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo.height, spotLightWidth, spotLightHeight, 10);
+      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height, spotLightWidth, spotLightHeight, 10);
        p.fill(0);
       p.textSize(30);
       p.textAlign(CENTER, CENTER);
-      p.text(NUM_PROFILES - i, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo.height + spotLightHeight/2 - 2);
+      p.text(NUM_PROFILES - i, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height + spotLightHeight/2 - 2);
     }
     
     // Draw Site Boundaries (Existing and Greenfield)
@@ -226,8 +226,8 @@ class TableSurface {
       p.rect(0, 0, MARGIN_W*cellW, p.height);
     }
     
-    // Draw Logo
-    p.image(logo, buffer, buffer, MARGIN_W*cellW - 2*buffer, MARGIN_W*cellW - 2*buffer); 
+    // Draw logo_GSK
+    p.image(logo_GSK, buffer, buffer, MARGIN_W*cellW - 2*buffer, MARGIN_W*cellW - 2*buffer); 
 
     //drawBuilds(p);
 

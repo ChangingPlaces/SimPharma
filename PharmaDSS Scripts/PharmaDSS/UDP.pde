@@ -110,6 +110,9 @@ void receive( byte[] data, String ip, int port ) {  // <-- extended handler
     busyImporting = true;
     ImportData(split);
   }
+  
+  // Updates Screen whenever Webcam Update Received
+  loop();
 }
 
 void sendCommand(String command, int port) {
