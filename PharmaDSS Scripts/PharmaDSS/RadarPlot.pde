@@ -1,4 +1,4 @@
-boolean displayRadar = false;
+boolean displayRadar = true;
 RadarPlot kpi;
 
 void setupRadar() {
@@ -103,10 +103,10 @@ class RadarPlot {
          
          fill(RG); 
          if((d+12)*sin(rot+i*2*PI/nRadar) + y < y){
-           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y);
+           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 15);
          }
          else{
-           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 13);
+           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 13 + 15);
          }
          
          //names

@@ -159,19 +159,27 @@ float calcDemandMeetAbility() {
   
   float profileCapacity, profileActualDemand;
   
+  percent = 0.0;
+  
   for (int i=0; i<agileModel.activeProfiles.size(); i++) {
     profileCapacity = agileModel.activeProfiles.get(i).globalProductionLimit;
     profileActualDemand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
     
     totDemandMet += min(profileCapacity, profileActualDemand);
     totDemand += profileActualDemand;
+    
+    if (profileActualDemand > 0) { // prevents adding infinity
+      percent += min(profileCapacity, profileActualDemand) / profileActualDemand;
+    }
   }
   
   if (totDemand > 0) {
-    percent = totDemandMet / totDemand;
+    //percent = totDemandMet / totDemand;
+    percent /= agileModel.activeProfiles.size();
   } else {
     percent = 1.0;
   }
+  
   return percent;
 
 }

@@ -49,7 +49,7 @@ void drawScreen() {
   //Radar
   radarH    = int(0.05*width);
   radarX    = int(sitesX + radarH + 70);
-  radarY    = int(0.8*height + 30);
+  radarY    = int(0.8*height + 15);
   
   //Builds
   buildsX   = sitesX + radarH*3;
@@ -121,7 +121,11 @@ void drawScreen() {
       textSize(max(18, textSize));
       text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
       if (NUM_OUTPUTS < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
-      text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+      if (!displayRadar) {
+        text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+      } else {
+        text("Performance", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+      }
       
       textSize(min(16, textSize));
       NCEClicks.clear();
@@ -260,7 +264,7 @@ void drawBuilds() {
   for (int i=0; i<agileModel.GMS_BUILDS.size(); i++) {
     selected = false;
     if (i == session.selectedBuild) selected = true;
-    agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
+    if (!displayRadar) agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
   }
   
 //  // Draw R&D Build Options
