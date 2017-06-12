@@ -34,14 +34,31 @@ void initOutputs() {
 }
 
 void calcOutputs(int turn) {
-  // Ability to meet Demand
-  outputs.get(turn)[1] = calcDemandMeetAbility();
   
-  // Capital Expenditures
-  outputs.get(turn)[0] = calcCAPEX();
+  if (outputs.get(turn).length > 0) {
+    // Capital Expenditures
+    outputs.get(turn)[0] = calcCAPEX();
+  }
   
-  // Security of Supply
-//  outputs.get(turn)[2] = calcSecurity();
+  if (outputs.get(turn).length > 1) {
+    // Ability to meet Demand
+    outputs.get(turn)[1] = calcDemandMeetAbility();
+  }
+  
+  if (outputs.get(turn).length > 2) {
+    // Security of Supply
+    outputs.get(turn)[2] = calcSecurity();
+  }
+  
+  if (outputs.get(turn).length > 3) {
+    // Operating Expenditures
+    outputs.get(turn)[3] = calcOPEX();
+  }
+  
+  if (outputs.get(turn).length > 4) {
+    // Cost of Goods
+    outputs.get(turn)[4] = calcCOGs();
+  }
 }
 
 void randomOutputs() {
@@ -86,7 +103,7 @@ void flatOutputs() {
 
 // Returns the operating expenses for the current turn
 float calcOPEX() {
-  return 0.0;
+  return 0.7;
 }
 
 // Returns the capital expenses for the current turn
@@ -107,7 +124,7 @@ float calcCAPEX() {
 
 // Returns the Cost of Goods for the current turn
 float calcCOGs() {
-  return 0.0;
+  return 0.2;
 }
 
 // Returns the % ability to meet demand for a given turn (0.0 - 1.0)
