@@ -16,6 +16,11 @@ class Profile {
   // Success/ Failure (due to clinical trail failure, competition enters market, etc)
   boolean success;
   boolean launched;
+  
+  // Profile Output Weights:
+  float weightBalance = 1.0; // Factors into Security of Supply (Site Safety/Balance)
+  float weightSupply  = 1.0; // Factors into Security of Supply (NCE Safety/Capacity)
+  float weightDemand  = 1.0; // Factors into Ability to Meet Demand
 
   // (TBA) Criticality to Patient
   // (TBA) Number of Stages
@@ -55,12 +60,10 @@ class Profile {
   //  - Ideal Capacity (weight per time)
   Table capacityProfile;
 
-
   //Parameters for click interface
   int xClick, yClick, wClick, hClick;
   int dragClickX, dragClickY, dragClickW, dragClickH;  
   boolean over, locked;
-
 
   // Basic Constructor
   Profile(int INDEX) {

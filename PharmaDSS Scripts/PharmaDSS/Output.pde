@@ -1,7 +1,7 @@
 ArrayList<float[]> outputs;
 
 // Uses first N outputs in below list only. Increase to activate
-int NUM_OUTPUTS = 2;
+int NUM_OUTPUTS = 5;
 
 String[] outputNames = {
   "Capital\nExpenses",
@@ -154,5 +154,108 @@ float calcDemandMeetAbility() {
 
 // Returns the security of the supply chain network for a given turn
 float calcSecurity() {
-  return 0.5;
+
+  // percent = balanceScore + supplyScore [%]
+  float percent, balanceScore, supplyScore;
+  
+  balanceScore = 0.0;
+  supplyScore = 0.0;
+  
+  // WEIGHTS SHOULD ADD UP TO 1.0
+  float BALANCE_WEIGHT = 0.5;
+  float SUPPLY_WEIGHT  = 0.5;
+
+  // Magnitude of allowed value difference before score reaches 0% (1.0 for 100% deviance; 2.0 for 200% deviance, etc)
+  float TOLERANCE = 2.0;
+  // Ideal %Capacity Available in Network
+  float IDEAL_NETWORK_BUFFER = 0.2;
+  
+  float[] siteCapacity;
+  float totalCapacity, numBackup, bufferSupply;
+  int scoreCount;
+  Build current;
+  
+  // If Demand Exists; NCE's Score Counts toward Total
+  scoreCount = 0;
+  
+  // Cycles through Each NCE
+  for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+
+    numBackup = 0.0;
+    
+    // Calculates NCE Capacity at each site;
+    siteCapacity = new float[agileModel.SITES.size()];
+    for (int s=0; s<agileModel.SITES.size(); s++) {
+      siteCapacity[s] = 0.0;
+      for (int b=0; b<agileModel.SITES.get(s).siteBuild.size(); b++) {
+        current = agileModel.SITES.get(s).siteBuild.get(b);
+        if (current.PROFILE_INDEX == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX) {
+          siteCapacity[s] += current.capacity;
+        }
+      }
+      
+    }
+    
+    // Calculates Total NCE Capacity
+    totalCapacity = 0.0;
+    for (int s=0; s<agileModel.SITES.size(); s++) {
+      totalCapacity += siteCapacity[s];
+    }
+    
+    float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, min(session.current.TURN, NUM_INTERVALS-1) );
+    demand /= 1000.0; // units of kiloTons
+    
+    // Calaculates normalized balance and supply scores and adds them to total
+    if ( demand > 0) { // Only scores if demand exists
+      // If Demand Exists; NCE's Score Counts toward Total
+      scoreCount ++;
+    
+      // Determines how many "backup" sites there are
+      if (agileModel.SITES.size() == 1) {
+        // Scores Perfect if only one site
+        numBackup = 1.0;
+      } else {
+        // assigns "1" if capacity exists at site
+        for (int s=0; s<agileModel.SITES.size(); s++) {
+          if (siteCapacity[s] > 0.0) {
+            numBackup += 1.0;
+          }
+        }
+      }
+      
+      // normalizes balance/backup to a score 0.0 - 1.0;
+      if (agileModel.SITES.size() > 1) {
+        numBackup -= 1.0; // Eliminates effect of first site
+        numBackup /= (agileModel.SITES.size() - 1);
+        if (numBackup < 0.0) numBackup = 0.0;
+      }
+      
+      // Adds the current NCE's balance score to the overall
+      balanceScore += agileModel.activeProfiles.get(i).weightBalance * numBackup;
+      
+
+      // Calculate Normalized supply score and add it to total
+      float sup = 0;
+      bufferSupply = (1.0 + IDEAL_NETWORK_BUFFER) * demand / totalCapacity;
+      if (totalCapacity == 0) {
+        sup = 0.0;
+      } else if (bufferSupply > 0 && bufferSupply <= 1.0) {
+        sup = 1.0;
+      } else if (bufferSupply > 1.0) {
+        sup = TOLERANCE - bufferSupply;
+        if (sup < 0.0) sup = 0;
+      }
+      supplyScore += agileModel.activeProfiles.get(i).weightSupply * sup;
+      
+    }
+    
+  }
+  
+  // Aggregate scores
+  balanceScore /= scoreCount;
+  supplyScore  /= scoreCount;
+  percent = BALANCE_WEIGHT * balanceScore + SUPPLY_WEIGHT * supplyScore;
+  println(balanceScore, supplyScore);
+  
+  return percent;
 }
