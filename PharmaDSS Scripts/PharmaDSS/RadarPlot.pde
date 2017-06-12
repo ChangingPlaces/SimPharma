@@ -1,4 +1,4 @@
-boolean displayRadar = false;
+boolean displayRadar = true;
 RadarPlot kpi;
 
 void setupRadar() {
@@ -41,7 +41,7 @@ class RadarPlot {
   
   void setScore(int index, float value) {
     if (index < nRadar) {
-      scores.set(index, value);
+      scores.set(index, min(value, 1.0));
     }
   }
   
