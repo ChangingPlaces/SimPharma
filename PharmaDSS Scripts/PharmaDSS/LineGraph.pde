@@ -74,7 +74,7 @@ class LineGraph{
            fill(textColor);
            textAlign(CENTER);
            int val = str(100*Values.get(j+1)[i]/outputMax[i]).substring(0, str(100*Values.get(j+1)[i]/outputMax[i]).indexOf(".")).length();
-           text(nf(100*Values.get(j+1)[i]/outputMax[i], val, 1) + " " +outputUnits[i], posx2, posy2-10);
+           text(nf(100*Values.get(j+1)[i], val, 1).substring(0,3) + " " +outputUnits[i], posx2, posy2-10);
          }
       }
       

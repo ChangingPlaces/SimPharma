@@ -29,6 +29,7 @@ class Build {
   // Is the build being repurposed?
   boolean repurpose = false;
   
+  // flag determining if build's capital cost has already been scored
   boolean capEx_Logged = false;
   
   boolean editing = false;

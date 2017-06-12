@@ -15,7 +15,7 @@ float[] outputMax = {
   200000000.0,
   1.0,
   1.0,
-  1.0,
+  20000000.0,
   1.0
 };
 
@@ -52,12 +52,12 @@ void calcOutputs(int turn) {
   
   if (outputs.get(turn).length > 3) {
     // Operating Expenditures
-    outputs.get(turn)[3] = calcOPEX();
+    outputs.get(turn)[3] = calcCOGs();
   }
   
   if (outputs.get(turn).length > 4) {
     // Cost of Goods
-    outputs.get(turn)[4] = calcCOGs();
+    outputs.get(turn)[4] = calcOPEX();
   }
 }
 
@@ -119,7 +119,20 @@ float calcCAPEX() {
 
 // Returns the Cost of Goods for the current turn
 float calcCOGs() {
-  return 0.2;
+  float expenses = 0.0;
+  Build current;
+  for (int i=0; i<agileModel.SITES.size(); i++) {
+    for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+      current = agileModel.SITES.get(i).siteBuild.get(j);
+      if (current.built) {
+        for (int l=0; l<current.labor.size(); l++) {
+          expenses += current.labor.get(l).cost;
+        }
+      }
+    }
+  }
+  println(expenses);
+  return expenses;
 }
 
 // Returns the operating expenses for the current turn
