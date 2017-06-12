@@ -13,10 +13,10 @@ String[] outputNames = {
 
 float[] outputMax = {
   200000000.0,
-  1.0,
-  1.0,
-  20000000.0,
-  1.0
+          1.0,
+          1.0,
+    2000000.0,
+   20000000.0
 };
 
 String[] outputUnits = {
@@ -108,7 +108,7 @@ float calcCAPEX() {
   for (int i=0; i<agileModel.SITES.size(); i++) {
     for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
-      if (!current.capEx_Logged) {
+      if (!current.capEx_Logged) { // Ensures capital cost for build is only counted once
         expenses += current.buildCost;
         if (current.age != 0) current.capEx_Logged = false;
       }
@@ -117,8 +117,8 @@ float calcCAPEX() {
   return expenses;
 }
 
-// Returns the Cost of Goods for the current turn
-float calcCOGs() {
+// Returns the Operating Expenses for the current turn
+float calcOPEX() {
   float expenses = 0.0;
   Build current;
   for (int i=0; i<agileModel.SITES.size(); i++) {
@@ -131,13 +131,24 @@ float calcCOGs() {
       }
     }
   }
-  println(expenses);
   return expenses;
 }
 
-// Returns the operating expenses for the current turn
-float calcOPEX() {
-  return 0.7;
+// Returns the cost of goods for the current turn
+float calcCOGs() {
+  float expenses = 0.0;
+  Build current;
+  Profile nce;
+  for (int i=0; i<agileModel.SITES.size(); i++) {
+    for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+      current = agileModel.SITES.get(i).siteBuild.get(j);
+      nce = agileModel.PROFILES.get(current.PROFILE_INDEX);
+      if (current.built) {
+        expenses += current.production * current.capacity * nce.productionCost.get(i);
+      }
+    }
+  }
+  return expenses;
 }
 
 // Returns the % ability to meet demand for a given turn (0.0 - 1.0)

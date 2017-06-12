@@ -175,6 +175,10 @@ class Site {
               meetPercent = min(1.0, demand/cap);
             }
             
+            // Assign Value to Build Class for Later Use
+            // (Should move this calculation outside of draw eventually)
+            siteBuild.get(i).production = meetPercent;
+            
             // Translate percent to pixel dimension
             float capWidth = map(meetPercent, 0, 1.0, 0, BLD_W);
             if(capWidth > BLD_W){ // Check that is not greater than 1

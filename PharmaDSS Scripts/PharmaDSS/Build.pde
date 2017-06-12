@@ -6,6 +6,7 @@ class Build {
 
   //  Build/Repurpose  Size
   float capacity; 
+  float production = 0.0;  // %capacity 0.0 - 1.0 being used for prodcution
 
   //  Build Cost, Build Time
   float buildCost, buildTime;
