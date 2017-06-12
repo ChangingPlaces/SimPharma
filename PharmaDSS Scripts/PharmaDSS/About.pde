@@ -103,6 +103,9 @@
   *               - Make Selected NCE Profile Full Screen When Docked
   *               - Add Per-site COGs to large Profile Visualization
   *               - Make NCE Dock for NCE selection
+  *               - Added OPEX Calc
+  *               - Added COGs Calc
+  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   */
   
 String VERSION = "BETA V1.0";  
@@ -126,6 +129,12 @@ Nina:
   
  /* TO DO:    
   
+  *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
+  *               - Clarify Current Year VS other milestones in NCE profile graph
+  *               - Have Demand automatically produced in cheaper sites FIRST
+  *               - Have "Chip" Visualization shown initially, at least until first turn is progressed
+  *               - NCE Actual Demand should reveal 1 year sooner
+  
   *               - Make sure screen updates when NCE is docked
   *               - Make Sure NCE selects ABSOLUTE Profile, not ORDER of Active Profile
   
@@ -139,10 +148,6 @@ Nina:
 
   *               - Account for repurposing / building cost differently
   *               - Don't Allow Player to over-pack a site
-  
-  *               - Added OPEX Calc
-  *               - Added COGs Calc
-  *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   
   *               - Only use radar for normalized values
   *               - Isolate Monetary Summaries from Percentage Summaries
