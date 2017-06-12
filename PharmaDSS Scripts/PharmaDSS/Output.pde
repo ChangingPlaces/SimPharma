@@ -101,11 +101,6 @@ void flatOutputs() {
   }
 }
 
-// Returns the operating expenses for the current turn
-float calcOPEX() {
-  return 0.7;
-}
-
 // Returns the capital expenses for the current turn
 float calcCAPEX() {
   float expenses = 0.0;
@@ -125,6 +120,11 @@ float calcCAPEX() {
 // Returns the Cost of Goods for the current turn
 float calcCOGs() {
   return 0.2;
+}
+
+// Returns the operating expenses for the current turn
+float calcOPEX() {
+  return 0.7;
 }
 
 // Returns the % ability to meet demand for a given turn (0.0 - 1.0)
@@ -255,7 +255,6 @@ float calcSecurity() {
   balanceScore /= scoreCount;
   supplyScore  /= scoreCount;
   percent = BALANCE_WEIGHT * balanceScore + SUPPLY_WEIGHT * supplyScore;
-  println(balanceScore, supplyScore);
   
   return percent;
 }
