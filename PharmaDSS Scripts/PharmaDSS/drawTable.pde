@@ -62,9 +62,9 @@ class TableSurface {
   String[][][] cellType;
 
   boolean LEFT_MARGIN;
-  int MARGIN_W = 4;
-  int BASINS_Y = 8;
-  int BASINS_H = 10;
+  int MARGIN_W = 4;  // Left Margin for Grid (in Lego Squares)
+  int BASINS_Y = 8;  // Top Margin for Basins (in Lego Squares_
+  int BASINS_H = 10; // Height of Largest Basin (in Lego Squares)
 
   ArrayList<Basin> inputArea;
   
@@ -100,15 +100,15 @@ class TableSurface {
       for (int v=0; v<V; v++) {
         int site = -1;
         
-        if (cellType[u][v][0].substring(0,4).equals("SITE") ) {
+        //if (cellType[u][v][0].substring(0,4).equals("SITE") ) {
+        if (inBasin(u, v)) {
           if (gameMode) {
             if (!inUse[u][v]) {
               
+              if (cellType[u][v][0].equals("SITE_0")) site = 0;
+              if (cellType[u][v][0].equals("SITE_1")) site = 1;
+              if (cellType[u][v][0].equals("SITE_2")) site = 2;
               
-              if (cellType[u - MARGIN_W][v][0].equals("SITE_0")) site = 0;
-              if (cellType[u - MARGIN_W][v][0].equals("SITE_1")) site = 1;
-              if (cellType[u - MARGIN_W][v][0].equals("SITE_2")) site = 2;
-              //println(site, u, v);
               if (site != -1 && tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
                 Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
                 session.current.event.add(deploy);
@@ -398,8 +398,6 @@ void fauxPieces(int code, int[][][] pieces, int maxID) {
       }
     }
   }
-  
-  decodePieces();
 }
 
 void decodePieces() {

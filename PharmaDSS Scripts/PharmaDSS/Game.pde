@@ -35,7 +35,7 @@ void regenerateGame() {
   flatOutputs();
   
   // Reset Table Pieces
-  fauxPieces(0, tablePieceInput, 15);
+  fauxPieces(2, tablePieceInput, 15);
 }
 
 // Game, Turn, Event classes help log and manage actions over the passage of time

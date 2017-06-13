@@ -238,6 +238,7 @@ void keyPressed() {
     case 'x':
       // Randomize pieces just for debugging....
       fauxPieces(3, tablePieceInput, 15);
+      changeDetected = true;
       break;
     case 'P':
       // Toggle InfoOverlay
