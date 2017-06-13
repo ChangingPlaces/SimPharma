@@ -7,13 +7,25 @@
  *    B. Project Description
  *    C. Development History
  */
- 
-int screenWidth = 1280;
-int screenHeight = 800;
- 
-int projectorWidth = 1280;
-int projectorHeight = 768;
-int projectorOffset = 1280;
+
+
+// Sycamore Settings (June 4, 2017) 
+
+//  int screenWidth = 1280;
+//  int screenHeight = 800;
+//   
+//  int projectorWidth = 1280;
+//  int projectorHeight = 768;
+//  int projectorOffset = 1280;
+
+// MIT Settings (June 13, 2017)
+
+  int screenWidth = 1280;
+  int screenHeight = 800;
+   
+  int projectorWidth = 1920;
+  int projectorHeight = 1200;
+  int projectorOffset = 1280;
 
 // Library needed for ComponentAdapter()
 import java.awt.event.*;
