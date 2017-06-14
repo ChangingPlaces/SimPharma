@@ -112,7 +112,7 @@ void setup() {
   initOutputs();
   setupRadar();
   
-  randomOutputs();
+  flatOutputs();
   setupTable();
 
   initUDP();

@@ -25,26 +25,26 @@ int NUM_OUTPUTS = 5;
 
 String[] outputNames = {
   "Capital\nExpenses",
-  "Demand\nMet",
-  "Security\nof Supply",
   "Cost of\nGoods",
-  "Operating\nExpenses"
+  "Operating\nExpenses",
+  "Demand\nMet",
+  "Security\nof Supply"
 };
 
 float[] outputMax = {
   200000000.0,
-          1.0,
-          1.0,
     2000000.0,
-   20000000.0
+   20000000.0,
+          1.0,
+          1.0
 };
 
 String[] outputUnits = {
   "mil GBP",
-  "%",
-  "%",
   "mil GBP",
-  "mil GBP"
+  "mil GBP",
+  "%",
+  "%"
 };
 
 void initOutputs() {
@@ -62,22 +62,22 @@ void calcOutputs(int turn) {
   
   if (outputs.get(turn).length > 1) {
     // Ability to meet Demand
-    outputs.get(turn)[1] = calcDemandMeetAbility();
+    outputs.get(turn)[3] = calcDemandMeetAbility();
   }
   
   if (outputs.get(turn).length > 2) {
     // Security of Supply
-    outputs.get(turn)[2] = calcSecurity();
+    outputs.get(turn)[4] = calcSecurity();
   }
   
   if (outputs.get(turn).length > 3) {
     // Operating Expenditures
-    outputs.get(turn)[3] = calcCOGs();
+    outputs.get(turn)[1] = calcCOGs();
   }
   
   if (outputs.get(turn).length > 4) {
     // Cost of Goods
-    outputs.get(turn)[4] = calcOPEX();
+    outputs.get(turn)[2] = calcOPEX();
   }
   
 }

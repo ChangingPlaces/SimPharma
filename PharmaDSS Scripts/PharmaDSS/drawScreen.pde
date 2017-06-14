@@ -124,7 +124,7 @@ void drawScreen() {
       if (!displayRadar) {
         text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
       } else {
-        text("Performance - % Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+        text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
       }
       
       textSize(min(16, textSize));
