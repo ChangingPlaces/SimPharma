@@ -197,15 +197,20 @@ class TableSurface {
           p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
           
           
-          int limit;
-          if (gameMode) {
-            limit = agileModel.activeProfiles.size();
-          } else {
-            limit = NUM_PROFILES;
-          }
+//          int limit;
+//          if (gameMode) {
+//            limit = agileModel.activeProfiles.size();
+//          } else {
+//            limit = NUM_PROFILES;
+//          }
+          
           if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
             infoOverlay = true;
-            session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
+            if (gameMode) {
+              session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
+            } else {
+              session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+            }
             p.noStroke();
             p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
             p.noStroke();
