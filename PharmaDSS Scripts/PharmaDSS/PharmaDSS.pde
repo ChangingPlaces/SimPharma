@@ -8,24 +8,30 @@
  *    C. Development History
  */
 
+// Set the Demo Name to "SYCAMORE", "MIT", etc to enable site-specific customization (i.e. screen resolution, projector size)
+//String DEMO = "SYCAMORE";
+String DEMO = "MIT";
 
-// Sycamore Settings (June 4, 2017) 
-
-//  int screenWidth = 1280;
-//  int screenHeight = 800;
-//   
-//  int projectorWidth = 1280;
-//  int projectorHeight = 768;
-//  int projectorOffset = 1280;
-
-// MIT Settings (June 13, 2017)
-
-  int screenWidth = 1280;
-  int screenHeight = 800;
-   
-  int projectorWidth = 1920;
-  int projectorHeight = 1200;
-  int projectorOffset = 1280;
+void setupDemo(String demo) {
+  
+  // Sycamore Settings (June 4, 2017)
+  if (demo.equals("SYCAMORE")) {
+    screenWidth = 1280;
+    screenHeight = 800;
+    projectorWidth = 1280;
+    projectorHeight = 768;
+    projectorOffset = 1280;
+  }
+  
+  // MIT Settings (June 13, 2017)
+  else if (demo.equals("MIT")) {
+    screenWidth = 1280;
+    screenHeight = 800;    
+    projectorWidth = 1920;
+    projectorHeight = 1200;
+    projectorOffset = 1280;
+  }
+}
 
 // Library needed for ComponentAdapter()
 import java.awt.event.*;
@@ -38,11 +44,12 @@ Game session;
 // (Do not set to false unless you provide for default initialization values for system)
 boolean readXLS = true;
 
+// dimensions of main canvas, in pixes
+int screenWidth, screenHeight;
+
 // "setup()" runs once upon executing script
 void setup() {
-//  PFont main = createFont("Arial", 20, false);
-  PFont main = loadFont("data/ArialUnicodeMS-20.vlw");
-  textFont(main);
+  
   // Initiate MFG_System and Objects
   agileModel = new MFG_System();
   
@@ -69,6 +76,7 @@ void setup() {
   updateProfileCapacities();
     
   // Setup for Canvas Visualization
+  setupDemo(DEMO);
   size(screenWidth, screenHeight, P2D);
   
   // Window may be resized after initialized
@@ -96,6 +104,10 @@ void setup() {
   
   logo_GSK = loadImage("data/GSK-logo-2014.png");
   logo_MIT = loadImage("data/MIT_logo_BW.png");
+  
+  // Setup Screen Font
+  PFont main = loadFont("data/ArialUnicodeMS-20.vlw");
+  textFont(main);
   
   initOutputs();
   setupRadar();

@@ -28,6 +28,7 @@ import deadpixel.keystone.*;
 Keystone ks;
 CornerPinSurface surface;
 PGraphics offscreen;
+int projectorWidth, projectorHeight, projectorOffset;
 
 // Visualization may show 2D projection visualization, or not
 boolean displayProjection2D = false;
