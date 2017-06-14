@@ -122,6 +122,8 @@ String VERSION = "BETA V1.0";
   
  /* TO DO:    
   
+  *               - Update Future Capacity for Removed Builds (not just added Builds)
+  
   *               - Colortizer Integration: Allow Adding/Removing Within Same Turn
   *               - Colortizer Integration: Display Construction/Repurpose Status on Table
   *               - Colortizer Integration: Display Production Utilization On Table
