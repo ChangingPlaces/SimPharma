@@ -38,7 +38,7 @@ String[] buttonNames =
   "End Turn (SPACE)",    // 13
   "VOID",  // 14
   "VOID",  // 15
-  "VOID",  // 16
+  "Show Score Radar (z)",  // 16
   "Invert Colors (i)", // 17
   "Project Table (`)", // 18
   
@@ -51,72 +51,6 @@ String[] show = {"Show Main Menu (h)"};
 
 // The result of each button click is defined here
 void mouseClicked() {
-  
-  int numProfiles;
-  if (!gameMode) {
-    numProfiles = agileModel.PROFILES.size();
-      for(int i =0; i<numProfiles; i++){
-        if(mouseX <= agileModel.PROFILES.get(i).xClick + agileModel.PROFILES.get(i).wClick && mouseX >= agileModel.PROFILES.get(i).xClick 
-        && mouseY <= agileModel.PROFILES.get(i).yClick + agileModel.PROFILES.get(i).hClick && mouseY >= agileModel.PROFILES.get(i).yClick){
-          session.setProfile(i);
-        }
-      }
-  } else {
-    numProfiles = agileModel.activeProfiles.size();
-    
-        for(int i =0; i<numProfiles; i++){
-          if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
-          && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
-              session.setProfile(i);} 
-       }
-       
-      for(int j = 0; j<NCEClicks.size(); j++){
-        float NCEClickX = NCEClicks.get(j)[0];
-        float NCEClickY = NCEClicks.get(j)[1];
-        float NCEClickWidth = NCEClicks.get(j)[2];
-        float NCEClickHeight = NCEClicks.get(j)[3];  
-          if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
-            session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
-              for(int i = 0; i<agileModel.activeProfiles.size(); i++){
-                  if (NCEClicks.get(j)[5] == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX){
-                      session.selectedProfile = int(i);
-                  }
-              }
-          }
-         }
-     
-    
-          for(int i =0; i<numProfiles; i++){
-        if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
-        && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
-          session.setProfile(i);
-      }  
-  }
-  }
-  
-    
-
-    for(int i = 0; i< NUM_SITES; i++){
-          float clickX = MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES);
-          float clickW = ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2;
-        if(mouseX <= clickX + clickW && mouseX >= clickX  && mouseY <= sitesY + sitesH && mouseY >= sitesY){
-          session.selectedSite = int(agileModel.SITES.get(i).name) - 1;
-        }
-
-      }
-      
-   if(!gameMode){
-   for(int j = 0; j<NCEClicks.size(); j++){
-          float NCEClickX = NCEClicks.get(j)[0];
-          float NCEClickY = NCEClicks.get(j)[1];
-          float NCEClickWidth = NCEClicks.get(j)[2];
-          float NCEClickHeight = NCEClicks.get(j)[3];  
-            if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
-              session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
-              session.selectedProfile = int(NCEClicks.get(j)[5]);
-            }
-   }
-   }
   
   //Hide/Show Menu
   if(hideMenu.buttons[0].over()){  
@@ -169,6 +103,10 @@ void mouseClicked() {
     endTurn();
   }
   
+  if(mainMenu.buttons[16].over()){ 
+    displayRadar = toggle(displayRadar);
+  }
+  
   if(mainMenu.buttons[17].over()){ 
     invertColors();
   }
@@ -176,6 +114,8 @@ void mouseClicked() {
   if(mainMenu.buttons[18].over()){ 
     toggleProjection();
   }
+  
+  checkSelections();
   
   loop();
 }
@@ -227,11 +167,11 @@ void keyPressed() {
       if (gameMode) endTurn();
       game_message = "";
       break;
+    case 'z': //  "Show Score Radar (z)"
+      displayRadar = toggle(displayRadar);
+      break;
     case '`': //  "Enable Projection (`)"
       toggleProjection();
-      break;
-    case 'y':
-      println(mouseX, mouseY);
       break;
       
     // Debugging (no formal buttons)
@@ -466,4 +406,72 @@ class Menu{
     
     image(canvas, 0, 0);
   }
+}
+
+void checkSelections() {
+  int numProfiles;
+  if (!gameMode) {
+    numProfiles = agileModel.PROFILES.size();
+      for(int i =0; i<numProfiles; i++){
+        if(mouseX <= agileModel.PROFILES.get(i).xClick + agileModel.PROFILES.get(i).wClick && mouseX >= agileModel.PROFILES.get(i).xClick 
+        && mouseY <= agileModel.PROFILES.get(i).yClick + agileModel.PROFILES.get(i).hClick && mouseY >= agileModel.PROFILES.get(i).yClick){
+          session.setProfile(i);
+        }
+      }
+  } else {
+    numProfiles = agileModel.activeProfiles.size();
+    
+    for(int i =0; i<numProfiles; i++){
+        if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
+        && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
+            session.setProfile(i);} 
+    }
+       
+    for(int j = 0; j<NCEClicks.size(); j++){
+      float NCEClickX = NCEClicks.get(j)[0];
+      float NCEClickY = NCEClicks.get(j)[1];
+      float NCEClickWidth = NCEClicks.get(j)[2];
+      float NCEClickHeight = NCEClicks.get(j)[3];  
+        if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
+          session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
+            for(int i = 0; i<agileModel.activeProfiles.size(); i++){
+                if (NCEClicks.get(j)[5] == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX){
+                    session.selectedProfile = int(i);
+                }
+            }
+        }
+      }
+     
+    
+     for(int i =0; i<numProfiles; i++){
+        if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
+        && mouseY <= agileModel.activeProfiles.get(i).yClick + agileModel.activeProfiles.get(i).hClick && mouseY >= agileModel.activeProfiles.get(i).yClick){
+          session.setProfile(i);
+        }    
+     }
+   }
+  
+    
+
+   for(int i = 0; i< NUM_SITES; i++){
+        float clickX = MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES);
+        float clickW = ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2;
+      if(mouseX <= clickX + clickW && mouseX >= clickX  && mouseY <= sitesY + sitesH && mouseY >= sitesY){
+        session.selectedSite = int(agileModel.SITES.get(i).name) - 1;
+      }
+
+    }
+      
+   if(!gameMode){
+     for(int j = 0; j<NCEClicks.size(); j++){
+            float NCEClickX = NCEClicks.get(j)[0];
+            float NCEClickY = NCEClicks.get(j)[1];
+            float NCEClickWidth = NCEClicks.get(j)[2];
+            float NCEClickHeight = NCEClicks.get(j)[3];  
+              if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
+                session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
+                session.selectedProfile = int(NCEClicks.get(j)[5]);
+              }
+     }
+   }
 }

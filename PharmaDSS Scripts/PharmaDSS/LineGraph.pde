@@ -67,7 +67,8 @@ class LineGraph{
          ellipse(posx2, posy2, dim, dim);
          line(posx, posy, posx2, posy2);
          
-         if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == Values.size()-2) ){
+         //if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == Values.size()-2) ){
+         if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 ){
            fill(colarray[i], 50);
            ellipse(posx2, posy2, 10, 10);
            

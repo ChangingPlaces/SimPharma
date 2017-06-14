@@ -113,11 +113,15 @@ class Game {
       updateProfileCapacities();
       
       // Updates the status of the radar plot to current turn
-      for (int i=0; i<NUM_OUTPUTS; i++) {
-        kpi.setScore(i, outputs.get(session.current.TURN - 1)[i]);
-      }
-      
       calcOutputs(session.current.TURN-1);
+      for (int i=0; i<NUM_OUTPUTS; i++) {
+        if (i == 1 || i == 2) {
+          kpi.setScore(i, outputs.get(session.current.TURN - 1)[i]/outputMax[i]);
+        } else {
+          kpi.setScore(i, 1-outputs.get(session.current.TURN - 1)[i]/outputMax[i]);
+        }
+      }
+      displayRadar = true;
     }
   }
   

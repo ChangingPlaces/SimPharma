@@ -56,7 +56,7 @@ class RadarPlot {
   float rot = 0.25*PI;
   void draw(int x, int y, int d) {  
 
-    strokeWeight(1);   
+    strokeWeight(2);   
     if (nRadar > 2) {
       
       //Draws radar plot
@@ -66,23 +66,24 @@ class RadarPlot {
         stroke(#999999);
         line(x, y, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
         
-        noStroke();
         //Determine color
         color RG = color(0);
-        if (radarMode == 0) {
-          fill(#00FFFF); }      
-        else if (radarMode == 1) {
-          //Does a nice red --> yellow --> green gradient instead of showing browns
-          if((scores.get(i)+scores.get((i+1)%nRadar))/2 <= .5){
-            RG = lerpColor(color(250, 0, 0),color(255, 255, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);}
-          else{
-            RG = lerpColor(color(255, 255, 0),color(0, 200, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);}
-          fill(RG);} 
-        else if (radarMode == 2) {
-          fill(255*(1-avgScore), 255*avgScore, 0);}
+//        if (radarMode == 0) {
+//          fill(#00FFFF); }      
+//        else if (radarMode == 1) {
+//          //Does a nice red --> yellow --> green gradient instead of showing browns
+//          if((scores.get(i)+scores.get((i+1)%nRadar))/2 <= .5){
+//            RG = lerpColor(color(250, 0, 0),color(255, 255, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);}
+//          else{
+//            RG = lerpColor(color(255, 255, 0),color(0, 200, 0), (scores.get(i)+scores.get((i+1)%nRadar))/2);}
+//          fill(RG);} 
+//        else if (radarMode == 2) {
+//          fill(255*(1-avgScore), 255*avgScore, 0);}
           
           
         //draw fills
+        noStroke();
+        fill(textColor, 100);
         triangle(x, y, scores.get(i)*d*cos(rot+i*2*PI/nRadar) + x, 
                        scores.get(i)*d*sin(rot+i*2*PI/nRadar) + y, 
                        scores.get((i+1)%nRadar)*d*cos(rot+(i+1)%nRadar*2*PI/nRadar) + x, 
@@ -103,10 +104,10 @@ class RadarPlot {
          
          fill(RG); 
          if((d+12)*sin(rot+i*2*PI/nRadar) + y < y){
-           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 15);
+           text(int(100*scores.get(i)) + "%", (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 15);
          }
          else{
-           text(int(100*scores.get(i)), (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 13 + 15);
+           text(int(100*scores.get(i)) + "%", (d+12)*cos(rot+i*2*PI/nRadar) + x, (d+12)*sin(rot+i*2*PI/nRadar) + y + 13 + 15);
          }
          
          //names

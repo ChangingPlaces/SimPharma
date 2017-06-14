@@ -79,6 +79,7 @@ void calcOutputs(int turn) {
     // Cost of Goods
     outputs.get(turn)[4] = calcOPEX();
   }
+  
 }
 
 void randomOutputs() {
