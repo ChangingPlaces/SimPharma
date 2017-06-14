@@ -1,4 +1,24 @@
-ArrayList<float[]> outputs;
+ /*  Output Specs (June 4, 2017)
+  *  
+  *  All are ideally normalized to a percentage of an "ideal" actor.
+  *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric.
+  *
+  *  CAPEX ->  Percentage is relational to (buildCost + repurp Cost):
+  *
+  *  OPEX -> Percentgage is relational to (personnel cost)
+  *
+  *  COGs -> Related to site production cost
+  *
+  *  Ability to Meet Demand -> Weight each NCE the same regardless of total tonnage
+  *
+  *  Security of Supply; Composite of Site Security and Capacity Security
+  *  Weight each NCE the same regardless of total tonnage
+  *  50% - Spread between sites? (deviation from equal / half ... i.e. 1t and 4t at site 1 and two repectively has deviation of 1.5/2.5
+  *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
+  *
+  */
+  
+  ArrayList<float[]> outputs;
 
 // Uses first N outputs in below list only. Increase to activate
 int NUM_OUTPUTS = 5;

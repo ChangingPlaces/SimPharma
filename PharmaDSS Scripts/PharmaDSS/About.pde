@@ -106,28 +106,29 @@
   *               - Added OPEX Calc
   *               - Added COGs Calc
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
+  *               - Visualize site bins
+  *                 -Capacity loading bar colors
+  *                 -greenfield line
+  *               - Click based 
+  *               - Graphic Icons for NCE (molecule)
+  *               - Make sure screen updates when NCE is docked
+  *               - Make Sure NCE selects ABSOLUTE Profile, not ORDER of Active Profile
+  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   */
   
 String VERSION = "BETA V1.0";  
 
 /*
 Nina:
-  - Clean clean
-  - Visualize site bins
-      -Capacity loading bar colors
-      -click
-      -greenfield line
-  - Click based 
-        - Deployment and switching sites?
-  - Graphic Icons for (a) NCE (molecule?) and (b) Build (Widget?) and (c) R&D (beaker?)
-  - Text feed back for game play (Can't repurpose under construction) and stuff like that 
-      - Can't Repurpose while Under Construction
-      - Site has no production!
-      - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
-      - button movement  
+
+  
 */
   
  /* TO DO:    
+  
+  *               - Colortizer Integration: Allow Adding/Removing Within Same Turn
+  *               - Colortizer Integration: Display Construction/Repurpose Status on Table
+  *               - Colortizer Integration: Display Production Utilization On Table
   
   *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
   *               - Clarify Current Year VS other milestones in NCE profile graph
@@ -135,12 +136,8 @@ Nina:
   *               - Have "Chip" Visualization shown initially, at least until first turn is progressed
   *               - NCE Actual Demand should reveal 1 year sooner
   
-  *               - Make sure screen updates when NCE is docked
-  *               - Make Sure NCE selects ABSOLUTE Profile, not ORDER of Active Profile
-  
-  *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
-  *               - Add Site "Filler" That decays over time;
-  *               - Added SecSup Calc (Have Security of Supply influenced by monte carlo calc?)
+  *               - Add Site "Filler" That decays over time
+  *               - Have Security of Supply influenced by monte carlo calc?
   
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
@@ -153,48 +150,20 @@ Nina:
   *               - Isolate Monetary Summaries from Percentage Summaries
   *               
   *               - Add R&D slot to table visualization
-  *                
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
   *               
   *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
   *               - Include Salary modifier for different Sites  
-  *               - Add Dock for filtering NEC performance?
-  */
-  
- /*  Output Specs:
-  *  
-  *  All are ideally normalized to a percentage of an "ideal" actor.
-  *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric.
-  
-  *  CAPEX ->  Percentage is relational to (buildCost + repurp Cost):
-  *  0-20%  - 80%
-  *  0-40%  - 60%
-  *  0-60%  - 40%
-  *  0-80%  - 20%
-  *  0-100% - 0%
-  
-  *  OPEX -> Percentgage is relational to (personnel cost)
-  *  0-20%  - 80%
-  *  0-40%  - 60%
-  *  0-60%  - 40%
-  *  0-80%  - 20%
-  *  0-100% - 0%
-  
-  *  COGs -> Related to site production cost
-  *  0-20%  - 80%
-  *  0-40%  - 60%
-  *  0-60%  - 40%
-  *  0-80%  - 20%
-  *  0-100% - 0%
-  
-  *  Ability to Meet Demand -> Weight each NCE the same regardless of total tonnage
-  
-  *  Security of Supply; Composite of Site Security and Capacity Security
-  *  Weight each NCE the same regardless of total tonnage
-  *  50% - Spread between sites? (deviation from equal / half ... i.e. 1t and 4t at site 1 and two repectively has deviation of 1.5/2.5
-  *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
-  
-  *  (Add Buffer somehow?)
-  
+  *               - Filter for NEC-specific performance?
+  *
+  *               - Nina's:
+  *               - Graphic Icons (b) Build (Widget?) and (c) R&D (beaker?)
+  *               - Text feed back for game play (Can't repurpose under construction) and stuff like that 
+  *                 - Can't Repurpose while Under Construction
+  *                 - Site has no production!
+  *                 - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
+  *                 - button movement  
+  *
+  *               - Incorporate Drug Buffer Into Model?
   */
  
