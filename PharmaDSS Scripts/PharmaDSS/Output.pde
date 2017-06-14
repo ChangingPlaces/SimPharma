@@ -32,7 +32,7 @@ String[] outputNames = {
 };
 
 float[] outputMax = {
-  200000000.0,
+  250000000.0,
     2000000.0,
    20000000.0,
           1.0,
@@ -177,26 +177,28 @@ float calcDemandMeetAbility() {
   float percent; // 0.0 - 1.0
   float totDemandMet = 0;
   float totDemand = 0;
+  int scoreCount = 0;
   
   float profileCapacity, profileActualDemand;
   
   percent = 0.0;
   
   for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+    
     profileCapacity = agileModel.activeProfiles.get(i).globalProductionLimit;
     profileActualDemand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
     
-    totDemandMet += min(profileCapacity, profileActualDemand);
-    totDemand += profileActualDemand;
-    
-    if (profileActualDemand > 0) { // prevents adding infinity
+    if (profileActualDemand > 0) {
+      scoreCount++;
+      totDemandMet += min(profileCapacity, profileActualDemand);
+      totDemand += profileActualDemand;
       percent += min(profileCapacity, profileActualDemand) / profileActualDemand;
     }
   }
   
   if (totDemand > 0) {
     //percent = totDemandMet / totDemand;
-    percent /= agileModel.activeProfiles.size();
+    percent /= scoreCount;
   } else {
     percent = 1.0;
   }
