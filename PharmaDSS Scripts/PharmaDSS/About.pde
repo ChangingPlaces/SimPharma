@@ -103,7 +103,8 @@
   *               - Make Selected NCE Profile Full Screen When Docked
   *               - Add Per-site COGs to large Profile Visualization
   *               - Make NCE Dock for NCE selection
-  *               - Added OPEX Calc
+  *
+  * BETA V1.1:    - Added OPEX Calc
   *               - Added COGs Calc
   *               - Output summary of 5 KPIs(CAPEX, OPEX, Ability to Meet Demand, Cost of Goods, Security of Supply)
   *               - Visualize site bins
@@ -123,7 +124,7 @@
   *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
   *               - Only use radar for normalized values
   *
-  * BETA V1.1:    - TBA
+  * BETA V1.2:    - TBA
   */
   
 String VERSION = "BETA V1.1";  
