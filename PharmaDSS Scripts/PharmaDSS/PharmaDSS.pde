@@ -9,8 +9,8 @@
  */
 
 // Set the Demo Name to "SYCAMORE", "MIT", etc to enable site-specific customization (i.e. screen resolution, projector size)
-//String DEMO = "SYCAMORE";
-String DEMO = "MIT";
+String DEMO = "SYCAMORE";
+//String DEMO = "MIT";
 
 void setupDemo(String demo) {
   
