@@ -161,6 +161,7 @@ void drawScreen() {
   // Draw Pork Chop
   image(logo_GSK, 1.0*MARGIN, height-MARGIN - 70); 
   image(logo_MIT, 2.9*MARGIN, height-MARGIN - 10, 1.4*MARGIN, 0.6*MARGIN); 
+  text(VERSION,   1.5*MARGIN, height-0.5*MARGIN);
   
 }
 

@@ -122,9 +122,11 @@
   *               - Colortizer Integration: Allow Adding/Removing Within Same Turn
   *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
   *               - Only use radar for normalized values
+  *
+  * BETA V1.1:    - TBA
   */
   
-String VERSION = "BETA V1.0";  
+String VERSION = "BETA V1.1";  
   
  /* TO DO:    
   
