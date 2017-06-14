@@ -116,6 +116,12 @@
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - No longer Remove Profiles From Game Once they Fail
   *               - Edited Current Turn Indicator; Reveals Future Demand 1-yr out
+  *               - Clarify Current Year VS other milestones in NCE profile graph
+  *               - Have "Chip" Visualization shown initially, at least until first turn is progressed
+  *               - NCE Actual Demand should reveal 1 year sooner
+  *               - Colortizer Integration: Allow Adding/Removing Within Same Turn
+  *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
+  *               - Only use radar for normalized values
   */
   
 String VERSION = "BETA V1.0";  
@@ -123,33 +129,23 @@ String VERSION = "BETA V1.0";
  /* TO DO:    
   
   *               - Update Future Capacity for Removed Builds (not just added Builds)
-  
-  *               - Colortizer Integration: Allow Adding/Removing Within Same Turn
+  *               - Add Site "Filler" That decays over time
   *               - Colortizer Integration: Display Construction/Repurpose Status on Table
   *               - Colortizer Integration: Display Production Utilization On Table
-  
-  *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
-  *               - Clarify Current Year VS other milestones in NCE profile graph
-  *               - Have Demand automatically produced in cheaper sites FIRST
-  *               - Have "Chip" Visualization shown initially, at least until first turn is progressed
-  *               - NCE Actual Demand should reveal 1 year sooner
-  
-  *               - Add Site "Filler" That decays over time
-  *               - Have Security of Supply influenced by monte carlo calc?
-  
-  *               - "Ghost" for hypothetical scores next turn
-  *               - "Ghost" of hypothetical player to play against
-  *               - Allow user to compare performance with baseline/ideal scenario(s)  
 
   *               - Account for repurposing / building cost differently
   *               - Don't Allow Player to over-pack a site
   
-  *               - Only use radar for normalized values
-  *               - Isolate Monetary Summaries from Percentage Summaries
-  *               
+  *               - "Ghost" for hypothetical scores next turn
+  *               - "Ghost" of hypothetical player to play against
+  *               - Allow user to compare performance with baseline/ideal scenario(s)  
+  
+  *               - Have Demand automatically produced in cheaper sites FIRST
+  *               - Have Security of Supply influenced by monte carlo calc?
+
   *               - Add R&D slot to table visualization
   *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
-  *               
+                 
   *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
   *               - Include Salary modifier for different Sites  
   *               - Filter for NEC-specific performance?
@@ -162,6 +158,6 @@ String VERSION = "BETA V1.0";
   *                 - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
   *                 - button movement  
   *
-  *               - Incorporate Drug Buffer Into Model?
+  *               - Incorporate Drug Buffer Into Model
   */
  
