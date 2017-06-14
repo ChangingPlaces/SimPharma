@@ -236,8 +236,13 @@ void keyPressed() {
       
     // Debugging (no formal buttons)
     case 'x':
+    
       // Randomize pieces just for debugging....
-      fauxPieces(3, tablePieceInput, 15);
+      //fauxPieces(3, tablePieceInput, 15);
+      
+      // testPlace(tablePieceInput, u, v, ID)
+      testPlace(tablePieceInput, 2, 8, 0);
+      
       changeDetected = true;
       break;
     case 'P':
@@ -305,6 +310,7 @@ void toggleGame() {
   } else {
     gameMode = true;
     session = new Game();
+    regenerateGame();
     updateProfileCapacities();
     mainMenu.buttons[2].label = "God Mode (g)";
     mainMenu.buttons[13].isVoid = false;

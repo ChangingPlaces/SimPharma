@@ -69,6 +69,7 @@ class TableSurface {
   ArrayList<Basin> inputArea;
   
   boolean[][] inUse;
+  int[][] siteBuildIndex;
 
   TableSurface(int W, int H, int U, int V, boolean left_margin) {
     this.U = U;
@@ -77,6 +78,7 @@ class TableSurface {
     inputArea = new ArrayList<Basin>();
     cellType = new String[U][V][2];
     inUse = new boolean[U][V];
+    siteBuildIndex = new int[U][V];
     
     cellW = float(W)/U;
     cellH = float(H)/V;
@@ -88,39 +90,69 @@ class TableSurface {
   void resetCellTypes() {
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
+        
+        // Sets Site ID to Null
         cellType[u][v][0] = "NULL";
+        
+        // Sets Site's "Existing" or "Greenfield" Status to Null
         cellType[u][v][1] = "NULL";
+        
         inUse[u][v] = false;
+        siteBuildIndex[u][v] = -1;
       }
     }
   }
   
   void checkTableDeploy() {
+    
+    // Cycle through each 22x22 Table Grid
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
-        int site = -1;
         
-        //if (cellType[u][v][0].substring(0,4).equals("SITE") ) {
+        // Determine if the Cell is in a "Site" Basin and, if so, which one
+        int site = -1;
         if (inBasin(u, v)) {
-          if (gameMode) {
-            if (!inUse[u][v]) {
-              
-              if (cellType[u][v][0].equals("SITE_0")) site = 0;
-              if (cellType[u][v][0].equals("SITE_1")) site = 1;
-              if (cellType[u][v][0].equals("SITE_2")) site = 2;
-              
-              if (site != -1 && tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
-                Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
-                session.current.event.add(deploy);
-                inUse[u][v] = true;
+          if (cellType[u][v][0].equals("SITE_0")) site = 0;
+          if (cellType[u][v][0].equals("SITE_1")) site = 1;
+          if (cellType[u][v][0].equals("SITE_2")) site = 2;   
+            
+          // If the cell is currently in use, proceed
+          if (inUse[u][v]) {
+            
+            // If Lego Piece is Removed ...
+            if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) {
+              try {
+                Event remove = new Event("remove", site, siteBuildIndex[u][v]);
+                session.current.event.add(remove);
+                updateProfileCapacities();
+                inUse[u][v] = false;
+              } catch (Exception e) {
+                println("Error Removing A Piece from the Table");
               }
+            }
+  
+          } 
+          
+          // If the cell is currently not in use, proceed
+          else {
+            
+            // If lego id is valid, proceed
+            if (tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
+              
+              // Begin Building the Current Production Facility
+              Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
+              session.current.event.add(deploy);
+              siteBuildIndex[u][v] = agileModel.SITES.get(site).siteBuild.size()-1;
+              println(siteBuildIndex[u][v]);
+              inUse[u][v] = true;
               
             }
-          } 
+          }
         } 
       }
     }
     
+    // Update Profile Information
     updateProfileCapacities();
   }
   
@@ -401,6 +433,14 @@ void fauxPieces(int code, int[][][] pieces, int maxID) {
         pieces[u][v][1] = int(random(0, 4));
       }
     }
+  } 
+}
+
+void testPlace(int[][][] pieces, int u, int v, int id) {
+  if (pieces[u][v][0] == -1) {
+    pieces[u][v][0] = id;
+  } else {
+    pieces[u][v][0] = -1;
   }
 }
 
