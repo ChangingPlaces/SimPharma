@@ -358,3 +358,15 @@ void endTurn() {
   session.execute();
 }
 
+// when given an absolute profile index, returns the active profile index if available
+int activeProfileIndex (int profile) {
+  int index = -1;
+  for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+    if (profile == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX) {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+

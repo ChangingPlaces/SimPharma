@@ -186,7 +186,7 @@ class TableSurface {
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
-          // Select NCE Interface
+          // Draw Interface for Selecting NCE to Zoom In To
           p.fill(255);
           p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
           p.textSize(20);
@@ -197,7 +197,6 @@ class TableSurface {
           p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
           
           
-          //tablePieceInput[5 - MARGIN_W][V-2][0] = 0;
           int limit;
           if (gameMode) {
             limit = agileModel.activeProfiles.size();
@@ -206,7 +205,7 @@ class TableSurface {
           }
           if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
             infoOverlay = true;
-            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+            session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
             p.noStroke();
             p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
             p.noStroke();
