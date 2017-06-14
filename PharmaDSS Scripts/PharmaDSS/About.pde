@@ -114,15 +114,11 @@
   *               - Make sure screen updates when NCE is docked
   *               - Make Sure NCE selects ABSOLUTE Profile, not ORDER of Active Profile
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
+  *               - No longer Remove Profiles From Game Once they Fail
+  *               - Edited Current Turn Indicator; Reveals Future Demand 1-yr out
   */
   
 String VERSION = "BETA V1.0";  
-
-/*
-Nina:
-
-  
-*/
   
  /* TO DO:    
   

@@ -317,8 +317,14 @@ class Profile {
       rect(x + scalerW * i +1, y - barF, scalerW - 1, barF);
 
       // If game is on, only shows actual demand bars for finished turns
-      if (!gameMode || session.current.TURN > i) {
+      if (!gameMode || session.current.TURN + 1 > i) {
+        int alpha;
         fill(agileModel.profileColor[ABSOLUTE_INDEX], 150);
+        
+        // Draws 1-yr future demand lighter
+        if (session.current.TURN == i) {
+          fill(agileModel.profileColor[ABSOLUTE_INDEX], 50);
+        }
         rect(x + scalerW * i + 1, y - barA, scalerW - 1, barA);
       }
 
@@ -344,7 +350,7 @@ class Profile {
         if (i < session.current.TURN) {
           stroke(CAPACITY_COLOR);
         } else {
-          stroke(CAPACITY_COLOR, 50);
+          stroke(CAPACITY_COLOR, 200);
           //          cap = globalCap;
           //          capLast = globalCap;
         }
@@ -359,7 +365,11 @@ class Profile {
 
     // Draw Profile Name and Summary
     // Draw small year axis on last NCE only
-    fill(textColor);
+    if ( (gameMode && timeEnd <= session.current.TURN) || (!gameMode && timeEnd <= NUM_INTERVALS-1)) {
+      fill(#FF0000);
+    } else {
+      fill(textColor);
+    }
     textAlign(LEFT);
     textSize(textSize);
     int Y_SHIFT;
@@ -368,7 +378,7 @@ class Profile {
     } else {
       Y_SHIFT = 28;
     }
-    if (gameMode && timeEnd != session.current.TURN-1 && session.current.TURN != NUM_INTERVALS) {
+    if (gameMode && timeEnd > session.current.TURN ) {
       text(name, x, y + 10 + Y_SHIFT);
     } else {
       text(name + ", " + summary, x, y + 10 + Y_SHIFT);
@@ -383,25 +393,27 @@ class Profile {
     text(int(demandPeak_F/100)/10.0 + agileModel.WEIGHT_UNITS, x + scalerW * (0.5+int(peakTime_F-1)) + 1, y - scalerH * demandProfile.getFloat(1, int(peakTime_F-1)) - 5);
 
     noStroke();
-
+    
+    int markW = 1;
+    
     // Lead Date
     if (timeLead >=0) {
       fill(P3);
-      rect(x + scalerW * timeLead - 3, y - markerH*h, 3, markerH*h);
+      rect(x + scalerW * timeLead - markW, y - markerH*h, markW, markerH*h);
       if (detail) {
         textAlign(CENTER);
-        text("Ph.III", x + scalerW * timeLead - 3, y-markerH*h-5);
+        text("Ph.III", x + scalerW * timeLead - markW, y-markerH*h-5);
       }
     }
 
     // Launch Date
     if (timeLaunch >=0) {
       fill(Launch);
-      rect(x + scalerW * timeLaunch - 3, y - markerH*h, 3, markerH*h);
+      rect(x + scalerW * timeLaunch - markW, y - markerH*h, markW, markerH*h);
       if (detail) {
         textAlign(CENTER);
         fill(textColor);
-        text("Launch", x + scalerW * timeLaunch - 3, y-markerH*h-5);
+        text("Launch", x + scalerW * timeLaunch - markW, y-markerH*h-5);
       }
     }
 
@@ -409,10 +421,10 @@ class Profile {
     if (!gameMode || session.current.TURN > timeEnd) {
       if (timeEnd >=0) {
         fill(END);
-        rect(x + scalerW * timeEnd - 3, y - markerH*h, 3, markerH*h);
+        rect(x + scalerW * timeEnd - markW, y - markerH*h, markW, markerH*h);
         if (detail) {
           textAlign(CENTER);
-          text("End", x + scalerW * timeEnd - 3, y-markerH*h-5);
+          text("End", x + scalerW * timeEnd - markW, y-markerH*h-5);
         }
       }
     }
@@ -435,18 +447,18 @@ class Profile {
       X = x + scalerW * (min(demandProfile.getColumnCount(), session.current.TURN)) - 3;
       fill(NOW);
       if (detail) {
-        rect(X, Y, 4, max(3, barA) );
+        rect(X, y, 4, - max(0.25*h, barA) );
       } else {
         if (session.current.TURN != timeLead) rect(X, Y + h/2, 3, h/2 ); //this is the game moving rectangle
       }
       if (detail) {
-        fill(abs(textColor - 150));
-        rect(X + scalerW/2 + 1, y, 2, 35);
-        fill(textColor, 200);
+        fill(NOW, 100);
+        rect(X + 1, y, 2, 35);
+        fill(NOW);
         textAlign(LEFT);
-        text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X, Y-5);
+        text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X + 5, Y-5);
         textAlign(CENTER);
-        text((agileModel.YEAR_0 + session.current.TURN), X + scalerW/2, y + MARGIN);
+        text((agileModel.YEAR_0 + session.current.TURN), X , y + MARGIN);
       }
     }
 

@@ -138,18 +138,20 @@ class Game {
       }
     }
     
-    // When game is active, only populate profiles that are visibile by 5-yr forecasts
-    for (int i=0; i<agileModel.activeProfiles.size(); i++) {
-      if (agileModel.activeProfiles.get(i).timeEnd + 1 < current.TURN) {
-        
-        // Resets selection to 0 if current profile is being deleted
-        if (selectedProfile == i) selectedProfile = 0;
-        
-        agileModel.activeProfiles.remove(i);
-        
-        // keeps current profile selected if one behind it is removed
-        if (selectedProfile > i) selectedProfile--;
+    // When game is active, only populate profiles that are visibile by 5-yr forecasts on first turn
+    if (current.TURN == 0) {
+      for (int i=0; i<agileModel.activeProfiles.size(); i++) {
+        if (agileModel.activeProfiles.get(i).timeEnd + 1 < current.TURN) {
           
+          // Resets selection to 0 if current profile is being deleted
+          if (selectedProfile == i) selectedProfile = 0;
+          
+          agileModel.activeProfiles.remove(i);
+          
+          // keeps current profile selected if one behind it is removed
+          if (selectedProfile > i) selectedProfile--;
+            
+        }
       }
     }
   }
