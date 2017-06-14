@@ -159,10 +159,10 @@ void drawScreen() {
   outputGraph.draw();
 
   // Draw Pork Chop
-  image(logo_GSK, 1.0*MARGIN, height-MARGIN - 80); 
-  image(logo_MIT, 2.9*MARGIN, height-MARGIN - 5, 1.4*MARGIN, 0.6*MARGIN); 
+  image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
+  image(logo_MIT, 2.9*MARGIN, height-MARGIN - 15, 1.4*MARGIN, 0.6*MARGIN); 
   textAlign(LEFT);
-  text("PharmaDSS \n" + VERSION,  MARGIN, height-0.5*MARGIN - 15);
+  text("PharmaDSS \n" + VERSION,  2.9*MARGIN, height-MARGIN - 40);
   
 }
 
