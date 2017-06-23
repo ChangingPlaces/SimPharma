@@ -48,7 +48,8 @@ boolean readXLS = true;
 int screenWidth, screenHeight;
 
 //String dataLocation = "xls/Agile Network Model v7_XLS.xls";
-String dataLocation = "xls/giovanni-edit/Agile Network Model v7_XLS.xls";
+//String dataLocation = "xls/giovanni-edit1/Agile Network Model v7_XLS.xls";
+String dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
 
 // "setup()" runs once upon executing script
 void setup() {

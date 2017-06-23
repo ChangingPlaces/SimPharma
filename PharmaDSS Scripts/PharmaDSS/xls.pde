@@ -243,12 +243,17 @@ void loadModel_XLS(MFG_System model, String name) {
     
     //Rescale peak NCE values to be within reasonable orders of magnitude of GMS Build Options
     if (!loadOriginal) {
+      
       float mag = 1000*(random(10)+3);
       model.PROFILES.get(i).setPeak(mag);
+      
     } else {
-      int[] ind = {8, 2, 5, 9, 6, 0, 7, 1, 3, 4};
-      float mag = 1000*(ind[i]+3);
-      model.PROFILES.get(i).setPeak(mag);
+      
+    // Randomize Magnitudes to Values Above
+//      int[] ind = {8, 2, 5, 9, 6, 0, 7, 1, 3, 4};
+//      float mag = 1000*(ind[i]+3);
+//      float mag = 1000*(10+3);
+//      model.PROFILES.get(i).setPeak(mag);
       
 //      float pk = model.PROFILES.get(i).demandPeak_F;
 //      model.PROFILES.get(i).setPeak(10.0*pk);
