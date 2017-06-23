@@ -131,6 +131,8 @@ String VERSION = "BETA V1.1";
   
  /* TO DO:    
   
+  *               - Show Clearly How User's Actions are tied to score change in any given turn
+  
   *               - Update Future Capacity for Removed Builds (not just added Builds)
   *               - Add Site "Filler" That decays over time
   *               - Colortizer Integration: Display Construction/Repurpose Status on Table

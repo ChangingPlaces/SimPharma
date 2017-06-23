@@ -64,7 +64,7 @@ void setup() {
     */
     
     // assumes file to be in the data folder, refer to tab "xls.pde"
-    loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
+    loadModel_XLS(agileModel, "xls/Agile Network Model v7_XLS.xls"); 
 
   }
   
