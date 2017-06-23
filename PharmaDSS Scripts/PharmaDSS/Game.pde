@@ -14,7 +14,7 @@ void regenerateGame() {
   // Initiate MFG_System and Objects
   agileModel = new MFG_System();
   //Initiate Game
-  loadModel_XLS(agileModel, "Agile Network Model v7_XLS.xls"); 
+  loadModel_XLS(agileModel, dataLocation);
   
   session = new Game();
   updateProfileCapacities();

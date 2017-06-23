@@ -47,6 +47,9 @@ boolean readXLS = true;
 // dimensions of main canvas, in pixes
 int screenWidth, screenHeight;
 
+//String dataLocation = "xls/Agile Network Model v7_XLS.xls";
+String dataLocation = "xls/giovanni-edit/Agile Network Model v7_XLS.xls";
+
 // "setup()" runs once upon executing script
 void setup() {
   
@@ -64,7 +67,7 @@ void setup() {
     */
     
     // assumes file to be in the data folder, refer to tab "xls.pde"
-    loadModel_XLS(agileModel, "xls/Agile Network Model v7_XLS.xls"); 
+    loadModel_XLS(agileModel, dataLocation);
 
   }
   
