@@ -1,6 +1,6 @@
 var screenWidth = 1280;
 var screenHeight = 800;
-var text = 12;
+var fontSize = 12;
 var MARGIN = 50;
 var profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY, infoX, infoY;
 var profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH, infoW, infoH;
@@ -43,10 +43,8 @@ function setup() {
 
   createCanvas(screenWidth, screenHeight);
   noStroke();
-  background(NOW); //temporary color
-  // background(abs(background - 15));
 
-  textSize(text);
+  textSize(fontSize);
 }
 
 function draw() {
@@ -113,6 +111,11 @@ function drawScreen() {
     lineH     = int(canH*.25);
   }
 
+  //Titles
+  titlesY   = int(2.80*MARGIN);
+  background(abs(backgroundValue - 15));
+  var selected;
+
   noStroke();
 
   // Shadows
@@ -127,15 +130,15 @@ function drawScreen() {
   rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
   rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
 
-  //Titles
-  titlesY   = int(2.80*MARGIN);
-  var selected;
-
   // Draw Title
   fill(textColor);
   textAlign(RIGHT);
-  textSize(textSize);
+  textSize(fontSize);
   text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
-  text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + text);  
-  
+  text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + fontSize);  
+
+  // Draw Build Legend
+  // drawBuilds();
 }
+
+
