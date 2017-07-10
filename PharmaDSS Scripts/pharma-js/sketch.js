@@ -1,12 +1,12 @@
 var screenWidth = 1280;
 var screenHeight = 800;
-var textSize = 12;
+var text = 12;
 var MARGIN = 50;
 var profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY, infoX, infoY;
 var profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH, infoW, infoH;
 var HIGHLIGHT, THEME, GSK_ORANGE, CAPACITY_COLOR, NOW;
 var textColor = 255;
-var background = 50;
+var backgroundValue = 50;
 var BUTTON_OFFSET_H = 40;
 var BUTTON_OFFSET_W = 50;
 
@@ -15,6 +15,11 @@ var displayBuilds = true;
 var displayRadar = true;
 var infoOverlay = false;
 var infoOverride = false;
+
+
+function preload() {
+
+}
 
 function setup() {
   var HIGHLIGHT = color(174, 230, 230);
@@ -38,10 +43,10 @@ function setup() {
 
   createCanvas(screenWidth, screenHeight);
   noStroke();
-  background(NOW);
+  background(NOW); //temporary color
   // background(abs(background - 15));
 
-  textSize(textSize);
+  textSize(text);
 }
 
 function draw() {
@@ -111,13 +116,13 @@ function drawScreen() {
   noStroke();
 
   // Shadows
-  fill(abs(background - 50));
+  fill(abs(backgroundValue - 50));
   rect(0.25*MARGIN + profilesX+5, 2.2*MARGIN+5, profilesW + 1.75*MARGIN, canH, 4);
   rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN+5, width - sitesX - 1.25*MARGIN, canH*.6, 4);
   rect(0.5*MARGIN + sitesX+5, 2.2*MARGIN + 25 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 4);
   
   // Canvas
-  fill(abs(background - 0));
+  fill(abs(backgroundValue - 0));
   rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
   rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
   rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
@@ -131,6 +136,6 @@ function drawScreen() {
   textAlign(RIGHT);
   textSize(textSize);
   text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
-  text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + textSize + 3);  
+  text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + text);  
   
 }
