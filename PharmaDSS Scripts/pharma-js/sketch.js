@@ -1,6 +1,6 @@
 var screenWidth = 1280;
 var screenHeight = 800;
-var fontSize = 12;
+var textSizeValue = 12;
 var MARGIN = 50;
 var profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY, infoX, infoY;
 var profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH, infoW, infoH;
@@ -44,12 +44,11 @@ function setup() {
   createCanvas(screenWidth, screenHeight);
   noStroke();
 
-  textSize(fontSize);
+  textSize(textSizeValue);
 }
 
 function draw() {
   drawScreen();
-  image(logo_MIT, 5, 5, 30, 30);
 }
 
 
@@ -133,12 +132,108 @@ function drawScreen() {
   // Draw Title
   fill(textColor);
   textAlign(RIGHT);
-  textSize(fontSize);
+  textSize(textSizeValue);
   text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
-  text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + fontSize);  
+  text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + textSizeValue);  
 
+  // Draw Profiles
+  // if (!gameMode) {
+  //   drawProfiles(agileModel.PROFILES);
+  // } else {
+  //   drawProfiles(agileModel.activeProfiles);
+  // }
+ 
+  // Draw Sites
+  fill(textColor);
+  textAlign(LEFT);
+  textSize(max(18, textSizeValue));
+  text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
+  // if (NUM_OUTPUTS < 5) {
+  //   text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
+  // }
+  if (!displayRadar) {
+    text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+  } else {
+    text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+  }
+  
+  textSize(min(16, textSizeValue));
+  // NCEClicks.clear();
+  // for (var i=0; i<NUM_SITES; i++) {
+  //   selected = false;
+  //   if (i == session.selectedSite) selected = true;
+  //   agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
+  // }
+   
+  // Line Graph and Outputs
+  // outputGraph = new LineGraph(outputs, lineX, lineY, lineW, lineH);
+  
   // Draw Build Legend
-  // drawBuilds();
+  drawBuilds();
+  
+  //Draw Selected Profile in Large Format
+  // try {
+  //   if (!gameMode) {
+  //     drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
+  //   } else {
+  //     drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+  //   }
+  // } catch (Exception e) {
+  //   println("Could not execute drawLargeProfile() in drawScreen()");
+  // }
+  
+  // Draw Radar Plot
+  if (displayRadar) {
+    // kpi.draw(radarX, radarY, radarH);
+  }
+  // outputGraph.draw();
+
+  // Draw Pork Chop
+  image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
+  image(logo_MIT, 2.9*MARGIN, height-MARGIN - 15, 1.4*MARGIN, 0.6*MARGIN); 
+  textAlign(LEFT);
+  text("PharmaDSS \n" + VERSION,  2.9*MARGIN, height-MARGIN - 40);
 }
 
 
+function drawBuilds() {
+  var selected;
+  var spread = 3.0;
+  
+  // Draw GMS Build Options
+  // for (var i=0; i<agileModel.GMS_BUILDS.size(); i++) {
+  //   selected = false;
+  //   if (i == session.selectedBuild) selected = true;
+  //   if (!displayRadar) agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
+  // }
+  
+  // Draw Personnel Legend
+  var vOff = -50;
+  fill(textColor);
+  textAlign(LEFT);
+  //      text("Personnel:", titlesY, MARGIN);
+  for (var i=0; i<NUM_LABOR; i++) {
+    if (i==0) {
+      fill("#CC0000");
+    } else if (i==1) {
+      fill("#00CC00");
+    } else if (i==2) {
+      fill("#0000CC");
+    } else if (i==3) {
+      fill("#CCCC00");
+    } else if (i==4) {
+      fill("#CC00CC");
+    } else {
+      fill("#00CCCC");
+    }
+    
+    var xOff = 0;
+    if (i > 2) {
+      xOff = 100;
+    }
+    
+    ellipse(sitesX + xOff + 1.0*MARGIN - 5, 15*(i%3) - 4 + MARGIN, 3, 10);
+    fill(textColor);
+    // text(agileModel.LABOR_TYPES.getString(i,0), sitesX + 10 + xOff + 1.0*MARGIN - 5, 15*(i%3) + MARGIN);
+  }
+}
