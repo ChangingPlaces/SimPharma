@@ -1,33 +1,34 @@
-var outputs;
+ArrayList<var[]]> outputs;
+
 var NUM_OUTPUTS = 5;
 
-var outputNames = [
+var[] outputNames = {
   "Capital\nExpenses",
   "Cost of\nGoods",
   "Operating\nExpenses",
   "Demand\nMet",
   "Security\nof Supply"
-];
+};
 
-var outputMax = [
+var[] outputMax = {
   250000000.0,
     2000000.0,
    20000000.0,
           1.0,
           1.0
-];
+};
 
-var outputUnits = [
+var[] outputUnits = {
   "mil GBP",
   "mil GBP",
   "mil GBP",
   "%",
   "%"
-];
+};
 
 function initOutputs() {
   for (var i=0; i<NUM_OUTPUTS; i++) {
-    outputs = [];
+    outputs = new ArrayList<var[]>();
   }
 }
 
@@ -63,9 +64,9 @@ function calcOutputs(turn) {
 function randomOutputs() {
   outputs.clear();
   
-  var o;
+  var[] o;
   for (var i=0; i<NUM_INTERVALS; i++) {
-    o = [];
+    o = new float[NUM_OUTPUTS];
     for(var j=0; j<NUM_OUTPUTS; j++) {
       o[j] = 0.9/(j+1) * (i+1)/20.0 + random(-0.1, 0.1);
     }
@@ -83,9 +84,9 @@ function randomOutputs() {
 function flatOutputs() {
   outputs.clear();
   
-  var o;
+  var[] o;
   for (var i=0; i<NUM_INTERVALS; i++) {
-    o = [];
+    o = new float[NUM_OUTPUTS];
     for(var j=0; j<NUM_OUTPUTS; j++) {
       o[j] = 1.0;
     }
@@ -103,7 +104,7 @@ function flatOutputs() {
 // Returns the capital expenses for the current turn
 function calcCAPEX() {
   var expenses = 0.0;
-  var current;
+  Build current;
   for (var i=0; i<agileModel.SITES.size(); i++) {
     for (var j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
@@ -119,7 +120,7 @@ function calcCAPEX() {
 // Returns the Operating Expenses for the current turn
 function calcOPEX() {
   var expenses = 0.0;
-  var current;
+  Build current;
   for (var i=0; i<agileModel.SITES.size(); i++) {
     for (var j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
@@ -136,8 +137,8 @@ function calcOPEX() {
 // Returns the cost of goods for the current turn
 function calcCOGs() {
   var expenses = 0.0;
-  var current;
-  var nce;
+  Build current;
+  Profile nce;
   for (var i=0; i<agileModel.SITES.size(); i++) {
     for (var j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
@@ -203,10 +204,10 @@ function calcSecurity() {
   // Ideal %Capacity Available in Network
   var IDEAL_NETWORK_BUFFER = 0.2;
   
-  var siteCapacity;
+  var[] siteCapacity;
   var totalCapacity, numBackup, bufferSupply;
   var scoreCount;
-  var current;
+  Build current;
   
   // If Demand Exists; NCE's Score Counts toward Total
   scoreCount = 0;
