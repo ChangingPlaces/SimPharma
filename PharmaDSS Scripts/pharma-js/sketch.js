@@ -1,22 +1,24 @@
-var screenWidth = 1280;
-var screenHeight = 800;
-var textSizeValue = 12;
-var MARGIN = 50;
+var screenWidth;
+var screenHeight;
+var textSizeValue;
+var MARGIN;
+var main;
 var profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY, infoX, infoY;
 var profilesW, profilesH, buildsW, buildsH, sitesW, sitesH, radarH, lineW, lineH, infoW, infoH;
 var HIGHLIGHT, THEME, GSK_ORANGE, CAPACITY_COLOR, NOW, END;
-var textColor = 255;
-var backgroundValue = 50;
-var BUTTON_OFFSET_H = 40;
-var BUTTON_OFFSET_W = 50;
-var dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
+var textColor;
+var backgroundValue;
+var BUTTON_OFFSET_H;
+var BUTTON_OFFSET_W;
+var dataLocation;
 
-var displayBuilds = true;
-var displayRadar = true;
-var infoOverlay = false;
-var infoOverride = false;
+var displayBuilds;
+var displayRadar;
+var infoOverlay;
+var infoOverride;
 
-
+var mainMenu, hideMenu;
+var showMainMenu;
 
 
 function preload() {
@@ -25,12 +27,30 @@ function preload() {
 }
 
 function setup() {
-  var HIGHLIGHT = color(174, 230, 230);
-  var THEME = color(255, 108,47);
-  var GSK_ORANGE = color(255, 108,47);
-  var CAPACITY_COLOR = color(200, 95, 224); 
-  var NOW = color(255, 220, 4);
-  var END = color(249, 60, 60);
+  screenWidth = 1280;
+  screenHeight = 800;
+  textSizeValue = 12;
+  MARGIN = 50;
+
+  textColor = 255;
+  backgroundValue = 50;
+  BUTTON_OFFSET_H = 40;
+  BUTTON_OFFSET_W = 50;
+
+  dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
+  showMainMenu = true;
+
+  displayBuilds = true;
+  displayRadar = true;
+  infoOverlay = false;
+  infoOverride = false;
+
+  HIGHLIGHT = color(174, 230, 230);
+  THEME = color(255, 108,47);
+  GSK_ORANGE = color(255, 108,47);
+  CAPACITY_COLOR = color(200, 95, 224); 
+  NOW = color(255, 220, 4);
+  END = color(249, 60, 60);
 
   // Initiate MFG_System and Objects
   agileModel = new MFG_System();
@@ -63,7 +83,7 @@ function setup() {
   //  );
   
   // Loads and formats menue items
-  loadMenu(width, height);
+  // loadMenu(width, height);
 
 
 
@@ -80,7 +100,7 @@ function setup() {
   logo_GSK = loadImage("data/GSK-logo-2014.png");
   logo_MIT = loadImage("data/MIT_logo_BW.png");
 
-  var main = loadFont("data/Arial.ttf");
+  main = loadFont("data/Arial.ttf");
   textFont(main);
 
   createCanvas(screenWidth, screenHeight);
@@ -94,13 +114,13 @@ function setup() {
 
 
 
-  initOutputs();
+  // initOutputs();
   // setupRadar();
   
   // flatOutputs();
   // setupTable();
 
-  initUDP();
+  // initUDP();
 }
 
 function draw() {
@@ -129,7 +149,7 @@ function draw() {
   // Draws Menu
   // hideMenu.draw();
   // if (showMainMenu) {
-  //   mainMenu.draw();
+    // mainMenu.draw();
   // }
   
   // if(!gameMode){
@@ -157,7 +177,7 @@ function loadMenu(canvasWidth, canvasHeight) {
   //   hideText = show;
   // }
   // hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
-  // mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
+  mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
   // mainMenu.buttons[13].isVoid = !gameMode;

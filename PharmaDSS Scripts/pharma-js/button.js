@@ -1,16 +1,5 @@
-var mainMenu, hideMenu;
-
-// Global Text and Background Color
-var textColor = 255;
-var backgroundValue = 50;
-var BUTTON_OFFSET_H = 40;
-var BUTTON_OFFSET_W = 50;
-
 // Menu Alignment on Screen
 var align = "LEFT";
-
-// Set this to true to display the main menue upon start
-var showMainMenu = true;
 
 // Define how many buttons are in the Main Menu and 
 // what they are named by editing this String array:
@@ -319,7 +308,7 @@ function Button(x, y, w, h, label) {
       }
       p.rect(x, y, w, h, 5);
       p.fill(255);
-      p.textSize(min(textSize-1, 13));
+      p.textSize(min(textSizeValue-1, 13));
       p.textAlign(CENTER);
       p.text(label, x + (w/2), y + 0.6*h); 
     }
@@ -355,14 +344,15 @@ function Menu(w, h, x, y, vOffset, names, align) {
   this.align = align;
   this.x = x;
   this.y = y;
-    
+
   // distance in pixels from corner of screen
   var marginH = BUTTON_OFFSET_H;
   var marginW = BUTTON_OFFSET_W;
-    
+        console.log("menu");
+
   canvas = createGraphics(w, h);
   // #Buttons defined by Name String Array Length
-  buttons = new Array(this.names.length);
+  buttons = new Button[this.names.length];
     
   // Initializes the button objects
   for (var i=0; i<buttons.length; i++) {
