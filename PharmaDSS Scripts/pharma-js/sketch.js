@@ -17,7 +17,10 @@ var infoOverlay = false;
 var infoOverride = false;
 
 
+
+
 function preload() {
+
 
 }
 
@@ -51,7 +54,7 @@ function setup() {
   
   // Recalculates relative positions of canvas items if screen is resized
   // frame.addComponentListener(new ComponentAdapter() { 
-  //    public void componentResized(ComponentEvent e) { 
+  //    function componentResized(e) { 
   //      if(e.getSource()==frame) { 
   //        loadMenu(width, height);
   //      } 
@@ -60,7 +63,7 @@ function setup() {
   //  );
   
   // Loads and formats menue items
-  // loadMenu(width, height);
+  loadMenu(width, height);
 
 
 
@@ -133,7 +136,7 @@ function draw() {
   //   game_message = " ";
   // }
 
- gameText();
+ // gameText();
   
  noLoop();
 }
@@ -145,8 +148,8 @@ function mouseMoved() {
 }
 
 function loadMenu(canvasWidth, canvasHeight) {
-  // // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
-  // // number of buttons to offset downward, String[] names of buttons)
+  // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
+  // number of buttons to offset downward, String[] names of buttons)
   // var hideText;
   // if (showMainMenu) {
   //   hideText = hide;
@@ -156,7 +159,7 @@ function loadMenu(canvasWidth, canvasHeight) {
   // hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
   // mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
   
-  // // Hides "End Turn" and "next Profile" button unless game is active
+  // Hides "End Turn" and "next Profile" button unless game is active
   // mainMenu.buttons[13].isVoid = !gameMode;
   // mainMenu.buttons[9].isVoid = !gameMode;
   // mainMenu.buttons[10].isVoid = !gameMode;
@@ -165,7 +168,7 @@ function loadMenu(canvasWidth, canvasHeight) {
 
 function gameText(){
   textAlign(LEFT);
-  fill(END);
+  fill(249, 60, 60);
   textSize(textSizeValue+ 2);
   text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
 }
