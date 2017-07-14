@@ -69,22 +69,8 @@ function setup() {
   // updateProfileCapacities();
     
   // Setup for Canvas Visualization
-  // setupDemo(DEMO);
   createCanvas(screenWidth, screenHeight, P2D);
-  
-  // Window may be resized after initialized
-  // frame.setResizable(true);
-  
-  // Recalculates relative positions of canvas items if screen is resized
-  // frame.addComponentListener(new ComponentAdapter() { 
-  //    function componentResized(e) { 
-  //      if(e.getSource()==frame) { 
-  //        loadMenu(width, height);
-  //      } 
-  //    } 
-  //  }
-  //  );
-  
+
   // Loads and formats menue items
   loadMenu(screenWidth, screenHeight);
 
@@ -149,14 +135,14 @@ function draw() {
   // drawTable();
   
   // Draws Menu
-  // hideMenu.draw();
+  hideMenu.draw();
   if (showMainMenu) {
     mainMenu.draw();
   }
   
-  // if(!gameMode){
-  //   game_message = " ";
-  // }
+  if(!gameMode){
+    game_message = " ";
+  }
 
   gameText();
   
@@ -182,15 +168,15 @@ function loadMenu(canvasWidth, canvasHeight) {
   mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*0.13), 160), 25, 2, buttonNames, align);
 
   // Hides "End Turn" and "next Profile" button unless game is active
-  // mainMenu.buttons[13].isVoid = !gameMode;
-  // mainMenu.buttons[9].isVoid = !gameMode;
-  // mainMenu.buttons[10].isVoid = !gameMode;
-  // mainMenu.buttons[11].isVoid = !gameMode;
+  mainMenu.buttons[13].isVoid = !gameMode;
+  mainMenu.buttons[9].isVoid = !gameMode;
+  mainMenu.buttons[10].isVoid = !gameMode;
+  mainMenu.buttons[11].isVoid = !gameMode;
 }
 
 function gameText(){
   textAlign(LEFT);
   fill(249, 60, 60);
   textSize(textSizeValue+ 2);
-  // text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
+  text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
 }

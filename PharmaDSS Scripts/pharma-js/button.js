@@ -24,6 +24,15 @@
 // These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
 var hide = ["Hide Main Menu (h)"];
 var show = ["Show Main Menu (h)"];
+// Button Array Associated with this Menu
+var buttons;
+var canvas;
+var active; // lightest
+var hover;
+var pressed; // darkest
+
+var isPressed;
+var isVoid;
 
 // The result of each button click is defined here
 function mouseClicked() {
@@ -173,25 +182,25 @@ function toggleMainMenu() {
   } else {
     hideMenu.buttons[0].label = show[0];
   }
-  println("showMainMenu = " + showMainMenu);
+  print("showMainMenu = " + showMainMenu);
 }
 
 function alignLeft() {
   align = "LEFT";
   loadMenu(width, height);
-  println(align);
+  print(align);
 }
 
 function alignRight() {
   align = "RIGHT";
   loadMenu(width, height);
-  println(align);
+  print(align);
 }
 
 function alignCenter() {
   align = "CENTER";
   loadMenu(width, height);
-  println(align);
+  print(align);
 }
 
 function invertColors() {
@@ -204,7 +213,7 @@ function invertColors() {
     textColor = 255;
     HIGHLIGHT = color(174, 240, 240);
   }
-  println ("background: " + backgroundValue + ", textColor: " + textColor);
+  print("background: " + backgroundValue + ", textColor: " + textColor);
 }
 
 // Toggle God Mode vs. Game Mode
@@ -228,12 +237,12 @@ function toggleGame() {
     mainMenu.buttons[11].isVoid = false;
   }
   
-  println("gameMode: " + gameMode);
+  print("gameMode: " + gameMode);
 }
 
 function toggleProjection() {
   toggle2DProjection();
-  println("displayProjection2D = " + displayProjection2D);
+  print("displayProjection2D = " + displayProjection2D);
 }
 
 function pressButton(bool, button) {
@@ -263,16 +272,16 @@ function toggle(bool) {
   }
 }
 
-
+ 
 
 function Button(x, y, w, h, label){
   // Various Shades of button states (0-255)
-  var active = 180; // lightest
-  var hover = 120;
-  var pressed = 120; // darkest
+  active = 180; // lightest
+  hover = 120;
+  pressed = 120; // darkest
   
-  var isPressed = false;
-  var isVoid = false;
+  isPressed = false;
+  isVoid = false;
   
   this.x = x;
   this.y = y;
@@ -308,12 +317,8 @@ function Button(x, y, w, h, label){
   }
 }
 
-function Menu(w, h, x, y, vOffset, names, align){
-  // Button Array Associated with this Menu
-  var buttons;
-  // Graphics Object to Draw this Menu
-  var canvas;
 
+function Menu(w, h, x, y, vOffset, names, align){
   this.names = names;
   this.w = w;
   this.h = h;
@@ -328,32 +333,32 @@ function Menu(w, h, x, y, vOffset, names, align){
   
   canvas = createGraphics(w, h);
   // #Buttons defined by Name String Array Length
-  buttons = new Array(this.names.length);
+  this.buttons = new Array(this.names.length);
 
   // Initializes the button objects
-  for (var i=0; i<buttons.length; i++) {
+  for (var i=0; i<this.buttons.length; i++) {
     if ( this.align == "right" || this.align == "RIGHT" ) {
       // Right Align
-      buttons[i] = new Button(this.w - this.x - marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
+      this.buttons[i] = new Button(this.w - this.x - marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
     } else if ( this.align == "left" || this.align == "LEFT" ) { 
       // Left Align
-      buttons[i] = new Button(marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, names[i]);
+      this.buttons[i] = new Button(marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, names[i]);
     } else if ( this.align == "center" || this.align == "CENTER" ) { 
       // Center Align
-      buttons[i] = new Button( (this.w-this.x)/2, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
+      this.buttons[i] = new Button( (this.w-this.x)/2, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
     }
     
     // Alows a menu button spacer to be added by setting its string value to "VOID"
     if (this.names[i] == "void" || this.names[i] == "VOID" ) {
-      buttons[i].isVoid = true;
+      this.buttons[i].isVoid = true;
     }
   }
   
   // Draws the Menu to its own PGraphics canvas
   this.draw = function() {
     canvas.clear();
-    for (var i=0; i<buttons.length; i++) {
-      buttons[i].draw(canvas);
+    for (var i=0; i<this.buttons.length; i++) {
+      this.buttons[i].draw(canvas);
     }  
     image(canvas, 0, 0);
   }
@@ -362,7 +367,7 @@ function Menu(w, h, x, y, vOffset, names, align){
 function checkSelections() {
   var numProfiles;
   if (!gameMode) {
-    numProfiles = agileModel.PROFILES.size();
+    numProfiles = agileModel.PROFILES.length;
       for(var i =0; i<numProfiles; i++){
         if(mouseX <= agileModel.PROFILES.get(i).xClick + agileModel.PROFILES.get(i).wClick && mouseX >= agileModel.PROFILES.get(i).xClick 
         && mouseY <= agileModel.PROFILES.get(i).yClick + agileModel.PROFILES.get(i).hClick && mouseY >= agileModel.PROFILES.get(i).yClick){
@@ -370,7 +375,7 @@ function checkSelections() {
         }
       }
   } else {
-    numProfiles = agileModel.activeProfiles.size();
+    numProfiles = agileModel.activeProfiles.length;
     
     for(var i =0; i<numProfiles; i++){
         if(mouseX <= agileModel.activeProfiles.get(i).xClick + agileModel.activeProfiles.get(i).wClick && mouseX >= agileModel.activeProfiles.get(i).xClick 
@@ -378,14 +383,14 @@ function checkSelections() {
             session.setProfile(i);} 
     }
        
-    for(var j = 0; j<NCEClicks.size(); j++){
+    for(var j = 0; j<NCEClicks.length; j++){
       var NCEClickX = NCEClicks.get(j)[0];
       var NCEClickY = NCEClicks.get(j)[1];
       var NCEClickWidth = NCEClicks.get(j)[2];
       var NCEClickHeight = NCEClicks.get(j)[3];  
         if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
           session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
-            for(var i = 0; i<agileModel.activeProfiles.size(); i++){
+            for(var i = 0; i<agileModel.activeProfiles.length; i++){
                 if (NCEClicks.get(j)[5] == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX){
                     session.selectedProfile = int(i);
                 }
@@ -414,7 +419,7 @@ function checkSelections() {
     }
       
    if(!gameMode){
-     for(var j = 0; j<NCEClicks.size(); j++){
+     for(var j = 0; j<NCEClicks.length; j++){
             var NCEClickX = NCEClicks.get(j)[0];
             var NCEClickY = NCEClicks.get(j)[1];
             var NCEClickWidth = NCEClicks.get(j)[2];

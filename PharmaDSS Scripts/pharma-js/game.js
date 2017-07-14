@@ -46,7 +46,7 @@ function Game() {
   var selectedSite = 0;
   var selectedSiteBuild = 0;
   var selectedBuild = 0;
-  var turnLog = new ArrayList<Turn>();
+  var turnLog = new Array();
   tableHistory.clear();
   
   // Only adds profiles with 5 years advance forecast
@@ -297,7 +297,7 @@ function deploySelection() {
     var deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
     session.current.event.add(deploy);
     
-  } catch (Exception e) {
+  } catch (e) {
     println("deploySelection() failed to execute");
   }
   updateProfileCapacities();
