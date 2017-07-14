@@ -149,14 +149,14 @@ function draw() {
   // drawTable();
   
   // Draws Menu
-  hideMenu.draw();
+  // hideMenu.draw();
   if (showMainMenu) {
     mainMenu.draw();
   }
   
-  if(!gameMode){
-    game_message = " ";
-  }
+  // if(!gameMode){
+  //   game_message = " ";
+  // }
 
   gameText();
   
@@ -178,33 +178,9 @@ function loadMenu(canvasWidth, canvasHeight) {
     hideText = "show";
   }
 
-  align = LEFT;
-  buttonNames = [
-    "Load Random Data (SH+R)",  // 0
-    "Load XLS Data (SH+X)",  // 1
-    "Play Game (g)",  // 2
-    "VOID",  // 3
-    "Toggle Profile (p)",    // 4
-    "Toggle Site (s)",  // 5
-    "Toggle Existing Build (SH+S)", //6
-    "Toggle New Build (b)",  // 7
-    "VOID",  // 8
-    "Deploy Selection (d)",  // 9
-    "Remove Selection (r)",  // 10
-    "Repurpose Selection (e)",  // 11
-    "VOID",  // 12
-    "End Turn (SPACE)",    // 13
-    "VOID",  // 14
-    "VOID",  // 15
-    "Show Score Radar (z)",  // 16
-    "Invert Colors (i)", // 17
-    "Project Table (`)", // 18
-  ];
-  this.canvasWidth = canvasWidth;
-  this.canvasHeight = canvasHeight;
   hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
   mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*0.13), 160), 25, 2, buttonNames, align);
-  
+
   // Hides "End Turn" and "next Profile" button unless game is active
   // mainMenu.buttons[13].isVoid = !gameMode;
   // mainMenu.buttons[9].isVoid = !gameMode;

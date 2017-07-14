@@ -91,17 +91,17 @@ function drawScreen() {
   
   textSize(min(16, textSizeValue));
   // NCEClicks.clear();
-  for (var i=0; i<NUM_SITES; i++) {
-    selected = false;
+  // for (var i=0; i<NUM_SITES; i++) {
+  //   selected = false;
     // if (i == session.selectedSite) selected = true;
     // agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
-  }
+  // }
    
   // Line Graph and Outputs
   // outputGraph = new LineGraph(outputs, lineX, lineY, lineW, lineH);
   
   // Draw Build Legend
-  drawBuilds();
+  // drawBuilds();
   
   //Draw Selected Profile in Large Format
   // try {
@@ -115,9 +115,9 @@ function drawScreen() {
   // }
   
   // Draw Radar Plot
-  if (displayRadar) {
+  // if (displayRadar) {
     // kpi.draw(radarX, radarY, radarH);
-  }
+  // }
   // outputGraph.draw();
 
   // Draw Pork Chop
@@ -128,44 +128,44 @@ function drawScreen() {
 }
 
 
-function drawBuilds() {
-  var selected;
-  var spread = 3.0;
+// function drawBuilds() {
+//   var selected;
+//   var spread = 3.0;
   
-  // Draw GMS Build Options
-  // for (var i=0; i<agileModel.GMS_BUILDS.size(); i++) {
-  //   selected = false;
-  //   if (i == session.selectedBuild) selected = true;
-  //   if (!displayRadar) agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
-  // }
+//   // Draw GMS Build Options
+//   // for (var i=0; i<agileModel.GMS_BUILDS.size(); i++) {
+//   //   selected = false;
+//   //   if (i == session.selectedBuild) selected = true;
+//   //   if (!displayRadar) agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
+//   // }
   
-  // Draw Personnel Legend
-  var vOff = -50;
-  fill(textColor);
-  textAlign(LEFT);
-  //      text("Personnel:", titlesY, MARGIN);
-  for (var i=0; i<NUM_LABOR; i++) {
-    if (i==0) {
-      fill("#CC0000");
-    } else if (i==1) {
-      fill("#00CC00");
-    } else if (i==2) {
-      fill("#0000CC");
-    } else if (i==3) {
-      fill("#CCCC00");
-    } else if (i==4) {
-      fill("#CC00CC");
-    } else {
-      fill("#00CCCC");
-    }
+//   // Draw Personnel Legend
+//   var vOff = -50;
+//   fill(textColor);
+//   textAlign(LEFT);
+//   //      text("Personnel:", titlesY, MARGIN);
+//   for (var i=0; i<NUM_LABOR; i++) {
+//     if (i==0) {
+//       fill("#CC0000");
+//     } else if (i==1) {
+//       fill("#00CC00");
+//     } else if (i==2) {
+//       fill("#0000CC");
+//     } else if (i==3) {
+//       fill("#CCCC00");
+//     } else if (i==4) {
+//       fill("#CC00CC");
+//     } else {
+//       fill("#00CCCC");
+//     }
     
-    var xOff = 0;
-    if (i > 2) {
-      xOff = 100;
-    }
+//     var xOff = 0;
+//     if (i > 2) {
+//       xOff = 100;
+//     }
     
-    ellipse(sitesX + xOff + 1.0*MARGIN - 5, 15*(i%3) - 4 + MARGIN, 3, 10);
-    fill(textColor);
-    // text(agileModel.LABOR_TYPES.getString(i,0), sitesX + 10 + xOff + 1.0*MARGIN - 5, 15*(i%3) + MARGIN);
-  }
-}
+//     ellipse(sitesX + xOff + 1.0*MARGIN - 5, 15*(i%3) - 4 + MARGIN, 3, 10);
+//     fill(textColor);
+//     // text(agileModel.LABOR_TYPES.getString(i,0), sitesX + 10 + xOff + 1.0*MARGIN - 5, 15*(i%3) + MARGIN);
+//   }
+// }
