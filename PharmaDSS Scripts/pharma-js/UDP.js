@@ -1,9 +1,9 @@
 var U_MAX = 18;
 var V_MAX = 22;
 var ID_MAX = 15;
-// var tablePieceInput[][][] = new int[U_MAX][V_MAX][2];
+var tablePieceInput = new createArray(U_MAX,V_MAX,2);
 // Arraylist for storing table input values for each previous turns
-var tableHistory;
+var tableHistory = new Array();
 var portIN = 6152;
 // import hypermedia.net.*;
 var udp;  // define the UDP object
@@ -11,6 +11,17 @@ var connection = false;
 var busyImporting = false;
 var changeDetected = false;
 var outputReady = false;
+
+function createArray(length) {
+  var arr = new Array(length || 0);
+  var i = length;
+
+  if (arguments.length > 1) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    while(i--) arr[i] = createArray.apply(this, args);
+  }        
+  return arr;
+}
 
 function initInputData() {
   for (var u=0; u<U_MAX; u++) {
