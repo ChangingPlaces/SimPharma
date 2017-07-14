@@ -19,7 +19,10 @@ var infoOverride;
 
 var mainMenu, hideMenu;
 var showMainMenu;
-
+var hideText;
+var buttonNames;
+var align;
+var marginH, marginW;
 
 function preload() {
 
@@ -83,7 +86,7 @@ function setup() {
   //  );
   
   // Loads and formats menue items
-  // loadMenu(width, height);
+  loadMenu(screenWidth, screenHeight);
 
 
 
@@ -103,7 +106,6 @@ function setup() {
   main = loadFont("data/Arial.ttf");
   textFont(main);
 
-  createCanvas(screenWidth, screenHeight);
   noStroke();
 
   textSize(textSizeValue);
@@ -147,18 +149,18 @@ function draw() {
   // drawTable();
   
   // Draws Menu
-  // hideMenu.draw();
-  // if (showMainMenu) {
-    // mainMenu.draw();
-  // }
+  hideMenu.draw();
+  if (showMainMenu) {
+    mainMenu.draw();
+  }
   
-  // if(!gameMode){
-  //   game_message = " ";
-  // }
+  if(!gameMode){
+    game_message = " ";
+  }
 
- // gameText();
+  gameText();
   
- noLoop();
+  noLoop();
 }
 
 
@@ -170,14 +172,38 @@ function mouseMoved() {
 function loadMenu(canvasWidth, canvasHeight) {
   // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
   // number of buttons to offset downward, String[] names of buttons)
-  // var hideText;
-  // if (showMainMenu) {
-  //   hideText = hide;
-  // } else {
-  //   hideText = show;
-  // }
-  // hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
-  mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
+  if (showMainMenu) {
+    hideText = "hide";
+  } else {
+    hideText = "show";
+  }
+
+  align = LEFT;
+  buttonNames = [
+    "Load Random Data (SH+R)",  // 0
+    "Load XLS Data (SH+X)",  // 1
+    "Play Game (g)",  // 2
+    "VOID",  // 3
+    "Toggle Profile (p)",    // 4
+    "Toggle Site (s)",  // 5
+    "Toggle Existing Build (SH+S)", //6
+    "Toggle New Build (b)",  // 7
+    "VOID",  // 8
+    "Deploy Selection (d)",  // 9
+    "Remove Selection (r)",  // 10
+    "Repurpose Selection (e)",  // 11
+    "VOID",  // 12
+    "End Turn (SPACE)",    // 13
+    "VOID",  // 14
+    "VOID",  // 15
+    "Show Score Radar (z)",  // 16
+    "Invert Colors (i)", // 17
+    "Project Table (`)", // 18
+  ];
+  this.canvasWidth = canvasWidth;
+  this.canvasHeight = canvasHeight;
+  hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
+  mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*0.13), 160), 25, 2, buttonNames, align);
   
   // Hides "End Turn" and "next Profile" button unless game is active
   // mainMenu.buttons[13].isVoid = !gameMode;
@@ -190,5 +216,5 @@ function gameText(){
   textAlign(LEFT);
   fill(249, 60, 60);
   textSize(textSizeValue+ 2);
-  text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
+  // text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
 }
