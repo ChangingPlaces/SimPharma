@@ -16,6 +16,7 @@ var agileModel;
 
 var displayBuilds;
 var displayRadar;
+var outputGraph;
 var infoOverlay;
 var infoOverride;
 
@@ -106,7 +107,7 @@ function setup() {
 
 
 
-  // initOutputs();
+  initOutputs();
   // setupRadar();
   
   // flatOutputs();

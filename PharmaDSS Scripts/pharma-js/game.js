@@ -51,7 +51,8 @@ function Game() {
   
   // Only adds profiles with 5 years advance forecast
   agileModel.activeProfiles = new Array();
-  populateProfiles();
+  console.log(agileModel.PROFILES);  
+  Game.populateProfiles();
   
   // Clear all user-defined builds from each site
   resetSites();
@@ -105,9 +106,12 @@ function Game() {
     selectedProfile = index;
   }
 
+    
+}
+
 
   // Only adds profiles with 5 years advance forecast
-  this.populateProfiles = function() {
+  Game.populateProfiles = function() {
     
     // When not in game mode, all profiles are viewed in their entirety (i.e. Omnipotent mode..)
     for (var i=0; i<agileModel.PROFILES.length; i++) {
@@ -135,8 +139,6 @@ function Game() {
       }
     }
   }
-    
-}
 
 // A class that holds information about events executed during each turn
 function Turn(TURN){

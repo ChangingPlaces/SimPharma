@@ -99,7 +99,7 @@ function mouseClicked() {
     toggleProjection();
   }
   
-  checkSelections();
+  // checkSelections();
   
   loop();
 }

@@ -45,7 +45,7 @@ var PROFILE_SHEET = 0;
 var PROFILE_ROW = 0; 
 var PROFILE_COL = 0;
 var NUM_PROFILES = 10;
-var NUM_varERVALS = 20;
+var NUM_INTERVALS = 20;
     
 // // the xls reader object
 var reader;         

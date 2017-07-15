@@ -1,4 +1,7 @@
 function drawScreen() {
+
+  textSize(textSizeValue);
+
   //Profile
   profilesX = int(0.18*width);
   profilesY = int(0.21*height);
@@ -80,9 +83,9 @@ function drawScreen() {
   textAlign(LEFT);
   textSize(max(18, textSizeValue));
   text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
-  // if (NUM_OUTPUTS < 5) {
-  //   text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
-  // }
+  if (NUM_OUTPUTS < 5) {
+    text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
+  }
   if (!displayRadar) {
     text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
   } else {
@@ -91,28 +94,28 @@ function drawScreen() {
   
   textSize(min(16, textSizeValue));
   // NCEClicks.clear();
-  // for (var i=0; i<NUM_SITES; i++) {
-  //   selected = false;
+  for (var i=0; i<NUM_SITES; i++) {
+    selected = false;
     // if (i == session.selectedSite) selected = true;
     // agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
-  // }
+  }
    
   // Line Graph and Outputs
   // outputGraph = new LineGraph(outputs, lineX, lineY, lineW, lineH);
   
   // Draw Build Legend
-  // drawBuilds();
+  drawBuilds();
   
   //Draw Selected Profile in Large Format
-  // try {
-  //   if (!gameMode) {
-  //     drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
-  //   } else {
-  //     drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
-  //   }
-  // } catch (Exception e) {
-  //   println("Could not execute drawLargeProfile() in drawScreen()");
-  // }
+  try {
+    if (!gameMode) {
+      drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
+    } else {
+      drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+    }
+  } catch (e) {
+    print("Could not execute drawLargeProfile() in drawScreen()");
+  }
   
   // Draw Radar Plot
   // if (displayRadar) {
@@ -128,44 +131,69 @@ function drawScreen() {
 }
 
 
-// function drawBuilds() {
-//   var selected;
-//   var spread = 3.0;
+function drawBuilds() {
+  var selected;
+  var spread = 3.0;
   
-//   // Draw GMS Build Options
-//   // for (var i=0; i<agileModel.GMS_BUILDS.size(); i++) {
-//   //   selected = false;
-//   //   if (i == session.selectedBuild) selected = true;
-//   //   if (!displayRadar) agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
-//   // }
+  // Draw Personnel Legend
+  var vOff = -50;
+  fill(textColor);
+  textAlign(LEFT);
+  //      text("Personnel:", titlesY, MARGIN);
+  for (var i=0; i<NUM_LABOR; i++) {
+    if (i==0) {
+      fill("#CC0000");
+    } else if (i==1) {
+      fill("#00CC00");
+    } else if (i==2) {
+      fill("#0000CC");
+    } else if (i==3) {
+      fill("#CCCC00");
+    } else if (i==4) {
+      fill("#CC00CC");
+    } else {
+      fill("#00CCCC");
+    }
+    
+    var xOff = 0;
+    if (i > 2) {
+      xOff = 100;
+    }
+    
+    ellipse(sitesX + xOff + 1.0*MARGIN - 5, 15*(i%3) - 4 + MARGIN, 3, 10);
+    fill(textColor);
+    // text(agileModel.LABOR_TYPES.getString(i,0), sitesX + 10 + xOff + 1.0*MARGIN - 5, 15*(i%3) + MARGIN);
+  }
+}
+
+function drawInfoOverlay() {
+  stroke(backgroundValue);
+  strokeWeight(1);
+  fill(textColor, 100);
   
-//   // Draw Personnel Legend
-//   var vOff = -50;
-//   fill(textColor);
-//   textAlign(LEFT);
-//   //      text("Personnel:", titlesY, MARGIN);
-//   for (var i=0; i<NUM_LABOR; i++) {
-//     if (i==0) {
-//       fill("#CC0000");
-//     } else if (i==1) {
-//       fill("#00CC00");
-//     } else if (i==2) {
-//       fill("#0000CC");
-//     } else if (i==3) {
-//       fill("#CCCC00");
-//     } else if (i==4) {
-//       fill("#CC00CC");
-//     } else {
-//       fill("#00CCCC");
-//     }
+  rect(infoX, infoY, infoW, infoH, 10);
+  fill(backgroundValue);
+  rect(infoX + 20, infoY + 20, infoW - 40, infoH - 40, 10);
+  
+  try {
+    //Draw Selected Profile in Large Format
+    if (!gameMode) {
+      drawInfoProfile(agileModel.PROFILES.get(session.selectedProfile));
+    } else {
+      drawInfoProfile(agileModel.activeProfiles.get(session.selectedProfile));
+    }
     
-//     var xOff = 0;
-//     if (i > 2) {
-//       xOff = 100;
-//     }
-    
-//     ellipse(sitesX + xOff + 1.0*MARGIN - 5, 15*(i%3) - 4 + MARGIN, 3, 10);
-//     fill(textColor);
-//     // text(agileModel.LABOR_TYPES.getString(i,0), sitesX + 10 + xOff + 1.0*MARGIN - 5, 15*(i%3) + MARGIN);
-//   }
-// }
+  } catch(e) {
+    print("Could not execute drawInfoOverlay() in drawScreen()");
+  }
+  
+  fill(textColor);
+  for (var i=0; i<NUM_SITES; i++) {
+    try {
+      text("Site " + i + ", Cost of Goods: " + agileModel.activeProfiles.get(session.selectedProfile).productionCost.get(i), 
+        infoX + 180 + MARGIN, infoY + 80 + 30*i);
+    } catch(e) {
+      
+    }
+  }
+}

@@ -27,12 +27,11 @@ var outputUnits = [
 
 function initOutputs() {
   for (var i=0; i<NUM_OUTPUTS; i++) {
-    outputs = [];
+    outputs = new Array();
   }
 }
 
 function calcOutputs(turn) {
-  
   if (outputs.get(turn).length > 0) {
     // Capital Expenditures
     outputs.get(turn)[0] = calcCAPEX();
@@ -61,19 +60,19 @@ function calcOutputs(turn) {
 }
 
 function randomOutputs() {
-  outputs.clear();
+  outputs = new Array();
   
   var o;
   for (var i=0; i<NUM_INTERVALS; i++) {
-    o = [];
+    o = new Array();
     for(var j=0; j<NUM_OUTPUTS; j++) {
       o[j] = 0.9/(j+1) * (i+1)/20.0 + random(-0.1, 0.1);
     }
-    outputs.add(o);
+    outputs.push(o);
   }
   
   // Set KPI Radar to Last Available Output array
-  o = outputs.get(outputs.size() - 1);
+  o = outputs.get(outputs.length - 1);
   
   for (var i=0; i<NUM_OUTPUTS; i++) {
     kpi.setScore(i, o[i]);
@@ -81,19 +80,19 @@ function randomOutputs() {
 }
 
 function flatOutputs() {
-  outputs.clear();
+  outputs = new Array();
   
   var o;
   for (var i=0; i<NUM_INTERVALS; i++) {
-    o = [];
+    o = new Array();
     for(var j=0; j<NUM_OUTPUTS; j++) {
       o[j] = 1.0;
     }
-    outputs.add(o);
+    outputs.push(o);
   }
   
   // Set KPI Radar to Last Available Output array
-  o = outputs.get(outputs.size() - 1);
+  o = outputs.get(outputs.length - 1);
   
   for (var i=0; i<NUM_OUTPUTS; i++) {
     kpi.setScore(i, o[i]);
@@ -104,8 +103,8 @@ function flatOutputs() {
 function calcCAPEX() {
   var expenses = 0.0;
   var current;
-  for (var i=0; i<agileModel.SITES.size(); i++) {
-    for (var j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+  for (var i=0; i<agileModel.SITES.length; i++) {
+    for (var j=0; j<agileModel.SITES.get(i).siteBuild.length; j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
       if (!current.capEx_Logged) { // Ensures capital cost for build is only counted once
         expenses += current.buildCost;
@@ -120,11 +119,11 @@ function calcCAPEX() {
 function calcOPEX() {
   var expenses = 0.0;
   var current;
-  for (var i=0; i<agileModel.SITES.size(); i++) {
-    for (var j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+  for (var i=0; i<agileModel.SITES.length; i++) {
+    for (var j=0; j<agileModel.SITES.get(i).siteBuild.length; j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
       if (current.built) {
-        for (var l=0; l<current.labor.size(); l++) {
+        for (var l=0; l<current.labor.length; l++) {
           expenses += current.labor.get(l).cost;
         }
       }
@@ -138,8 +137,8 @@ function calcCOGs() {
   var expenses = 0.0;
   var current;
   var nce;
-  for (var i=0; i<agileModel.SITES.size(); i++) {
-    for (var j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+  for (var i=0; i<agileModel.SITES.length; i++) {
+    for (var j=0; j<agileModel.SITES.get(i).siteBuild.length; j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
       nce = agileModel.PROFILES.get(current.PROFILE_INDEX);
       if (current.built) {
@@ -161,7 +160,7 @@ function calcDemandMeetAbility() {
   
   percent = 0.0;
   
-  for (var i=0; i<agileModel.activeProfiles.size(); i++) {
+  for (var i=0; i<agileModel.activeProfiles.length; i++) {
     
     profileCapacity = agileModel.activeProfiles.get(i).globalProductionLimit;
     profileActualDemand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
@@ -212,15 +211,15 @@ function calcSecurity() {
   scoreCount = 0;
   
   // Cycles through Each NCE
-  for (var i=0; i<agileModel.activeProfiles.size(); i++) {
+  for (var i=0; i<agileModel.activeProfiles.length; i++) {
 
     numBackup = 0.0;
     
     // Calculates NCE Capacity at each site;
-    siteCapacity = new float[agileModel.SITES.size()];
-    for (var s=0; s<agileModel.SITES.size(); s++) {
+    siteCapacity = new float[agileModel.SITES.length];
+    for (var s=0; s<agileModel.SITES.length; s++) {
       siteCapacity[s] = 0.0;
-      for (var b=0; b<agileModel.SITES.get(s).siteBuild.size(); b++) {
+      for (var b=0; b<agileModel.SITES.get(s).siteBuild.length; b++) {
         current = agileModel.SITES.get(s).siteBuild.get(b);
         if (current.PROFILE_INDEX == agileModel.activeProfiles.get(i).ABSOLUTE_INDEX) {
           siteCapacity[s] += current.capacity;
@@ -231,7 +230,7 @@ function calcSecurity() {
     
     // Calculates Total NCE Capacity
     totalCapacity = 0.0;
-    for (var s=0; s<agileModel.SITES.size(); s++) {
+    for (var s=0; s<agileModel.SITES.length; s++) {
       totalCapacity += siteCapacity[s];
     }
     
@@ -244,12 +243,12 @@ function calcSecurity() {
       scoreCount ++;
     
       // Determines how many "backup" sites there are
-      if (agileModel.SITES.size() == 1) {
+      if (agileModel.SITES.length == 1) {
         // Scores Perfect if only one site
         numBackup = 1.0;
       } else {
         // assigns "1" if capacity exists at site
-        for (var s=0; s<agileModel.SITES.size(); s++) {
+        for (var s=0; s<agileModel.SITES.length; s++) {
           if (siteCapacity[s] > 0.0) {
             numBackup += 1.0;
           }
@@ -257,9 +256,9 @@ function calcSecurity() {
       }
       
       // normalizes balance/backup to a score 0.0 - 1.0;
-      if (agileModel.SITES.size() > 1) {
+      if (agileModel.SITES.length > 1) {
         numBackup -= 1.0; // Eliminates effect of first site
-        numBackup /= (agileModel.SITES.size() - 1);
+        numBackup /= (agileModel.SITES.length - 1);
         if (numBackup < 0.0) numBackup = 0.0;
       }
       
