@@ -45,7 +45,7 @@ function LineGraph(_Values, _x, _y, _w, _h) {
         }
         
         for(var j = 0; j<intervals; j++) {
-           posx  = j*(w/Values.length + minx;         
+           posx  = j*(w/Values.length) + minx;         
            posy = map(100*Values.get(j)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
           
            posx2  = posx + (w/Values.length);
@@ -110,9 +110,9 @@ function LineGraph(_Values, _x, _y, _w, _h) {
     for(var i = 0; i<Values.length+1; i++) {
       var curyear = 2017+i;
       strokeWeight(1);
-      line(minx + i*(w/Values.length, miny + 2, minx + i*(w/Values.length, miny-2);
+      line(minx + i*(w/Values.length), miny + 2, minx + i*(w/Values.length), miny-2);
       if(i % 5 == 0) {
-      text(curyear, i*(w/Values.length + minx, miny + textSize + 2);
+      text(curyear, i*(w/Values.length) + minx, miny + textSize + 2);
       }
     }
     
