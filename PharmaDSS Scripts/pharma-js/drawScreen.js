@@ -114,7 +114,7 @@ function drawScreen() {
       drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
     }
   } catch (e) {
-    print("Could not execute drawLargeProfile() in drawScreen()");
+    // print("Could not execute drawLargeProfile() in drawScreen()");
   }
   
   // Draw Radar Plot
