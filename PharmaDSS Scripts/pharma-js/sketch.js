@@ -27,6 +27,11 @@ var buttonNames;
 var align;
 var marginH, marginW;
 
+var RG;
+var Launch;
+var P3;
+
+
 function preload() {
 
 
@@ -58,6 +63,10 @@ function setup() {
   CAPACITY_COLOR = color(200, 95, 224); 
   NOW = color(255, 220, 4);
   END = color(249, 60, 60);
+
+  RG = color(0);
+  Launch = color(64, 100, 209);
+  P3 = color(61, 164, 72);
 
   // Initiate MFG_System and Objects
   agileModel = new MFG_System();

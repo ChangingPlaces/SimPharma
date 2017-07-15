@@ -61,11 +61,11 @@ function RadarPlot(num) {
       for (var i=0; i<nRadar; i++) {
         
         //Draws axes
-        stroke(#999999);
+        stroke("#999999");
         line(x, y, d*cos(rot+i*2*PI/nRadar) + x, d*sin(rot+i*2*PI/nRadar) + y);
         
         //Determine color
-        color RG = color(0);
+        
           
         //draw fills
         noStroke();
