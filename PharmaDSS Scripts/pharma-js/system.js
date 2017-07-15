@@ -23,17 +23,17 @@ var LEAD_TIME = 5;
 function MFG_System() {
   LABOR_TYPES = new p5.Table();
   // The possible Universe/Reality of Profiles
-  PROFILES = [];
+  PROFILES = new Array();
   // Only the Profiles Visible/Used during a game situation
-  activeProfiles = [];
-  SITES = [];
-  GMS_BUILDS = [];
-  RND_BUILDS = [];
+  activeProfiles = new Array();
+  SITES = new Array();
+  GMS_BUILDS = new Array();
+  RND_BUILDS = new Array();
 
   this.generateColors = function() {
     colorMode(HSB);
     
-    profileColor = new color[PROFILES.size()];
+    profileColor = new color[PROFILES.length];
     var hue;
     for (var i=0; i<profileColor.length; i++) {
       hue = i * 200.0 / profileColor.length;
@@ -53,7 +53,7 @@ function MFG_System() {
     maxCap = 0;
     for (var i=0; i<NUM_SITES; i++) { // Calculate maximum site capacity value
       // current = agileModel.SITES.get(i).capEx + SITES.get(i).capGn;
-      // if ( current > agileModel.maxCap ) maxCap = current;
+      if ( current > agileModel.maxCap ) maxCap = current;
     }
     return maxCap;
   }

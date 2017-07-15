@@ -11,6 +11,8 @@ var backgroundValue;
 var BUTTON_OFFSET_H;
 var BUTTON_OFFSET_W;
 var dataLocation;
+var readXLS;
+var agileModel;
 
 var displayBuilds;
 var displayRadar;
@@ -40,7 +42,8 @@ function setup() {
   BUTTON_OFFSET_H = 40;
   BUTTON_OFFSET_W = 50;
 
-  dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
+  dataLocation = "data/Agile Network Model v7_XLS.xls";
+  readXLS = true;
   showMainMenu = true;
 
   displayBuilds = true;
@@ -59,13 +62,14 @@ function setup() {
   agileModel = new MFG_System();
   
   // Load Model XLS
-  // if (readXLS) {
-  //   loadModel_XLS(agileModel, dataLocation);
-  // }
+  if (readXLS) {
+    // loadModel_XLS(agileModel, dataLocation);
+  }
+
   agileModel.maxCapacity();
   
   //Initiate Game
-  // session = new Game();
+  // var session = new Game();
   // updateProfileCapacities();
     
   // Setup for Canvas Visualization

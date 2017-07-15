@@ -1,7 +1,7 @@
 var U_MAX = 18;
 var V_MAX = 22;
 var ID_MAX = 15;
-var tablePieceInput = new createArray(U_MAX,V_MAX,2);
+var tablePieceInput = new Array(U_MAX).fill(new Array(V_MAX).fill(new Array(2)));
 // Arraylist for storing table input values for each previous turns
 var tableHistory = new Array();
 var portIN = 6152;
@@ -11,17 +11,6 @@ var connection = false;
 var busyImporting = false;
 var changeDetected = false;
 var outputReady = false;
-
-function createArray(length) {
-  var arr = new Array(length || 0);
-  var i = length;
-
-  if (arguments.length > 1) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    while(i--) arr[i] = createArray.apply(this, args);
-  }        
-  return arr;
-}
 
 function initInputData() {
   for (var u=0; u<U_MAX; u++) {
@@ -33,12 +22,12 @@ function initInputData() {
 }
 
 function initUDP() {
-  // udp = new UDP( this, portIN );
-  //udp.log( true );     // <-- printout the connection activity
-  // udp.listen( true );
+  udp = new UDP( this, portIN );
+  // udp.log( true );     // <-- printout the connection activity
+  udp.listen( true );
   
   // Initialize tablePieceInput
-  // initInputData();
+  initInputData();
 }
 
 function ImportData(inputStr) {
@@ -97,7 +86,7 @@ function parseColortizerStrings(data) {
   }
 }
 
-function receive( data, ip, port ) {  // <-- extended handler
+function receive(data, ip, port) {  // <-- extended handler
   // get the "real" message =
   var message = new String( data );
   //println("catch!");

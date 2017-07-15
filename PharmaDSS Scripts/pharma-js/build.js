@@ -42,18 +42,6 @@ function Build(name, capacity, buildCost, buildTime, repurpCost, repurpTime, lab
   }
 
   this.draw = function(p, x, y, w, h, type, selected) {
-
-   // Draw Build Selection Box
-   if (selected) {
-     p.fill(HIGHLIGHT, 40);
-     //stroke(HIGHLIGHT, 80);
-     //strokeWeight(1);
-
-     p.noStroke();     
-     p.rect(x - 15, y - h - 7, w + 40, h+32, 5);
-     p.noStroke();
-   }
-
     // Draw Build Characteristics
     var scaler = 3;
     p.noStroke();    
@@ -88,7 +76,6 @@ function Build(name, capacity, buildCost, buildTime, repurpCost, repurpTime, lab
   }
   
   this.draw = function(x, y, w, h, type, selected) {
-
     // Draw Build Characteristics
     var scaler = 3;
     textAlign(LEFT);
