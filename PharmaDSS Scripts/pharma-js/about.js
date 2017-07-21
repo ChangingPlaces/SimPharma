@@ -1,1 +1,0 @@
-var VERSION = "BETA V1.1";
