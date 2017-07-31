@@ -115,7 +115,14 @@ void mouseClicked() {
     toggleProjection();
   }
   
-  checkSelections();
+  if (testProjectorOnMac && mfg.mouseInGrid()) {
+    // Add piece to table virtually
+    mfg.addMousePiece(session.selectedProfile);
+    decodePieces();
+  } else {
+    // Allow Onscreen Slection of Profiles, Sites, etc
+    checkSelections();
+  }
   
   loop();
 }

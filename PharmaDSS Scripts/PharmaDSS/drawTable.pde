@@ -38,6 +38,8 @@ void drawTable() {
     fill(textColor, 100);
     rect((width - int(0.85*height) ) / 2, (height - int(0.85*height) ) / 2, int(0.85*height), int(0.85*height), 10);
     image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
+    
+    mfg.mouseToGrid((width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
   }
 }
 
@@ -57,6 +59,7 @@ void generateBasins() {
 class TableSurface {
 
   int U, V;
+  int gridMouseU, gridMouseV;
   float cellW, cellH;
   
   String[][][] cellType;
@@ -85,6 +88,51 @@ class TableSurface {
     
     resetCellTypes();
     
+  }
+  
+  // Converts screen-based mouse coordinates to table grid position represented on screen during "Screen Mode"
+  PVector mouseToGrid(int mouseX_0, int mouseY_0, int mouseW, int mouseH) {
+    PVector grid = new PVector();
+    boolean valid = true;
+    
+    grid.x = float(mouseX - mouseX_0) / mouseW * U;
+    grid.y = float(mouseY - mouseY_0) / mouseH * V;
+    
+    if (grid.x >=MARGIN_W && grid.x < U) {
+      gridMouseU = int(grid.x);
+    } else {
+      valid = false;
+    }
+    
+    if (grid.y >=0 && grid.y < V) {
+      gridMouseV = int(grid.y);
+    } else {
+      valid = false;
+    }
+    
+    if (!valid) {
+      gridMouseU = -1;
+      gridMouseV = -1;
+    }
+    
+    return grid;
+  }
+  
+  boolean mouseInGrid() {
+    if (gridMouseU == -1 || gridMouseV == -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
+  // add/remove a particular ID to a particular square
+  void addMousePiece(int ID) {
+    if (tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] == -1) {
+      tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = ID;
+    } else {
+      tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = -1;
+    }
   }
   
   void resetCellTypes() {
@@ -256,10 +304,17 @@ class TableSurface {
         }
       }
     }
-
+    
     // Draw Black Edge around 4x22 left margin area
     if (LEFT_MARGIN) {
+      p.noFill(); p.stroke(0); p.strokeWeight(3);
       p.rect(0, 0, MARGIN_W*cellW, p.height);
+    }
+    
+    // Draw Mouse-based Cursor for Grid Selection
+    if (gridMouseU != -1 && gridMouseV != -1) {
+      p.fill(255, 50); p.noStroke();
+      p.rect(gridMouseU*cellW, gridMouseV*cellH, cellW, cellH);
     }
     
     // Draw logo_GSK, logo_MIT
