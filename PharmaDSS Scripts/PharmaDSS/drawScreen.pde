@@ -149,7 +149,7 @@ void drawScreen() {
       drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
     }
   } catch (Exception e) {
-    println("Could not execute drawLargeProfile() in drawScreen()");
+    println("Could not execute drawLargeProfile() in drawScreen() for selected profile ID " + session.selectedProfile);
   }
   
   // Draw Radar Plot

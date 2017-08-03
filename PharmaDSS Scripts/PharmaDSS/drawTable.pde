@@ -260,49 +260,43 @@ class TableSurface {
 
           }
           
-          // Draw black edges where Lego grad gaps are
+          // Draw black edges where Lego grid gaps are
           p.noFill();
           p.stroke(0);
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
-          // Draw Interface for Selecting NCE to Zoom In To
-          p.fill(255);
-          p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
-          p.textSize(20);
-          p.textAlign(RIGHT);
-          p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
-          p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
-          p.fill(0);
-          p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-          
-          
-//          int limit;
-//          if (gameMode) {
-//            limit = agileModel.activeProfiles.size();
-//          } else {
-//            limit = NUM_PROFILES;
-//          }
-          
-          if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
-            infoOverlay = true;
-            if (gameMode) {
-              session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
-            } else {
-              session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
-            }
-            p.noStroke();
-            p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
-            p.noStroke();
-            p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-            p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
-          } else {
-            infoOverlay = false;
-          }
-          
           p.noFill();
         }
       }
+    }
+    
+    // Draw Interface for Selecting NCE to Zoom In To
+    p.fill(255);
+    p.noStroke();
+    p.strokeWeight(1);
+    p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
+    p.textSize(20);
+    p.textAlign(RIGHT);
+    p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
+    p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
+    p.fill(0);
+    p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+          
+    if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+      infoOverlay = true;
+      if (gameMode) {
+        session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
+      } else {
+        session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+      }
+      p.noStroke();
+      p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
+      p.noStroke();
+      p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+      p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
+    } else {
+      infoOverlay = false;
     }
     
     // Draw Black Edge around 4x22 left margin area

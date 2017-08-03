@@ -168,7 +168,7 @@ void draw() {
   }
   gameText();
   
-  if (debug) fill(255); text("Framerate: " + frameRate, 400, 50);
+  if (debug) fill(255); text("Framerate: " + frameRate, 50, 25);
   
   if(!debug) noLoop();
 }

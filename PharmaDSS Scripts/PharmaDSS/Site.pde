@@ -68,8 +68,6 @@ class Site {
     float siteBound = map(capGn+capEx,0, maxCapSites, 0, sitesH/3);
     float siteStart = picH + sitesY;
     
-    println(siteBound, siteStart);
-    
     fill(255);
     
     // Draw Site Selection
