@@ -132,6 +132,7 @@ String VERSION = "BETA V1.1";
  /* TO DO:        
    
   *               - Improve Framerates Drastically!
+  *               - Allow Click when mouse dragged
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)

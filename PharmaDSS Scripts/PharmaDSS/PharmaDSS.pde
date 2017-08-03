@@ -51,6 +51,9 @@ int screenWidth, screenHeight;
 //String dataLocation = "xls/giovanni-edit1/Agile Network Model v7_XLS.xls";
 String dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
 
+// Information for Debugging
+boolean debug = true;
+
 // "setup()" runs once upon executing script
 void setup() {
   
@@ -127,7 +130,9 @@ int textSize = 12;
 String game_message = " ";
 
 void draw() {
-
+  
+  if (debug) background(0);
+  
   textSize = min(12,int(width/100));
  
   // Decode Lego pieces only if there is a change in Colortizer input
@@ -161,10 +166,11 @@ void draw() {
   if(!gameMode){
     game_message = " ";
   }
-
- gameText();
+  gameText();
   
- noLoop();
+  if (debug) fill(255); text("Framerate: " + frameRate, 400, 50);
+  
+  if(!debug) noLoop();
 }
 
 // Refreshes when there's a mouse mouse movement

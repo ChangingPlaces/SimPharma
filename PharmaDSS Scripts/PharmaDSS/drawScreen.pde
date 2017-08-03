@@ -143,11 +143,11 @@ void drawScreen() {
   
   //Draw Selected Profile in Large Format
   try {
-  if (!gameMode) {
-    drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
-  } else {
-    drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
-  }
+    if (!gameMode) {
+      drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
+    } else {
+      drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
+    }
   } catch (Exception e) {
     println("Could not execute drawLargeProfile() in drawScreen()");
   }
