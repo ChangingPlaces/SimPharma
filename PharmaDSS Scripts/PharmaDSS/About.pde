@@ -130,7 +130,10 @@
 String VERSION = "BETA V1.1";  
   
  /* TO DO:        
-                  - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
+   
+  *               - Improve Framerates Drastically!
+  
+  *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
   *               - Show Clearly How User's Actions are tied to score change in any given turn.
   
