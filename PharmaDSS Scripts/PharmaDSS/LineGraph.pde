@@ -58,11 +58,11 @@ class LineGraph{
            
           //set colors with the appropriate profile
           fill(colarray[i]);
-          strokeWeight(3);
-          stroke(colarray[i], 150);
-           
+          noStroke();
           int dim = 2;
           ellipse(posx2, posy2, dim, dim);
+          stroke(colarray[i], 150);
+          strokeWeight(3);
           line(posx, posy, posx2, posy2);
            
           //if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == Values.size()-2) ){
@@ -79,18 +79,20 @@ class LineGraph{
       
         //special start and end case to begin the line from the axis
         //unsure why this isn't picking up
-        if (!gameMode || session.current.TURN >= 0) {          
-          fill(colarray[i]);
-          strokeWeight(2);
-          stroke(colarray[i], 150);
+        if (!gameMode || session.current.TURN >= 0) {   
           posx  = minx; 
           posy = map(100*Values.get(0)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
           posx2  = posx + (w/Values.size());
           posy2 = map(100*Values.get(1)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
           int dim = 2;
           if (session.current.TURN == 1) dim = 4;
+            fill(colarray[i]);
+            noStroke();
             ellipse(posx, posy, dim, dim);
           if (!gameMode || session.current.TURN > 1) {
+            fill(colarray[i]);
+            strokeWeight(3);
+            stroke(colarray[i], 150);
             line(posx, posy, posx2, posy2);
           }
         }

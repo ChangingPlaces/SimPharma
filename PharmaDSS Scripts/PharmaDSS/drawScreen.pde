@@ -156,6 +156,8 @@ void drawScreen() {
   if (displayRadar) {
     kpi.draw(radarX, radarY, radarH);
   }
+  
+  // Draw Graph of Outputs
   outputGraph.draw();
 
   // Draw Pork Chop
