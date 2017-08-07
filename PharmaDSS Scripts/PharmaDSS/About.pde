@@ -128,12 +128,12 @@
   *               - Allow Click when mouse dragged
   *               - Update Button Animation
   *               - Refactored Buttons for easy updating
+  *               - Bug Fix: Deploy correct NCE when clicking table in game mode
   */
   
 String VERSION = "BETA V1.1";  
   
  /* TO DO:        
-  *               - Bug Fix: Select correct profile index when clicking in game mode
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events

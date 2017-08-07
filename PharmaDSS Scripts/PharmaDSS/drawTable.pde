@@ -191,12 +191,23 @@ class TableSurface {
               Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
               session.current.event.add(deploy);
               siteBuildIndex[u][v] = agileModel.SITES.get(site).siteBuild.size()-1;
-              println(siteBuildIndex[u][v]);
               inUse[u][v] = true;
               
             }
           }
         } 
+        
+        if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+          infoOverlay = true;
+          if (gameMode) {
+            session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
+          } else {
+            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+          }
+        } else {
+          infoOverlay = false;
+        }
+        
       }
     }
     
@@ -283,20 +294,13 @@ class TableSurface {
     p.fill(0);
     p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
           
+    // Draw NCE in Filter Dock
     if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
-      infoOverlay = true;
-      if (gameMode) {
-        session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
-      } else {
-        session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
-      }
       p.noStroke();
       p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
       p.noStroke();
       p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
       p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
-    } else {
-      infoOverlay = false;
     }
     
     // Draw Black Edge around 4x22 left margin area

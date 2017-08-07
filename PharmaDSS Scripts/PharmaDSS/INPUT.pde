@@ -115,6 +115,23 @@ void keyPressed() {
       key_space();
       break;
       
+    // Debugging (no formal buttons)
+    case 'X':
+      // Randomize pieces just for debugging....
+      fauxPieces(3, tablePieceInput, 15);
+      // testPlace(tablePieceInput, u, v, ID)
+      //testPlace(tablePieceInput, 2, 8, 0);
+      changeDetected = true;
+      break;
+    case 'P':
+      // Toggle InfoOverlay
+      if (infoOverride) {
+        infoOverride = false;
+      } else {
+        infoOverride = true;
+      }
+      break;
+      
   }
   
   if (key == CODED) {
@@ -143,7 +160,14 @@ void mousePressed() {
   
   if (testProjectorOnMac && mfg.mouseInGrid()) {
     // Add piece to table virtually (Must run BEFORE Main Menu Button Implementation)
-    mfg.addMousePiece(session.selectedProfile);
+    int ID;
+    if (gameMode) {
+      ID = agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX;
+      //println(ID);
+    } else {
+      ID = session.selectedProfile;
+    }
+    mfg.addMousePiece(ID);
     decodePieces();
   } else {
     // Allow Onscreen Slection of Profiles, Sites, etc
