@@ -124,10 +124,10 @@
   *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
   *               - Only use radar for normalized values
   *
-  * BETA V1.2:    - Improved Framerates Drastically!
-  *               - Allow Click when mouse dragged
-  *               - Update Button Animation
-  *               - Refactored Buttons for easy updating
+  * BETA V1.2:    - Bug Fix: Improved Framerates Drastically!
+  *               - New Feature: Allow Click when mouse dragged
+  *               - New Feature: Update Button Animation
+  *               - Refactoring:  Menu + Buttons for easy updating
   *               - Bug Fix: Deploy correct NCE when clicking table in game mode
   */
   
