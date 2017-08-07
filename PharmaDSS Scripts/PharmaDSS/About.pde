@@ -124,15 +124,16 @@
   *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
   *               - Only use radar for normalized values
   *
-  * BETA V1.2:    - TBA
+  * BETA V1.2:    - Improved Framerates Drastically!
+  *               - 
   */
   
 String VERSION = "BETA V1.1";  
   
  /* TO DO:        
-   
-  *               - Improve Framerates Drastically!
   *               - Allow Click when mouse dragged
+  *               - Update Button Animation
+  *               - Refactored Buttons for easy updating
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
