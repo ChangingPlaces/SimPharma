@@ -1,7 +1,4 @@
-/* ButtonDemo is a script that shows the basic framework for implementing, aligning, and hiding buttons in Processing.
- * It was largely written by Nina Lutz for AgentDemo, but was extracted in it's simplest for by Ira Winder
- * MIT Media Lab, March 2016
- */
+// Main Tab for enabling user interface elements such as buttons, key presses, and mouse clicks
 
 // Class that holds a button menu
 Menu mainMenu, hideMenu;
@@ -9,7 +6,7 @@ Menu mainMenu, hideMenu;
 // Global Text and Background Color
 int textColor = 255;
 int background = 50;
-int BUTTON_OFFSET_H = 40;
+int BUTTON_OFFSET_H = 45;
 int BUTTON_OFFSET_W = 50;
 
 // Menu Alignment on Screen
@@ -18,105 +15,134 @@ String align = "LEFT";
 // Set this to true to display the main menue upon start
 boolean showMainMenu = true;
 
-// Define how many buttons are in the Main Menu and 
+// Define/Arrange how many buttons are in the Main Menu and 
 // what they are named by editing this String array:
-String[] buttonNames = 
-{
-  "Load Random Data (SH+R)",  // 0
-  "Load XLS Data (SH+X)",  // 1
-  "Play Game (g)",  // 2
-  "VOID",  // 3
-  "Toggle Profile (p)",    // 4
-  "Toggle Site (s)",  // 5
-  "Toggle Existing Build (SH+S)", //6
-  "Toggle New Build (b)",  // 7
-  "VOID",  // 8
-  "Deploy Selection (d)",  // 9
-  "Remove Selection (r)",  // 10
-  "Repurpose Selection (e)",  // 11
-  "VOID",  // 12
-  "End Turn (SPACE)",    // 13
-  "VOID",  // 14
-  "VOID",  // 15
-  "Show Score Radar (z)",  // 16
-  "Invert Colors (i)", // 17
-  "Project Table (`)", // 18
-  
-  
+// [0] Name; [1] Abbreviated name
+String[][] buttonNames = 
+{ 
+  { "Load Random Data", "q" },
+  { "Load XLS Data", "x" },
+  { "Play Game", "g" },
+  { "VOID", "" },
+  { "Toggle Profile", "p" },
+  { "Toggle Site", "s" },
+  { "Toggle Existing Build", "u" },
+  { "Toggle New Build", "b" },
+  { "VOID", "" },
+  { "Deploy Selection", "d" },
+  { "Remove Selection", "r" },
+  { "Repurpose Selection", "e" },
+  { "VOID", "" },
+  { "End Turn", "SPACE" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "Show Score Radar", "z" },
+  { "Invert Colors", "i" },
+  { "Project Table", "`" }
 };
 
-// These Strings are for the hideMenu, formatted as arrays for Menu Class Constructor
-String[] hide = {"Hide Main Menu (h)"};
-String[] show = {"Show Main Menu (h)"};
+// Hash Map of Button Names where Key is key-command and Value is buttonNames[] index
+HashMap<String, Integer> bHash;
+
+// This Strings is for the hideMenu, formatted as array for Menu Class Constructor
+String[][] show = { {"Show Main Menu", "h"} };
+
+void loadMenu(int canvasWidth, int canvasHeight) {
+  // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
+  // number of buttons to offset downward, String[] names of buttons)
+  String[][] hideText = show;
+  hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
+  mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
+  
+  // Hash Map of Button Names where Key is key-command and Value is buttonNames[] index
+  bHash = hashButtons(buttonNames);
+  
+  hideMenu.buttons[0].isPressed = showMainMenu;
+  
+  // Hides certain buttons unless game is active
+  mainMenu.buttons[ bHash.get("g") ].isPressed = gameMode;
+  mainMenu.buttons[ bHash.get("SPACE") ].isVoid = !gameMode;
+  mainMenu.buttons[ bHash.get("d") ].isVoid = !gameMode;
+  mainMenu.buttons[ bHash.get("r") ].isVoid = !gameMode;
+  mainMenu.buttons[ bHash.get("e") ].isVoid = !gameMode;
+}
+
+void keyPressed() {
+  switch(key) {
+    case 'h': 
+      key_h();
+      break;
+    case 'q': 
+      key_q();
+      break;
+    case 'x': 
+      key_x();
+      break;
+    case 'g': 
+      key_g();
+      break;
+    case 'p': 
+      key_p();
+      break;
+    case 's': 
+      key_s();
+      break;
+    case 'u': 
+      key_u();
+      break;
+    case 'b': 
+      key_b();
+      break;
+    case 'd': 
+      key_d();
+      break;
+    case 'r': 
+      key_r();
+      break;
+    case 'e': 
+      key_e();
+      break;
+    case 'z': 
+      key_z();
+      break;
+    case 'i': 
+      key_i();
+      break;
+    case '`': 
+      key_tilde();
+      break;
+    case ' ': 
+      key_space();
+      break;
+      
+  }
+  
+  if (key == CODED) {
+    if (keyCode == UP) {
+      key_up();
+    }
+    
+    if (keyCode == DOWN) {
+      key_down();
+    }
+    
+    if (keyCode == LEFT) {
+      key_left();
+    }
+    
+    if (keyCode == RIGHT) {
+      key_right();
+    }
+  }
+  
+  loop();
+}
 
 // The result of each button click is defined here
-void mouseClicked() {
-  
-  //Hide/Show Menu
-  if(hideMenu.buttons[0].over()){  
-    toggleMainMenu();
-  }
-  
-  if(mainMenu.buttons[0].over()){ 
-    loadOriginal = false;
-    regenerateGame();
-  }
-  
-  if(mainMenu.buttons[1].over()){ 
-    loadOriginal = true;
-    regenerateGame();
-  }
-  
-  if(mainMenu.buttons[2].over()){ 
-    toggleGame();
-  }
-  
-  if(mainMenu.buttons[4].over()){ 
-    nextProfile();
-  }
-  
-  if(mainMenu.buttons[5].over()){ 
-    nextSite();
-  }
-  
-  if(mainMenu.buttons[6].over()){ 
-    nextSiteBuild();
-  }
-  
-  if(mainMenu.buttons[7].over()){ 
-    nextBuild();
-  }
-  
-  if(mainMenu.buttons[9].over()){ 
-    deploySelection();
-  }
-  
-  if(mainMenu.buttons[10].over()){ 
-    removeSelection();
-  }
-  
-  if(mainMenu.buttons[11].over()){ 
-    repurposeSelection();
-  }
-  
-  if(mainMenu.buttons[13].over()){ 
-    endTurn();
-  }
-  
-  if(mainMenu.buttons[16].over()){ 
-    displayRadar = toggle(displayRadar);
-  }
-  
-  if(mainMenu.buttons[17].over()){ 
-    invertColors();
-  }
-  
-  if(mainMenu.buttons[18].over()){ 
-    toggleProjection();
-  }
+void mousePressed() {
   
   if (testProjectorOnMac && mfg.mouseInGrid()) {
-    // Add piece to table virtually
+    // Add piece to table virtually (Must run BEFORE Main Menu Button Implementation)
     mfg.addMousePiece(session.selectedProfile);
     decodePieces();
   } else {
@@ -124,94 +150,182 @@ void mouseClicked() {
     checkSelections();
   }
   
-  loop();
-}
-
-void keyPressed() {
-  switch(key) {
-    case 'h': // "Hide Main Menu (h)"
-      toggleMainMenu();
-      break;
-    case 'i': // "Invert Colors (i)"
-      invertColors();
-      break;
-    case 'R': // "Regenerate Random Game Data (SH+R)"
-      loadOriginal = false;
-      regenerateGame();
-      break;
-    case 'X': // "Regenerate XLS Game Data (SH+X)"
-      loadOriginal = true;
-      regenerateGame();
-      break;
-    case 'g': // "Play Game (g)"
-      toggleGame();
-      game_message = "";
-      break;
-    case 'p': // "Toggle Profile (p)"
-      nextProfile();
-      break;
-    case 's': // "Toggle Site (s)"
-      nextSite();
-      break;
-    case 'S': // "Toggle Existing Build (SH+S)",
-      nextSiteBuild();
-      break;
-    case 'b': // "Toggle Build (b)"
-      nextBuild();
-      break;
-    case 'd': // "Deploy Selection (d)"
-      if (gameMode) deploySelection();
-      game_message = "";
-      break;
-    case 'r': // "Remove Selection (r)"
-      if (gameMode) removeSelection();
-       game_message = "";
-      break;
-    case 'e': // "Repurpose Selection (e)"
-      if (gameMode) repurposeSelection();
-      break;
-    case ' ': // "Next Turn (SPACE)"
-      if (gameMode) endTurn();
-      game_message = "";
-      break;
-    case 'z': //  "Show Score Radar (z)"
-      displayRadar = toggle(displayRadar);
-      break;
-    case '`': //  "Enable Projection (`)"
-      toggleProjection();
-      break;
-      
-    // Debugging (no formal buttons)
-    case 'x':
-    
-      // Randomize pieces just for debugging....
-      //fauxPieces(3, tablePieceInput, 15);
-      
-      // testPlace(tablePieceInput, u, v, ID)
-      testPlace(tablePieceInput, 2, 8, 0);
-      
-      changeDetected = true;
-      break;
-    case 'P':
-      // Toggle InfoOverlay
-      if (infoOverride) {
-        infoOverride = false;
-      } else {
-        infoOverride = true;
-      }
-
+  // Hide/Show Menu
+  if(hideMenu.buttons[0].over()){  
+    key_h();
   }
+  
+  // Main Menu Buttons:
+  if(mainMenu.buttons[ bHash.get("q") ].over()){ 
+    key_q();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("x") ].over()){ 
+    key_x();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("g") ].over()){ 
+    key_g();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("p") ].over()){ 
+    key_p();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("s") ].over()){ 
+    key_s();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("u") ].over()){ 
+    key_u();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("b") ].over()){ 
+    key_b();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("d") ].over()){ 
+    key_d();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("r") ].over()){ 
+    key_r();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("e") ].over()){ 
+    key_e();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("z") ].over()){ 
+    key_z();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("i") ].over()){ 
+    key_i();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("`") ].over()){ 
+    key_tilde();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("SPACE") ].over()){ 
+    key_space();
+  }
+  
   loop();
 }
 
-void toggleMainMenu() {
-  showMainMenu = toggle(showMainMenu);
-  if (showMainMenu) {
-    hideMenu.buttons[0].label = hide[0];
+// Refreshes when there's a mouse mouse movement
+void mouseMoved() {
+  loop();
+}
+
+// Updates when mouse released
+void mouseReleased() {
+  loop();
+}
+
+void key_h() {
+  // "Hide Main Menu"
+  showMainMenu = !showMainMenu;
+  hideMenu.buttons[0].isPressed = showMainMenu;
+}
+
+void key_q() {
+  // Random Game Configuration
+  loadOriginal = false;
+  regenerateGame();
+}
+
+void key_x() {
+  //  Reset to Originl Configuration
+  loadOriginal = true;
+  regenerateGame();
+}
+
+void key_g() {
+  // Toggle God Mode vs. Game Mode
+  if (gameMode) {
+    gameMode = false;
+    mainMenu.buttons[ bHash.get("g") ].isPressed = false;
+    mainMenu.buttons[ bHash.get("SPACE") ].isVoid = true;
+    mainMenu.buttons[ bHash.get("d") ].isVoid = true;
+    mainMenu.buttons[ bHash.get("r") ].isVoid = true;
+    mainMenu.buttons[ bHash.get("e") ].isVoid = true;
   } else {
-    hideMenu.buttons[0].label = show[0];
+    gameMode = true;
+    session = new Game();
+    regenerateGame();
+    updateProfileCapacities();
+    mainMenu.buttons[ bHash.get("g") ].isPressed = true;
+    mainMenu.buttons[ bHash.get("SPACE") ].isVoid = false;
+    mainMenu.buttons[ bHash.get("d") ].isVoid = false;
+    mainMenu.buttons[ bHash.get("r") ].isVoid = false;
+    mainMenu.buttons[ bHash.get("e") ].isVoid = false;
   }
-  println("showMainMenu = " + showMainMenu);
+  
+  println("gameMode: " + gameMode);
+}
+
+void key_p() {
+  nextProfile();
+}
+
+void key_s() {
+  nextSite();
+}
+
+void key_u() {
+  nextSiteBuild();
+}
+
+void key_b() {
+  nextBuild();
+}
+
+void key_d() {
+  deploySelection();
+}
+
+void key_r() {
+  removeSelection();
+}
+
+void key_e() {
+  repurposeSelection();
+}
+
+void key_space() {
+  if (gameMode) endTurn();
+}
+
+void key_z() {
+  displayRadar = !displayRadar;
+}
+
+void key_i() {
+  invertColors();
+}
+
+void key_tilde() {
+  // Toggle Table Projection
+  toggle2DProjection();
+}
+
+void key_up() {
+  //  Add Function
+}
+
+void key_down() {
+  //  Add Function
+}
+
+void key_left() {
+  //  Add Function
+}
+
+void key_right() {
+  //  Add Function
 }
 
 void alignLeft() {
@@ -236,183 +350,11 @@ void invertColors() {
   if (background == 50) {
     background = 255;
     textColor = 50;
-    HIGHLIGHT = color(144, 200, 200);
   } else {
     background = 50;
     textColor = 255;
-    HIGHLIGHT = color(174, 240, 240);
   }
   println ("background: " + background + ", textColor: " + textColor);
-}
-
-// Toggle God Mode vs. Game Mode
-void toggleGame() {
-  if (gameMode) {
-    gameMode = false;
-    mainMenu.buttons[2].label = "Play Game (g)";
-    mainMenu.buttons[13].isVoid = true;
-    mainMenu.buttons[9].isVoid = true;
-    mainMenu.buttons[10].isVoid = true;
-    mainMenu.buttons[11].isVoid = true;
-  } else {
-    gameMode = true;
-    session = new Game();
-    regenerateGame();
-    updateProfileCapacities();
-    mainMenu.buttons[2].label = "God Mode (g)";
-    mainMenu.buttons[13].isVoid = false;
-    mainMenu.buttons[9].isVoid = false;
-    mainMenu.buttons[10].isVoid = false;
-    mainMenu.buttons[11].isVoid = false;
-  }
-  
-  println("gameMode: " + gameMode);
-}
-
-void toggleProjection() {
-  toggle2DProjection();
-  println("displayProjection2D = " + displayProjection2D);
-}
-
-void pressButton(boolean bool, int button) {
-  if (bool) {
-    mainMenu.buttons[button].isPressed = false;
-  } else {
-    mainMenu.buttons[button].isPressed = true;
-  }
-}
-
-// iterates an index parameter
-int next(int index, int max) {
-  if (index == max) {
-    index = 0;
-  } else {
-    index ++;
-  }
-  return index;
-}
-
-// flips a boolean
-boolean toggle(boolean bool) {
-  if (bool) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-class Button{
-  // variables describing upper left corner of button, width, and height in pixels
-  int x,y,w,h;
-  // String of the Button Text
-  String label;
-  // Various Shades of button states (0-255)
-  int active = 180; // lightest
-  int hover = 120;
-  int pressed = 120; // darkest
-  
-  boolean isPressed = false;
-  boolean isVoid = false;
-  
-  //Button Constructor
-  Button(int x, int y, int w, int h, String label){
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.label = label;
-  }
-  
-  //Button Objects are draw to a PGraphics object rather than directly to canvas
-  void draw(PGraphics p){
-    if (!isVoid) {
-      p.noStroke();
-      if( over() ) {  // Darkens button if hovering mouse over it
-        p.fill(100, hover);
-      } else if (isPressed){
-        p.fill(100, pressed);
-      } else {
-        p.fill(100, active);
-      }
-      p.rect(x, y, w, h, 5);
-      p.fill(255);
-      p.textSize(min(textSize-1, 13));
-      p.textAlign(CENTER);
-      p.text(label, x + (w/2), y + 0.6*h); 
-    }
-  } 
-  
-  // returns true if mouse hovers in button region
-  boolean over(){
-    if(mouseX >= x  && mouseY >= y + 5 && mouseX <= x + w && mouseY <= y + 2 + h){
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-
-class Menu{
-  // Button Array Associated with this Menu
-  Button[] buttons;
-  // Graphics Object to Draw this Menu
-  PGraphics canvas;
-  // Button Name Array Associated with Menu
-  String[] names;
-  // Menu Alignment
-  String align;
-  // variables describing canvasWidth, canvas Height, Button Width, Button Height, Verticle Displacement (#buttons down)
-  int w, h, x, y, vOffset;
-  
-  //Constructor
-  Menu(int w, int h, int x, int y, int vOffset, String[] names, String align){
-    this.names = names;
-    this.w = w;
-    this.h = h;
-    this.vOffset = vOffset;
-    this.align = align;
-    this.x = x;
-    this.y = y;
-    
-    // distance in pixels from corner of screen
-    int marginH = BUTTON_OFFSET_H;
-    int marginW = BUTTON_OFFSET_W;
-    
-    canvas = createGraphics(w, h);
-    // #Buttons defined by Name String Array Length
-    buttons = new Button[this.names.length];
-    
-    // Initializes the button objects
-    for (int i=0; i<buttons.length; i++) {
-      if ( this.align.equals("right") || this.align.equals("RIGHT") ) {
-        // Right Align
-        buttons[i] = new Button(this.w - this.x - marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
-      } else if ( this.align.equals("left") || this.align.equals("LEFT") ) { 
-        // Left Align
-        buttons[i] = new Button(marginW, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, names[i]);
-      } else if ( this.align.equals("center") || this.align.equals("CENTER") ) { 
-        // Center Align
-        buttons[i] = new Button( (this.w-this.x)/2, marginH + this.vOffset*(this.y+5) + i*(this.y+5), this.x, this.y, this.names[i]);
-      }
-      
-      // Alows a menu button spacer to be added by setting its string value to "VOID"
-      if (this.names[i].equals("void") || this.names[i].equals("VOID") ) {
-        buttons[i].isVoid = true;
-      }
-    }
-  }
-  
-  // Draws the Menu to its own PGraphics canvas
-  void draw() {
-    canvas.beginDraw();
-    canvas.clear();
-    for (int i=0; i<buttons.length; i++) {
-      buttons[i].draw(canvas);
-    }
-    canvas.endDraw();
-    
-    image(canvas, 0, 0);
-  }
 }
 
 void checkSelections() {

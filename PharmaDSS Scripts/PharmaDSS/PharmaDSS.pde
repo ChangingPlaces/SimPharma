@@ -173,30 +173,6 @@ void draw() {
   if(!debug) noLoop();
 }
 
-// Refreshes when there's a mouse mouse movement
-void mouseMoved() {
-  loop();
-}
-
-void loadMenu(int canvasWidth, int canvasHeight) {
-  // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
-  // number of buttons to offset downward, String[] names of buttons)
-  String[] hideText;
-  if (showMainMenu) {
-    hideText = hide;
-  } else {
-    hideText = show;
-  }
-  hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
-  mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
-  
-  // Hides "End Turn" and "next Profile" button unless game is active
-  mainMenu.buttons[13].isVoid = !gameMode;
-  mainMenu.buttons[9].isVoid = !gameMode;
-  mainMenu.buttons[10].isVoid = !gameMode;
-  mainMenu.buttons[11].isVoid = !gameMode;
-}
-
 void gameText(){
   textAlign(LEFT);
   fill(END);
