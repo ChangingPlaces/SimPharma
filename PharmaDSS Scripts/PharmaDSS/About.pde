@@ -125,15 +125,16 @@
   *               - Only use radar for normalized values
   *
   * BETA V1.2:    - Improved Framerates Drastically!
-  *               - 
+  *               - Allow Click when mouse dragged
+  *               - Update Button Animation
+  *               - Refactored Buttons for easy updating
   */
   
 String VERSION = "BETA V1.1";  
   
  /* TO DO:        
-  *               - Allow Click when mouse dragged
-  *               - Update Button Animation
-  *               - Refactored Buttons for easy updating
+  *               - Bug Fix: Select correct profile index when clicking in game mode
+  *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
