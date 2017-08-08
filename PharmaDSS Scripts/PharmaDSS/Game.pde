@@ -282,11 +282,12 @@ class Event {
   void flagRemove() {
     if (siteBuildIndex + 1 <= agileModel.SITES.get(siteIndex).siteBuild.size()) {
       Build current = agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex);
-      if (current.editing) {
-        agileModel.SITES.get(siteIndex).siteBuild.remove(siteBuildIndex);
-      } else {
-        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
-      }
+      agileModel.SITES.get(siteIndex).siteBuild.remove(siteBuildIndex);
+//      if (current.editing) {
+//        agileModel.SITES.get(siteIndex).siteBuild.remove(siteBuildIndex);
+//      } else {
+//        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
+//      }
     } else {
       println("No Build Present to Remove. Try Deploying Some!");
     }
