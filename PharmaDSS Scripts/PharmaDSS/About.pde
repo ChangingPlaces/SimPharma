@@ -145,6 +145,8 @@ String VERSION = "BETA V1.2";
   
  /* TO DO:    
  
+  *               - Rebuild Site Visualizations, particularly how builds are represented
+ 
   *               - Show Clearly How User's Actions are tied to score change in any given turn.
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
