@@ -167,11 +167,11 @@ void drawScreen() {
   // Draw Drug Production Process Diagram
       drawPhaseDiagram();
   
-  // Draws Overlay Graphic to describe NCE attributes
-      if (infoOverlay || infoOverride) drawInfoOverlay();
-  
   // Draw Graph of Outputs
       outputGraph.draw();
+  
+  // Draws Overlay Graphic to describe NCE attributes
+      if (infoOverlay || infoOverride) drawInfoOverlay();
 
   // Draw Pork Chop
       image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
