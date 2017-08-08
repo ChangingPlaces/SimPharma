@@ -269,8 +269,8 @@ class TableSurface {
   
   void draw(PGraphics p) {
     int buffer = 30;
-    int spotLightHeight = 42;
-    int spotLightWidth = 110;
+    int spotLightHeight = int(1.15*cellH);
+    int spotLightWidth = int(3.5*cellW);
     
     p.beginDraw();
   //  p.background(50);
@@ -280,12 +280,12 @@ class TableSurface {
     for(int i = agileModel.profileColor.length-1; i>=0; i--){
       p.fill(agileModel.profileColor[NUM_PROFILES - i - 1]);
       p.noStroke();
-      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height, spotLightWidth, spotLightHeight, 10);
+      p.rect(15, (i*(spotLightHeight + 12) ) + buffer + 3*cellH, spotLightWidth, spotLightHeight, 10);
        p.fill(0);
       p.textSize(30);
       p.textAlign(CENTER, CENTER);
-      p.text(NUM_PROFILES - i, 15 + 0.75*spotLightWidth, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height + spotLightHeight/2 - 2);
-      p.image(nce, 0.25*spotLightWidth, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height + spotLightHeight/2 - 19, cellW, cellH);
+      p.text(NUM_PROFILES - i, 15 + 0.75*spotLightWidth, (i*(spotLightHeight + 12) ) + buffer + 3*cellH + spotLightHeight/2 - 2);
+      p.image(nce, 0.25*spotLightWidth, (i*(spotLightHeight + 12) ) + buffer + 3*cellH + 0.05*spotLightHeight, cellW, cellH);
     }
     
     // Draw Site Boundaries (Existing and Greenfield)
@@ -384,9 +384,10 @@ class TableSurface {
     
     // Draw Interface for Selecting NCE to Zoom In To
     p.fill(255);
+    p.stroke(0);
+    p.strokeWeight(10);
+    p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH, 0.5*cellW);
     p.noStroke();
-    p.strokeWeight(1);
-    p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
     p.textSize(20);
     p.textAlign(RIGHT);
     p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
@@ -415,8 +416,8 @@ class TableSurface {
     }
     
     // Draw logo_GSK, logo_MIT
-    p.image(logo_GSK, 0.5*buffer, 1.0*buffer, 2.0*buffer, 2.0*buffer); 
-    p.image(logo_MIT, 2.5*buffer, 2.1*buffer, 1.5*buffer, 0.7*buffer); 
+    p.image(logo_GSK, 0.5*cellW, 1.0*cellW, 2.0*cellW, 2.0*cellW); 
+    p.image(logo_MIT, 2.5*cellW, 2.1*cellW, 1.5*cellW, 0.7*cellW); 
 
     //drawBuilds(p);
 
