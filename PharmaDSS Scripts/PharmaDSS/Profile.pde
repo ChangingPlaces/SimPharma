@@ -267,7 +267,6 @@ class Profile {
     scalerH = h/(forecastScalerH*demandPeak_F);
     scalerW = float(w)/demandProfile.getColumnCount();
     
-    
     // Draw Profile Selection
     if (selected) {
       fill(HIGHLIGHT, 50);

@@ -133,32 +133,30 @@
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   *               - New Feature + Bug Fixes: Table Testing Enabled on PC
   *               - Hot Fix: Allows Repurposing of Modules
+  *               - Colortizer Integration: Display Construction/Repurpose Status on Table
+  *               - Colortizer Integration: Display Production Utilization On Table
+  *               - New Feature: Dynamic Scaling of Profile Axes
+  *               - Add Site "Filler" That decays over time
   *
   * BETA V1.3:    - TBA
   */
   
 String VERSION = "BETA V1.2";
   
- /* TO DO:        
-  
-  *               - Draw Build Ghosts on All of Site
-  *               - "NCE Not Available" Error when in NCE dock
-  
-  *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
-  *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
+ /* TO DO:    
+ 
   *               - Show Clearly How User's Actions are tied to score change in any given turn.
-  
-  *               - Update Future Capacity for Removed Builds (not just added Builds)
-  *               - Add Site "Filler" That decays over time
-  *               - Colortizer Integration: Display Construction/Repurpose Status on Table
-  *               - Colortizer Integration: Display Production Utilization On Table
-
-  *               - Account for repurposing / building cost differently
-  *               - Don't Allow Player to over-pack a site
-  
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
   *               - Allow user to compare performance with baseline/ideal scenario(s)  
+  
+  *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
+  *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
+  
+  *               - Update Future Capacity for Removed Builds (not just added Builds)
+
+  *               - Account for repurposing / building cost differently
+  *               - Don't Allow Player to over-pack a site
   
   *               - Have Demand automatically produced in cheaper sites FIRST
   *               - Have Security of Supply influenced by monte carlo calc?
@@ -170,13 +168,14 @@ String VERSION = "BETA V1.2";
   *               - Include Salary modifier for different Sites  
   *               - Filter for NEC-specific performance?
   *
-  *               - Nina's:
-  *               - Graphic Icons (b) Build (Widget?) and (c) R&D (beaker?)
-  *               - Text feed back for game play (Can't repurpose under construction) and stuff like that 
+  *               - Draw Build Ghosts on All of Site?
+  *               - "NCE Not Available" Error when in NCE dock
+  
+  *               - Graphic Icons (b) Build (Widget?) and (c) R&D (beaker)
+  *               - Text feed back for game play
   *                 - Can't Repurpose while Under Construction
   *                 - Site has no production!
-  *                 - Oh no out of room! (over cap) (is this needed...currently not stopping user from over fill?...Ira?)
-  *                 - button movement  
+  *                 - out of room! (over cap)
   *
   *               - Incorporate Drug Buffer Into Model
   */
