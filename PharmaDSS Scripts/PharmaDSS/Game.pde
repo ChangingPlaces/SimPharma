@@ -133,6 +133,7 @@ class Game {
         }
       }
       displayRadar = true;
+      mainMenu.buttons[ bHash.get("z") ].isPressed = displayRadar;
     }
   }
   

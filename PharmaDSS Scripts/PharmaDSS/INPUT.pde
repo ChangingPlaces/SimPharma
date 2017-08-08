@@ -8,6 +8,7 @@ int textColor = 255;
 int background = 50;
 int BUTTON_OFFSET_H = 45;
 int BUTTON_OFFSET_W = 50;
+boolean invert = false;
 
 // Menu Alignment on Screen
 String align = "LEFT";
@@ -333,10 +334,12 @@ void key_space() {
 
 void key_z() {
   displayRadar = !displayRadar;
+  mainMenu.buttons[ bHash.get("z") ].isPressed = displayRadar;
 }
 
 void key_i() {
   invertColors();
+  mainMenu.buttons[ bHash.get("i") ].isPressed = invert;
 }
 
 void key_tilde() {
@@ -346,6 +349,7 @@ void key_tilde() {
 
 void key_0() {
   debug = !debug;
+  mainMenu.buttons[ bHash.get("0") ].isPressed = debug;
 }
 
 void key_up() {
@@ -383,7 +387,8 @@ void alignCenter() {
 }
 
 void invertColors() {
-  if (background == 50) {
+  invert = !invert;
+  if (invert) {
     background = 255;
     textColor = 50;
   } else {
