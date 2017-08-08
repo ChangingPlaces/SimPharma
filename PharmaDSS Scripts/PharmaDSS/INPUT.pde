@@ -178,7 +178,7 @@ void mousePressed() {
       ID = session.selectedProfile;
     }
     mfg.addMousePiece(ID);
-    decodePieces();
+    changeDetected = true;
   } else {
     // Allow Onscreen Slection of Profiles, Sites, etc
     checkSelections("click");

@@ -105,7 +105,7 @@ void setup() {
   phasing = loadImage("data/phasing.png");
   sitePNG = loadImage("data/site.png");
   sitePNG_BW = loadImage("data/site_BW.png");
-  nce = loadImage("data/coumpound2.png");
+  nce = loadImage("data/compound_invert.png");
   nceMini = loadImage("data/compound.png");
   chip = loadImage("data/chip.png");
   
@@ -141,7 +141,7 @@ void draw() {
  
   // Decode Lego pieces only if there is a change in Colortizer input
   if (changeDetected) {
-    println("Lego Movement Detected");
+    println("Input Detected");
     decodePieces();
     changeDetected = false;
   }
