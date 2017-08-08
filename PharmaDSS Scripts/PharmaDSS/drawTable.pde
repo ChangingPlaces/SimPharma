@@ -46,10 +46,12 @@ void drawTable() {
 
 void generateBasins() {
   siteCapacity = new float[NUM_SITES][2];
+  mfg.inputOccupied.clear();
   for (int i=0; i<NUM_SITES; i++) { 
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
     siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
     siteCapacity[i][1] = agileModel.SITES.get(i).capGn;
+    mfg.inputOccupied.add( int(siteCapacity[i][0]*random(0.1, 0.5)) );
   }
 
   mfg.clearBasins();
@@ -71,8 +73,9 @@ class TableSurface {
   int BASINS_H = 10; // Height of Largest Basin (in Lego Squares)
 
   ArrayList<Basin> inputArea;
+  ArrayList<Integer> inputOccupied; // Some Input Squares are initially occupied
   
-  boolean[][] inUse, editing;
+  boolean[][] inUse, editing, blocker;
   int[][] siteIndex, siteBuildIndex;
 
   TableSurface(int W, int H, int U, int V, boolean left_margin) {
@@ -80,9 +83,11 @@ class TableSurface {
     this.V = V;
     LEFT_MARGIN = left_margin;
     inputArea = new ArrayList<Basin>();
+    inputOccupied = new ArrayList<Integer>();
     cellType = new String[U][V][2];
     inUse = new boolean[U][V];
     editing = new boolean[U][V];
+    blocker = new boolean[U][V];
     siteBuildIndex = new int[U][V];
     siteIndex = new int[U][V];
     
@@ -150,6 +155,7 @@ class TableSurface {
         
         inUse[u][v] = false;
         editing[u][v] = false;
+        blocker[u][v] = false;
         siteBuildIndex[u][v] = -1;
         siteIndex[u][v] = -1;
       }
@@ -170,9 +176,14 @@ class TableSurface {
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
         
-        // Determine if the Cell is in a "Site" Basin and, if so, which one
         siteIndex[u][v] = -1;
-        if (inBasin(u, v)) {
+        if (blocker[u][v]) {
+          tablePieceInput[u - MARGIN_W][v][0] = -1;
+          tablePieceInput[u - MARGIN_W][v][1] = 0;
+        }
+        
+        // Determine if the Cell is in a non-blocked "Site" Basin and, if so, which one
+        if (inBasin(u, v) && !blocker[u][v]) {
           if (cellType[u][v][0].equals("SITE_0")) siteIndex[u][v] = 0;
           if (cellType[u][v][0].equals("SITE_1")) siteIndex[u][v] = 1;
           if (cellType[u][v][0].equals("SITE_2")) siteIndex[u][v] = 2;
@@ -310,7 +321,18 @@ class TableSurface {
       for (int v=0; v<V; v++) {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
           
-          if (inBasin(u, v)) {
+          if (blocker[u][v]) {
+            p.fill(GSK_ORANGE);
+            p.rect(u*cellW, v*cellH, cellW, cellH);
+            p.fill(0);
+            p.stroke(255);
+            strokeWeight(1);
+            p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, cellW, cellH);
+            p.fill(255);
+            p.text("NA", u*cellW + 0.15*cellW, v*cellH + 0.7*cellH);
+          }
+          
+          if (inBasin(u, v) && !blocker[u][v]) {
             Build current;
             
             // Draw Colortizer Input Pieces
@@ -342,6 +364,7 @@ class TableSurface {
               } catch (Exception e) {
                 println("Error Drawing Table Piece");
               }
+                
               
             }
 
@@ -453,6 +476,7 @@ class TableSurface {
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
       inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2, BASIN_HEIGHT) );
+      
     }
   }
 
@@ -494,6 +518,10 @@ class TableSurface {
         cellType[u][v][0] = "SITE_" + index;
         if (i<basinSize[1]) {
           cellType[u][v][1] = "EXISTING";
+          if (inputOccupied.get(index) > 0) {
+            blocker[u][v] = true;
+            inputOccupied.set(index, inputOccupied.get(index)-1);
+          }
         } else {
           cellType[u][v][1] = "GREENFIELD";
         }
