@@ -38,6 +38,8 @@ void drawTable() {
     fill(textColor, 100);
     rect((width - int(0.85*height) ) / 2, (height - int(0.85*height) ) / 2, int(0.85*height), int(0.85*height), 10);
     image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
+    
+    mfg.mouseToGrid((width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
   }
 }
 
@@ -57,6 +59,7 @@ void generateBasins() {
 class TableSurface {
 
   int U, V;
+  int gridMouseU, gridMouseV;
   float cellW, cellH;
   
   String[][][] cellType;
@@ -85,6 +88,51 @@ class TableSurface {
     
     resetCellTypes();
     
+  }
+  
+  // Converts screen-based mouse coordinates to table grid position represented on screen during "Screen Mode"
+  PVector mouseToGrid(int mouseX_0, int mouseY_0, int mouseW, int mouseH) {
+    PVector grid = new PVector();
+    boolean valid = true;
+    
+    grid.x = float(mouseX - mouseX_0) / mouseW * U;
+    grid.y = float(mouseY - mouseY_0) / mouseH * V;
+    
+    if (grid.x >=MARGIN_W && grid.x < U) {
+      gridMouseU = int(grid.x);
+    } else {
+      valid = false;
+    }
+    
+    if (grid.y >=0 && grid.y < V) {
+      gridMouseV = int(grid.y);
+    } else {
+      valid = false;
+    }
+    
+    if (!valid) {
+      gridMouseU = -1;
+      gridMouseV = -1;
+    }
+    
+    return grid;
+  }
+  
+  boolean mouseInGrid() {
+    if (gridMouseU == -1 || gridMouseV == -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
+  // add/remove a particular ID to a particular square
+  void addMousePiece(int ID) {
+    if (tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] == -1) {
+      tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = ID;
+    } else {
+      tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = -1;
+    }
   }
   
   void resetCellTypes() {
@@ -143,12 +191,23 @@ class TableSurface {
               Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
               session.current.event.add(deploy);
               siteBuildIndex[u][v] = agileModel.SITES.get(site).siteBuild.size()-1;
-              println(siteBuildIndex[u][v]);
               inUse[u][v] = true;
               
             }
           }
         } 
+        
+        if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+          infoOverlay = true;
+          if (gameMode) {
+            session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
+          } else {
+            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+          }
+        } else {
+          infoOverlay = false;
+        }
+        
       }
     }
     
@@ -212,54 +271,48 @@ class TableSurface {
 
           }
           
-          // Draw black edges where Lego grad gaps are
+          // Draw black edges where Lego grid gaps are
           p.noFill();
           p.stroke(0);
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
-          // Draw Interface for Selecting NCE to Zoom In To
-          p.fill(255);
-          p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
-          p.textSize(20);
-          p.textAlign(RIGHT);
-          p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
-          p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
-          p.fill(0);
-          p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-          
-          
-//          int limit;
-//          if (gameMode) {
-//            limit = agileModel.activeProfiles.size();
-//          } else {
-//            limit = NUM_PROFILES;
-//          }
-          
-          if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
-            infoOverlay = true;
-            if (gameMode) {
-              session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
-            } else {
-              session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
-            }
-            p.noStroke();
-            p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
-            p.noStroke();
-            p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-            p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
-          } else {
-            infoOverlay = false;
-          }
-          
           p.noFill();
         }
       }
     }
-
+    
+    // Draw Interface for Selecting NCE to Zoom In To
+    p.fill(255);
+    p.noStroke();
+    p.strokeWeight(1);
+    p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH);
+    p.textSize(20);
+    p.textAlign(RIGHT);
+    p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
+    p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
+    p.fill(0);
+    p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+          
+    // Draw NCE in Filter Dock
+    if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+      p.noStroke();
+      p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
+      p.noStroke();
+      p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+      p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
+    }
+    
     // Draw Black Edge around 4x22 left margin area
     if (LEFT_MARGIN) {
+      p.noFill(); p.stroke(0); p.strokeWeight(3);
       p.rect(0, 0, MARGIN_W*cellW, p.height);
+    }
+    
+    // Draw Mouse-based Cursor for Grid Selection
+    if (gridMouseU != -1 && gridMouseV != -1) {
+      p.fill(255, 50); p.noStroke();
+      p.rect(gridMouseU*cellW, gridMouseV*cellH, cellW, cellH);
     }
     
     // Draw logo_GSK, logo_MIT

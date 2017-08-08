@@ -51,6 +51,9 @@ int screenWidth, screenHeight;
 //String dataLocation = "xls/giovanni-edit1/Agile Network Model v7_XLS.xls";
 String dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
 
+// Information for Debugging
+boolean debug = true;
+
 // "setup()" runs once upon executing script
 void setup() {
   
@@ -127,7 +130,9 @@ int textSize = 12;
 String game_message = " ";
 
 void draw() {
-
+  
+  if (debug) background(0);
+  
   textSize = min(12,int(width/100));
  
   // Decode Lego pieces only if there is a change in Colortizer input
@@ -139,13 +144,6 @@ void draw() {
   
   // Refers to "drawScreen" tab
   drawScreen();
-  
-  drawPhaseDiagram();
-  
-  // Draws Overlay Graphic to describe NCE attributes
-  if (infoOverlay || infoOverride) {
-      drawInfoOverlay();
-  }
   
   // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
   noStroke();
@@ -161,34 +159,11 @@ void draw() {
   if(!gameMode){
     game_message = " ";
   }
-
- gameText();
+  gameText();
   
- noLoop();
-}
-
-// Refreshes when there's a mouse mouse movement
-void mouseMoved() {
-  loop();
-}
-
-void loadMenu(int canvasWidth, int canvasHeight) {
-  // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
-  // number of buttons to offset downward, String[] names of buttons)
-  String[] hideText;
-  if (showMainMenu) {
-    hideText = hide;
-  } else {
-    hideText = show;
-  }
-  hideMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 0, hideText, align);
-  mainMenu = new Menu(canvasWidth, canvasHeight, max(int(width*.13), 160), 25, 2, buttonNames, align);
+  if (debug) fill(255); text("Framerate: " + frameRate, 50, 25);
   
-  // Hides "End Turn" and "next Profile" button unless game is active
-  mainMenu.buttons[13].isVoid = !gameMode;
-  mainMenu.buttons[9].isVoid = !gameMode;
-  mainMenu.buttons[10].isVoid = !gameMode;
-  mainMenu.buttons[11].isVoid = !gameMode;
+  if(!debug) noLoop();
 }
 
 void gameText(){

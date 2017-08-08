@@ -81,7 +81,7 @@ void drawScreen() {
   titlesY   = int(2.80*MARGIN);
 
   background(abs(background - 15));
-  boolean selected;
+  boolean selected, hover;
   
   // Draw Background Canvases
       
@@ -98,15 +98,34 @@ void drawScreen() {
       rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
       rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6 , width - sitesX - 1.25*MARGIN, canH*.4 - 20 , 3);
-      
+   
   // Draw Title
       fill(textColor);
       textAlign(RIGHT);
       textSize(textSize);
       text("PharmaDSS " + VERSION, width - MARGIN, MARGIN);
-      text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\nGiovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\nAndrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + textSize + 3);
-      
-      //text("Ira Winder, Nina Lutz, Giovanni Giorgio, Mason Briner, Joana Gomes", width - MARGIN, MARGIN + textSize + textSize + 6);
+      text("Ira Winder, Nina Lutz, Kent Larson (MIT), Joana Gomes (IIM, GSK)\n" + 
+           "Giovanni Giorgio, Mason Briner (Capital Strategy and Design, GSK)\n" +
+           "Andrew Rutter (AMT), John Dyson (CSD, GSK)", width - MARGIN, MARGIN + textSize + 3);
+
+  // Draw Selected Profile in Large Format
+      ArrayList<Profile> pList;
+      int index;
+      try {
+        if (hoverElement.equals("PROFILE") || hoverElement.equals("BUILD")) {
+          index = session.hoverProfile;
+        } else {
+          index = session.selectedProfile;
+        }
+        if (!gameMode) {
+          pList = agileModel.PROFILES;
+        } else {
+          pList = agileModel.activeProfiles;
+        }
+        drawLargeProfile(pList.get(index));
+      } catch (Exception e) {
+        println("Could not execute drawLargeProfile() in drawScreen() for selected profile ID " + session.selectedProfile);
+      }
   
   // Draw Profiles
       if (!gameMode) {
@@ -126,13 +145,14 @@ void drawScreen() {
       } else {
         text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
       }
-      
       textSize(min(16, textSize));
       NCEClicks.clear();
       for (int i=0; i<NUM_SITES; i++) {
         selected = false;
         if (i == session.selectedSite) selected = true;
-        agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected);
+        hover = false;
+        if (hoverElement.equals("SITE") && session.hoverSite == i) hover = true;
+        agileModel.SITES.get(i).draw(MARGIN  + sitesX + i*((width-sitesX-MARGIN)/NUM_SITES), sitesY, ((width-sitesX-MARGIN)/NUM_SITES) - MARGIN*2, sitesH, agileModel.maxCap, selected, hover);
       }
    
   // Line Graph and Outputs
@@ -141,39 +161,35 @@ void drawScreen() {
   // Draw Build Legend
       drawBuilds();
   
-  //Draw Selected Profile in Large Format
-  try {
-  if (!gameMode) {
-    drawLargeProfile(agileModel.PROFILES.get(session.selectedProfile));
-  } else {
-    drawLargeProfile(agileModel.activeProfiles.get(session.selectedProfile));
-  }
-  } catch (Exception e) {
-    println("Could not execute drawLargeProfile() in drawScreen()");
-  }
-  
   // Draw Radar Plot
-  if (displayRadar) {
-    kpi.draw(radarX, radarY, radarH);
-  }
-  outputGraph.draw();
+      if (displayRadar) kpi.draw(radarX, radarY, radarH);
+  
+  // Draw Drug Production Process Diagram
+      drawPhaseDiagram();
+  
+  // Draws Overlay Graphic to describe NCE attributes
+      if (infoOverlay || infoOverride) drawInfoOverlay();
+  
+  // Draw Graph of Outputs
+      outputGraph.draw();
 
   // Draw Pork Chop
-  image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
-  image(logo_MIT, 2.9*MARGIN, height-MARGIN - 15, 1.4*MARGIN, 0.6*MARGIN); 
-  textAlign(LEFT);
-  text("PharmaDSS \n" + VERSION,  2.9*MARGIN, height-MARGIN - 40);
+      image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
+      image(logo_MIT, 2.9*MARGIN, height-MARGIN - 15, 1.4*MARGIN, 0.6*MARGIN); 
+      textAlign(LEFT);
+      text("PharmaDSS \n" + VERSION,  2.9*MARGIN, height-MARGIN - 40);
+  
   
 }
 
 int nceW = 15;
 
 void drawLargeProfile(Profile selected) {
-  selected.draw(MARGIN + profilesX - nceW, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, true);
+  selected.draw(MARGIN + profilesX - nceW, int(height - 1.75*MARGIN), profilesW, int(0.10*height),true, false, false, true);
 }
 
 void drawInfoProfile(Profile selected) {
-  selected.draw(infoX + 80, height - 160, infoW - 160, infoH - 300,true, false, true);
+  selected.draw(infoX + 80, height - 160, infoW - 160, infoH - 300,true, false, false, true);
 }
 
 void drawProfiles(ArrayList<Profile> list) {
@@ -188,27 +204,28 @@ void drawProfiles(ArrayList<Profile> list) {
   text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
   
   boolean axis;
-  boolean selected;
+  boolean selected, hover;
   int numProf = agileModel.PROFILES.size();
   for (int i=1; i<=list.size(); i++) {
     selected = false;
+    hover = false;
     axis = false;
     if (!gameMode || list.get(i-1).timeLead <= session.current.TURN ) {
-      if (i == numProf) axis = true;
-      if (i == session.selectedProfile+1) selected = true;
-         if(!gameMode){
-            list.get(i-1).draw(MARGIN + profilesX - nceW, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
-            profilesW, profilesH,
-            axis, selected, false);
-         }
-         else{
-             list.get(i-1).draw(MARGIN + profilesX - nceW, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
-             profilesW, profilesH,
-             axis, selected, false);
-         }
+    if (i == numProf) axis = true;
+    if (i == session.selectedProfile+1) selected = true;
+    if ((hoverElement.equals("PROFILE") || hoverElement.equals("BUILD") ) && session.hoverProfile == i-1) hover = true;
+    if(!gameMode){
+      list.get(i-1).draw(MARGIN + profilesX - nceW, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+      profilesW, profilesH,
+      axis, selected, hover, false);
+    } else{
+      list.get(i-1).draw(MARGIN + profilesX - nceW, MARGIN + profilesY + int(0.57*height*(i-1)/float(numProf+1)), 
+      profilesW, profilesH,
+      axis, selected, hover, false);
     }
-
   }
+
+}
   
   // Draw Profile Legend
   noStroke();

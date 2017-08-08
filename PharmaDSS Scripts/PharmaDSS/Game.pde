@@ -1,4 +1,4 @@
-boolean gameMode = false;
+boolean gameMode = true;
 
 // Regenerate Game
 void regenerateGame() {
@@ -51,15 +51,26 @@ class Game {
   int selectedSite, selectedSiteBuild;
   int selectedBuild;
   
+  int hoverProfile;
+  int hoverSite, hoverSiteBuild;
+  int hoverBuild;
+  
   // Boolean to specify if continuous manufacturing technology is allowed
   boolean continuousMfG = false;
   
   Game() {
     current = new Turn(0);
+    
     selectedProfile = 0;
     selectedSite = 0;
     selectedSiteBuild = 0;
     selectedBuild = 0;
+    
+    hoverProfile = 0;
+    hoverSite = 0;
+    hoverSiteBuild = 0;
+    hoverBuild = 0;
+    
     turnLog = new ArrayList<Turn>();
     tableHistory.clear();
     
@@ -255,25 +266,33 @@ class Event {
   }
   
   void flagRemove() {
-    Build current = agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex);
-    if (current.editing) {
-      agileModel.SITES.get(siteIndex).siteBuild.remove(siteBuildIndex);
+    if (siteBuildIndex + 1 <= agileModel.SITES.get(siteIndex).siteBuild.size()) {
+      Build current = agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex);
+      if (current.editing) {
+        agileModel.SITES.get(siteIndex).siteBuild.remove(siteBuildIndex);
+      } else {
+        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
+      }
     } else {
-      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).demolish = true;
+      println("No Build Present to Remove. Try Deploying Some!");
     }
     
   }
   
   void flagRepurpose() {
-    if (agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built == false) {
-      game_message ="Can't repurpose while under construction";
-      println("Can't Repurpose while Under Construction");
+    if (siteBuildIndex + 1 <= agileModel.SITES.get(siteIndex).siteBuild.size()) {
+      if (agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built == false) {
+        game_message ="Can't repurpose while under construction. Wait a few turns";
+        println("Can't Repurpose while Under Construction.  Wait a few turns.");
+      } else {
+        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).repurpose = true;
+        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built = false;
+        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).age = 0;
+        agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).PROFILE_INDEX = profileIndex;
+        game_message = " ";
+      }
     } else {
-      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).repurpose = true;
-      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).built = false;
-      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).age = 0;
-      agileModel.SITES.get(siteIndex).siteBuild.get(siteBuildIndex).PROFILE_INDEX = profileIndex;
-      game_message = " ";
+      println("No Build Present to Repurpose. Try Deploying Some!");
     }
   }
 }
