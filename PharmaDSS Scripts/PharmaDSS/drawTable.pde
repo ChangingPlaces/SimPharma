@@ -202,7 +202,7 @@ class TableSurface {
             // If Lego Piece is Removed ...
             if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) {
               try {
-                if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
+//                if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
                     inUse[u][v] = false;
                 Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                 session.current.event.add(remove);
@@ -221,7 +221,7 @@ class TableSurface {
               // If Lego Piece is Removed ...
               if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) { 
                 try {
-                  if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
+//                  if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
                     inUse[u][v] = false;
                   Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                   session.current.event.add(remove);
@@ -232,7 +232,7 @@ class TableSurface {
                   println("Error Removing A Piece from the Table while IN use");
                 }
               } else { // If Lego Piece is Changed ....
-              
+                
               }
             }
           } // end else !inUse
@@ -352,8 +352,7 @@ class TableSurface {
           p.stroke(0);
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
-          
-          /*          
+                   
           if (debug) {
             // Draw Symbol to show "in use"
             if (inUse[u][v]) {
@@ -375,8 +374,8 @@ class TableSurface {
             p.textSize(10);
             p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
             p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
-          }
-          */         
+          }         
+          
           p.noFill();
         }
       }
