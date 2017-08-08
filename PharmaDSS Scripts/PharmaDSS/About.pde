@@ -131,9 +131,11 @@
   *               - Refactoring:  Menu + Buttons for easy updating
   *               - Bug Fix: Deploy correct NCE when clicking table in game mode
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
+  *
+  * BETA V1.3:    - TBA
   */
   
-String VERSION = "BETA V1.1";  
+String VERSION = "BETA V1.2";
   
  /* TO DO:        
   
