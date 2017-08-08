@@ -52,7 +52,7 @@ int screenWidth, screenHeight;
 String dataLocation = "xls/giovanni-edit2/Agile Network Model v7_XLS.xls";
 
 // Information for Debugging
-boolean debug = true;
+boolean debug = false;
 
 // "setup()" runs once upon executing script
 void setup() {
@@ -161,9 +161,12 @@ void draw() {
   }
   gameText();
   
-  if (debug) fill(255); text("Framerate: " + frameRate, 50, 25);
-  
-  if(!debug) noLoop();
+  if (debug) {
+    fill(255); 
+    text("Framerate: " + frameRate, 50, 25);
+  } else {
+    noLoop();
+  }
 }
 
 void gameText(){

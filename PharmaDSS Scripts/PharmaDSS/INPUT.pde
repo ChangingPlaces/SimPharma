@@ -8,6 +8,7 @@ int textColor = 255;
 int background = 50;
 int BUTTON_OFFSET_H = 45;
 int BUTTON_OFFSET_W = 50;
+boolean invert = false;
 
 // Menu Alignment on Screen
 String align = "LEFT";
@@ -35,7 +36,7 @@ String[][] buttonNames =
   { "VOID", "" },
   { "End Turn", "SPACE" },
   { "VOID", "" },
-  { "VOID", "" },
+  { "Debug", "0" },
   { "Show Score Radar", "z" },
   { "Invert Colors", "i" },
   { "Project Table", "`" }
@@ -113,6 +114,9 @@ void keyPressed() {
       break;
     case ' ': 
       key_space();
+      break;
+    case '0': 
+      key_0();
       break;
       
     // Debugging (no formal buttons)
@@ -236,6 +240,10 @@ void mousePressed() {
     key_space();
   }
   
+  if(mainMenu.buttons[ bHash.get("0") ].over()){ 
+    key_0();
+  }
+  
   loop();
 }
 
@@ -326,15 +334,22 @@ void key_space() {
 
 void key_z() {
   displayRadar = !displayRadar;
+  mainMenu.buttons[ bHash.get("z") ].isPressed = displayRadar;
 }
 
 void key_i() {
   invertColors();
+  mainMenu.buttons[ bHash.get("i") ].isPressed = invert;
 }
 
 void key_tilde() {
   // Toggle Table Projection
   toggle2DProjection();
+}
+
+void key_0() {
+  debug = !debug;
+  mainMenu.buttons[ bHash.get("0") ].isPressed = debug;
 }
 
 void key_up() {
@@ -372,7 +387,8 @@ void alignCenter() {
 }
 
 void invertColors() {
-  if (background == 50) {
+  invert = !invert;
+  if (invert) {
     background = 255;
     textColor = 50;
   } else {

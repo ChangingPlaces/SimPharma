@@ -277,6 +277,17 @@ class TableSurface {
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
+          // Draw Symbol to show "in use"
+          if (debug) {
+            if (inUse[u][v]) {
+              p.fill(#FF0000);
+            } else {
+              p.fill(#00FF00);
+            }
+            p.stroke(255);
+            p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, 0.25*cellW, 0.25*cellH);
+          }
+          
           p.noFill();
         }
       }
