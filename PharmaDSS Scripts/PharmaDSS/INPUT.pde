@@ -35,7 +35,7 @@ String[][] buttonNames =
   { "VOID", "" },
   { "End Turn", "SPACE" },
   { "VOID", "" },
-  { "VOID", "" },
+  { "Debug", "0" },
   { "Show Score Radar", "z" },
   { "Invert Colors", "i" },
   { "Project Table", "`" }
@@ -113,6 +113,9 @@ void keyPressed() {
       break;
     case ' ': 
       key_space();
+      break;
+    case '0': 
+      key_0();
       break;
       
     // Debugging (no formal buttons)
@@ -236,6 +239,10 @@ void mousePressed() {
     key_space();
   }
   
+  if(mainMenu.buttons[ bHash.get("0") ].over()){ 
+    key_0();
+  }
+  
   loop();
 }
 
@@ -335,6 +342,10 @@ void key_i() {
 void key_tilde() {
   // Toggle Table Projection
   toggle2DProjection();
+}
+
+void key_0() {
+  debug = !debug;
 }
 
 void key_up() {
