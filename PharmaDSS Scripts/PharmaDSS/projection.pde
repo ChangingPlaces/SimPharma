@@ -33,7 +33,7 @@ int projectorWidth, projectorHeight, projectorOffset;
 // Visualization may show 2D projection visualization, or not
 boolean displayProjection2D = false;
 // When debugging without a projector (i.e. on Mac Laptop), this boolean allows table canvas to be shown on screen
-boolean testProjectorOnMac = false;
+boolean testOnMac = false;
 
 // New Application Window Parameters
 PFrame proj2D = null; // f defines window to open new applet in
@@ -46,9 +46,7 @@ void initializeProjection2D() {
 
   // Turns Projection Mapping Applet On and Off
 void toggle2DProjection() {
-  if (System.getProperty("os.name").substring(0,3).equals("Mac")) {
-    testProjectorOnMac = !testProjectorOnMac;
-    println("Test on Mac = " + testProjectorOnMac);
+  if (testOnMac) {
     println("Projection Mapping Currently not Supported for MacOS");
   } else {
     if (displayProjection2D) {

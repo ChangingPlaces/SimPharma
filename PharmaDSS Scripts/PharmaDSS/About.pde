@@ -131,6 +131,7 @@
   *               - Refactoring:  Menu + Buttons for easy updating
   *               - Bug Fix: Deploy correct NCE when clicking table in game mode
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
+  *               - New Feature + Bug Fixes: Table Testing Enabled on PC
   *
   * BETA V1.3:    - TBA
   */
@@ -138,6 +139,9 @@
 String VERSION = "BETA V1.2";
   
  /* TO DO:        
+  
+  *               - Draw Build Ghosts on All of Site
+  *               - "NCE Not Available" Error when in NCE dock
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)

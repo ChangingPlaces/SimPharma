@@ -123,6 +123,10 @@ void setup() {
   setupTable();
 
   initUDP();
+  
+  if (System.getProperty("os.name").substring(0,3).equals("Mac")) {
+    testOnMac = true;
+  }
 }
 
 int textSize = 12;

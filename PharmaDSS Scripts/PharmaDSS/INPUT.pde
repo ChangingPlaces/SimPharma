@@ -29,17 +29,18 @@ String[][] buttonNames =
   { "Toggle Site", "s" },
   { "Toggle Existing Build", "u" },
   { "Toggle New Build", "b" },
+  { "Toggle KPI's", "k" },
   { "VOID", "" },
   { "Deploy Selection", "d" },
   { "Remove Selection", "r" },
   { "Repurpose Selection", "e" },
-  { "VOID", "" },
   { "End Turn", "SPACE" },
   { "VOID", "" },
-  { "Debug", "0" },
-  { "Show Score Radar", "z" },
+  { "Table Projection", "`" },
+  { "Table Test", "t" },
   { "Invert Colors", "i" },
-  { "Project Table", "`" }
+  { "Debug", "0" }
+  
 };
 
 // Hash Map of Button Names where Key is key-command and Value is buttonNames[] index
@@ -66,6 +67,8 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   mainMenu.buttons[ bHash.get("d") ].isVoid = !gameMode;
   mainMenu.buttons[ bHash.get("r") ].isVoid = !gameMode;
   mainMenu.buttons[ bHash.get("e") ].isVoid = !gameMode;
+  
+  mainMenu.buttons[ bHash.get("t") ].active = !tableTest;
 }
 
 void keyPressed() {
@@ -103,14 +106,17 @@ void keyPressed() {
     case 'e': 
       key_e();
       break;
-    case 'z': 
-      key_z();
+    case 'k': 
+      key_k();
       break;
     case 'i': 
       key_i();
       break;
     case '`': 
       key_tilde();
+      break;
+    case 't': 
+      key_t();
       break;
     case ' ': 
       key_space();
@@ -162,7 +168,7 @@ void keyPressed() {
 // The result of each button click is defined here
 void mousePressed() {
   
-  if (testProjectorOnMac && mfg.mouseInGrid()) {
+  if (tableTest && mfg.mouseInGrid()) {
     // Add piece to table virtually (Must run BEFORE Main Menu Button Implementation)
     int ID;
     if (gameMode) {
@@ -224,8 +230,8 @@ void mousePressed() {
     key_e();
   }
   
-  if(mainMenu.buttons[ bHash.get("z") ].over()){ 
-    key_z();
+  if(mainMenu.buttons[ bHash.get("k") ].over()){ 
+    key_k();
   }
   
   if(mainMenu.buttons[ bHash.get("i") ].over()){ 
@@ -234,6 +240,10 @@ void mousePressed() {
   
   if(mainMenu.buttons[ bHash.get("`") ].over()){ 
     key_tilde();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("t") ].over()){ 
+    key_t();
   }
   
   if(mainMenu.buttons[ bHash.get("SPACE") ].over()){ 
@@ -332,9 +342,9 @@ void key_space() {
   if (gameMode) endTurn();
 }
 
-void key_z() {
+void key_k() {
   displayRadar = !displayRadar;
-  mainMenu.buttons[ bHash.get("z") ].isPressed = displayRadar;
+  mainMenu.buttons[ bHash.get("k") ].isPressed = displayRadar;
 }
 
 void key_i() {
@@ -345,6 +355,11 @@ void key_i() {
 void key_tilde() {
   // Toggle Table Projection
   toggle2DProjection();
+}
+
+void key_t() {
+  tableTest = !tableTest;
+  mainMenu.buttons[ bHash.get("t") ].isPressed = tableTest;
 }
 
 void key_0() {

@@ -79,7 +79,7 @@ class Site {
     }
     
     // Draw Site Hover
-    if (hover) {
+    if (hover && !(tableTest && mfg.mouseInGrid())) {
         noFill();
         stroke(HIGHLIGHT); 
         strokeWeight(1);
@@ -217,8 +217,8 @@ class Site {
         strokeWeight(1);
       }
       
-      // Highlight Build if Selected
-      if (hoverElement.equals("BUILD") && session.hoverSiteBuild == i) {
+      // Highlight Build if Hovering
+      if (hoverElement.equals("BUILD") && session.hoverSiteBuild == i && !(tableTest && mfg.mouseInGrid())) {
         noFill();
         stroke(HIGHLIGHT);
         strokeWeight(2);
