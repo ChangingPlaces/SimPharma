@@ -72,8 +72,8 @@ class TableSurface {
 
   ArrayList<Basin> inputArea;
   
-  boolean[][] inUse;
-  int[][] siteBuildIndex;
+  boolean[][] inUse, editing;
+  int[][] siteIndex, siteBuildIndex;
 
   TableSurface(int W, int H, int U, int V, boolean left_margin) {
     this.U = U;
@@ -82,7 +82,9 @@ class TableSurface {
     inputArea = new ArrayList<Basin>();
     cellType = new String[U][V][2];
     inUse = new boolean[U][V];
+    editing = new boolean[U][V];
     siteBuildIndex = new int[U][V];
+    siteIndex = new int[U][V];
     
     cellW = float(W)/U;
     cellH = float(H)/V;
@@ -147,7 +149,17 @@ class TableSurface {
         cellType[u][v][1] = "NULL";
         
         inUse[u][v] = false;
+        editing[u][v] = false;
         siteBuildIndex[u][v] = -1;
+        siteIndex[u][v] = -1;
+      }
+    }
+  }
+  
+  void lockEdits() {
+    for (int u=0; u<U; u++) {
+      for (int v=0; v<V; v++) {
+        editing[u][v] = false;
       }
     }
   }
@@ -159,44 +171,72 @@ class TableSurface {
       for (int v=0; v<V; v++) {
         
         // Determine if the Cell is in a "Site" Basin and, if so, which one
-        int site = -1;
+        siteIndex[u][v] = -1;
         if (inBasin(u, v)) {
-          if (cellType[u][v][0].equals("SITE_0")) site = 0;
-          if (cellType[u][v][0].equals("SITE_1")) site = 1;
-          if (cellType[u][v][0].equals("SITE_2")) site = 2;   
+          if (cellType[u][v][0].equals("SITE_0")) siteIndex[u][v] = 0;
+          if (cellType[u][v][0].equals("SITE_1")) siteIndex[u][v] = 1;
+          if (cellType[u][v][0].equals("SITE_2")) siteIndex[u][v] = 2;
+
+          if (tableHistory.size() > 0) {
+            if (tablePieceInput[u - MARGIN_W][v][0] != tableHistory.get(tableHistory.size()-1)[u - MARGIN_W][v][0]) {
+              editing[u][v] = true;
+            } 
+          } else {
+            editing[u][v] = true;
+          }
+          
+          // If the cell is currently not in use, proceed
+          if (!inUse[u][v]) {
             
-          // If the cell is currently in use, proceed
-          if (inUse[u][v]) {
+            // If piece has ID
+            if (tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
+              
+              // Begin Building the Current Production Facility
+              Event deploy = new Event("deploy", siteIndex[u][v], session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
+              session.current.event.add(deploy);
+              siteBuildIndex[u][v] = agileModel.SITES.get(siteIndex[u][v]).siteBuild.size()-1;
+              inUse[u][v] = true;
+              
+            }
             
             // If Lego Piece is Removed ...
             if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) {
               try {
-                Event remove = new Event("remove", site, siteBuildIndex[u][v]);
+                if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
+                    inUse[u][v] = false;
+                Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                 session.current.event.add(remove);
+                dockIndex(siteBuildIndex[u][v]);
+                siteBuildIndex[u][v] = -1;
                 updateProfileCapacities();
-                inUse[u][v] = false;
               } catch (Exception e) {
-                println("Error Removing A Piece from the Table");
+                println("Error Removing A Piece from the Table while NOT in use");
               }
             }
-  
           } 
           
-          // If the cell is currently not in use, proceed
-          else {
+          else { // If the cell is currently in use, proceed
             
-            // If lego id is valid, proceed
-            if (tablePieceInput[u - MARGIN_W][v][0] > -1 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
+            if (editing[u][v]) {
+              // If Lego Piece is Removed ...
+              if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) { 
+                try {
+                  if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
+                    inUse[u][v] = false;
+                  Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
+                  session.current.event.add(remove);
+                  dockIndex(siteBuildIndex[u][v]);
+                  siteBuildIndex[u][v] = -1;
+                  updateProfileCapacities();
+                } catch (Exception e) {
+                  println("Error Removing A Piece from the Table while IN use");
+                }
+              } else { // If Lego Piece is Changed ....
               
-              // Begin Building the Current Production Facility
-              Event deploy = new Event("deploy", site, session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
-              session.current.event.add(deploy);
-              siteBuildIndex[u][v] = agileModel.SITES.get(site).siteBuild.size()-1;
-              inUse[u][v] = true;
-              
+              }
             }
-          }
-        } 
+          } // end else !inUse
+        } // end inBasin
         
         if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
           infoOverlay = true;
@@ -216,6 +256,17 @@ class TableSurface {
     updateProfileCapacities();
   }
   
+  void dockIndex(int dockedIndex) {
+    // Cycle through each 22x22 Table Grid
+    for (int u=0; u<U; u++) {
+      for (int v=0; v<V; v++) {
+        if (siteBuildIndex[u][v] > dockedIndex) {
+          siteBuildIndex[u][v]--;
+        }
+      }
+    }
+  }
+  
   void draw(PGraphics p) {
     int buffer = 30;
     int spotLightHeight = 42;
@@ -233,7 +284,8 @@ class TableSurface {
        p.fill(0);
       p.textSize(30);
       p.textAlign(CENTER, CENTER);
-      p.text(NUM_PROFILES - i, 15 + spotLightWidth/2, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height + spotLightHeight/2 - 2);
+      p.text(NUM_PROFILES - i, 15 + 0.75*spotLightWidth, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height + spotLightHeight/2 - 2);
+      p.image(nce, 0.25*spotLightWidth, (i*(spotLightHeight + 12) ) + buffer + logo_GSK.height + spotLightHeight/2 - 19, cellW, cellH);
     }
     
     // Draw Site Boundaries (Existing and Greenfield)
@@ -262,12 +314,35 @@ class TableSurface {
             Build current;
             
             // Draw Colortizer Input Pieces
-            if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {
-              
-              p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
+            if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {  
               p.noStroke();
-              p.rect(u*cellW, v*cellH, cellW, cellH);
-              p.image(nce, u*cellW, v*cellH, cellW, cellH);
+              float ratio = 0.25;
+              try {
+                if (!agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).built) {
+                  // Draw Under Construction
+                  p.fill(50);
+                  p.rect(u*cellW, v*cellH, cellW, cellH);
+                  p.fill(0);
+                  p.stroke(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ], 200);
+                  p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, 0.5*cellW, 0.5*cellH);
+                } else {
+                  // Draw Built
+                  p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
+                  p.rect(u*cellW, v*cellH, cellW, cellH);
+                  p.image(nce, u*cellW + ratio*cellW, v*cellH + 0.5*ratio*cellH, (1-2*ratio)*cellW, (1-2*ratio)*cellH);
+                  
+                  //Draw Capacity
+                  p.fill(0);
+                  p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, cellW-10, ratio*cellH);
+                  p.fill(255);
+                  float cap = agileModel.SITES.get(siteIndex[u][v]).meetPercent;
+                  p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, cap*(cellW-10), ratio*cellH);
+                  
+                }
+              } catch (Exception e) {
+                println("Error Drawing Table Piece");
+              }
+              
             }
 
           }
@@ -278,17 +353,30 @@ class TableSurface {
           p.strokeWeight(3);
           p.rect(u*cellW, v*cellH, cellW, cellH);
           
-          // Draw Symbol to show "in use"
+          /*          
           if (debug) {
+            // Draw Symbol to show "in use"
             if (inUse[u][v]) {
               p.fill(#FF0000);
             } else {
               p.fill(#00FF00);
             }
             p.stroke(255);
-            p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, 0.25*cellW, 0.25*cellH);
+            p.ellipse(u*cellW + 0.25*cellW, v*cellH + 0.5*cellH, 0.25*cellW, 0.25*cellH);
+            
+            // Draw Yellow Symbol if Active Editing
+            if (editing[u][v]) {
+              p.fill(#FFFF00);
+              p.ellipse(u*cellW + 0.75*cellW, v*cellH + 0.5*cellH, 0.25*cellW, 0.25*cellH);
+            }
+            
+            // Draw Other Info
+            p.fill(255);
+            p.textSize(10);
+            p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
+            p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
           }
-          
+          */         
           p.noFill();
         }
       }
@@ -302,7 +390,6 @@ class TableSurface {
     p.textSize(20);
     p.textAlign(RIGHT);
     p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
-    p.image(nce, 7*cellW, (V-2)*cellH, 200, 100);
     p.fill(0);
     p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
           

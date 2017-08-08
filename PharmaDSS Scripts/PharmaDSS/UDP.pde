@@ -76,7 +76,6 @@ void parseColortizerStrings(String data[]) {
             // Sets ID
             tablePieceInput[v_temp][u_temp][0] = int(split[0]);
             changeDetected = true;
-            loop();
           }
         }
 
@@ -90,7 +89,6 @@ void parseColortizerStrings(String data[]) {
             //Identifies rotation vector of piece [WARNING: Colortizer supplies rotation in degrees (0, 90, 180, and 270)]
             tablePieceInput[v_temp][u_temp][1] = int(split[3])/90;
             changeDetected = true;
-            loop();
           }
         }
       }
@@ -112,7 +110,7 @@ void receive( byte[] data, String ip, int port ) {  // <-- extended handler
   }
   
   // Updates Screen whenever Webcam Update Received
-  loop();
+  if (changeDetected) loop();
 }
 
 void sendCommand(String command, int port) {

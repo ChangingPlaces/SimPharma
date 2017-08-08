@@ -20,6 +20,8 @@ class Site {
   ArrayList<Build> siteBuild;
   ArrayList<Build> siteRND;
   
+  float meetPercent;
+  
 //  // Salary Modifier for Site Conditions (i.e. 0.9 or 1.2 of Labour Cost)
 //  float salaryMod;
   
@@ -177,7 +179,6 @@ class Site {
           // Calculate percent of build module being utilized to meet demand
           float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, session.current.TURN-1);
           float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).globalProductionLimit;
-          float meetPercent;
           if (cap == 0) {
             meetPercent = 0.0;
           } else {
