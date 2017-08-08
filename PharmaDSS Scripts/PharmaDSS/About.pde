@@ -127,14 +127,15 @@
   * BETA V1.2:    - Bug Fix: Improved Framerates Drastically!
   *               - New Feature: Allow Click when mouse dragged
   *               - New Feature: Update Button Animation
+  *               - New Feature: Automatically Initializes in "Game Mode"
   *               - Refactoring:  Menu + Buttons for easy updating
   *               - Bug Fix: Deploy correct NCE when clicking table in game mode
+  *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   */
   
 String VERSION = "BETA V1.1";  
   
  /* TO DO:        
-  *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)

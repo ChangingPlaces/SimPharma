@@ -145,13 +145,6 @@ void draw() {
   // Refers to "drawScreen" tab
   drawScreen();
   
-  drawPhaseDiagram();
-  
-  // Draws Overlay Graphic to describe NCE attributes
-  if (infoOverlay || infoOverride) {
-      drawInfoOverlay();
-  }
-  
   // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
   noStroke();
   drawTable();

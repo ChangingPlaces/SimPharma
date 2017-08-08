@@ -241,11 +241,12 @@ class Profile {
   
   int iconX, iconY, iconW, iconH;
 
-  void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean detail) {
+  void draw(int x, int y, int w, int h, boolean axis, boolean selected, boolean hover, boolean detail) {
     xClick = x - 15;
     yClick = y - h - 7;
     wClick = w + 80;
     hClick = h + 20;
+    
     float unit = 5000;
     float scalerH, scalerW;
     float markerH = 1.00;
@@ -258,7 +259,15 @@ class Profile {
       fill(HIGHLIGHT, 50);
       noStroke(); 
       rect(x - 15, y - h - 7, w + 30, h+20, 5);
-      //rect(0.25*MARGIN + profilesX, y - h - 7, profilesW + MARGIN*1.75, h+20, 2);
+      noStroke();
+    }
+    
+    // Draw Profile Selection
+    if (hover) {
+      noFill();
+      stroke(HIGHLIGHT); 
+      strokeWeight(1);
+      rect(x - 15, y - h - 7, w + 30, h+20, 5);
       noStroke();
     }
 

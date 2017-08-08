@@ -51,15 +51,26 @@ class Game {
   int selectedSite, selectedSiteBuild;
   int selectedBuild;
   
+  int hoverProfile;
+  int hoverSite, hoverSiteBuild;
+  int hoverBuild;
+  
   // Boolean to specify if continuous manufacturing technology is allowed
   boolean continuousMfG = false;
   
   Game() {
     current = new Turn(0);
+    
     selectedProfile = 0;
     selectedSite = 0;
     selectedSiteBuild = 0;
     selectedBuild = 0;
+    
+    hoverProfile = 0;
+    hoverSite = 0;
+    hoverSiteBuild = 0;
+    hoverBuild = 0;
+    
     turnLog = new ArrayList<Turn>();
     tableHistory.clear();
     
