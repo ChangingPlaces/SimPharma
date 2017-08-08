@@ -28,6 +28,9 @@ class Profile {
   // Peak Demands (Forecast and Actual)
   float demandPeak_F, demandPeak_A; // calculate from demandProfile
   float peakTime_F, peakTime_A;
+  
+  // Magnitude of difference between actual and forecast;
+  float forecastScalerH;
 
   // Peak Actual Demand
 
@@ -71,6 +74,7 @@ class Profile {
     demandProfile = new Table();
     ABSOLUTE_INDEX = INDEX;
     launched = false;
+    forecastScalerH = 1.1;
   }
 
   ArrayList<Float> localProductionLimit;
@@ -86,6 +90,7 @@ class Profile {
     this.demandProfile = demandProfile;
     ABSOLUTE_INDEX = INDEX;
     launched = false;
+    forecastScalerH = 1.1;
   }
 
 
@@ -250,10 +255,19 @@ class Profile {
     float unit = 5000;
     float scalerH, scalerW;
     float markerH = 1.00;
-    float forecastScalerH = 2.0; // leaves room for actual demand to overshoot forecast
+    
+    // Dynamically Adjust Scale to Fit Actual Demand
+    for (int i=0; i<demandProfile.getColumnCount (); i++) {
+      // If game is on, only shows actual demand bars for finished turns
+      if (!gameMode || session.current.TURN + 1 > i) {
+        float ratio = demandProfile.getFloat(2, i) / demandPeak_F;
+        if (forecastScalerH < ratio) forecastScalerH = ratio;
+      }
+    }
     scalerH = h/(forecastScalerH*demandPeak_F);
     scalerW = float(w)/demandProfile.getColumnCount();
-
+    
+    
     // Draw Profile Selection
     if (selected) {
       fill(HIGHLIGHT, 50);

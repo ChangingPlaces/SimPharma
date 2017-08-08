@@ -132,6 +132,7 @@
   *               - Bug Fix: Deploy correct NCE when clicking table in game mode
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   *               - New Feature + Bug Fixes: Table Testing Enabled on PC
+  *               - Hot Fix: Allows Repurposing of Modules
   *
   * BETA V1.3:    - TBA
   */
