@@ -262,8 +262,8 @@ class Profile {
       noStroke();
     }
     
-    // Draw Profile Selection
-    if (hover) {
+    // Draw Profile Hover
+    if (hover && !(tableTest && mfg.mouseInGrid())) {
       noFill();
       stroke(HIGHLIGHT); 
       strokeWeight(1);

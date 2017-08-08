@@ -5,6 +5,7 @@ float[][] siteCapacity;
 boolean enableSites;
 
 boolean dockedNCE = false;
+boolean tableTest = false;
 
 int BASIN_HEIGHT = 6;
 
@@ -32,7 +33,7 @@ void drawTable() {
   // Draw the scene, offscreen
   mfg.draw(offscreen);
 
-  if (testProjectorOnMac) {
+  if (tableTest) {
     stroke(background);
     strokeWeight(1);
     fill(textColor, 100);
