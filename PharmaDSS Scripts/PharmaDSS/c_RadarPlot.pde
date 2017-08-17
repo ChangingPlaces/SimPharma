@@ -1,11 +1,11 @@
 boolean displayRadar = false;
-RadarPlot kpi;
+RadarPlot radar;
 
 void setupRadar() {
-  kpi = new RadarPlot(NUM_OUTPUTS);
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    kpi.setName(i, outputNames[i]);
-    kpi.setScore(i, random(1.0));
+  radar = new RadarPlot(performance.numScores);
+  for (int i=0; i<performance.numScores; i++) {
+    radar.setName(i, performance.name[i]);
+    radar.setScore(i, random(1.0));
   }
   
 }

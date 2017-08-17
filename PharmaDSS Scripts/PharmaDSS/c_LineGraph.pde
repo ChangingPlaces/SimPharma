@@ -28,7 +28,7 @@ class LineGraph{
 
     //Implement try catch in case of memory leak of array
     try{
-      for(int i = 0; i<NUM_OUTPUTS; i++){
+      for(int i = 0; i<performance.numScores; i++){
       
         //draws legend
         noStroke();
@@ -37,7 +37,7 @@ class LineGraph{
         fill(textColor);
         textAlign(LEFT);
         textSize(textSize);
-        text(outputNames[i], minx + (4-i)*w/4 - 30, miny - h - 21 );   
+        text(performance.name[i], minx + (4-i)*w/4 - 30, miny - h - 21 );   
          
         // Only show values for current and prior turns
         int intervals;
@@ -51,10 +51,10 @@ class LineGraph{
       
         for(int j = 0; j<intervals; j++){
           posx  = j*(w/Values.size()) + minx;         
-          posy = map(100*Values.get(j)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
+          posy = map(100*Values.get(j)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
           
           posx2  = posx + (w/Values.size());
-          posy2 = map(100*Values.get(j+1)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
+          posy2 = map(100*Values.get(j+1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
            
           //set colors with the appropriate profile
           fill(colarray[i]);
@@ -72,8 +72,8 @@ class LineGraph{
             
             fill(textColor);
             textAlign(CENTER);
-            int val = str(100*Values.get(j+1)[i]/outputMax[i]).substring(0, str(100*Values.get(j+1)[i]/outputMax[i]).indexOf(".")).length();
-            text(nf(100*Values.get(j+1)[i], val, 1).substring(0,3) + " " +outputUnits[i], posx2, posy2-10);
+            int val = str(100*Values.get(j+1)[i]/performance.max[i]).substring(0, str(100*Values.get(j+1)[i]/performance.max[i]).indexOf(".")).length();
+            text(nf(100*Values.get(j+1)[i], val, 1).substring(0,3) + " " +performance.unit[i], posx2, posy2-10);
           }
         }
       
@@ -81,9 +81,9 @@ class LineGraph{
         //unsure why this isn't picking up
         if (!gameMode || session.current.TURN >= 0) {   
           posx  = minx; 
-          posy = map(100*Values.get(0)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
+          posy = map(100*Values.get(0)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
           posx2  = posx + (w/Values.size());
-          posy2 = map(100*Values.get(1)[i]/outputMax[i], 0, 100, miny - 10, miny - h + 30);
+          posy2 = map(100*Values.get(1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
           int dim = 2;
           if (session.current.TURN == 1) dim = 4;
             fill(colarray[i]);

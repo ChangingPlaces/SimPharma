@@ -132,11 +132,12 @@
   *               - Bug Fix: Deploy correct NCE when clicking table in game mode
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   *               - New Feature + Bug Fixes: Table Testing Enabled on PC
-  *               - Hot Fix: Allows Repurposing of Modules
+  *               - Hot Fix: Allows Repurposing of Modules on Table
   *               - Colortizer Integration: Display Construction/Repurpose Status on Table
   *               - Colortizer Integration: Display Production Utilization On Table
   *               - New Feature: Dynamic Scaling of Profile Axes
   *               - Add Site "Filler" That decays over time
+  *               - Refactoring: Tabs, Output Class, Phase Diagram
   *
   * BETA V1.3:    - TBA
   */
@@ -149,6 +150,8 @@ String VERSION = "BETA V1.2";
   *               - "Ghost" for hypothetical scores next turn
   *               - "Ghost" of hypothetical player to play against
   *               - Allow user to compare performance with baseline/ideal scenario(s)  
+  
+  *               - Rebuild Site Visualizations, particularly how builds are represented
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)

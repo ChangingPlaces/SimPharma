@@ -1,4 +1,4 @@
- /*  Output Specs (June 4, 2017)
+ /*  GSK Manufacturing & Supply Chain Score Calculation Methods/Functions (June 4, 2017)
   *  
   *  All are ideally normalized to a percentage of an "ideal" actor.
   *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric.
@@ -17,109 +17,66 @@
   *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
   *
   */
+
+void initScores() {
   
-  ArrayList<float[]> outputs;
+  // Uses first N outputs in below list only. Increase to activate
+  int NUM_OUTPUTS = 5;
 
-// Uses first N outputs in below list only. Increase to activate
-int NUM_OUTPUTS = 5;
+  String[] outputNames = {
+    "Capital\nExpenses",
+    "Cost of\nGoods",
+    "Operating\nExpenses",
+    "Demand\nMet",
+    "Security\nof Supply"
+  };
+  
+  float[] outputMax = {
+    250000000.0,
+      2000000.0,
+     20000000.0,
+            1.0,
+            1.0
+  };
+  
+  String[] outputUnits = {
+    "mil GBP",
+    "mil GBP",
+    "mil GBP",
+    "%",
+    "%"
+  };
 
-String[] outputNames = {
-  "Capital\nExpenses",
-  "Cost of\nGoods",
-  "Operating\nExpenses",
-  "Demand\nMet",
-  "Security\nof Supply"
-};
-
-float[] outputMax = {
-  250000000.0,
-    2000000.0,
-   20000000.0,
-          1.0,
-          1.0
-};
-
-String[] outputUnits = {
-  "mil GBP",
-  "mil GBP",
-  "mil GBP",
-  "%",
-  "%"
-};
-
-void initOutputs() {
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    outputs = new ArrayList<float[]>();
-  }
+  performance = new ScoreSet(NUM_OUTPUTS, outputNames, outputMax, outputUnits);
 }
 
 void calcOutputs(int turn) {
   
-  if (outputs.get(turn).length > 0) {
+  if (performance.scores.get(turn).length > 0) {
     // Capital Expenditures
-    outputs.get(turn)[0] = calcCAPEX();
+    performance.scores.get(turn)[0] = calcCAPEX();
   }
   
-  if (outputs.get(turn).length > 1) {
+  if (performance.scores.get(turn).length > 1) {
     // Ability to meet Demand
-    outputs.get(turn)[3] = calcDemandMeetAbility();
+    performance.scores.get(turn)[3] = calcDemandMeetAbility();
   }
   
-  if (outputs.get(turn).length > 2) {
+  if (performance.scores.get(turn).length > 2) {
     // Security of Supply
-    outputs.get(turn)[4] = calcSecurity();
+    performance.scores.get(turn)[4] = calcSecurity();
   }
   
-  if (outputs.get(turn).length > 3) {
+  if (performance.scores.get(turn).length > 3) {
     // Operating Expenditures
-    outputs.get(turn)[1] = calcCOGs();
+    performance.scores.get(turn)[1] = calcCOGs();
   }
   
-  if (outputs.get(turn).length > 4) {
+  if (performance.scores.get(turn).length > 4) {
     // Cost of Goods
-    outputs.get(turn)[2] = calcOPEX();
+    performance.scores.get(turn)[2] = calcOPEX();
   }
   
-}
-
-void randomOutputs() {
-  outputs.clear();
-  
-  float[] o;
-  for (int i=0; i<NUM_INTERVALS; i++) {
-    o = new float[NUM_OUTPUTS];
-    for(int j=0; j<NUM_OUTPUTS; j++) {
-      o[j] = 0.9/(j+1) * (i+1)/20.0 + random(-0.1, 0.1);
-    }
-    outputs.add(o);
-  }
-  
-  // Set KPI Radar to Last Available Output array
-  o = outputs.get(outputs.size() - 1);
-  
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    kpi.setScore(i, o[i]);
-  }
-}
-
-void flatOutputs() {
-  outputs.clear();
-  
-  float[] o;
-  for (int i=0; i<NUM_INTERVALS; i++) {
-    o = new float[NUM_OUTPUTS];
-    for(int j=0; j<NUM_OUTPUTS; j++) {
-      o[j] = 1.0;
-    }
-    outputs.add(o);
-  }
-  
-  // Set KPI Radar to Last Available Output array
-  o = outputs.get(outputs.size() - 1);
-  
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    kpi.setScore(i, o[i]);
-  }
 }
 
 // Returns the capital expenses for the current turn

@@ -143,7 +143,7 @@ void drawScreen() {
       textAlign(LEFT);
       textSize(max(18, textSize));
       text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
-      if (NUM_OUTPUTS < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
+      if (performance.numScores < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
       if (!displayRadar) {
         text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
       } else {
@@ -160,13 +160,13 @@ void drawScreen() {
       }
    
   // Line Graph and Outputs
-      outputGraph = new LineGraph(outputs, lineX, lineY, lineW, lineH);
+      outputGraph = new LineGraph(performance.scores, lineX, lineY, lineW, lineH);
   
   // Draw Build Legend
       drawBuilds();
   
   // Draw Radar Plot
-      if (displayRadar) kpi.draw(radarX, radarY, radarH);
+      if (displayRadar) radar.draw(radarX, radarY, radarH);
   
   // Draw Drug Production Process Diagram
       drawPhaseDiagram();

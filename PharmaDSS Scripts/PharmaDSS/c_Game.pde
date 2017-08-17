@@ -32,7 +32,7 @@ void regenerateGame() {
   generateBasins();
   
   //resets Scores
-  flatOutputs();
+  performance.flatOutputs();
   
   // Reset Table Pieces
   fauxPieces(2, tablePieceInput, 15);
@@ -133,11 +133,11 @@ class Game {
       
       // Updates the status of the radar plot to current turn
       calcOutputs(session.current.TURN-1);
-      for (int i=0; i<NUM_OUTPUTS; i++) {
+      for (int i=0; i<performance.numScores; i++) {
         if (i < 3) {
-          kpi.setScore(i, 1 - outputs.get(session.current.TURN - 1)[i]/outputMax[i]);
+          radar.setScore(i, 1 - performance.scores.get(session.current.TURN - 1)[i]/performance.max[i]);
         } else {
-          kpi.setScore(i, outputs.get(session.current.TURN - 1)[i]/outputMax[i]);
+          radar.setScore(i, performance.scores.get(session.current.TURN - 1)[i]/performance.max[i]);
         }
       }
       
