@@ -23,7 +23,7 @@ void setupDemo(String demo) {
     projectorOffset = 1280;
   }
   
-  // MIT Settings (June 13, 2017)
+  // MIT IVL Settings (June 13, 2017)
   else if (demo.equals("MIT")) {
     screenWidth = 1280;
     screenHeight = 800;    
