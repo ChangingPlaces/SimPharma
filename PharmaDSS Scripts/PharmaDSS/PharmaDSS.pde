@@ -6,6 +6,13 @@
  *    A. MIT Licensing
  *    B. Project Description
  *    C. Development History
+ *
+ *  Tablature Name Guide:
+ *    "PharmaDSS" - Main tab with highest-level setup() and draw() functions
+ *    "About" - Tab only containing comments related to project documentation
+ *    "ALLCAPS" - specifies scripts related to the implementation of non-native APIs, libraries, etc
+ *    "c_Class" - specifies scripts related to a specific class and/or classes
+ *    "d_Canvas" - specifies scripts related to drawing elements to a processing canvas
  */
 
 // Set the Demo Name to "SYCAMORE", "MIT", etc to enable site-specific customization (i.e. screen resolution, projector size)
@@ -23,7 +30,7 @@ void setupDemo(String demo) {
     projectorOffset = 1280;
   }
   
-  // MIT Settings (June 13, 2017)
+  // MIT IVL Settings (June 13, 2017)
   else if (demo.equals("MIT")) {
     screenWidth = 1280;
     screenHeight = 800;    
@@ -102,13 +109,13 @@ void setup() {
   // Loads and formats menue items
   loadMenu(width, height);
   
+  // Loads Images and Grpahics
   phasing = loadImage("data/phasing.png");
   sitePNG = loadImage("data/site.png");
   sitePNG_BW = loadImage("data/site_BW.png");
   nce = loadImage("data/compound_invert.png");
   nceMini = loadImage("data/compound.png");
   chip = loadImage("data/chip.png");
-  
   logo_GSK = loadImage("data/GSK-logo-2014.png");
   logo_MIT = loadImage("data/MIT_logo_BW.png");
   

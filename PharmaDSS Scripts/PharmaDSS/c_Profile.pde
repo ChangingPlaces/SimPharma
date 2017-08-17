@@ -420,7 +420,7 @@ class Profile {
     
     // Lead Date
     if (timeLead >=0) {
-      fill(P3);
+      fill(PHASE_3);
       rect(x + scalerW * timeLead - markW, y - markerH*h, markW, markerH*h);
       if (detail) {
         textAlign(CENTER);
@@ -430,7 +430,7 @@ class Profile {
 
     // Launch Date
     if (timeLaunch >=0) {
-      fill(Launch);
+      fill(LAUNCH);
       rect(x + scalerW * timeLaunch - markW, y - markerH*h, markW, markerH*h);
       if (detail) {
         textAlign(CENTER);
