@@ -26,7 +26,7 @@ class LineGraph{
   }
   
   void draw(){
-    float posx, posy, posx2, posy2, posx3, posy3= 0;
+    float posx, posy, posx2, posy2;
 
     //Implement try catch in case of memory leak of array
     try{
@@ -40,21 +40,21 @@ class LineGraph{
         textAlign(LEFT);
         textSize(textSize);
         text(performance.name[i], minx + (4-i)*w/4 - 30, miny - h - 21 );   
-         
-        // Only show values for current and prior turns
-        int intervals;
-        if (gameMode && session.current.TURN > 0) {
-          intervals = min(Values.size()-1, session.current.TURN-1);
-        } else if (!gameMode) {
-          intervals = Values.size()-1;
-        } else {
-          intervals = 0;
-        }
         
         // Cycles through performance AND predicted
         ArrayList<float[]> drawVal;
         float alpha;
         for (int n=0; n<2; n++) {
+          
+          // Only show values for current and prior turns
+          int intervals;
+          if (gameMode && session.current.TURN > 0 && n == 0) {
+            intervals = min(Values.size()-1, session.current.TURN-1);
+          } else if (!gameMode || n == 1) {
+            intervals = Values.size()-1;
+          } else {
+            intervals = 0;
+          }
           
           if (n==0) {
             drawVal = Values;

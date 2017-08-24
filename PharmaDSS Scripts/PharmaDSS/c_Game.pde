@@ -102,6 +102,7 @@ class Game {
   // End the turn and commit all events to the Log
   void execute() {
     
+    // Lock User Input on table for game turn execution
     mfg.lockEdits();
     
     if (current.TURN < NUM_INTERVALS) {
@@ -132,8 +133,8 @@ class Game {
       // Updates the production capacities for each NCE
       updateProfileCapacities();
       
-      // Updates the status of the radar plot to current turn
-      calcOutputs(session.current.TURN-1, "execute");
+      // Updates the status of the radar plot to now-previous turn
+      calcOutputs(session.current.TURN - 1, "execute");
       for (int i=0; i<performance.numScores; i++) {
         if (i < 3) {
           radar.setScore(i, 1 - performance.scores.get(session.current.TURN - 1)[i]/performance.max[i]);

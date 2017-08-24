@@ -139,17 +139,19 @@
   *               - Add Site "Filler" That decays over time
   *               - Refactoring: Tabs, Output Class, Phase Diagram
   *
-  * BETA V1.3:    - TBA
+  * BETA V1.3:    - Show Clearly How User's Actions are tied to score change in any given turn.
+  *               - "Ghost" for hypothetical scores next turn
   */
   
-String VERSION = "BETA V1.2";
+String VERSION = "BETA V1.3";
   
  /* TO DO:    
- 
-  *               - Show Clearly How User's Actions are tied to score change in any given turn.
-  *               - "Ghost" for hypothetical scores next turn
+  
   *               - "Ghost" of hypothetical player to play against
   *               - Allow user to compare performance with baseline/ideal scenario(s)  
+  
+  *               - Toggle Visualization to emphasize SITE vs OUTPUTS (i.e. have "expanded mode" for graphs of score)
+  *               - Distinguish between user and "AI"/predicted
   
   *               - Include capacity values in profile graph resizing algorithm
   *               - Clarify Greenfield/Existing Site Effect (Different construction bar for greenfield development?)

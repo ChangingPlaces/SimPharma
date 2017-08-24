@@ -46,7 +46,7 @@ class ScoreSet {
     for (int i=0; i<NUM_INTERVALS; i++) {
       o = new float[numScores];
       for(int j=0; j<numScores; j++) {
-        o[j] = 1.0;
+        o[j] = max[j]*( 0.5 + random(-0.1, 0.1) );
       }
       scores.add(o);
     }

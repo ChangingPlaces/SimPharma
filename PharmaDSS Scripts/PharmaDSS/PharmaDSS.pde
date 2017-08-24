@@ -125,8 +125,9 @@ void setup() {
   
   initScores();
   setupRadar();
-  
   performance.flatOutputs();
+  prediction.flatOutputs();
+  
   setupTable();
 
   initUDP();
@@ -152,6 +153,9 @@ void draw() {
     decodePieces();
     changeDetected = false;
   }
+  
+  // Update prediction based upon extrapolating from current configuration
+  updatePrediction(session.current.TURN);
   
   // Refers to "drawScreen" tab
   drawScreen();

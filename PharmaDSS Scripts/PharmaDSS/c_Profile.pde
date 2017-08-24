@@ -59,8 +59,8 @@ class Profile {
 
   //  Columns of consecutive, discrete time intervals describing:
   //  - Time
+  //  - Forecast Capacity (weight per time)
   //  - Actual Capacity (weight per time)
-  //  - Ideal Capacity (weight per time)
   Table capacityProfile;
 
   //Parameters for click interface
@@ -186,16 +186,15 @@ class Profile {
   void initCapacityProfile() {
     capacityProfile = new Table();
     capacityProfile.addRow(); //Time
-    capacityProfile.addRow(); //Capacity (Actual)
+    capacityProfile.addRow(); //Capacity (Actual + Forecast)
     for (int i=0; i<demandProfile.getColumnCount (); i++) {
       capacityProfile.addColumn();
       capacityProfile.setFloat(0, i, demandProfile.getFloat(0, i)); //Time
-      capacityProfile.setFloat(1, i, 0.0); // Capacity
+      capacityProfile.setFloat(1, i, 0.0); //Capacity (Actual + Forecast)
     }
   }
 
   void calcProduction(ArrayList<Site> factories) {
-
 
     localProductionLimit = new ArrayList<Float>();
     globalProductionLimit = 0;
@@ -209,8 +208,8 @@ class Profile {
       numBuilds = factories.get(i).siteBuild.size();
       for (int j=0; j<numBuilds; j++) {
         current = factories.get(i).siteBuild.get(j);
-        if (current.built) {
-          if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
+        if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
+          if (current.built) {
             localProductionLimit.set(i, localProductionLimit.get(i) + current.capacity);
           }
         }
@@ -218,12 +217,12 @@ class Profile {
       globalProductionLimit += 1000*localProductionLimit.get(i);
     }
     
-    // Sets Remaining Capacity to Current Turn's Status Quo:
+    // Sets Capacity to Current Turn's Status Quo:
     for (int i=max(session.current.TURN-1, 0); i<NUM_INTERVALS; i++) {
       capacityProfile.setFloat(1, i, globalProductionLimit);
     }
 
-    // If Demand is yet to be built, adds potential to future capacity as "ghost"
+    // If capacity is yet to be built, adds future forecast capacity
     for (int i=0; i<numSites; i++) {
       numBuilds = factories.get(i).siteBuild.size();
       for (int j=0; j<numBuilds; j++) {
