@@ -160,7 +160,7 @@ void drawScreen() {
       }
    
   // Line Graph and Outputs
-      outputGraph = new LineGraph(performance.scores, lineX, lineY, lineW, lineH);
+      outputGraph = new LineGraph(performance.scores, prediction.scores, lineX, lineY, lineW, lineH);
   
   // Draw Build Legend
       drawBuilds();

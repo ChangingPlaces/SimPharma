@@ -2,12 +2,14 @@ class LineGraph{
   float minx, miny, h, w;
   int num_intervals;
   ArrayList<float[]> Values = new ArrayList<float[]>();
+  ArrayList<float[]> pValues = new ArrayList<float[]>();
 
   color[] colarray = new color[5];
 
   
-  LineGraph( ArrayList<float[]> _Values, float _x, float _y, float _w, float _h){
+  LineGraph( ArrayList<float[]> _Values, ArrayList<float[]> _pValues, float _x, float _y, float _w, float _h){
       Values = _Values;
+      pValues = _pValues;
   
       minx = _x;
       h = _h;
@@ -48,53 +50,71 @@ class LineGraph{
         } else {
           intervals = 0;
         }
-      
-        for(int j = 0; j<intervals; j++){
-          posx  = j*(w/Values.size()) + minx;         
-          posy = map(100*Values.get(j)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
+        
+        // Cycles through performance AND predicted
+        ArrayList<float[]> drawVal;
+        float alpha;
+        for (int n=0; n<2; n++) {
           
-          posx2  = posx + (w/Values.size());
-          posy2 = map(100*Values.get(j+1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
-           
-          //set colors with the appropriate profile
-          fill(colarray[i]);
-          noStroke();
-          int dim = 2;
-          ellipse(posx2, posy2, dim, dim);
-          stroke(colarray[i], 150);
-          strokeWeight(3);
-          line(posx, posy, posx2, posy2);
-           
-          //if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == Values.size()-2) ){
-          if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 ){
-            fill(colarray[i], 50);
-            ellipse(posx2, posy2, 10, 10);
+          if (n==0) {
+            drawVal = Values;
+            alpha = 1.0;
+          } else {
+            drawVal = pValues;
+            alpha = 0.3;
+          }
+          
+          for(int j = 0; j<intervals; j++){
+            // Calculate x and y locations
+            posx  = j*(w/drawVal.size()) + minx;         
+            posy = map(100*drawVal.get(j)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
             
-            fill(textColor);
-            textAlign(CENTER);
-            int val = str(100*Values.get(j+1)[i]/performance.max[i]).substring(0, str(100*Values.get(j+1)[i]/performance.max[i]).indexOf(".")).length();
-            text(nf(100*Values.get(j+1)[i], val, 1).substring(0,3) + " " +performance.unit[i], posx2, posy2-10);
-          }
-        }
-      
-        //special start and end case to begin the line from the axis
-        //unsure why this isn't picking up
-        if (!gameMode || session.current.TURN >= 0) {   
-          posx  = minx; 
-          posy = map(100*Values.get(0)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
-          posx2  = posx + (w/Values.size());
-          posy2 = map(100*Values.get(1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
-          int dim = 2;
-          if (session.current.TURN == 1) dim = 4;
-            fill(colarray[i]);
-            noStroke();
-            ellipse(posx, posy, dim, dim);
-          if (!gameMode || session.current.TURN > 1) {
-            fill(colarray[i]);
+            posx2  = posx + (w/drawVal.size());
+            posy2 = map(100*drawVal.get(j+1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
+             
+            //set colors with the appropriate profile
+            if (n == 0) {
+              fill(colarray[i], alpha*255);
+              noStroke();
+              int dim = 2;
+              ellipse(posx2, posy2, dim, dim);
+            }
+            stroke(colarray[i], alpha*150);
             strokeWeight(3);
-            stroke(colarray[i], 150);
             line(posx, posy, posx2, posy2);
+             
+            //if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 || (gameMode && j == session.current.TURN-2) || (!gameMode && j == drawVal.size()-2) ){
+            if(mouseX <= posx2 + 5 && mouseX >= posx2 -5 && mouseY <= posy2 + 5 && mouseY >= posy2-5 ){
+              fill(colarray[i], 50);
+              ellipse(posx2, posy2, 10, 10);
+              
+              fill(textColor);
+              textAlign(CENTER);
+              int val = str(100*drawVal.get(j+1)[i]/performance.max[i]).substring(0, str(100*drawVal.get(j+1)[i]/performance.max[i]).indexOf(".")).length();
+              text(nf(100*drawVal.get(j+1)[i], val, 1).substring(0,3) + " " +performance.unit[i], posx2, posy2-10);
+            }
           }
+        
+          //special start and end case to begin the line from the axis
+          //unsure why this isn't picking up
+          if (!gameMode || session.current.TURN >= 0) {   
+            posx  = minx; 
+            posy = map(100*drawVal.get(0)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
+            posx2  = posx + (w/drawVal.size());
+            posy2 = map(100*drawVal.get(1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
+            int dim = 2;
+            if (session.current.TURN == 1) dim = 4;
+              fill(colarray[i], alpha*255);
+              noStroke();
+              ellipse(posx, posy, dim, dim);
+            if (!gameMode || session.current.TURN > 1) {
+              fill(colarray[i]);
+              strokeWeight(3);
+              stroke(colarray[i], alpha*150);
+              line(posx, posy, posx2, posy2);
+            }
+          }
+          
         }
       }
     } catch(Exception e){}

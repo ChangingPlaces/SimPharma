@@ -33,6 +33,7 @@ void regenerateGame() {
   
   //resets Scores
   performance.flatOutputs();
+  prediction.flatOutputs();
   
   // Reset Table Pieces
   fauxPieces(2, tablePieceInput, 15);
