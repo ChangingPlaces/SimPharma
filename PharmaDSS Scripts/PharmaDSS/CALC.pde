@@ -46,35 +46,43 @@ void initScores() {
     "%",
     "%"
   };
-
+  
   performance = new ScoreSet(NUM_OUTPUTS, outputNames, outputMax, outputUnits);
+  prediction  = new ScoreSet(NUM_OUTPUTS, outputNames, outputMax, outputUnits);
 }
 
-void calcOutputs(int turn) {
+void calcOutputs(int turn, String mode) {
   
-  if (performance.scores.get(turn).length > 0) {
-    // Capital Expenditures
-    performance.scores.get(turn)[0] = calcCAPEX();
+  int scoreNum = performance.scores.get(turn).length;
+    
+  // Capital Expenditures
+  if (scoreNum > 0) {
+    if(mode.equals("execute")) performance.scores.get(turn)[0] = calcCAPEX();
+    if(mode.equals("predict"))  prediction.scores.get(turn)[0] = calcCAPEX();
   }
   
-  if (performance.scores.get(turn).length > 1) {
-    // Ability to meet Demand
-    performance.scores.get(turn)[3] = calcDemandMeetAbility();
+  // Ability to meet Demand
+  if (scoreNum > 1) {
+    if(mode.equals("execute")) performance.scores.get(turn)[3] = calcDemandMeetAbility();
+    if(mode.equals("predict"))  prediction.scores.get(turn)[3] = calcDemandMeetAbility();
   }
   
-  if (performance.scores.get(turn).length > 2) {
-    // Security of Supply
-    performance.scores.get(turn)[4] = calcSecurity();
+  // Security of Supply
+  if (scoreNum > 2) {
+    if(mode.equals("execute")) performance.scores.get(turn)[4] = calcSecurity();
+    if(mode.equals("predict"))  prediction.scores.get(turn)[4] = calcSecurity();
   }
   
-  if (performance.scores.get(turn).length > 3) {
-    // Operating Expenditures
-    performance.scores.get(turn)[1] = calcCOGs();
+  // Operating Expenditures
+  if (scoreNum > 3) {
+    if(mode.equals("execute")) performance.scores.get(turn)[1] = calcCOGs();
+    if(mode.equals("predict"))  prediction.scores.get(turn)[1] = calcCOGs();
   }
   
-  if (performance.scores.get(turn).length > 4) {
-    // Cost of Goods
-    performance.scores.get(turn)[2] = calcOPEX();
+  // Cost of Goods
+  if (scoreNum > 4) {
+    if(mode.equals("execute")) performance.scores.get(turn)[2] = calcOPEX();
+    if(mode.equals("predict"))  prediction.scores.get(turn)[2] = calcOPEX();
   }
   
 }

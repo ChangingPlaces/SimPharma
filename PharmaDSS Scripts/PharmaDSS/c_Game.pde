@@ -132,7 +132,7 @@ class Game {
       updateProfileCapacities();
       
       // Updates the status of the radar plot to current turn
-      calcOutputs(session.current.TURN-1);
+      calcOutputs(session.current.TURN-1, "execute");
       for (int i=0; i<performance.numScores; i++) {
         if (i < 3) {
           radar.setScore(i, 1 - performance.scores.get(session.current.TURN - 1)[i]/performance.max[i]);

@@ -1,4 +1,4 @@
-ScoreSet performance;
+ScoreSet performance, prediction;
 
 class ScoreSet {
   
