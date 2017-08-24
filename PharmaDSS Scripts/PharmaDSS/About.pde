@@ -151,6 +151,11 @@ String VERSION = "BETA V1.2";
   *               - "Ghost" of hypothetical player to play against
   *               - Allow user to compare performance with baseline/ideal scenario(s)  
   
+  *               - Include capacity values in profile graph resizing algorithm
+  *               - Clarify Greenfield/Existing Site Effect (Different construction bar for greenfield development?)
+  *               - Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment
+  *               - Somehow add screen-based deployments to table?
+  
   *               - Rebuild Site Visualizations, particularly how builds are represented
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
