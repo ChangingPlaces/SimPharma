@@ -140,7 +140,9 @@
   *               - Refactoring: Tabs, Output Class, Phase Diagram
   *
   * BETA V1.3:    - Show Clearly How User's Actions are tied to score change in any given turn.
-  *               - "Ghost" for hypothetical scores next turn
+  *               - New Feature: "Ghost" for hypothetical scores next turn
+  *               - BugFix: Update COGS and OPEX Scores into future
+  *               - BugFix: synced profile and output axes
   */
   
 String VERSION = "BETA V1.3";

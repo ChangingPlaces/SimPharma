@@ -125,7 +125,9 @@ float calcOPEX(int turn, String mode) {
   for (int i=0; i<agileModel.SITES.size(); i++) {
     for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
-      if (current.built) {
+      int timePassed = turn - session.current.TURN;
+      boolean predict = mode.equals("predict") && ((current.age + timePassed) >= current.buildTime - 1);
+      if (current.built || predict) {
         for (int l=0; l<current.labor.size(); l++) {
           expenses += current.labor.get(l).cost;
         }
@@ -140,13 +142,28 @@ float calcCOGs(int turn, String mode) {
   float expenses = 0.0;
   Build current;
   Profile nce;
+  float profileCapacity, profileDemand, production;
+    
   for (int i=0; i<agileModel.SITES.size(); i++) {
     for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
       nce = agileModel.PROFILES.get(current.PROFILE_INDEX);
-      if (current.built) {
-        expenses += current.production * current.capacity * nce.productionCost.get(i);
+      
+      profileCapacity = nce.capacityProfile.getFloat(1, turn);
+      if (mode.equals("execute")) {
+        profileDemand   = nce.demandProfile.getFloat(2, turn);
+      } else {
+        profileDemand   = nce.demandProfile.getFloat(1, turn);
       }
+      
+      if (profileCapacity > 0) {
+        production = min(profileDemand, profileCapacity) / profileCapacity;
+      } else {
+        production = 0;
+      }
+      
+      expenses += production * current.capacity * nce.productionCost.get(i);
+      
     }
   }
   return expenses;

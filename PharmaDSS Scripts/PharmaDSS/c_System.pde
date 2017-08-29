@@ -1,7 +1,6 @@
 // MFG_System specifies highest level, global constraints for the entire manufacturing system.  
 // Rules specified here universally apply to classes within the "Objects" tab.
 
-//RENAME TO SOMETHING
 class MFG_System {
   
   // Units for Describing Weight (i.e. "tons")

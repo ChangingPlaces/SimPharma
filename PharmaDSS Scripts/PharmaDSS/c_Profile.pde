@@ -59,8 +59,7 @@ class Profile {
 
   //  Columns of consecutive, discrete time intervals describing:
   //  - Time
-  //  - Forecast Capacity (weight per time)
-  //  - Actual Capacity (weight per time)
+  //  - Forecast or Actual Capacity (weight per time)
   Table capacityProfile;
 
   //Parameters for click interface
@@ -359,9 +358,9 @@ class Profile {
         if (i==0 || (i+1)%5 == 0) {
           line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
           noStroke();
-          text((agileModel.YEAR_0+i), x + scalerW * (i+.5) + 1, y + 15);
+          text("FY'" + (agileModel.YEAR_0+i)%2000, x + scalerW * (i+.5) + 1, y + 15);
         } else {
-          line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
+          //line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
         }
       }
 
@@ -479,7 +478,9 @@ class Profile {
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X + 5, Y-5);
         textAlign(CENTER);
-        text((agileModel.YEAR_0 + session.current.TURN), X , y + MARGIN);
+        if (session.current.TURN < NUM_INTERVALS) {
+          text("Pln. FY'" + (agileModel.YEAR_0 + session.current.TURN)%2000, X , y + MARGIN);
+        }
       }
     }
 

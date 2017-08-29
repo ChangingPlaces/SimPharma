@@ -66,7 +66,7 @@ class LineGraph{
           
           for(int j = 0; j<intervals; j++){
             // Calculate x and y locations
-            posx  = j*(w/drawVal.size()) + minx;         
+            posx  = (j+0.5)*(w/drawVal.size()) + minx;         
             posy = map(100*drawVal.get(j)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
             
             posx2  = posx + (w/drawVal.size());
@@ -97,8 +97,8 @@ class LineGraph{
         
           //special start and end case to begin the line from the axis
           //unsure why this isn't picking up
-          if (!gameMode || session.current.TURN >= 0) {   
-            posx  = minx; 
+          if (!gameMode || session.current.TURN > 0) {   
+            posx  = minx + 0.5*(w/drawVal.size()); 
             posy = map(100*drawVal.get(0)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
             posx2  = posx + (w/drawVal.size());
             posy2 = map(100*drawVal.get(1)[i]/performance.max[i], 0, 100, miny - 10, miny - h + 30);
@@ -122,7 +122,7 @@ class LineGraph{
     //Axes
     stroke(textColor);
     strokeWeight(1);
-    line(minx, miny, minx + w, miny);
+    //line(minx, miny, minx + w, miny);
     line(minx, miny, minx, miny - h + 20);
     
     //Labels
@@ -133,19 +133,20 @@ class LineGraph{
     float bottomAxisY = miny + textSize*2.5;
     
     //Year marks and labels
-    text("Year", minx + w/2, bottomAxisY); 
+    //text("Year", minx + w/2, bottomAxisY); 
     for(int i = 0; i<Values.size()+1; i++){
-      int curyear = 2017+i;
+      int curyear = agileModel.YEAR_0+i;
       strokeWeight(1);
-      line(minx + i*(w/Values.size()), miny + 2, minx + i*(w/Values.size()), miny-2);
-      if(i % 5 == 0){
-      text(curyear, i*(w/Values.size()) + minx, miny + textSize + 2);
+      
+      if((i+1) % 5 == 0 || curyear == agileModel.YEAR_0){
+        line(minx + (i+0.5)*(w/Values.size()), miny + 2, minx + (i+0.5)*(w/Values.size()), miny-2);
+        text("FY'" + curyear%2000, (i+0.5)*(w/Values.size()) + minx, miny + textSize + 2);
       }
     }
     
     //Score marks and labels
     //text(100, minx - 20, miny - h + 23);
-    text(0, minx - 10, miny);
+    text(0, minx - 10, miny - 0.5*textSize);
     float x = minx - textSize*2;
     float y = miny - h/2;
     pushMatrix();
@@ -154,6 +155,19 @@ class LineGraph{
     translate(-x,-y);
     text("Score", x,y);
     popMatrix();
+    
+    // Shows bar marker present time
+    if (gameMode && session.current.TURN > 0) {
+      float X = (session.current.TURN - 0.5)*(w/Values.size()) + minx;
+      fill(NOW, 50);
+      noStroke();
+      rect(X, miny - h, 2, h + 25);
+      fill(NOW);
+      textAlign(CENTER);
+      //text("TURN", X , miny + MARGIN - 25);
+    }
+    
+    fill(textColor);
   }
 }
 
