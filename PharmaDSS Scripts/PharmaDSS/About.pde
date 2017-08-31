@@ -144,6 +144,7 @@
   *               - BugFix: Update COGS and OPEX Scores into future
   *               - BugFix: synced profile and output axes
   *               - New Feature: Profile Graphs Rescale Axes when Capacity is Large
+  *               - New Feature: Consistent Tile Blockers with Time Until Decommission displayed on Table
   */
   
 String VERSION = "BETA V1.3";
