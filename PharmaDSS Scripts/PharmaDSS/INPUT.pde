@@ -162,6 +162,7 @@ void keyPressed() {
     }
   }
   
+  changeDetected = true;
   loop();
 }
 

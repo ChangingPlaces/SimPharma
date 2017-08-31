@@ -51,7 +51,8 @@ void generateBasins() {
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
     siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
     siteCapacity[i][1] = agileModel.SITES.get(i).capGn;
-    mfg.inputOccupied.add( int(siteCapacity[i][0]*random(0.1, 0.5)) );
+    // Define the number of tile blockers on start
+    mfg.inputOccupied.add( int(0.2*siteCapacity[i][0]) );
   }
 
   mfg.clearBasins();
@@ -75,7 +76,8 @@ class TableSurface {
   ArrayList<Basin> inputArea;
   ArrayList<Integer> inputOccupied; // Some Input Squares are initially occupied
   
-  boolean[][] inUse, editing, blocker;
+  boolean[][] inUse, editing;
+  Blocker[][] blocker;
   int[][] siteIndex, siteBuildIndex;
 
   TableSurface(int W, int H, int U, int V, boolean left_margin) {
@@ -87,7 +89,7 @@ class TableSurface {
     cellType = new String[U][V][2];
     inUse = new boolean[U][V];
     editing = new boolean[U][V];
-    blocker = new boolean[U][V];
+    blocker = new Blocker[U][V];
     siteBuildIndex = new int[U][V];
     siteIndex = new int[U][V];
     
@@ -96,6 +98,23 @@ class TableSurface {
     
     resetCellTypes();
     
+  }
+  
+  class Blocker {
+    boolean active;
+    int longevity;
+    
+    Blocker(int longevity) {
+      active = true;
+      this.longevity = longevity;
+    }
+    
+    void update() {
+      if (active) {
+        longevity--;
+        if (longevity < 0) active = false;
+      }
+    }
   }
   
   // Converts screen-based mouse coordinates to table grid position represented on screen during "Screen Mode"
@@ -155,7 +174,8 @@ class TableSurface {
         
         inUse[u][v] = false;
         editing[u][v] = false;
-        blocker[u][v] = false;
+        blocker[u][v] = new Blocker(3);
+        blocker[u][v].active = false;
         siteBuildIndex[u][v] = -1;
         siteIndex[u][v] = -1;
       }
@@ -177,13 +197,13 @@ class TableSurface {
       for (int v=0; v<V; v++) {
         
         siteIndex[u][v] = -1;
-        if (blocker[u][v]) {
+        if (blocker[u][v].active) {
           tablePieceInput[u - MARGIN_W][v][0] = -1;
           tablePieceInput[u - MARGIN_W][v][1] = 0;
         }
         
         // Determine if the Cell is in a non-blocked "Site" Basin and, if so, which one
-        if (inBasin(u, v) && !blocker[u][v]) {
+        if (inBasin(u, v) && !blocker[u][v].active) {
           if (cellType[u][v][0].equals("SITE_0")) siteIndex[u][v] = 0;
           if (cellType[u][v][0].equals("SITE_1")) siteIndex[u][v] = 1;
           if (cellType[u][v][0].equals("SITE_2")) siteIndex[u][v] = 2;
@@ -321,18 +341,22 @@ class TableSurface {
       for (int v=0; v<V; v++) {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
           
-          if (blocker[u][v]) {
+          if (blocker[u][v].active) {
             p.fill(GSK_ORANGE);
             p.rect(u*cellW, v*cellH, cellW, cellH);
             p.fill(0);
             p.stroke(255);
-            strokeWeight(1);
+            p.strokeWeight(1);
             p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, cellW, cellH);
             p.fill(255);
-            p.text("NA", u*cellW + 0.15*cellW, v*cellH + 0.7*cellH);
+            p.textSize(textSize);
+            p.textAlign(CENTER);
+            p.text("Exst", u*cellW + 0.5*cellW, v*cellH + 0.5*cellH);
+            p.text("-" + blocker[u][v].longevity, u*cellW + 0.5*cellW, v*cellH + 0.85*cellH);
+            p.textAlign(LEFT);
           }
           
-          if (inBasin(u, v) && !blocker[u][v]) {
+          if (inBasin(u, v) && !blocker[u][v].active) {
             Build current;
             
             // Draw Colortizer Input Pieces
@@ -519,7 +543,8 @@ class TableSurface {
         if (i<basinSize[1]) {
           cellType[u][v][1] = "EXISTING";
           if (inputOccupied.get(index) > 0) {
-            blocker[u][v] = true;
+            blocker[u][v].active = true;
+            blocker[u][v].longevity = inputOccupied.get(index);
             inputOccupied.set(index, inputOccupied.get(index)-1);
           }
         } else {

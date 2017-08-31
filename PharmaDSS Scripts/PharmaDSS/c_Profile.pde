@@ -30,7 +30,9 @@ class Profile {
   float peakTime_F, peakTime_A;
   
   // Magnitude of difference between actual and forecast;
+  float DEFAULT_SCALER = 1.1;
   float forecastScalerH;
+  float capacityScalerH;
 
   // Peak Actual Demand
 
@@ -59,8 +61,7 @@ class Profile {
 
   //  Columns of consecutive, discrete time intervals describing:
   //  - Time
-  //  - Actual Capacity (weight per time)
-  //  - Ideal Capacity (weight per time)
+  //  - Forecast or Actual Capacity (weight per time)
   Table capacityProfile;
 
   //Parameters for click interface
@@ -74,7 +75,8 @@ class Profile {
     demandProfile = new Table();
     ABSOLUTE_INDEX = INDEX;
     launched = false;
-    forecastScalerH = 1.1;
+    forecastScalerH = DEFAULT_SCALER;
+    capacityScalerH = DEFAULT_SCALER;
   }
 
   ArrayList<Float> localProductionLimit;
@@ -90,7 +92,8 @@ class Profile {
     this.demandProfile = demandProfile;
     ABSOLUTE_INDEX = INDEX;
     launched = false;
-    forecastScalerH = 1.1;
+    forecastScalerH = DEFAULT_SCALER;
+    capacityScalerH = DEFAULT_SCALER;
   }
 
 
@@ -186,16 +189,15 @@ class Profile {
   void initCapacityProfile() {
     capacityProfile = new Table();
     capacityProfile.addRow(); //Time
-    capacityProfile.addRow(); //Capacity (Actual)
+    capacityProfile.addRow(); //Capacity (Actual + Forecast)
     for (int i=0; i<demandProfile.getColumnCount (); i++) {
       capacityProfile.addColumn();
       capacityProfile.setFloat(0, i, demandProfile.getFloat(0, i)); //Time
-      capacityProfile.setFloat(1, i, 0.0); // Capacity
+      capacityProfile.setFloat(1, i, 0.0); //Capacity (Actual + Forecast)
     }
   }
 
   void calcProduction(ArrayList<Site> factories) {
-
 
     localProductionLimit = new ArrayList<Float>();
     globalProductionLimit = 0;
@@ -209,8 +211,8 @@ class Profile {
       numBuilds = factories.get(i).siteBuild.size();
       for (int j=0; j<numBuilds; j++) {
         current = factories.get(i).siteBuild.get(j);
-        if (current.built) {
-          if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
+        if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
+          if (current.built) {
             localProductionLimit.set(i, localProductionLimit.get(i) + current.capacity);
           }
         }
@@ -218,12 +220,12 @@ class Profile {
       globalProductionLimit += 1000*localProductionLimit.get(i);
     }
     
-    // Sets Remaining Capacity to Current Turn's Status Quo:
+    // Sets Capacity to Current Turn's Status Quo:
     for (int i=max(session.current.TURN-1, 0); i<NUM_INTERVALS; i++) {
       capacityProfile.setFloat(1, i, globalProductionLimit);
     }
 
-    // If Demand is yet to be built, adds potential to future capacity as "ghost"
+    // If capacity is yet to be built, adds future forecast capacity
     for (int i=0; i<numSites; i++) {
       numBuilds = factories.get(i).siteBuild.size();
       for (int j=0; j<numBuilds; j++) {
@@ -257,12 +259,24 @@ class Profile {
     float markerH = 1.00;
     
     // Dynamically Adjust Scale to Fit Actual Demand
-    for (int i=0; i<demandProfile.getColumnCount (); i++) {
+    float ratio;
+    float ratioActual = DEFAULT_SCALER;
+    float ratioCapacity = DEFAULT_SCALER;
+    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+      
+      // Always adjusts for any max capacity even into future
+      ratioCapacity = max(ratioCapacity, capacityProfile.getFloat(1, i) / demandPeak_F);
+      
       // If game is on, only shows actual demand bars for finished turns
+      // Does not reveal Actual Demand Scaler until revealed in game
       if (!gameMode || session.current.TURN + 1 > i) {
-        float ratio = demandProfile.getFloat(2, i) / demandPeak_F;
-        if (forecastScalerH < ratio) forecastScalerH = ratio;
+        ratioActual = max(ratioActual, demandProfile.getFloat(2, i) / demandPeak_F);
       }
+      
+      // Determine upper bounds (capacity value or actual demand value);
+      ratio = max(ratioActual, ratioCapacity);
+      if (DEFAULT_SCALER < ratio) forecastScalerH = ratio;
+      
     }
     scalerH = h/(forecastScalerH*demandPeak_F);
     scalerW = float(w)/demandProfile.getColumnCount();
@@ -360,9 +374,9 @@ class Profile {
         if (i==0 || (i+1)%5 == 0) {
           line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+3);
           noStroke();
-          text((agileModel.YEAR_0+i), x + scalerW * (i+.5) + 1, y + 15);
+          text("FY'" + (agileModel.YEAR_0+i)%2000, x + scalerW * (i+.5) + 1, y + 15);
         } else {
-          line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
+          //line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
         }
       }
 
@@ -420,7 +434,7 @@ class Profile {
     
     // Lead Date
     if (timeLead >=0) {
-      fill(P3);
+      fill(PHASE_3);
       rect(x + scalerW * timeLead - markW, y - markerH*h, markW, markerH*h);
       if (detail) {
         textAlign(CENTER);
@@ -430,7 +444,7 @@ class Profile {
 
     // Launch Date
     if (timeLaunch >=0) {
-      fill(Launch);
+      fill(LAUNCH);
       rect(x + scalerW * timeLaunch - markW, y - markerH*h, markW, markerH*h);
       if (detail) {
         textAlign(CENTER);
@@ -480,7 +494,9 @@ class Profile {
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X + 5, Y-5);
         textAlign(CENTER);
-        text((agileModel.YEAR_0 + session.current.TURN), X , y + MARGIN);
+        if (session.current.TURN < NUM_INTERVALS) {
+          text("Pln. FY'" + (agileModel.YEAR_0 + session.current.TURN)%2000, X , y + MARGIN);
+        }
       }
     }
 

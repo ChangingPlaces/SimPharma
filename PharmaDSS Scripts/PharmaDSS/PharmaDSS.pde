@@ -6,6 +6,13 @@
  *    A. MIT Licensing
  *    B. Project Description
  *    C. Development History
+ *
+ *  Tablature Name Guide:
+ *    "PharmaDSS" - Main tab with highest-level setup() and draw() functions
+ *    "About" - Tab only containing comments related to project documentation
+ *    "ALLCAPS" - specifies scripts related to foundational implementation of non-native APIs, libraries, calculations, etc
+ *    "c_Class" - specifies scripts related to a specific class and/or classes
+ *    "d_Canvas" - specifies scripts related to drawing elements to a processing canvas
  */
 
 // Set the Demo Name to "SYCAMORE", "MIT", etc to enable site-specific customization (i.e. screen resolution, projector size)
@@ -102,13 +109,13 @@ void setup() {
   // Loads and formats menue items
   loadMenu(width, height);
   
+  // Loads Images and Grpahics
   phasing = loadImage("data/phasing.png");
   sitePNG = loadImage("data/site.png");
   sitePNG_BW = loadImage("data/site_BW.png");
   nce = loadImage("data/compound_invert.png");
   nceMini = loadImage("data/compound.png");
   chip = loadImage("data/chip.png");
-  
   logo_GSK = loadImage("data/GSK-logo-2014.png");
   logo_MIT = loadImage("data/MIT_logo_BW.png");
   
@@ -116,10 +123,11 @@ void setup() {
   PFont main = loadFont("data/ArialUnicodeMS-20.vlw");
   textFont(main);
   
-  initOutputs();
+  initScores();
   setupRadar();
+  performance.flatOutputs();
+  prediction.flatOutputs();
   
-  flatOutputs();
   setupTable();
 
   initUDP();
@@ -145,6 +153,9 @@ void draw() {
     decodePieces();
     changeDetected = false;
   }
+  
+  // Update prediction based upon extrapolating from current configuration
+  updatePrediction(session.current.TURN);
   
   // Refers to "drawScreen" tab
   drawScreen();

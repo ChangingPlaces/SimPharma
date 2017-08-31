@@ -1,4 +1,4 @@
- /*  Output Specs (June 4, 2017)
+ /*  GSK Manufacturing & Supply Chain Score Calculation Methods/Functions (June 4, 2017)
   *  
   *  All are ideally normalized to a percentage of an "ideal" actor.
   *  Theoretically, we need a different "ideal" actor algorithm for each Performance metric.
@@ -17,113 +17,93 @@
   *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
   *
   */
+
+void initScores() {
   
-  ArrayList<float[]> outputs;
+  // Uses first N outputs in below list only. Increase to activate
+  int NUM_OUTPUTS = 5;
 
-// Uses first N outputs in below list only. Increase to activate
-int NUM_OUTPUTS = 5;
+  String[] outputNames = {
+    "Capital\nExpenses",
+    "Cost of\nGoods",
+    "Operating\nExpenses",
+    "Demand\nMet",
+    "Security\nof Supply"
+  };
+  
+  float[] outputMax = {
+    250000000.0,
+      2000000.0,
+     20000000.0,
+            1.0,
+            1.0
+  };
+  
+  String[] outputUnits = {
+    "mil GBP",
+    "mil GBP",
+    "mil GBP",
+    "%",
+    "%"
+  };
+  
+  performance = new ScoreSet(NUM_OUTPUTS, outputNames, outputMax, outputUnits);
+  prediction  = new ScoreSet(NUM_OUTPUTS, outputNames, outputMax, outputUnits);
 
-String[] outputNames = {
-  "Capital\nExpenses",
-  "Cost of\nGoods",
-  "Operating\nExpenses",
-  "Demand\nMet",
-  "Security\nof Supply"
-};
-
-float[] outputMax = {
-  250000000.0,
-    2000000.0,
-   20000000.0,
-          1.0,
-          1.0
-};
-
-String[] outputUnits = {
-  "mil GBP",
-  "mil GBP",
-  "mil GBP",
-  "%",
-  "%"
-};
-
-void initOutputs() {
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    outputs = new ArrayList<float[]>();
-  }
 }
 
-void calcOutputs(int turn) {
+void calcOutputs(int turn, String mode) {
   
-  if (outputs.get(turn).length > 0) {
-    // Capital Expenditures
-    outputs.get(turn)[0] = calcCAPEX();
+  int scoreNum = performance.scores.get(turn).length;
+    
+  // Capital Expenditures
+  if (scoreNum > 0) {
+    if(mode.equals("execute")) performance.scores.get(turn)[0] = calcCAPEX(turn, mode);
+    if(mode.equals("predict"))  prediction.scores.get(turn)[0] = calcCAPEX(turn, mode);
   }
   
-  if (outputs.get(turn).length > 1) {
-    // Ability to meet Demand
-    outputs.get(turn)[3] = calcDemandMeetAbility();
+  // Ability to meet Demand
+  if (scoreNum > 1) {
+    if(mode.equals("execute")) performance.scores.get(turn)[3] = calcDemandMeetAbility(turn, mode);
+    if(mode.equals("predict"))  prediction.scores.get(turn)[3] = calcDemandMeetAbility(turn, mode);
   }
   
-  if (outputs.get(turn).length > 2) {
-    // Security of Supply
-    outputs.get(turn)[4] = calcSecurity();
+  // Security of Supply
+  if (scoreNum > 2) {
+    if(mode.equals("execute")) performance.scores.get(turn)[4] = calcSecurity(turn, mode);
+    if(mode.equals("predict"))  prediction.scores.get(turn)[4] = calcSecurity(turn, mode);
   }
   
-  if (outputs.get(turn).length > 3) {
-    // Operating Expenditures
-    outputs.get(turn)[1] = calcCOGs();
+  // Operating Expenditures
+  if (scoreNum > 3) {
+    if(mode.equals("execute")) performance.scores.get(turn)[1] = calcCOGs(turn, mode);
+    if(mode.equals("predict"))  prediction.scores.get(turn)[1] = calcCOGs(turn, mode);
   }
   
-  if (outputs.get(turn).length > 4) {
-    // Cost of Goods
-    outputs.get(turn)[2] = calcOPEX();
+  // Cost of Goods
+  if (scoreNum > 4) {
+    if(mode.equals("execute")) performance.scores.get(turn)[2] = calcOPEX(turn, mode);
+    if(mode.equals("predict"))  prediction.scores.get(turn)[2] = calcOPEX(turn, mode);
   }
   
 }
 
-void randomOutputs() {
-  outputs.clear();
+void updatePrediction(int turn) {
   
-  float[] o;
-  for (int i=0; i<NUM_INTERVALS; i++) {
-    o = new float[NUM_OUTPUTS];
-    for(int j=0; j<NUM_OUTPUTS; j++) {
-      o[j] = 0.9/(j+1) * (i+1)/20.0 + random(-0.1, 0.1);
-    }
-    outputs.add(o);
+  // Prediction overwritten by performance to date in game
+  for (int i=0; i<turn; i++) {
+    prediction.scores.set(i, performance.scores.get(i));
   }
   
-  // Set KPI Radar to Last Available Output array
-  o = outputs.get(outputs.size() - 1);
-  
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    kpi.setScore(i, o[i]);
+  // Calculates remaining values to become prediction
+  for (int i=turn; i<prediction.scores.size(); i++) {
+    calcOutputs(i, "predict");
   }
-}
-
-void flatOutputs() {
-  outputs.clear();
-  
-  float[] o;
-  for (int i=0; i<NUM_INTERVALS; i++) {
-    o = new float[NUM_OUTPUTS];
-    for(int j=0; j<NUM_OUTPUTS; j++) {
-      o[j] = 1.0;
-    }
-    outputs.add(o);
-  }
-  
-  // Set KPI Radar to Last Available Output array
-  o = outputs.get(outputs.size() - 1);
-  
-  for (int i=0; i<NUM_OUTPUTS; i++) {
-    kpi.setScore(i, o[i]);
-  }
+    
 }
 
 // Returns the capital expenses for the current turn
-float calcCAPEX() {
+float calcCAPEX(int turn, String mode) {
   float expenses = 0.0;
   Build current;
   for (int i=0; i<agileModel.SITES.size(); i++) {
@@ -139,13 +119,15 @@ float calcCAPEX() {
 }
 
 // Returns the Operating Expenses for the current turn
-float calcOPEX() {
+float calcOPEX(int turn, String mode) {
   float expenses = 0.0;
   Build current;
   for (int i=0; i<agileModel.SITES.size(); i++) {
     for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
-      if (current.built) {
+      int timePassed = turn - session.current.TURN;
+      boolean predict = mode.equals("predict") && ((current.age + timePassed) >= current.buildTime - 1);
+      if (current.built || predict) {
         for (int l=0; l<current.labor.size(); l++) {
           expenses += current.labor.get(l).cost;
         }
@@ -156,43 +138,62 @@ float calcOPEX() {
 }
 
 // Returns the cost of goods for the current turn
-float calcCOGs() {
+float calcCOGs(int turn, String mode) {
   float expenses = 0.0;
   Build current;
   Profile nce;
+  float profileCapacity, profileDemand, production;
+    
   for (int i=0; i<agileModel.SITES.size(); i++) {
     for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);
       nce = agileModel.PROFILES.get(current.PROFILE_INDEX);
-      if (current.built) {
-        expenses += current.production * current.capacity * nce.productionCost.get(i);
+      
+      profileCapacity = nce.capacityProfile.getFloat(1, turn);
+      if (mode.equals("execute")) {
+        profileDemand   = nce.demandProfile.getFloat(2, turn);
+      } else {
+        profileDemand   = nce.demandProfile.getFloat(1, turn);
       }
+      
+      if (profileCapacity > 0) {
+        production = min(profileDemand, profileCapacity) / profileCapacity;
+      } else {
+        production = 0;
+      }
+      
+      expenses += production * current.capacity * nce.productionCost.get(i);
+      
     }
   }
   return expenses;
 }
 
 // Returns the % ability to meet demand for a given turn (0.0 - 1.0)
-float calcDemandMeetAbility() {
+float calcDemandMeetAbility(int turn, String mode) {
   float percent; // 0.0 - 1.0
   float totDemandMet = 0;
   float totDemand = 0;
   int scoreCount = 0;
   
-  float profileCapacity, profileActualDemand;
+  float profileCapacity, profileDemand;
   
   percent = 0.0;
   
   for (int i=0; i<agileModel.activeProfiles.size(); i++) {
     
-    profileCapacity = agileModel.activeProfiles.get(i).globalProductionLimit;
-    profileActualDemand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, session.current.TURN-1);
+    profileCapacity = agileModel.activeProfiles.get(i).capacityProfile.getFloat(1, turn);
+    if (mode.equals("execute")) {
+      profileDemand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, turn);
+    } else {
+      profileDemand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(1, turn);
+    }
     
-    if (profileActualDemand > 0) {
+    if (profileDemand > 0) {
       scoreCount++;
-      totDemandMet += min(profileCapacity, profileActualDemand);
-      totDemand += profileActualDemand;
-      percent += min(profileCapacity, profileActualDemand) / profileActualDemand;
+      totDemandMet += min(profileCapacity, profileDemand);
+      totDemand += profileDemand;
+      percent += min(profileCapacity, profileDemand) / profileDemand;
     }
   }
   
@@ -208,7 +209,7 @@ float calcDemandMeetAbility() {
 }
 
 // Returns the security of the supply chain network for a given turn
-float calcSecurity() {
+float calcSecurity(int turn, String mode) {
 
   // percent = balanceScore + supplyScore [%]
   float percent, balanceScore, supplyScore;
@@ -257,7 +258,7 @@ float calcSecurity() {
       totalCapacity += siteCapacity[s];
     }
     
-    float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, min(session.current.TURN, NUM_INTERVALS-1) );
+    float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, min(turn, NUM_INTERVALS-1) );
     demand /= 1000.0; // units of kiloTons
     
     // Calaculates normalized balance and supply scores and adds them to total
@@ -312,4 +313,20 @@ float calcSecurity() {
   percent = BALANCE_WEIGHT * balanceScore + SUPPLY_WEIGHT * supplyScore;
   
   return percent;
+}
+
+// Based on Capacity (tons), calculates build cost for a facility in GBP
+float buildCost(float capacity) {
+  return 1000000 * ( 1.4 * (capacity - 0.5) + 2.0 ); //GBP
+}
+
+// Based on Capacity (tons), calculates build time for a facility in years
+float buildTime(float capacity) {
+  if (capacity <= 10) {
+    return 3; //yr
+  } else if (capacity <= 20) {
+    return 4; //yr
+  } else {
+    return 5; //yr
+  }
 }

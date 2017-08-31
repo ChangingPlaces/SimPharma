@@ -5,6 +5,7 @@
  */
 
 PImage phasing, sitePNG, sitePNG_BW, nce, nceMini, chip;
+PShape phaseArrow;
 
 // Logos
 PImage logo_GSK, logo_MIT;
@@ -16,6 +17,9 @@ color THEME = color(255, 108,47);
 color GSK_ORANGE = color(255, 108,47);
 color CAPACITY_COLOR = color(200, 95, 224); 
 color NOW = color(255, 220, 4);
+color PHASE_3 = color(61, 164, 72);
+color LAUNCH = color(64, 100, 209);
+int TEXT_BACKGROUND = 125; // presented as integer for inverting
 
 // Upper Left Corners
 int profilesX, profilesY, buildsX, buildsY, sitesX, sitesY, radarX, radarY, titlesY, lineX, lineY, infoX, infoY;
@@ -139,7 +143,7 @@ void drawScreen() {
       textAlign(LEFT);
       textSize(max(18, textSize));
       text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
-      if (NUM_OUTPUTS < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
+      if (performance.numScores < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
       if (!displayRadar) {
         text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
       } else {
@@ -156,13 +160,13 @@ void drawScreen() {
       }
    
   // Line Graph and Outputs
-      outputGraph = new LineGraph(outputs, lineX, lineY, lineW, lineH);
+      outputGraph = new LineGraph(performance.scores, prediction.scores, lineX, lineY, lineW, lineH);
   
   // Draw Build Legend
       drawBuilds();
   
   // Draw Radar Plot
-      if (displayRadar) kpi.draw(radarX, radarY, radarH);
+      if (displayRadar) radar.draw(radarX, radarY, radarH);
   
   // Draw Drug Production Process Diagram
       drawPhaseDiagram();
@@ -243,9 +247,9 @@ void drawProfiles(ArrayList<Profile> list) {
   
   fill(textColor, 150);
   rect(MARGIN + profilesX, titlesY + textSize*2.7 + 2, 15, 10);
-  fill(P3);
+  fill(PHASE_3);
   rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*1.5 , 3, textSize-2);
-  fill(Launch);
+  fill(LAUNCH);
   rect(MARGIN + profilesX+210 +textSize*4, titlesY + textSize*1.5, 3, textSize-2);
   fill(END);
   rect(MARGIN + profilesX+80 +textSize*2, titlesY + textSize*2.7 + 2, 3, textSize-2);
@@ -355,4 +359,66 @@ void drawInfoOverlay() {
       
     }
   }
+}
+
+
+// Method for drawing phase diagram explaining process of developing NCES to release
+void drawPhaseDiagram(){
+  
+  phaseArrow = createShape();
+  
+  drawArrow(phaseArrow, (profilesW + 1.75*MARGIN)/6, (profilesW + 1.75*MARGIN)/12, (profilesW + 1.75*MARGIN)/20, color(100));
+  
+  // Candidate Selection
+  phaseArrow.setFill(color(abs(background - TEXT_BACKGROUND)));
+  shape(phaseArrow, 0.25*MARGIN + profilesX, MARGIN - 10);
+  
+  //PIIb
+  phaseArrow.setFill(color(abs(background - TEXT_BACKGROUND)));
+  shape(phaseArrow, 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  
+  // PIII
+  phaseArrow.setFill(PHASE_3);
+  shape(phaseArrow, 0.25*MARGIN + profilesX + 2*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  
+  //File
+  phaseArrow.setFill(color(abs(background - TEXT_BACKGROUND)));
+  shape(phaseArrow, 0.25*MARGIN + profilesX + 3*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);
+  
+  //Launch
+  phaseArrow.setFill(LAUNCH);
+  shape(phaseArrow, 0.25*MARGIN + profilesX + 4*(profilesW + 1.75*MARGIN)/5, MARGIN - 10);  
+
+  // Draw Arrow Text
+  fill(abs(background - textColor));
+  textAlign(CENTER, CENTER);
+  float arrowwidth = (profilesW + 1.75*MARGIN)/6;
+  float ellx = 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12;
+  
+  float elly =  MARGIN - 10 +  (profilesW + 1.75*MARGIN)/24;
+  textSize(textSize);
+  text("Candidate",ellx + textSize, elly - textSize/2);
+  text("Selection",ellx + textSize, elly + textSize/2);
+  textSize(textSize - 1);
+  textAlign(LEFT, CENTER);
+  text("PIIb", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + (profilesW + 1.75*MARGIN)/5  , elly );
+  text("PIII", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 2*(profilesW + 1.75*MARGIN)/5  , elly );
+  text("File", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 3*(profilesW + 1.75*MARGIN)/5  , elly );
+  textAlign(CENTER, CENTER);
+  text("Launch", 0.25*MARGIN + profilesX + (profilesW + 1.75*MARGIN)/12 + 4*(profilesW + 1.75*MARGIN)/5  +textSize , elly );
+
+}
+
+// A solid arrow large enough to enclose text (used in phase diagram)
+void drawArrow(PShape s, float w, float h, float inset, color col){
+  s.beginShape();
+  s.fill(col);
+  s.noStroke();
+  s.vertex(0, 0);
+  s.vertex(inset, h/2);
+  s.vertex(0, h);
+  s.vertex(w, h);
+  s.vertex(w + inset, h/2);
+  s.vertex(w, 0);
+  s.endShape(CLOSE);
 }
