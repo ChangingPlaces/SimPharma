@@ -110,7 +110,7 @@ class Game {
       for (int u=0; u<U_MAX; u++) {
         for (int v=0; v<V_MAX; v++) {
           for (int i=0; i<2; i++) input[u][v][i] = tablePieceInput[u][v][i];
-          if (random(1.0) < 0.1) mfg.blocker[u+4][v] = false;
+          mfg.blocker[u+4][v].update();
           if (input[u][v][0] == -1) mfg.inUse[u+4][v] = false;
         }
       }

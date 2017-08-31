@@ -143,6 +143,7 @@
   *               - New Feature: "Ghost" for hypothetical scores next turn
   *               - BugFix: Update COGS and OPEX Scores into future
   *               - BugFix: synced profile and output axes
+  *               - New Feature: Profile Graphs Rescale Axes when Capacity is Large
   */
   
 String VERSION = "BETA V1.3";
