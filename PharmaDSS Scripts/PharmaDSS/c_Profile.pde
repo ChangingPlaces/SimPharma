@@ -30,7 +30,9 @@ class Profile {
   float peakTime_F, peakTime_A;
   
   // Magnitude of difference between actual and forecast;
+  float DEFAULT_SCALER = 1.1;
   float forecastScalerH;
+  float capacityScalerH;
 
   // Peak Actual Demand
 
@@ -73,7 +75,8 @@ class Profile {
     demandProfile = new Table();
     ABSOLUTE_INDEX = INDEX;
     launched = false;
-    forecastScalerH = 1.1;
+    forecastScalerH = DEFAULT_SCALER;
+    capacityScalerH = DEFAULT_SCALER;
   }
 
   ArrayList<Float> localProductionLimit;
@@ -89,7 +92,8 @@ class Profile {
     this.demandProfile = demandProfile;
     ABSOLUTE_INDEX = INDEX;
     launched = false;
-    forecastScalerH = 1.1;
+    forecastScalerH = DEFAULT_SCALER;
+    capacityScalerH = DEFAULT_SCALER;
   }
 
 
@@ -255,12 +259,24 @@ class Profile {
     float markerH = 1.00;
     
     // Dynamically Adjust Scale to Fit Actual Demand
-    for (int i=0; i<demandProfile.getColumnCount (); i++) {
+    float ratio;
+    float ratioActual = DEFAULT_SCALER;
+    float ratioCapacity = DEFAULT_SCALER;
+    for (int i=0; i<demandProfile.getColumnCount(); i++) {
+      
+      // Always adjusts for any max capacity even into future
+      ratioCapacity = max(ratioCapacity, capacityProfile.getFloat(1, i) / demandPeak_F);
+      
       // If game is on, only shows actual demand bars for finished turns
+      // Does not reveal Actual Demand Scaler until revealed in game
       if (!gameMode || session.current.TURN + 1 > i) {
-        float ratio = demandProfile.getFloat(2, i) / demandPeak_F;
-        if (forecastScalerH < ratio) forecastScalerH = ratio;
+        ratioActual = demandProfile.getFloat(2, i) / demandPeak_F;
       }
+      
+      // Determine upper bounds (capacity value or actual demand value);
+      ratio = max(ratioActual, ratioCapacity);
+      if (DEFAULT_SCALER < ratio) forecastScalerH = ratio;
+      
     }
     scalerH = h/(forecastScalerH*demandPeak_F);
     scalerW = float(w)/demandProfile.getColumnCount();
