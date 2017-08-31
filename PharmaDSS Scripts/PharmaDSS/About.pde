@@ -148,8 +148,8 @@
   *               - New Feature: Add button for Capital "P" (Profile Zoom-in)
   *               - BugFix: Game Messages Displays in better place
   *               - BugFix: Factories that take "3 years" to build are operable on the 4th year (was operable on the 3rd year)
-  *               - Add ticks for years on profile graph
-  *               - make it difficult to accidentally place nce build
+  *               - New Feature: Add ticks for years on profile graph
+  *               - New Feature: Make it difficult to accidentally place nce build
   */
   
 String VERSION = "BETA V1.3";
