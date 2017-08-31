@@ -234,9 +234,9 @@ class Profile {
           if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
             int yearsToOperate = int(current.buildTime - current.age);
             if (yearsToOperate + session.current.TURN < NUM_INTERVALS) { // Checks to make sure relevant
-              float newCapacity = capacityProfile.getFloat(1, session.current.TURN-1 + yearsToOperate);
+              float newCapacity = capacityProfile.getFloat(1, session.current.TURN + yearsToOperate);
               // Sets Remaining Capacity to Future Turn's Status Quo:
-              for (int k=session.current.TURN-1+yearsToOperate; k<NUM_INTERVALS; k++) {
+              for (int k=session.current.TURN + yearsToOperate; k<NUM_INTERVALS; k++) {
                 capacityProfile.setFloat(1, k, newCapacity + 1000*current.capacity);
               }
             }
@@ -376,7 +376,7 @@ class Profile {
           noStroke();
           text("FY'" + (agileModel.YEAR_0+i)%2000, x + scalerW * (i+.5) + 1, y + 15);
         } else {
-          //line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
+          line(x + scalerW * i + 0.5*scalerW, y, x + scalerW * i + 0.5*scalerW, y+2);
         }
       }
 
@@ -489,13 +489,14 @@ class Profile {
       }
       if (detail) {
         fill(NOW, 100);
-        rect(X + 1, y, 2, 35);
+        rect(X + 1, y, 2, MARGIN);
         fill(NOW);
         textAlign(LEFT);
         text(int(cap/100)/10.0 + agileModel.WEIGHT_UNITS, X + 5, Y-5);
         textAlign(CENTER);
         if (session.current.TURN < NUM_INTERVALS) {
-          text("Pln. FY'" + (agileModel.YEAR_0 + session.current.TURN)%2000, X , y + MARGIN);
+          textAlign(LEFT);
+          text("FY'" + (agileModel.YEAR_0 + session.current.TURN)%2000, X + 4 , y + MARGIN);
         }
       }
     }

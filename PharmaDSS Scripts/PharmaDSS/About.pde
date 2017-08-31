@@ -145,26 +145,32 @@
   *               - BugFix: synced profile and output axes
   *               - New Feature: Profile Graphs Rescale Axes when Capacity is Large
   *               - New Feature: Consistent Tile Blockers with Time Until Decommission displayed on Table
+  *               - New Feature: Add button for Capital "P" (Profile Zoom-in)
+  *               - BugFix: Game Messages Displays in better place
+  *               - BugFix: Factories that take "3 years" to build are operable on the 4th year (was operable on the 3rd year)
+  *               - Add ticks for years on profile graph
+  *               - make it difficult to accidentally place nce build
   */
   
 String VERSION = "BETA V1.3";
   
  /* TO DO:    
-  
+ 
+  *               - Have Random-ish visualization of NCE generation from candidacy to launch
   *               - "Ghost" of hypothetical player to play against
   *               - Allow user to compare performance with baseline/ideal scenario(s)  
   
-  *               - Toggle Visualization to emphasize SITE vs OUTPUTS (i.e. have "expanded mode" for graphs of score)
-  *               - Distinguish between user and "AI"/predicted
+  *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   
-  *               - Include capacity values in profile graph resizing algorithm
   *               - Clarify Greenfield/Existing Site Effect (Different construction bar for greenfield development?)
   *               - Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment
   *               - Somehow add screen-based deployments to table?
   
+  *               - Toggle Visualization to emphasize SITE vs OUTPUTS (i.e. have "expanded mode" for graphs of score)
+  *               - Distinguish between user and "AI"/predicted
+  
   *               - Rebuild Site Visualizations, particularly how builds are represented
   
-  *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
   
   *               - Update Future Capacity for Removed Builds (not just added Builds)
