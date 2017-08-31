@@ -161,10 +161,10 @@ class LineGraph{
       float X = (session.current.TURN - 0.5)*(w/Values.size()) + minx;
       fill(NOW, 50);
       noStroke();
-      rect(X, miny - h, 2, h + 25);
+      rect(X, miny - h, 2, h + MARGIN - 25);
       fill(NOW);
-      textAlign(CENTER);
-      //text("TURN", X , miny + MARGIN - 25);
+      textAlign(LEFT);
+      text("FY'" + (agileModel.YEAR_0 + session.current.TURN)%2000, X+3, miny + MARGIN - 25);
     }
     
     fill(textColor);

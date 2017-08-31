@@ -62,11 +62,11 @@ class Build {
   void updateBuild() {
     age++;
     if (repurpose) {
-      if (age >= repurpTime) {
+      if (age > repurpTime) {
         built = true;
         repurpose = false;
       }
-    } else if (age >= buildTime) {
+    } else if (age > buildTime) {
       // Build becomes active after N years of construction
       built = true;
     }

@@ -188,5 +188,5 @@ void gameText(){
   textAlign(LEFT);
   fill(END);
   textSize(textSize+ 2);
-  text(game_message, 50, height-260, profilesX-MARGIN*1.5, height/8);
+  if (!game_message.equals(" ")) text("Error: " + game_message, 250, 100);
 }

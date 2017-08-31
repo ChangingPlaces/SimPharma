@@ -27,8 +27,8 @@ String[][] buttonNames =
   { "VOID", "" },
   { "Toggle Profile", "p" },
   { "Toggle Site", "s" },
-  { "Toggle Existing Build", "u" },
-  { "Toggle New Build", "b" },
+  { "Toggle Site Build", "b" },
+//  { "Toggle New Build", "u" },
   { "Toggle KPI's", "k" },
   { "VOID", "" },
   { "Deploy Selection", "d" },
@@ -37,6 +37,7 @@ String[][] buttonNames =
   { "End Turn", "SPACE" },
   { "VOID", "" },
   { "Table Projection", "`" },
+  { "Enlarge Profile", "l" },
   { "Table Test", "t" },
   { "Invert Colors", "i" },
   { "Debug", "0" }
@@ -118,6 +119,9 @@ void keyPressed() {
     case 't': 
       key_t();
       break;
+    case 'l':
+      key_l();
+      break;
     case ' ': 
       key_space();
       break;
@@ -132,14 +136,6 @@ void keyPressed() {
       // testPlace(tablePieceInput, u, v, ID)
       //testPlace(tablePieceInput, 2, 8, 0);
       changeDetected = true;
-      break;
-    case 'P':
-      // Toggle InfoOverlay
-      if (infoOverride) {
-        infoOverride = false;
-      } else {
-        infoOverride = true;
-      }
       break;
       
   }
@@ -211,9 +207,9 @@ void mousePressed() {
     key_s();
   }
   
-  if(mainMenu.buttons[ bHash.get("u") ].over()){ 
-    key_u();
-  }
+//  if(mainMenu.buttons[ bHash.get("u") ].over()){ 
+//    key_u();
+//  }
   
   if(mainMenu.buttons[ bHash.get("b") ].over()){ 
     key_b();
@@ -245,6 +241,10 @@ void mousePressed() {
   
   if(mainMenu.buttons[ bHash.get("t") ].over()){ 
     key_t();
+  }
+  
+  if(mainMenu.buttons[ bHash.get("l") ].over()){ 
+    key_l();
   }
   
   if(mainMenu.buttons[ bHash.get("SPACE") ].over()){ 
@@ -319,11 +319,11 @@ void key_s() {
   nextSite();
 }
 
-void key_u() {
+void key_b() {
   nextSiteBuild();
 }
 
-void key_b() {
+void key_u() {
   nextBuild();
 }
 
@@ -366,6 +366,11 @@ void key_t() {
 void key_0() {
   debug = !debug;
   mainMenu.buttons[ bHash.get("0") ].isPressed = debug;
+}
+
+void key_l() {
+  // Toggle InfoOverlay
+  infoOverride = !infoOverride;
 }
 
 void key_up() {
@@ -439,6 +444,7 @@ String checkSelections(String effect) {
         session.selectedProfile = i;
       } else if (effect.equals("hover")) {
         session.hoverProfile = i;
+        session.selectedProfile = i;
         hoverCheck = "PROFILE";
       }
     }
