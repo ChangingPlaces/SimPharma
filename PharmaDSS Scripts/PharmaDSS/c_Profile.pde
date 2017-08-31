@@ -270,7 +270,7 @@ class Profile {
       // If game is on, only shows actual demand bars for finished turns
       // Does not reveal Actual Demand Scaler until revealed in game
       if (!gameMode || session.current.TURN + 1 > i) {
-        ratioActual = demandProfile.getFloat(2, i) / demandPeak_F;
+        ratioActual = max(ratioActual, demandProfile.getFloat(2, i) / demandPeak_F);
       }
       
       // Determine upper bounds (capacity value or actual demand value);
