@@ -151,7 +151,7 @@
   *               - Add ticks for years on profile graph
   *               - make it difficult to accidentally place nce build
   *               - BugFix: Correct Output Metrics When Beginning with Demand of Zero
-  *               - Edit: Changed Lead Time from 5 years to 4 years
+  *               - Edit: Changed Lead Time from 5 years to 3 years
   *               - BugFix: Build Modules are repurposed more quickly when built on site (Lego Table Interface Only)
   *               - BugFix: Increase Scale Height of NCE Graphs
   *               - BugFix: Future Capacity Viz Simplified
