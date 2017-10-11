@@ -30,7 +30,7 @@ class Profile {
   float peakTime_F, peakTime_A;
   
   // Magnitude of difference between actual and forecast;
-  float DEFAULT_SCALER = 1.1;
+  float DEFAULT_SCALER = 1.0;
   float forecastScalerH;
   float capacityScalerH;
 
@@ -394,7 +394,9 @@ class Profile {
         // Draw Vertical line
         line(x +  scalerW * (i-0), y - cap, x + scalerW * (i-0), y - capLast);
         // Draw Horizontal line
-        line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
+        if (cap != 0) {
+          line(x + scalerW * (i-0), y - cap, x + scalerW * (i-0) + scalerW, y - cap);
+        }
         noStroke();
       }
     }

@@ -51,8 +51,10 @@ void generateBasins() {
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
     siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
     siteCapacity[i][1] = agileModel.SITES.get(i).capGn;
+    
     // Define the number of tile blockers on start
-    mfg.inputOccupied.add( int(0.2*siteCapacity[i][0]) );
+    float percentBlocked = 0.25;
+    mfg.inputOccupied.add( int(percentBlocked*siteCapacity[i][0]) );
   }
 
   mfg.clearBasins();
