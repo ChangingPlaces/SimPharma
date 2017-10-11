@@ -156,6 +156,10 @@ String VERSION = "BETA V1.3";
   
  /* TO DO:    
  
+  *               - Seems that deployment time is not always the same (should be 2yrs in the red zone and 3yrs in the greenfield zone)
+  *               - Can you make sure that the an NCE appear on the screen 4yrs in advance of the launch
+  *               - In the first 2yrs the score (in the trending graph) is completely off scale (goes all the way up on the top part of the screen)
+
   *               - Have Random-ish visualization of NCE generation from candidacy to launch
   *               - Incorporate Site "Slices" into Interface Design
   
