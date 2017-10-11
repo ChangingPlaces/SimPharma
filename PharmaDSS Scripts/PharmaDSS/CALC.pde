@@ -201,7 +201,7 @@ float calcDemandMeetAbility(int turn, String mode) {
     //percent = totDemandMet / totDemand;
     percent /= scoreCount;
   } else {
-    percent = 1.0;
+    percent = 0;
   }
   
   return percent;
@@ -308,8 +308,13 @@ float calcSecurity(int turn, String mode) {
   }
   
   // Aggregate scores
-  balanceScore /= scoreCount;
-  supplyScore  /= scoreCount;
+  if (scoreCount > 0) {
+    balanceScore /= scoreCount;
+    supplyScore  /= scoreCount;
+  } else {
+    balanceScore = 0;
+    supplyScore = 0;
+  }
   percent = BALANCE_WEIGHT * balanceScore + SUPPLY_WEIGHT * supplyScore;
   
   return percent;
