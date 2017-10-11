@@ -150,15 +150,14 @@
   *               - BugFix: Factories that take "3 years" to build are operable on the 4th year (was operable on the 3rd year)
   *               - Add ticks for years on profile graph
   *               - make it difficult to accidentally place nce build
+  *               - BugFix: Correct Output Metrics When Beginning with Demand of Zero
+  *               - Edit: Changed Lead Time from 5 years to 4 years
+  *               - BugFix: Build Modules are repurposed more quickly when built on site (Lego Table Interface Only)
   */
   
 String VERSION = "BETA V1.3";
   
  /* TO DO:    
- 
-  *               - Seems that deployment time is not always the same (should be 2yrs in the red zone and 3yrs in the greenfield zone)
-  *               - Can you make sure that the an NCE appear on the screen 4yrs in advance of the launch
-  *               - In the first 2yrs the score (in the trending graph) is completely off scale (goes all the way up on the top part of the screen)
 
   *               - Have Random-ish visualization of NCE generation from candidacy to launch
   *               - Incorporate Site "Slices" into Interface Design

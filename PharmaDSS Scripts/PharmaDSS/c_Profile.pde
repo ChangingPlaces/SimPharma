@@ -150,7 +150,7 @@ class Profile {
     }
   }
 
-  // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
+  // Based on Profile, compute the date that forecast is first known based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
   //For graph class
   void lead() {
     timeLead = 0;

@@ -32,7 +32,7 @@ class MFG_System {
   float MAX_SAFE_UTILIZATION;
   
   // Time Profile is know in advance of first expected demand;
-  float LEAD_TIME = 5;
+  float LEAD_TIME = 4;
   
   MFG_System() {
     LABOR_TYPES = new Table();

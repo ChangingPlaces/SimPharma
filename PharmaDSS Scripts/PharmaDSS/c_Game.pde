@@ -205,12 +205,14 @@ class Event {
   
   // Define the site, build, and profile associated with an event
   int siteIndex, buildIndex, siteBuildIndex, profileIndex;
+  boolean repurp;
   
-  Event(String eventType, int siteIndex, int buildIndex, int profileIndex) {
+  Event(String eventType, int siteIndex, int buildIndex, int profileIndex, boolean repurp) {
     this.eventType = eventType;
     this.siteIndex = siteIndex;
     this.buildIndex = buildIndex;
     this.profileIndex = profileIndex;
+    this.repurp = repurp;
     
     if (eventType.equals("deploy")) {
       // stage a build/deployment event based upon pre-engineered modules 
@@ -246,6 +248,7 @@ class Event {
     event.repurpCost   = agileModel.GMS_BUILDS.get(buildIndex).repurpCost;
     event.repurpTime   = agileModel.GMS_BUILDS.get(buildIndex).repurpTime;
     event.labor        = agileModel.GMS_BUILDS.get(buildIndex).labor;
+    event.repurpose    = repurp;
     event.editing      = true;
     
     // Customizes a Build for a given NCE
@@ -267,6 +270,7 @@ class Event {
     event.repurpCost   = agileModel.GMS_BUILDS.get(buildIndex).repurpCost;
     event.repurpTime   = agileModel.GMS_BUILDS.get(buildIndex).repurpTime;
     event.labor        = agileModel.GMS_BUILDS.get(buildIndex).labor;
+    event.repurpose    = repurp;
     event.editing      = true;
     
     // Customizes a Build for a given NCE
@@ -371,8 +375,8 @@ void nextSiteBuild() {
 void deploySelection() {
   game_message = " ";
   try {
-    
-    Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
+    boolean repurp = false;
+    Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX, repurp);
     session.current.event.add(deploy);
     
   } catch (Exception e) {
@@ -390,7 +394,8 @@ void removeSelection() {
 
 // Repurpose Selected Manufacturing Option
 void repurposeSelection() {
-  Event repurpose = new Event("repurpose", session.selectedSite, session.selectedSiteBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX);
+  boolean repurp = true;
+  Event repurpose = new Event("repurpose", session.selectedSite, session.selectedSiteBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX, repurp);
   session.current.event.add(repurpose);
   updateProfileCapacities();
 }
