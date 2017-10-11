@@ -153,16 +153,16 @@
   *               - BugFix: Correct Output Metrics When Beginning with Demand of Zero
   *               - Edit: Changed Lead Time from 5 years to 4 years
   *               - BugFix: Build Modules are repurposed more quickly when built on site (Lego Table Interface Only)
-  *               - BugFix: Future Capacity Viz When Repurposing too long
   *               - BugFix: Increase Scale Height of NCE Graphs
+  *               - BugFix: Future Capacity Viz Simplified
   *               - Edit: Change Size of Site 2 in XLS File
+  *               - BugFix: Show NCEs when no actual demand (i.e. NCE 4 & 7)
+  *               - BugFix: Future Capacity Viz When Repurposing too long
   */
   
 String VERSION = "BETA V1.3";
   
  /* TO DO:    
- 
-  *               - BugFix: Show NCEs when no actual demand (i.e. NCE 4 & 7)
   
   *               - Have Random-ish visualization of NCE generation from candidacy to launch
   *               - Incorporate Site "Slices" into Interface Design

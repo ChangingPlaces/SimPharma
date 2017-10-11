@@ -75,7 +75,7 @@ class Game {
     turnLog = new ArrayList<Turn>();
     tableHistory.clear();
     
-    // Only adds profiles with 5 years advance forecast
+    // Only adds profiles with 4 years advance forecast
     agileModel.activeProfiles.clear();
     populateProfiles();
     
@@ -154,10 +154,9 @@ class Game {
     selectedProfile = index;
   }
   
-  // Only adds profiles with 5 years advance forecast
   void populateProfiles() {
     
-    // When not in game mode, all profiles are viewed in their entirety (i.e. Omnipotent mode..)
+    // When game is active, only add profiles that are visibile by forecast lead_time on first turn
     for (int i=0; i<agileModel.PROFILES.size(); i++) {
       if (agileModel.PROFILES.get(i).timeLead == current.TURN || (current.TURN == 0 && agileModel.PROFILES.get(i).timeLead < 0) ) {
         agileModel.PROFILES.get(i).globalProductionLimit = 0;
@@ -166,7 +165,7 @@ class Game {
       }
     }
     
-    // When game is active, only populate profiles that are visibile by 5-yr forecasts on first turn
+    // Remove "Dead" Profiles
     if (current.TURN == 0) {
       for (int i=0; i<agileModel.activeProfiles.size(); i++) {
         if (agileModel.activeProfiles.get(i).timeEnd + 1 < current.TURN) {
@@ -182,6 +181,7 @@ class Game {
         }
       }
     }
+
   }
   
 }

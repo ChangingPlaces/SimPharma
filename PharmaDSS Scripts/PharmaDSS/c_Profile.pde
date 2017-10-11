@@ -183,7 +183,7 @@ class Profile {
         viable = true;
       }
     }
-    if (!viable) timeEnd = timeLead;
+    if (!viable) timeEnd = timeLaunch;
   }
 
   void initCapacityProfile() {
@@ -232,7 +232,12 @@ class Profile {
         current = factories.get(i).siteBuild.get(j);
         if (!current.built) {
           if (current.PROFILE_INDEX == ABSOLUTE_INDEX) {
-            int yearsToOperate = int(current.buildTime - current.age);
+            int yearsToOperate;
+            if (current.repurpose) {
+              yearsToOperate = int(current.repurpTime - current.age);
+            } else {
+              yearsToOperate = int(current.buildTime - current.age);
+            }
             if (yearsToOperate + session.current.TURN < NUM_INTERVALS) { // Checks to make sure relevant
               float newCapacity = capacityProfile.getFloat(1, session.current.TURN + yearsToOperate);
               // Sets Remaining Capacity to Future Turn's Status Quo:
