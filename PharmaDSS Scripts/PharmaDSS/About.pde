@@ -157,6 +157,8 @@ String VERSION = "BETA V1.3";
  /* TO DO:    
  
   *               - Have Random-ish visualization of NCE generation from candidacy to launch
+  *               - Incorporate Site "Slices" into Interface Design
+  
   *               - "Ghost" of hypothetical player to play against
   *               - Allow user to compare performance with baseline/ideal scenario(s)  
   
