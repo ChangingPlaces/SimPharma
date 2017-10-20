@@ -163,12 +163,14 @@
 String VERSION = "BETA V1.3";
   
  /* TO DO:    
-  
-  *               - Have Random-ish visualization of NCE generation from candidacy to launch
-  *               - Incorporate Site "Slices" into Interface Design
+  ***               - Incorporate Site "Slices" into Interface Design
+  ***               - Allow user to compare performance with baseline/batch/ideal scenario(s)  
+  ***               - Clean-up / Simplify 5 Game Scores
+  ***               - Have Random-ish visualization of NCE generation from candidacy to launch
+  ***               - Implement Automated Stochastic NCE demand profiles w/ random events
+  ***               - Implement/Polish Game Setup Files
   
   *               - "Ghost" of hypothetical player to play against
-  *               - Allow user to compare performance with baseline/ideal scenario(s)  
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
   
