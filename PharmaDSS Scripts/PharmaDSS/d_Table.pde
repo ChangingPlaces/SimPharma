@@ -267,13 +267,14 @@ class TableSurface {
             }
           } // end else !inUse
         } // end inBasin
-
-        if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+        
+        // Profile Selection Dock
+        if (tablePieceInput[7 - MARGIN_W][V-3][0] > -1 && tablePieceInput[7 - MARGIN_W][V-3][0] < NUM_PROFILES) {
           infoOverlay = true;
           if (gameMode) {
-            session.selectedProfile = activeProfileIndex(tablePieceInput[5 - MARGIN_W][V-2][0]);
+            session.selectedProfile = activeProfileIndex(tablePieceInput[7 - MARGIN_W][V-3][0]);
           } else {
-            session.selectedProfile = tablePieceInput[5 - MARGIN_W][V-2][0];
+            session.selectedProfile = tablePieceInput[7 - MARGIN_W][V-3][0];
           }
         } else {
           infoOverlay = false;
@@ -452,21 +453,21 @@ class TableSurface {
     p.fill(255);
     p.stroke(0);
     p.strokeWeight(10);
-    p.rect(4*cellW, (V-3)*cellH, cellW*3, 3*cellH, 0.5*cellW);
+    p.rect(6*cellW, (V-4)*cellH, cellW*3, 3*cellH, 0.5*cellW);
     p.noStroke();
     p.textSize(20);
     p.textAlign(RIGHT);
-    p.text("Select\nNCE", 3.5*cellW, (V-3)*cellH + 20);
+    p.text("Select\nNCE", 5.75*cellW, (V-3)*cellH + 20);
     p.fill(0);
-    p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
+    p.rect(7*cellW, (V-3)*cellH, cellW, cellH);
 
     // Draw NCE in Filter Dock
-    if (tablePieceInput[5 - MARGIN_W][V-2][0] > -1 && tablePieceInput[5 - MARGIN_W][V-2][0] < NUM_PROFILES) {
+    if (tablePieceInput[7 - MARGIN_W][V-3][0] > -1 && tablePieceInput[7 - MARGIN_W][V-3][0] < NUM_PROFILES) {
       p.noStroke();
-      p.fill(agileModel.profileColor[ tablePieceInput[5 - MARGIN_W][V-2][0] ]);
+      p.fill(agileModel.profileColor[ tablePieceInput[7 - MARGIN_W][V-3][0] ]);
       p.noStroke();
-      p.rect(5*cellW, (V-2)*cellH, cellW, cellH);
-      p.image(nce, 5*cellW, (V-2)*cellH, cellW, cellH);
+      p.rect(7*cellW, (V-3)*cellH, cellW, cellH);
+      p.image(nce, 7*cellW, (V-3)*cellH, cellW, cellH);
     }
 
     // Draw Black Edge around 4x22 left margin area
