@@ -309,7 +309,7 @@ class TableSurface {
     //draw spotlights
     for (int i = agileModel.profileColor.length-1; i>=0; i--) {
       p.fill(agileModel.profileColor[NUM_PROFILES - i - 1]);
-      p.noStroke();
+      p.stroke(0, 100); p.strokeWeight(10);
       p.rect(15, (i*(spotLightHeight + 12) ) + buffer + 3*cellH, spotLightWidth, spotLightHeight, 10);
       p.fill(0);
       p.textSize(30);
@@ -451,14 +451,14 @@ class TableSurface {
 
     // Draw Interface for Selecting NCE to Zoom In To
     p.fill(255);
-    p.stroke(0);
-    p.strokeWeight(10);
+    p.stroke(0, 100); p.strokeWeight(20);
     p.rect(6*cellW, (V-4)*cellH, cellW*3, 3*cellH, 0.5*cellW);
     p.noStroke();
     p.textSize(20);
     p.textAlign(RIGHT);
     p.text("Select\nNCE", 5.75*cellW, (V-3)*cellH + 20);
     p.fill(0);
+    p.stroke(0, 100); p.strokeWeight(20);
     p.rect(7*cellW, (V-3)*cellH, cellW, cellH);
 
     // Draw NCE in Filter Dock
