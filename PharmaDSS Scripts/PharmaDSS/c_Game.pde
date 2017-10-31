@@ -114,6 +114,25 @@ class Game {
           if (input[u][v][0] == -1) mfg.inUse[u+4][v] = false;
         }
       }
+      
+      // Update Slice Construction Status
+      if (enableSites) {
+        if (mfg.inputArea.size() > 0) {
+          for (int i=0; i<mfg.inputArea.size (); i++) {
+            for (int j=0; j<mfg.inputArea.get(i).numSlices; j++) {
+              
+              if (mfg.inputArea.get(i).sliceTimer[j] > 0) {
+                mfg.inputArea.get(i).sliceTimer[j] --;
+              } else if (mfg.inputArea.get(i).sliceTimer[j] == 0) {
+                mfg.inputArea.get(i).sliceBuilt[j] = true;
+              }
+              
+              mfg.updateExisting();
+            }
+          }
+        }
+      }
+      
       tableHistory.add(input);
       println("Table state logged #" + (tableHistory.size() - 1));
       turnLog.add(current);

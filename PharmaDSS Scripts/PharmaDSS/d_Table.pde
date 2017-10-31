@@ -69,6 +69,7 @@ class TableSurface {
   float cellW, cellH;
 
   String[][][] cellType;
+  // Site, Existing/Green, Slice
 
   boolean LEFT_MARGIN;
   int MARGIN_W = 4;  // Left Margin for Grid (in Lego Squares)
@@ -87,7 +88,7 @@ class TableSurface {
     LEFT_MARGIN = left_margin;
     inputArea = new ArrayList<Basin>();
     inputOccupied = new ArrayList<Integer>();
-    cellType = new String[U][V][2];
+    cellType = new String[U][V][3];
     inUse = new boolean[U][V];
     editing = new boolean[U][V];
     blocker = new Blocker[U][V];
@@ -189,7 +190,29 @@ class TableSurface {
       }
     }
   }
-
+  
+  void updateExisting() {
+    // Cycle through each 22x22 Table Grid
+    for (int u=0; u<U; u++) {
+      for (int v=0; v<V; v++) {  
+        // Update Slice Construction Status
+        int site = -1;
+        int slice;
+        if (cellType[u][v][0].equals("SITE_0")) site = 0;
+        if (cellType[u][v][0].equals("SITE_1")) site = 1;
+        if (cellType[u][v][0].equals("SITE_2")) site = 2;
+        
+        if (site >-1) {
+          slice = int(cellType[u][v][2]);
+          
+          if ( inputArea.get(site).sliceBuilt[slice] ) {
+            cellType[u][v][1] = "EXISTING";
+          }
+        }
+      }
+    }
+  }
+  
   void checkTableDeploy() {
 
     // Cycle through each 22x22 Table Grid
@@ -289,12 +312,9 @@ class TableSurface {
                 int x_slice, y_slice;
                 x_slice = inputArea.get(i).basinX - 3 - MARGIN_W;
                 y_slice = inputArea.get(i).basinY + j;
-                if (tablePieceInput[x_slice][y_slice][0] > -1) {
-                  inputArea.get(i).slice[j] = 1;
-                } 
-//                else {
-//                  inputArea.get(i).slice[j] = 0;
-//                }
+                if (tablePieceInput[x_slice][y_slice][0] > -1 && inputArea.get(i).sliceTimer[j] == -1) {
+                  inputArea.get(i).sliceTimer[j] = inputArea.get(i).SLICE_BUILD_TIME;
+                }
                 
               }
             }
@@ -354,11 +374,14 @@ class TableSurface {
           for (int j=0; j<inputArea.get(i).numSlices; j++) {
             
             p.stroke(0, 100); p.strokeWeight(20);
-            if (inputArea.get(i).slice[j] == 1) {
+            if (inputArea.get(i).sliceBuilt[j]) {
               // Slice is built
               p.fill(GSK_ORANGE, 200);
-            } else if (inputArea.get(i).slice[j] == 0) {
-              // Slice is not yet built
+            } else if (inputArea.get(i).sliceTimer[j] >= 0 ) {
+              // slice under construction
+              p.fill(#FFFF00, 200);
+            } else {
+              // Slice is not yet built or under construction
               p.fill(255, 70);
             }
             
@@ -567,7 +590,9 @@ class TableSurface {
     boolean isQuad = true;
     PShape[] s;
     int numSlices;
-    int[] slice;
+    boolean[] sliceBuilt;
+    int SLICE_BUILD_TIME = 3;
+    int[] sliceTimer;
 
     Basin(int index, int basinX, int basinY, float[] basinCap, int basinWidth, int basinHeight) {
       this.basinX = basinX;
@@ -585,15 +610,17 @@ class TableSurface {
       CORNER_BEVEL[1] = 5;
       s = new PShape[2];
       numSlices = basinSize[0] / basinWidth;
-      slice = new int[numSlices];
+      sliceBuilt = new boolean[numSlices];
+      sliceTimer = new int[numSlices];
       for (int i=0; i<numSlices; i++) {
+        sliceTimer[i] = -1; //null
         float e = basinSize[0]*float(i+1)/numSlices;
         
         // 0 = not built; 1 = built
         if (e <= basinSize[1]) {
-          slice[i] = 1;
+          sliceBuilt[i] = true;
         } else {
-          slice[i] = 0;
+          sliceBuilt[i] = false;
         }
       }
 
@@ -612,6 +639,8 @@ class TableSurface {
         } else {
           cellType[u][v][1] = "GREENFIELD";
         }
+        cellType[u][v][2] = "" + (v - basinY);
+        println(u, v, cellType[u][v][2]);
       }
       
       
