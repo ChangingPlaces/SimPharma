@@ -279,6 +279,28 @@ class TableSurface {
         } else {
           infoOverlay = false;
         }
+        
+        // Slice Deployment Slot
+        if (enableSites) {
+          if (inputArea.size() > 0) {
+            for (int i=0; i<inputArea.size (); i++) {
+              for (int j=0; j<inputArea.get(i).numSlices; j++) {
+                
+                int x_slice, y_slice;
+                x_slice = inputArea.get(i).basinX - 3 - MARGIN_W;
+                y_slice = inputArea.get(i).basinY + j;
+                if (tablePieceInput[x_slice][y_slice][0] > -1) {
+                  inputArea.get(i).slice[j] = 1;
+                } 
+//                else {
+//                  inputArea.get(i).slice[j] = 0;
+//                }
+                
+              }
+            }
+          }
+        }
+        
       }
     }
 
@@ -334,10 +356,10 @@ class TableSurface {
             p.stroke(0, 100); p.strokeWeight(20);
             if (inputArea.get(i).slice[j] == 1) {
               // Slice is built
-              p.fill(GSK_ORANGE);
+              p.fill(GSK_ORANGE, 200);
             } else if (inputArea.get(i).slice[j] == 0) {
               // Slice is not yet built
-              p.fill(255, 100);
+              p.fill(255, 70);
             }
             
             // Draw Slice In-site
