@@ -172,16 +172,17 @@ void loadModel_XLS(MFG_System model, String name) {
   } else {
     
     // Generates Random Sites but Makes Sure Existing and GnField stay rectangular
-    NUM_SITES = int(random(2, 4));
+    //NUM_SITES = int(random(2, 4));
+    NUM_SITES = 2;
     agileModel.SITES.clear();
     int randomLargest = int(random(0,NUM_SITES-.001));
     println("rLarge:" + randomLargest);
     for (int i=0; i<NUM_SITES; i++) {
       int totHeight;
       if (i==randomLargest) {
-        totHeight = BASIN_HEIGHT;
+        totHeight = BASINS_H;
       } else {
-        totHeight = int(random( 2, BASIN_HEIGHT));
+        totHeight = int(random( 2, BASINS_H));
       }
       int gnHeight = int(random( 1, totHeight-1));
       float mag = 7.5;
