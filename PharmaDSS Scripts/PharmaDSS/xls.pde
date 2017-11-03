@@ -180,9 +180,9 @@ void loadModel_XLS(MFG_System model, String name) {
     for (int i=0; i<NUM_SITES; i++) {
       int totHeight;
       if (i==randomLargest) {
-        totHeight = BASINS_H;
+        totHeight = SLICE_SIZE;
       } else {
-        totHeight = int(random( 2, BASINS_H));
+        totHeight = int(random( 2, SLICE_SIZE));
       }
       int gnHeight = int(random( 1, totHeight-1));
       float mag = 7.5;

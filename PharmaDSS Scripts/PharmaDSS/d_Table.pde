@@ -18,7 +18,7 @@ boolean tableTest = false;
  *
  */
 
-int BASINS_H = 6; // Height of Largest Basin (in Lego Squares)
+int SLICE_SIZE = 6; // Amount of Grid Units in Each Slice (in Lego Squares)
 
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight);
@@ -73,12 +73,12 @@ class TableSurface {
 
   boolean LEFT_MARGIN;
   int MARGIN_W = 4;  // Left Margin for Grid (in Lego Squares)
-  int BASINS_Y = 4;  // Top Margin for Basins (in Lego Squares)
+  int MARGIN_H = 4;  // Top Margin for Basins (in Lego Squares)
 
   ArrayList<Basin> inputArea;
   ArrayList<Integer> inputOccupied; // Some Input Squares are initially occupied
 
-    boolean[][] inUse, editing;
+  boolean[][] inUse, editing;
   Blocker[][] blocker;
   int[][] siteIndex, siteBuildIndex;
 
@@ -570,8 +570,8 @@ class TableSurface {
 //    }
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
-//      inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, BASINS_Y, basinSize[i], basinWidth - 2, BASINS_H) );
-      inputArea.add( new Basin(i, U - basinWidth, BASINS_Y + int(i*(V - BASINS_Y)*0.4), basinSize[i], basinWidth - 2, BASINS_H) );
+//      inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, MARGIN_H, basinSize[i], basinWidth - 2, SLICE_SIZE) );
+      inputArea.add( new Basin(i, U - basinWidth, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], SLICE_SIZE, 6) );
     }
   }
 
@@ -591,7 +591,7 @@ class TableSurface {
     PShape[] s;
     int numSlices;
     boolean[] sliceBuilt;
-    int SLICE_BUILD_TIME = 3;
+    int SLICE_BUILD_TIME = 2;
     int[] sliceTimer;
 
     Basin(int index, int basinX, int basinY, float[] basinCap, int basinWidth, int basinHeight) {
@@ -640,7 +640,6 @@ class TableSurface {
           cellType[u][v][1] = "GREENFIELD";
         }
         cellType[u][v][2] = "" + (v - basinY);
-        println(u, v, cellType[u][v][2]);
       }
       
       
