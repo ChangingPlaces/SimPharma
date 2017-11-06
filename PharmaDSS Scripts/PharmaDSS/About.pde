@@ -158,11 +158,12 @@
   *               - Edit: Change Size of Site 2 in XLS File
   *               - BugFix: Show NCEs when no actual demand (i.e. NCE 4 & 7)
   *               - BugFix: Future Capacity Viz When Repurposing too long
-  *               - New Feature: Incorporate Site "Slices" into Interface Design
+  *
+  * BETA V1.4:    - New Feature: Incorporate Site "Slices" into Interface Design
   *               - New Feature: Update NCE Dock and Graphics
   */
   
-String VERSION = "BETA V1.3";
+String VERSION = "BETA V1.4";
   
  /* TO DO:    
  

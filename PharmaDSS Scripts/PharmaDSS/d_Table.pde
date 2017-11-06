@@ -19,6 +19,7 @@ boolean tableTest = false;
  */
 
 int SLICE_SIZE = 3; // Amount of Grid Units in Each Slice (in Lego Squares)
+float BLOCKER_PERCENT = 0.5; // Percent of Existing tiles to be blocked upon setup
 
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight);
@@ -47,15 +48,10 @@ void drawTable() {
 void generateBasins() {
   siteCapacity = new float[NUM_SITES][2];
   
-  mfg.percentOccupied.clear();
   for (int i=0; i<NUM_SITES; i++) { 
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
     siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
     siteCapacity[i][1] = agileModel.SITES.get(i).capGn;
-
-    // Define the number of tile blockers on start
-    float percentBlocked = 0.5;
-    mfg.percentOccupied.add( percentBlocked );
   }
 
   mfg.clearBasins();
@@ -77,7 +73,6 @@ class TableSurface {
   int MARGIN_H = 4;  // Top Margin for Basins (in Lego Squares)
 
   ArrayList<Basin> inputArea;
-  ArrayList<Float> percentOccupied; // Some Input Squares are initially occupied
 
   boolean[][] inUse, editing;
   Blocker[][] blocker;
@@ -88,7 +83,6 @@ class TableSurface {
     this.V = V;
     LEFT_MARGIN = left_margin;
     inputArea = new ArrayList<Basin>();
-    percentOccupied = new ArrayList<Float>();
     cellType = new String[U][V][3];
     inUse = new boolean[U][V];
     editing = new boolean[U][V];
@@ -636,7 +630,7 @@ class TableSurface {
       }
 
       // Designate CellType
-      inputOccupied = int(percentOccupied.get(index)*basinSize[1]);
+      inputOccupied = int(BLOCKER_PERCENT*basinSize[1]);
       for (int i=0; i<basinSize[0]; i++) {
         int u = basinX + i%basinWidth;
         int v = basinY + i/basinWidth;
