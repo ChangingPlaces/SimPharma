@@ -18,7 +18,7 @@ boolean tableTest = false;
  *
  */
 
-int SLICE_SIZE = 3; // Amount of Grid Units in Each Slice (in Lego Squares)
+int SLICE_SIZE = 6; // Amount of Grid Units in Each Slice (in Lego Squares)
 float BLOCKER_PERCENT = 0.5; // Percent of Existing tiles to be blocked upon setup
 int MAX_BASIN_HEIGHT = 6;
 
@@ -435,7 +435,7 @@ class TableSurface {
           
           // p.tint(180);
 //          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 4.5)*cellH);
-          p.image(sitePNG, (3 + MARGIN_W)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 3*cellH);
+          p.image(sitePNG, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 3*cellH);
         }
       }
     }
@@ -606,7 +606,7 @@ class TableSurface {
 //    }
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
-      inputArea.add( new Basin(i, U - 2*SLICE_SIZE, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], SLICE_SIZE, MAX_BASIN_HEIGHT) );
+      inputArea.add( new Basin(i, U - SLICE_SIZE - 2, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], SLICE_SIZE, MAX_BASIN_HEIGHT) );
     }
   }
 
