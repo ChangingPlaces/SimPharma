@@ -100,7 +100,7 @@ void drawScreen() {
   // Canvas
   fill(abs(background - 0));
   rect(0.25*MARGIN + profilesX, 2.2*MARGIN, profilesW + 1.75*MARGIN, canH, 3);
-  fill(0); stroke(50); rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3); fill(abs(background - 0)); noStroke();
+  rect(0.5*MARGIN + sitesX, 2.2*MARGIN, width - sitesX - 1.25*MARGIN, canH*.6, 3);
   rect(0.5*MARGIN + sitesX, 2.2*MARGIN + 20 + canH*.6, width - sitesX - 1.25*MARGIN, canH*.4 - 20, 3);
 
   // Draw Title
@@ -217,6 +217,9 @@ void drawScreen() {
     strokeWeight(1);
     fill(textColor, 100);
     rect((width - int(0.85*height) ) / 2, (height - int(0.85*height) ) / 2, int(0.85*height), int(0.85*height), 10);
+    fill(255 - textColor);
+    noStroke();
+    rect((width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
     image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
 
     mfg.mouseToGrid((width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));

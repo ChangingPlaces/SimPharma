@@ -23,24 +23,30 @@ String[][] buttonNames =
 { 
   { "Load Random Data", "q" },
   { "Load XLS Data", "x" },
-  { "Play Game", "g" },
   { "VOID", "" },
   { "Toggle Profile", "p" },
-  { "Toggle Site", "s" },
-  { "Toggle Site Build", "b" },
-//  { "Toggle New Build", "u" },
   { "Toggle KPI's", "k" },
   { "VOID", "" },
-  { "Deploy Selection", "d" },
-  { "Remove Selection", "r" },
-  { "Repurpose Selection", "e" },
+  { "Play Game", "g" },
   { "End Turn", "SPACE" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "VOID", "" },
   { "VOID", "" },
   { "Table Projection", "`" },
   { "Enlarge Profile", "l" },
   { "Table Test", "t" },
   { "Invert Colors", "i" },
   { "Debug", "0" }
+
+// Obsolete Keys
+//  { "Toggle Site", "s" },
+//  { "Toggle Site Build", "b" },
+//  { "Deploy Selection", "d" },
+//  { "Remove Selection", "r" },
+//  { "Repurpose Selection", "e" },
   
 };
 
@@ -65,9 +71,9 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   // Hides certain buttons unless game is active
   mainMenu.buttons[ bHash.get("g") ].isPressed = gameMode;
   mainMenu.buttons[ bHash.get("SPACE") ].isVoid = !gameMode;
-  mainMenu.buttons[ bHash.get("d") ].isVoid = !gameMode;
-  mainMenu.buttons[ bHash.get("r") ].isVoid = !gameMode;
-  mainMenu.buttons[ bHash.get("e") ].isVoid = !gameMode;
+//  mainMenu.buttons[ bHash.get("d") ].isVoid = !gameMode;
+//  mainMenu.buttons[ bHash.get("r") ].isVoid = !gameMode;
+//  mainMenu.buttons[ bHash.get("e") ].isVoid = !gameMode;
   
   mainMenu.buttons[ bHash.get("t") ].active = !tableTest;
 }
@@ -89,24 +95,24 @@ void keyPressed() {
     case 'p': 
       key_p();
       break;
-    case 's': 
-      key_s();
-      break;
+//    case 's': 
+//      key_s();
+//      break;
     case 'u': 
       key_u();
       break;
-    case 'b': 
-      key_b();
-      break;
-    case 'd': 
-      key_d();
-      break;
-    case 'r': 
-      key_r();
-      break;
-    case 'e': 
-      key_e();
-      break;
+//    case 'b': 
+//      key_b();
+//      break;
+//    case 'd': 
+//      key_d();
+//      break;
+//    case 'r': 
+//      key_r();
+//      break;
+//    case 'e': 
+//      key_e();
+//      break;
     case 'k': 
       key_k();
       break;
@@ -203,29 +209,29 @@ void mousePressed() {
     key_p();
   }
   
-  if(mainMenu.buttons[ bHash.get("s") ].over()){ 
-    key_s();
-  }
-  
+//  if(mainMenu.buttons[ bHash.get("s") ].over()){ 
+//    key_s();
+//  }
+//  
 //  if(mainMenu.buttons[ bHash.get("u") ].over()){ 
 //    key_u();
 //  }
-  
-  if(mainMenu.buttons[ bHash.get("b") ].over()){ 
-    key_b();
-  }
-  
-  if(mainMenu.buttons[ bHash.get("d") ].over()){ 
-    key_d();
-  }
-  
-  if(mainMenu.buttons[ bHash.get("r") ].over()){ 
-    key_r();
-  }
-  
-  if(mainMenu.buttons[ bHash.get("e") ].over()){ 
-    key_e();
-  }
+//  
+//  if(mainMenu.buttons[ bHash.get("b") ].over()){ 
+//    key_b();
+//  }
+//  
+//  if(mainMenu.buttons[ bHash.get("d") ].over()){ 
+//    key_d();
+//  }
+//  
+//  if(mainMenu.buttons[ bHash.get("r") ].over()){ 
+//    key_r();
+//  }
+//  
+//  if(mainMenu.buttons[ bHash.get("e") ].over()){ 
+//    key_e();
+//  }
   
   if(mainMenu.buttons[ bHash.get("k") ].over()){ 
     key_k();
@@ -293,9 +299,9 @@ void key_g() {
     gameMode = false;
     mainMenu.buttons[ bHash.get("g") ].isPressed = false;
     mainMenu.buttons[ bHash.get("SPACE") ].isVoid = true;
-    mainMenu.buttons[ bHash.get("d") ].isVoid = true;
-    mainMenu.buttons[ bHash.get("r") ].isVoid = true;
-    mainMenu.buttons[ bHash.get("e") ].isVoid = true;
+//    mainMenu.buttons[ bHash.get("d") ].isVoid = true;
+//    mainMenu.buttons[ bHash.get("r") ].isVoid = true;
+//    mainMenu.buttons[ bHash.get("e") ].isVoid = true;
   } else {
     gameMode = true;
     session = new Game();
@@ -303,9 +309,9 @@ void key_g() {
     updateProfileCapacities();
     mainMenu.buttons[ bHash.get("g") ].isPressed = true;
     mainMenu.buttons[ bHash.get("SPACE") ].isVoid = false;
-    mainMenu.buttons[ bHash.get("d") ].isVoid = false;
-    mainMenu.buttons[ bHash.get("r") ].isVoid = false;
-    mainMenu.buttons[ bHash.get("e") ].isVoid = false;
+//    mainMenu.buttons[ bHash.get("d") ].isVoid = false;
+//    mainMenu.buttons[ bHash.get("r") ].isVoid = false;
+//    mainMenu.buttons[ bHash.get("e") ].isVoid = false;
   }
   
   println("gameMode: " + gameMode);

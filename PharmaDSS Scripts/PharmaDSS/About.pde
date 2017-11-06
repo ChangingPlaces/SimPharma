@@ -162,6 +162,7 @@
   * BETA V1.4:    - New Feature: Incorporate Site "Slices" into Interface Design
   *               - New Feature: Update NCE Dock and Graphics
   *               - New Feature: Rebuild Site Visualizations, particularly how builds are represented
+  *               - New Feature: Transparent Background for Site Visualization
   */
   
 String VERSION = "BETA V1.4";
@@ -174,6 +175,8 @@ String VERSION = "BETA V1.4";
   ***               - Have Random-ish visualization of NCE generation from candidacy to launch; Random NCE Generation
   ***               - Implement Automated Stochastic NCE demand profiles w/ random events
   ***               - Implement/Polish Game Setup Files
+  
+  *                - Legend for Site Input Slots
   
   *                - Therepuetic Area is correllated to Peak Demand
   *                  - Respiratory

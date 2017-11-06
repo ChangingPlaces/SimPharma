@@ -62,7 +62,8 @@ class TableSurface {
   boolean LEFT_MARGIN;
   int MARGIN_W = 4;  // Left Margin for Grid (in Lego Squares)
   int MARGIN_H = 4;  // Top Margin for Basins (in Lego Squares)
-
+  int GRID_GAP = 2; // pixels
+  
   ArrayList<Basin> inputArea;
 
   boolean[][] inUse, editing;
@@ -371,8 +372,8 @@ class TableSurface {
     int spotLightWidth = int(3.5*cellW);
 
     p.beginDraw();
-    //  p.background(50);
-    p.background(0);
+//    p.background(0);
+    p.clear();
 
     //draw spotlights
     for (int i = agileModel.profileColor.length-1; i>=0; i--) {
@@ -397,26 +398,34 @@ class TableSurface {
           p.text("Site " + (i+1), (3.1 + MARGIN_W)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
+          boolean draw;
           for (int j=0; j<inputArea.get(i).numSlices; j++) {
             
-            p.stroke(0, 100); p.strokeWeight(20);
+            //p.stroke(0, 100); p.strokeWeight(20);
+            p.noStroke();
             if (inputArea.get(i).sliceBuilt[j]) {
               // Slice is built
-              p.fill(GSK_ORANGE, 200);
+              p.fill(GSK_ORANGE, 100);
+              draw = true;
             } else if (inputArea.get(i).sliceTimer[j] >= 0 ) {
               // slice under construction
-              p.fill(#FFFF00, 200);
+              p.fill(#FFFF00, 100);
+              draw = true;
             } else {
               // Slice is not yet built or under construction
-              p.fill(255, 70);
+              p.fill(abs(textColor - 100), 70);
+              draw = false;
             }
             
             // Draw Slice In-site
-            p.rect(inputArea.get(i).basinX*cellW, inputArea.get(i).basinY*cellH + j*cellH, inputArea.get(i).basinWidth*cellW, cellH);
+            if (draw) {
+              p.rect(inputArea.get(i).basinX*cellW + GRID_GAP, inputArea.get(i).basinY*cellH + j*cellH + GRID_GAP, inputArea.get(i).basinWidth*cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
+            }
             
             // Draw Slice Slot
-            p.rect((inputArea.get(i).basinX - 3)*cellW, inputArea.get(i).basinY*cellH + j*cellH, cellW, cellH);
+            p.rect((inputArea.get(i).basinX - 3)*cellW + GRID_GAP, inputArea.get(i).basinY*cellH + j*cellH + GRID_GAP, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
             //p.textAlign(CENTER); p.textSize(10);
+            p.fill(textColor);
             p.text("Slice" + (j+1), (inputArea.get(i).basinX - 2)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
             p.textAlign(LEFT);
             
@@ -437,18 +446,20 @@ class TableSurface {
         if (!LEFT_MARGIN || (LEFT_MARGIN && u >= MARGIN_W) ) {
 
           if (blocker[u][v].active) {
-            p.fill(GSK_ORANGE);
-            p.rect(u*cellW, v*cellH, cellW, cellH);
+            //p.fill(0);
+            //p.rect(u*cellW + GRID_GAP, v*cellH + GRID_GAP, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
             p.fill(0);
-            p.stroke(255);
-            p.strokeWeight(1);
-            p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, cellW, cellH);
+            //p.stroke(255);
+            //p.strokeWeight(1);
+            p.noStroke();
+            p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
             p.fill(255);
             p.textSize(textSize);
             p.textAlign(CENTER);
-            p.text("Exst", u*cellW + 0.5*cellW, v*cellH + 0.5*cellH);
-            p.text("-" + blocker[u][v].longevity, u*cellW + 0.5*cellW, v*cellH + 0.85*cellH);
+            //p.text("Exst", u*cellW + 0.5*cellW, v*cellH + 0.5*cellH);
+            p.text("-" + blocker[u][v].longevity + "yr", u*cellW + 0.5*cellW, v*cellH + 0.6*cellH);
             p.textAlign(LEFT);
+            p.noStroke();
           }
 
           if (inBasin(u, v) && !blocker[u][v].active) {
@@ -457,19 +468,20 @@ class TableSurface {
             // Draw Colortizer Input Pieces
             if (tablePieceInput[u - MARGIN_W][v][0] >=0 && tablePieceInput[u - MARGIN_W][v][0] < NUM_PROFILES) {  
               p.noStroke();
+              p.strokeWeight(5);
               float ratio = 0.25;
               try {
                 if (!agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).built) {
                   // Draw Under Construction
-                  p.fill(50);
-                  p.rect(u*cellW, v*cellH, cellW, cellH);
+                  //p.fill(50);
+                  //p.rect(u*cellW, v*cellH, cellW, cellH);
                   p.fill(0);
                   p.stroke(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ], 200);
-                  p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, 0.5*cellW, 0.5*cellH);
+                  p.ellipse(u*cellW + 0.5*cellW, v*cellH + 0.5*cellH, 0.5*cellW - 2*GRID_GAP, 0.5*cellH - 2*GRID_GAP);
                 } else {
                   // Draw Built
                   p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
-                  p.rect(u*cellW, v*cellH, cellW, cellH);
+                  p.rect(u*cellW + GRID_GAP, v*cellH + GRID_GAP, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
                   p.image(nce, u*cellW + ratio*cellW, v*cellH + 0.5*ratio*cellH, (1-2*ratio)*cellW, (1-2*ratio)*cellH);
 
                   //Draw Capacity
@@ -486,11 +498,11 @@ class TableSurface {
             }
           }
 
-          // Draw black edges where Lego grid gaps are
-          p.noFill();
-          p.stroke(0);
-          p.strokeWeight(3);
-          p.rect(u*cellW, v*cellH, cellW, cellH);
+//          // Draw black edges where Lego grid gaps are
+//          p.noFill();
+//          p.stroke(0);
+//          p.strokeWeight(3);
+//          p.rect(u*cellW, v*cellH, cellW, cellH);
 
           if (debug) {
             // Draw Symbol to show "in use"
@@ -541,13 +553,13 @@ class TableSurface {
       p.image(nce, 7*cellW, (V-3)*cellH, cellW, cellH);
     }
 
-    // Draw Black Edge around 4x22 left margin area
-    if (LEFT_MARGIN) {
-      p.noFill(); 
-      p.stroke(0); 
-      p.strokeWeight(3);
-      p.rect(0, 0, MARGIN_W*cellW, p.height);
-    }
+//    // Draw Black Edge around 4x22 left margin area
+//    if (LEFT_MARGIN) {
+//      p.noFill(); 
+//      p.stroke(0); 
+//      p.strokeWeight(3);
+//      p.rect(0, 0, MARGIN_W*cellW, p.height);
+//    }
 
     // Draw Mouse-based Cursor for Grid Selection
     if (gridMouseU != -1 && gridMouseV != -1) {
