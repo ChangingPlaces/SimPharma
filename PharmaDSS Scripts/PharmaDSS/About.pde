@@ -169,20 +169,30 @@ String VERSION = "BETA V1.4";
   
  /* TO DO:    
   
-  ***               - Allow variable Chip Tonnage
-  ***               - Allow user to compare performance with baseline/batch/ideal scenario(s)  
+  ***              - Thursday:
+  ***               - Fix NCE Flicker Error
+  ***               - Allow variable Chip Tonnage, Legend for Site Input Slots (Time + chip tonnage)
   ***               - Clean-up / Simplify 5 Game Scores to ~3
-  ***               - Have Random-ish visualization of NCE generation from candidacy to launch; Random NCE Generation
-  ***               - Implement Automated Stochastic NCE demand profiles w/ random events
+  ***               - Impot new xls scenario (giovanni)
   ***               - Implement/Polish Game Setup Files
+                      - Number of Sites
+                      - Slots Per Slice
+                      - Slice Cost
+                      - Slice + NCE Build Time
+                      - Days per Year
+  ***               - Therepuetic Area is correllated to Peak Demand (Have color Codes coorrellate)
+  ***                - Respiratory
+  ***                - Oncology
+  ***                - Inflammatory
+  ***                - HIV/Immuno
   
-  *                - Legend for Site Input Slots
+  *                 --------------
   
-  *                - Therepuetic Area is correllated to Peak Demand
-  *                  - Respiratory
-  *                  - Oncology
-  *                  - Inflammatory
-  *                  - HIV/Immuno
+  ***               - Allow user to compare performance with baseline/batch/ideal scenario(s)
+  ***               - Have Random-ish visualization of NCE generation from candidacy to launch;
+  ***               - Implement Automated Stochastic NCE demand profiles w/ random events
+  
+  *               - Enable 2+ Sites
   
   *               - "Ghost" of hypothetical player to play against
   
