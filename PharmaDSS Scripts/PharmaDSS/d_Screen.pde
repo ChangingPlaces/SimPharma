@@ -152,7 +152,7 @@ void drawScreen() {
   // Dimensions of Site Area
   int L_X = 6;
   int L_Y = 4;
-  int L_W = 13;
+  int L_W = 14;
   int L_H = 13;
 
   int SITE_X = int( offscreen.width*L_X/float(mfg.U)   );

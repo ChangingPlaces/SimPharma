@@ -395,7 +395,7 @@ class TableSurface {
           p.textAlign(BOTTOM);
           p.textSize(cellH/2);
 //          p.text("Site " + (i+1), (inputArea.get(i).basinX + 0.0)*cellW, (inputArea.get(i).basinY - 4.1)*cellH);
-          p.text("Site " + (i+1), (3.1 + MARGIN_W)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
+          p.text("Site " + (i+1), (2.1 + MARGIN_W)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
           boolean draw;
