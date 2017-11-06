@@ -158,23 +158,26 @@
   *               - Edit: Change Size of Site 2 in XLS File
   *               - BugFix: Show NCEs when no actual demand (i.e. NCE 4 & 7)
   *               - BugFix: Future Capacity Viz When Repurposing too long
+  *               - New Feature: Incorporate Site "Slices" into Interface Design
+  *               - New Feature: Update NCE Dock and Graphics
   */
   
 String VERSION = "BETA V1.3";
   
  /* TO DO:    
-  ***               - Incorporate Site "Slices" into Interface Design
+ 
+  ***               - Allow variable Chip Tonnage
   ***               - Allow user to compare performance with baseline/batch/ideal scenario(s)  
   ***               - Clean-up / Simplify 5 Game Scores to ~3
   ***               - Have Random-ish visualization of NCE generation from candidacy to launch; Random NCE Generation
   ***               - Implement Automated Stochastic NCE demand profiles w/ random events
   ***               - Implement/Polish Game Setup Files
   
-                  - Therepuetic Area is correllated to Peak Demand
-                  - Respiratory
-                  - Oncology
-                  - Inflammatory
-                  - HIV/Immuno
+  *                - Therepuetic Area is correllated to Peak Demand
+  *                  - Respiratory
+  *                  - Oncology
+  *                  - Inflammatory
+  *                  - HIV/Immuno
   
   *               - "Ghost" of hypothetical player to play against
   
