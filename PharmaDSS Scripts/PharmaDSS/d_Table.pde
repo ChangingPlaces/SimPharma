@@ -20,6 +20,7 @@ boolean tableTest = false;
 
 int SLICE_SIZE = 3; // Amount of Grid Units in Each Slice (in Lego Squares)
 float BLOCKER_PERCENT = 0.5; // Percent of Existing tiles to be blocked upon setup
+int MAX_BASIN_HEIGHT = 6;
 
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight);
@@ -553,9 +554,7 @@ class TableSurface {
   void addBasins(float[][] basinSize) {
     int num = basinSize.length; // Number of Sites
     int availableWidth = U - MARGIN_W;
-    int basinWidth;
 //    int step;
-    basinWidth = 8;
 //    if (num == 2) {
 //      basinWidth = 8;
 //      step = 2;
@@ -565,8 +564,7 @@ class TableSurface {
 //    }
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
-//      inputArea.add( new Basin(i, MARGIN_W + step + i*basinWidth, MARGIN_H, basinSize[i], basinWidth - 2, SLICE_SIZE) );
-      inputArea.add( new Basin(i, U - basinWidth, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], SLICE_SIZE, 6) );
+      inputArea.add( new Basin(i, U - 2*SLICE_SIZE, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], SLICE_SIZE, MAX_BASIN_HEIGHT) );
     }
   }
 
@@ -586,9 +584,8 @@ class TableSurface {
     PShape[] s;
     int numSlices;
     boolean[] sliceBuilt;
-    int SLICE_BUILD_TIME = 2;
     int[] sliceTimer;
-    
+    int SLICE_BUILD_TIME = 2; // Turns it takes to build a slice
     int inputOccupied; // Some Input Squares are initially occupied
 
     Basin(int index, int basinX, int basinY, float[] basinCap, int basinWidth, int basinHeight) {
