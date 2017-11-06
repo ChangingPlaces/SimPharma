@@ -34,16 +34,6 @@ void drawTable() {
 
   // Draw the scene, offscreen
   mfg.draw(offscreen);
-
-  if (tableTest) {
-    stroke(background);
-    strokeWeight(1);
-    fill(textColor, 100);
-    rect((width - int(0.85*height) ) / 2, (height - int(0.85*height) ) / 2, int(0.85*height), int(0.85*height), 10);
-    image(offscreen, (width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
-
-    mfg.mouseToGrid((width - int(0.8*height) ) / 2, (height - int(0.8*height) ) / 2, int(0.8*height), int(0.8*height));
-  }
 }
 
 void generateBasins() {
@@ -129,6 +119,46 @@ class TableSurface {
     }
 
     if (grid.y >=0 && grid.y < V) {
+      gridMouseV = int(grid.y);
+    } else {
+      valid = false;
+    }
+
+    if (!valid) {
+      gridMouseU = -1;
+      gridMouseV = -1;
+    }
+
+    return grid;
+  }
+  
+  // Converts screen-based mouse coordinates to table grid position represented on screen during "Screen Mode"
+  PVector mouseToGrid(int mouseX_0, int mouseY_0, int mouseW, int mouseH, int gridX, int gridY, int gridW, int gridH) {
+    PVector grid = new PVector();
+    boolean valid = true;
+
+    grid.x = float(mouseX - mouseX_0) / mouseW * gridW + gridX;
+    grid.y = float(mouseY - mouseY_0) / mouseH * gridH + gridY;
+
+    if (grid.x >=MARGIN_W && grid.x < U) {
+      gridMouseU = int(grid.x);
+    } else {
+      valid = false;
+    }
+
+    if (grid.y >=0 && grid.y < V) {
+      gridMouseV = int(grid.y);
+    } else {
+      valid = false;
+    }
+    
+    if (grid.x >=gridX && grid.x < gridX + gridW) {
+      gridMouseU = int(grid.x);
+    } else {
+      valid = false;
+    }
+
+    if (grid.y >=gridY && grid.y < gridY + gridH) {
       gridMouseV = int(grid.y);
     } else {
       valid = false;
@@ -364,7 +394,7 @@ class TableSurface {
           p.textAlign(BOTTOM);
           p.textSize(cellH/2);
 //          p.text("Site " + (i+1), (inputArea.get(i).basinX + 0.0)*cellW, (inputArea.get(i).basinY - 4.1)*cellH);
-          p.text("Site " + (i+1), (2.1 + MARGIN_W)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
+          p.text("Site " + (i+1), (3.1 + MARGIN_W)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
           for (int j=0; j<inputArea.get(i).numSlices; j++) {
@@ -386,8 +416,8 @@ class TableSurface {
             
             // Draw Slice Slot
             p.rect((inputArea.get(i).basinX - 3)*cellW, inputArea.get(i).basinY*cellH + j*cellH, cellW, cellH);
-            p.textAlign(CENTER); p.textSize(10);
-            p.text("SLICE", (inputArea.get(i).basinX - 2)*cellW + cellW/2, inputArea.get(i).basinY*cellH + j*cellH + cellH/2);
+            //p.textAlign(CENTER); p.textSize(10);
+            p.text("Slice" + (j+1), (inputArea.get(i).basinX - 2)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
             p.textAlign(LEFT);
             
           }
@@ -396,7 +426,7 @@ class TableSurface {
           
           // p.tint(180);
 //          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 4.5)*cellH);
-          p.image(sitePNG, (2 + MARGIN_W)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 3*cellH);
+          p.image(sitePNG, (3 + MARGIN_W)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 3*cellH);
         }
       }
     }

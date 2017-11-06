@@ -161,12 +161,13 @@
   *
   * BETA V1.4:    - New Feature: Incorporate Site "Slices" into Interface Design
   *               - New Feature: Update NCE Dock and Graphics
+  *               - New Feature: Rebuild Site Visualizations, particularly how builds are represented
   */
   
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
- 
+  
   ***               - Allow variable Chip Tonnage
   ***               - Allow user to compare performance with baseline/batch/ideal scenario(s)  
   ***               - Clean-up / Simplify 5 Game Scores to ~3
@@ -190,8 +191,6 @@ String VERSION = "BETA V1.4";
   
   *               - Toggle Visualization to emphasize SITE vs OUTPUTS (i.e. have "expanded mode" for graphs of score)
   *               - Distinguish between user and "AI"/predicted
-  
-  *               - Rebuild Site Visualizations, particularly how builds are represented
   
   *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
   

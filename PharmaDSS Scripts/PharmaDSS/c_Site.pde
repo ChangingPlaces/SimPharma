@@ -41,6 +41,7 @@ class Site {
   
   // Update the state of all builds on site
   void updateBuilds() {
+    
     for(int i=siteBuild.size()-1; i>=0; i--) {
       siteBuild.get(i).editing = false;
       if (siteBuild.get(i).demolish) {
@@ -49,7 +50,26 @@ class Site {
       } else {
         siteBuild.get(i).updateBuild();
       }
+    
+      if (gameMode) {  
+        if (session.current.TURN > 0 && siteBuild.get(i).built) {
+          // Calculate percent of build module being utilized to meet demand
+          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, session.current.TURN-1);
+          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).globalProductionLimit;
+          if (cap == 0) {
+            meetPercent = 0.0;
+          } else {
+            meetPercent = min(1.0, demand/cap);
+          }
+          
+          // Assign Value to Build Class for Later Use
+          // (Should move this calculation outside of draw eventually)
+          siteBuild.get(i).production = meetPercent;
+        }  
+      }
+      
     }
+    
   }
 
   void draw(int x, int y, int w, int h, float max, boolean selected, boolean hover) {
@@ -175,19 +195,6 @@ class Site {
       } else if (gameMode) {
         
         if (session.current.TURN > 0 && siteBuild.get(i).built) {
-          
-          // Calculate percent of build module being utilized to meet demand
-          float demand = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).demandProfile.getFloat(2, session.current.TURN-1);
-          float cap = agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).globalProductionLimit;
-          if (cap == 0) {
-            meetPercent = 0.0;
-          } else {
-            meetPercent = min(1.0, demand/cap);
-          }
-          
-          // Assign Value to Build Class for Later Use
-          // (Should move this calculation outside of draw eventually)
-          siteBuild.get(i).production = meetPercent;
           
           // Translate percent to pixel dimension
           float capWidth = map(meetPercent, 0, 1.0, 0, BLD_W);

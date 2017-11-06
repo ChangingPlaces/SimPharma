@@ -161,11 +161,7 @@ void draw() {
   
   // Refers to "drawScreen" tab
   drawScreen();
-  
-  // Refers to "drawTable" tab (need to draw twice to clear buffer?!)
   noStroke();
-  drawTable();
-  drawTable();
   
   // Draws Menu
   hideMenu.draw();

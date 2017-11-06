@@ -165,7 +165,7 @@ void keyPressed() {
 // The result of each button click is defined here
 void mousePressed() {
   
-  if (tableTest && mfg.mouseInGrid()) {
+  if (mfg.mouseInGrid()) {
     // Add piece to table virtually (Must run BEFORE Main Menu Button Implementation)
     int ID;
     if (gameMode) {
