@@ -170,6 +170,12 @@ String VERSION = "BETA V1.3";
   ***               - Implement Automated Stochastic NCE demand profiles w/ random events
   ***               - Implement/Polish Game Setup Files
   
+                  - Therepuetic Area is correllated to Peak Demand
+                  - Respiratory
+                  - Oncology
+                  - Inflammatory
+                  - HIV/Immuno
+  
   *               - "Ghost" of hypothetical player to play against
   
   *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events

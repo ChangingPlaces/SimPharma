@@ -18,7 +18,7 @@ boolean tableTest = false;
  *
  */
 
-int SLICE_SIZE = 6; // Amount of Grid Units in Each Slice (in Lego Squares)
+int SLICE_SIZE = 3; // Amount of Grid Units in Each Slice (in Lego Squares)
 
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight);
@@ -46,15 +46,16 @@ void drawTable() {
 
 void generateBasins() {
   siteCapacity = new float[NUM_SITES][2];
-  mfg.inputOccupied.clear();
+  
+  mfg.percentOccupied.clear();
   for (int i=0; i<NUM_SITES; i++) { 
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
     siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
     siteCapacity[i][1] = agileModel.SITES.get(i).capGn;
 
     // Define the number of tile blockers on start
-    float percentBlocked = 0.25;
-    mfg.inputOccupied.add( int(percentBlocked*siteCapacity[i][0]) );
+    float percentBlocked = 0.5;
+    mfg.percentOccupied.add( percentBlocked );
   }
 
   mfg.clearBasins();
@@ -76,7 +77,7 @@ class TableSurface {
   int MARGIN_H = 4;  // Top Margin for Basins (in Lego Squares)
 
   ArrayList<Basin> inputArea;
-  ArrayList<Integer> inputOccupied; // Some Input Squares are initially occupied
+  ArrayList<Float> percentOccupied; // Some Input Squares are initially occupied
 
   boolean[][] inUse, editing;
   Blocker[][] blocker;
@@ -87,7 +88,7 @@ class TableSurface {
     this.V = V;
     LEFT_MARGIN = left_margin;
     inputArea = new ArrayList<Basin>();
-    inputOccupied = new ArrayList<Integer>();
+    percentOccupied = new ArrayList<Float>();
     cellType = new String[U][V][3];
     inUse = new boolean[U][V];
     editing = new boolean[U][V];
@@ -593,18 +594,28 @@ class TableSurface {
     boolean[] sliceBuilt;
     int SLICE_BUILD_TIME = 2;
     int[] sliceTimer;
+    
+    int inputOccupied; // Some Input Squares are initially occupied
 
     Basin(int index, int basinX, int basinY, float[] basinCap, int basinWidth, int basinHeight) {
+      // Upper Left Coordinates of Basin (Lego Grid Units)
       this.basinX = basinX;
       this.basinY = basinY;
-      this.basinCap = basinCap; // Existing and Greenfield capacity
+      
+      // Existing and Greenfield capacity
+      this.basinCap = basinCap; 
+      
+      // Maximum Width and Height of Input Basin
       this.basinWidth = basinWidth;
       this.basinHeight = basinHeight;
 
       MAX_SIZE = basinWidth * basinHeight;
+      
+      // Units in Lego Grid Squares
       basinSize = new int[2];
       basinSize[0] = int((basinCap[0] + basinCap[1]) / agileModel.maxCap * MAX_SIZE); // Total
       basinSize[1] = int( basinCap[0] / agileModel.maxCap * MAX_SIZE); // Existing
+      
       CORNER_BEVEL = new int[2];
       CORNER_BEVEL[0] = 10;
       CORNER_BEVEL[1] = 5;
@@ -625,16 +636,17 @@ class TableSurface {
       }
 
       // Designate CellType
+      inputOccupied = int(percentOccupied.get(index)*basinSize[1]);
       for (int i=0; i<basinSize[0]; i++) {
-        int u = basinX + i%basinHeight;
-        int v = basinY + i/basinHeight;
+        int u = basinX + i%basinWidth;
+        int v = basinY + i/basinWidth;
         cellType[u][v][0] = "SITE_" + index;
         if (i<basinSize[1]) {
           cellType[u][v][1] = "EXISTING";
-          if (inputOccupied.get(index) > 0) {
+          if (inputOccupied > 0) {
             blocker[u][v].active = true;
-            blocker[u][v].longevity = inputOccupied.get(index);
-            inputOccupied.set(index, inputOccupied.get(index)-1);
+            blocker[u][v].longevity = inputOccupied;
+            inputOccupied--;
           }
         } else {
           cellType[u][v][1] = "GREENFIELD";
