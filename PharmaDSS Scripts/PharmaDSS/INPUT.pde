@@ -25,21 +25,21 @@ String[][] buttonNames =
   { "Load XLS Data", "x" },
   { "VOID", "" },
   { "Toggle Profile", "p" },
-  { "Toggle KPI's", "k" },
-  { "VOID", "" },
   { "Play Game", "g" },
   { "End Turn", "SPACE" },
   { "VOID", "" },
   { "VOID", "" },
   { "VOID", "" },
   { "VOID", "" },
-  { "VOID", "" },
-  { "VOID", "" },
   { "Table Projection", "`" },
-  { "Enlarge Profile", "l" },
   { "Table Test", "t" },
   { "Invert Colors", "i" },
-  { "Debug", "0" }
+  { "Debug", "0" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "VOID", "" },
+  { "VOID", "" }
 
 // Obsolete Keys
 //  { "Toggle Site", "s" },
@@ -47,6 +47,8 @@ String[][] buttonNames =
 //  { "Deploy Selection", "d" },
 //  { "Remove Selection", "r" },
 //  { "Repurpose Selection", "e" },
+//  { "Toggle KPI's", "k" },
+//  { "Enlarge Profile", "l" },
   
 };
 
@@ -113,9 +115,9 @@ void keyPressed() {
 //    case 'e': 
 //      key_e();
 //      break;
-    case 'k': 
-      key_k();
-      break;
+//    case 'k': 
+//      key_k();
+//      break;
     case 'i': 
       key_i();
       break;
@@ -125,9 +127,9 @@ void keyPressed() {
     case 't': 
       key_t();
       break;
-    case 'l':
-      key_l();
-      break;
+//    case 'l':
+//      key_l();
+//      break;
     case ' ': 
       key_space();
       break;
@@ -232,10 +234,10 @@ void mousePressed() {
 //  if(mainMenu.buttons[ bHash.get("e") ].over()){ 
 //    key_e();
 //  }
-  
-  if(mainMenu.buttons[ bHash.get("k") ].over()){ 
-    key_k();
-  }
+//  
+//  if(mainMenu.buttons[ bHash.get("k") ].over()){ 
+//    key_k();
+//  }
   
   if(mainMenu.buttons[ bHash.get("i") ].over()){ 
     key_i();
@@ -249,9 +251,9 @@ void mousePressed() {
     key_t();
   }
   
-  if(mainMenu.buttons[ bHash.get("l") ].over()){ 
-    key_l();
-  }
+//  if(mainMenu.buttons[ bHash.get("l") ].over()){ 
+//    key_l();
+//  }
   
   if(mainMenu.buttons[ bHash.get("SPACE") ].over()){ 
     key_space();

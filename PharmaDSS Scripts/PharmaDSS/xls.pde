@@ -180,9 +180,9 @@ void loadModel_XLS(MFG_System model, String name) {
     for (int i=0; i<NUM_SITES; i++) {
       int totHeight;
       if (i==randomLargest) {
-        totHeight = SLICE_SIZE;
+        totHeight = model.SLICE_SIZE;
       } else {
-        totHeight = int(random( 2, SLICE_SIZE));
+        totHeight = int(random( 2, model.SLICE_SIZE));
       }
       int gnHeight = int(random( 1, totHeight-1));
       float mag = 7.5;
@@ -214,6 +214,7 @@ void loadModel_XLS(MFG_System model, String name) {
     model.PROFILES.add( new Profile(i) ); 
     model.PROFILES.get(i).name = reader.getString(PROFILE_ROW + 2 + 4*i, PROFILE_COL);
     model.PROFILES.get(i).summary = reader.getString(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 1);
+    model.PROFILES.get(i).chipCapacity = reader.getFloat(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 4);
     if (reader.getString(PROFILE_ROW + 2 + 4*profileList[i], PROFILE_COL + 2).equals("success")) {
       model.PROFILES.get(i).success = true;
     } else {

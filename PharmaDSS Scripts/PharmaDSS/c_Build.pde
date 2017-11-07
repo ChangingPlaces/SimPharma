@@ -56,6 +56,10 @@ class Build {
     PROFILE_INDEX = index;
     built = false;
     age = 0;
+    
+    
+    
+    capacity = agileModel.PROFILES.get(index).chipCapacity * agileModel.DAYS_PER_CHIP / 1000.0;
   }
 
   // Update Temporal aspects of build, such as age and construction progress
@@ -122,23 +126,17 @@ class Build {
 
     // Draw Build Characteristics
     int scaler = 3;
+    int jump;
     textAlign(LEFT);
     textSize(12);
     fill(textColor);
     
     // Draw "Chip" Image
     image(chip, x, y - 100 , w, 75);
-  
-    text("Production Capacity:" + int(capacity) + " tons", x, y -140);
-
-    if (type.equals("GMS")) {
-      text("Build Time: " + int(buildTime) + " " + agileModel.TIME_UNITS, x, y - 11);
-      text("Build Cost: " + int(buildCost/100000)/10.0 + agileModel.COST_UNITS, x, y +4);
-      text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, y + 19);
-      text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, y + 34);
-    } else {
-      text("Repurpose Cost: " + int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, y - 11);
-    }
+    
+    float chipCap = agileModel.PROFILES.get(session.selectedProfile).chipCapacity;
+    
+    text("Production Capacity:" + int(chipCap) + " kg/day", x, y -140);
     
     text("Personnel: " , x, y - 115);
     for (int i=0; i< labor.size (); i++) {
@@ -156,6 +154,54 @@ class Build {
         fill(#00CCCC);
       }
       ellipse(x + i*5 + 5, y - 105, 3, 10);
+    }
+    
+    jump = 0;
+    fill(textColor);
+    if (type.equals("GMS")) {
+      text("Build Time: " + int(repurpTime) + " " + agileModel.TIME_UNITS, x, jump + y - 11);
+      //text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS, x, jump + y +4);
+      // This needs to actually represent sum of personnel costs
+      text("Operational Cost: " + int(buildCost/1000000)/20.0 + "mil " + agileModel.COST_UNITS + "/yr", x, jump + y + 4); 
+      //text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, jump + y + 19);
+      //text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y + 34);
+    } else {
+      //text("Repurpose Cost: " + int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y - 11);
+    }
+    
+    
+    // Faux Slice Description (Probably need to make a slice class at one point)
+    
+    fill(textColor);
+    text("Personnel: " , x, y + 100);
+    for (int i=0; i< labor.size (); i++) {
+      if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
+        fill(#CC0000);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(1, 0) )) {
+        fill(#00CC00);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(2, 0) )) {
+        fill(#0000CC);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(3, 0) )) {
+        fill(#CCCC00);
+      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(4, 0) )) {
+        fill(#CC00CC);
+      } else {
+        fill(#00CCCC);
+      }
+      for (int j=0; j<3; j++) ellipse(x + i*15 + j*5 + 5, y + 110, 3, 10);
+    }
+    
+    jump = 150;
+    fill(textColor);
+    if (type.equals("GMS")) {
+      text("Build Time: " + 2 + " " + agileModel.TIME_UNITS, x, jump + y - 11);
+      text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS, x, jump + y +4);
+      // This needs to actually represent sum of personnel costs
+      text("Operational Cost: " + int(buildCost/1000000)/10.0 + "mil " + agileModel.COST_UNITS + "/y", x, jump + y + 19); 
+      //text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, jump + y + 19);
+      //text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y + 34);
+    } else {
+      //text("Repurpose Cost: " + int(repurpTime) + " " +agileModel.TIME_UNITS + ", " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y - 11);
     }
   }
 }

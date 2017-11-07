@@ -150,22 +150,32 @@ void drawScreen() {
   float HEIGHT = canH*.48;
 
   // Dimensions of Site Area
-  int L_X = 6;
+  int L_X = 6 + (6 - agileModel.SLICE_SIZE);
   int L_Y = 4;
-  int L_W = 14;
+  int L_W = 14 - (6 - agileModel.SLICE_SIZE);
   int L_H = 13;
 
-  int SITE_X = int( offscreen.width*L_X/float(mfg.U)   );
-  int SITE_Y = int( offscreen.height*L_Y/float(mfg.V)   );
-  int SITE_W = int( L_W/float(mfg.U)*offscreen.width    );
-  int SITE_H = int( L_H/float(mfg.V)*offscreen.height  );
+  int SITE_X = int( offscreen.width*L_X/float(mfg.U)  );
+  int SITE_Y = int( offscreen.height*L_Y/float(mfg.V) );
+  int SITE_W = int( L_W/float(mfg.U)*offscreen.width  );
+  int SITE_H = int( L_H/float(mfg.V)*offscreen.height );
   int WIDTH  = int( HEIGHT*SITE_W/float(SITE_H)       );
 
 //  rect(width - WIDTH - 1.5*MARGIN - 10, int(3.2*MARGIN) - 10, WIDTH + 20, HEIGHT + 20, 10);
   PImage siteGrab = offscreen.get(SITE_X, SITE_Y, SITE_W, SITE_H);
   image(siteGrab, width - WIDTH - 1.5*MARGIN, int(3.2*MARGIN), WIDTH, HEIGHT);
   mfg.mouseToGrid(int(width - WIDTH - 1.5*MARGIN), int(3.2*MARGIN), int(WIDTH), int(HEIGHT), L_X, L_Y, L_W, L_H);
-
+  
+  fill(textColor);
+  textAlign(LEFT);
+  textSize(max(18, textSize));
+  text("NCE 'Chip'", MARGIN + sitesX - 10, titlesY);
+  text("Site 'Slice'", MARGIN + sitesX - 10, titlesY + 250);
+  text("Site Deployments", width - WIDTH - 1.5*MARGIN - 5, titlesY);
+  
+  // Draw Build Legend
+  drawBuilds();
+  
 //  // Draw Site Info (Obsolete)
 //  NCEClicks.clear();
 //  for (int i=0; i<NUM_SITES; i++) {
@@ -180,18 +190,10 @@ void drawScreen() {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
-  text("Site Characteristics", MARGIN + sitesX - 10, titlesY);
   if (performance.numScores < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
-  if (!displayRadar) {
-    text("MfG Capacity 'Chip'", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
-  } else {
-    text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
-  }
+  text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
   textSize(min(16, textSize));
   outputGraph = new LineGraph(performance.scores, prediction.scores, lineX, lineY, lineW, lineH);
-
-  // Draw Build Legend
-  drawBuilds();
 
   // Draw Radar Plot
   if (displayRadar) radar.draw(radarX, radarY, radarH);
@@ -202,8 +204,8 @@ void drawScreen() {
   // Draw Graph of Outputs
   outputGraph.draw();
 
-  // Draws Overlay Graphic to describe NCE attributes
-  if (infoOverlay || infoOverride) drawInfoOverlay();
+//  // Draws Overlay Graphic to describe NCE attributes
+//  if (infoOverlay || infoOverride) drawInfoOverlay();
 
   // Draw Pork Chop
   image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
@@ -320,12 +322,12 @@ void drawBuilds() {
 
   // Build Var
   float spread = 3.0;
-
+  
   // Draw GMS Build Options
   for (int i=0; i<agileModel.GMS_BUILDS.size (); i++) {
     selected = false;
     if (i == session.selectedBuild) selected = true;
-    if (!displayRadar) agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, lineY + lineH - 20, buildsW, buildsH, "GMS", selected);
+    agileModel.GMS_BUILDS.get(i).draw(sitesX + MARGIN - 5, sitesY + lineH - 20, buildsW, buildsH, "GMS", selected);
   }
 
   //  // Draw R&D Build Options

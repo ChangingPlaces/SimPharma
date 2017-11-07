@@ -164,17 +164,18 @@
   *               - New Feature: Rebuild Site Visualizations, particularly how builds are represented
   *               - New Feature: Transparent Background for Site Visualization
   *               - BugFix: Fix NCE Flicker Error
+  *               - New Feature: Allow variable Chip Tonnage, Legend for Site Input Slots (Time + chip tonnage)
+  *               - Refactor: Reorganized Visualization
   */
   
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
-
-  THU    T03    Allow variable Chip Tonnage, Legend for Site Input Slots (Time + chip tonnage)
+ 
   THU    T04    Clean-up / Simplify 5 Game Scores to ~3
   THU    T05    Score Visualization
   THU    T07    Score Logic
-  THU    T09    Impot new xls scenario
+  THU    T09    Import new xls scenario
   THU    T01    Implement/Polish Game Setup Files
   THU    T01a    - Number of Sites
   THU    T01b    - Slots Per Slice

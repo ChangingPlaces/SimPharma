@@ -164,7 +164,7 @@ class Game {
       
       // Turns on KPI Radar if not already on
       displayRadar = true;
-      mainMenu.buttons[ bHash.get("k") ].isPressed = displayRadar;
+//      mainMenu.buttons[ bHash.get("k") ].isPressed = displayRadar;
     }
   }
   

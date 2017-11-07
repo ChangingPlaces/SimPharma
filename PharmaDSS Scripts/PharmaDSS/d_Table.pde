@@ -18,8 +18,6 @@ boolean tableTest = false;
  *
  */
 
-int SLICE_SIZE = 6; // Amount of Grid Units in Each Slice (in Lego Squares)
-float BLOCKER_PERCENT = 0.5; // Percent of Existing tiles to be blocked upon setup
 int MAX_BASIN_HEIGHT = 6;
 
 void setupTable() {
@@ -297,7 +295,6 @@ class TableSurface {
             }
           } else { // If the cell is currently in use, proceed
             if (editing[u][v]) {
-              println("inUse");
               // If Lego Piece is Removed ...
               if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) { 
                 try {
@@ -314,7 +311,6 @@ class TableSurface {
               } else if (tablePieceInput[u - MARGIN_W][v][0] != -1 && 
                          agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).PROFILE_INDEX != tablePieceInput[u - MARGIN_W][v][0]) { // If Lego Piece is Changed ....
                 try {
-                  println("swap!");
                   inUse[u][v] = false;
                   Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                   session.current.event.add(remove);
@@ -414,7 +410,7 @@ class TableSurface {
           p.textAlign(BOTTOM);
           p.textSize(cellH/2);
 //          p.text("Site " + (i+1), (inputArea.get(i).basinX + 0.0)*cellW, (inputArea.get(i).basinY - 4.1)*cellH);
-          p.text("Site " + (i+1), (2.1 + MARGIN_W)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
+          p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
           boolean draw;
@@ -625,7 +621,7 @@ class TableSurface {
 //    }
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
-      inputArea.add( new Basin(i, U - SLICE_SIZE - 2, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], SLICE_SIZE, MAX_BASIN_HEIGHT) );
+      inputArea.add( new Basin(i, U - agileModel.SLICE_SIZE - 2, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], agileModel.SLICE_SIZE, MAX_BASIN_HEIGHT) );
     }
   }
 
@@ -688,7 +684,7 @@ class TableSurface {
       }
 
       // Designate CellType
-      inputOccupied = int(BLOCKER_PERCENT*basinSize[1]);
+      inputOccupied = int(agileModel.BLOCKER_PERCENT*basinSize[1]);
       for (int i=0; i<basinSize[0]; i++) {
         int u = basinX + i%basinWidth;
         int v = basinY + i/basinWidth;

@@ -12,7 +12,9 @@ class Profile {
 
   // Breif Descriptor of Profile (i.e. "Blockbuster" or "Never Manufactured")
   String summary;
-
+  
+  float chipCapacity; // Amount of product a single Lego "chip" can produce (kg/day)
+  
   // Success/ Failure (due to clinical trail failure, competition enters market, etc)
   boolean success;
   boolean launched;

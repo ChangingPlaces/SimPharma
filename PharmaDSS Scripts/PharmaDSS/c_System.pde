@@ -11,6 +11,14 @@ class MFG_System {
   
   int YEAR_0 = 2017;
   
+  // Number of days of operation in a given year
+  int DAYS_PER_YEAR = 300;
+  
+  int SLICE_SIZE = 3; // Amount of Grid Units in Each Slice (in Lego Squares)
+  float BLOCKER_PERCENT = 0.5; // Percent of Existing tiles to be blocked upon setup
+
+  float DAYS_PER_CHIP = DAYS_PER_YEAR / SLICE_SIZE;
+  
   // Units for Describing cost (i.e. "GBP")
   String COST_UNITS;
   
