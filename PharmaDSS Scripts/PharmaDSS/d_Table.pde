@@ -187,6 +187,7 @@ class TableSurface {
       tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = ID;
     } else {
       tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = -1;
+      // tablePieceInput[gridMouseU - MARGIN_W][gridMouseV][0] = int(random(0, 2)); // For debugging "flicker"
     }
   }
 
@@ -283,7 +284,6 @@ class TableSurface {
             // If Lego Piece is Removed ...
             if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) {
               try {
-                //                if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
                 inUse[u][v] = false;
                 Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                 session.current.event.add(remove);
@@ -297,6 +297,7 @@ class TableSurface {
             }
           } else { // If the cell is currently in use, proceed
             if (editing[u][v]) {
+              println("inUse");
               // If Lego Piece is Removed ...
               if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) { 
                 try {
@@ -310,8 +311,10 @@ class TableSurface {
                 catch (Exception e) {
                   println("Error Removing A Piece from the Table while IN use");
                 }
-              } else if (tablePieceInput[u - MARGIN_W][v][0] != -1 && siteBuildIndex[u][v] != tablePieceInput[u - MARGIN_W][v][0]) { // If Lego Piece is Changed ....
+              } else if (tablePieceInput[u - MARGIN_W][v][0] != -1 && 
+                         agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).PROFILE_INDEX != tablePieceInput[u - MARGIN_W][v][0]) { // If Lego Piece is Changed ....
                 try {
+                  println("swap!");
                   inUse[u][v] = false;
                   Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                   session.current.event.add(remove);
