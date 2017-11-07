@@ -163,75 +163,48 @@
   *               - New Feature: Update NCE Dock and Graphics
   *               - New Feature: Rebuild Site Visualizations, particularly how builds are represented
   *               - New Feature: Transparent Background for Site Visualization
+  *               - BugFix: Fix NCE Flicker Error
   */
   
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
-  
-  ***              - Thursday:
-  ***               - Fix NCE Flicker Error
-  ***               - Allow variable Chip Tonnage, Legend for Site Input Slots (Time + chip tonnage)
-  ***               - Clean-up / Simplify 5 Game Scores to ~3
-  ***               - Impot new xls scenario (giovanni)
-  ***               - Implement/Polish Game Setup Files
-                      - Number of Sites
-                      - Slots Per Slice
-                      - Slice Cost
-                      - Slice + NCE Build Time
-                      - Days per Year
-  ***               - Therepuetic Area is correllated to Peak Demand (Have color Codes coorrellate)
-  ***                - Respiratory
-  ***                - Oncology
-  ***                - Inflammatory
-  ***                - HIV/Immuno
-  ***               - Add NCE Math Model to PharmaDSS GitHub
-  
-  *                 --------------
-  
-  ***               - Allow user to compare performance with baseline/batch/ideal scenario(s)
-  ***               - Have Random-ish visualization of NCE generation from candidacy to launch;
-  ***               - Implement Automated Stochastic NCE demand profiles w/ random events
-  
-  *               - Enable 2+ Sites
-  
-  *               - "Ghost" of hypothetical player to play against
-  
-  *               - Priority: (1) R&D, (2) Batch vs Continuous, (3) Random Events
-  
-  *               - Clarify Greenfield/Existing Site Effect (Different construction bar for greenfield development?)
-  *               - Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment
-  *               - Somehow add screen-based deployments to table?
-  
-  *               - Toggle Visualization to emphasize SITE vs OUTPUTS (i.e. have "expanded mode" for graphs of score)
-  *               - Distinguish between user and "AI"/predicted
-  
-  *               - Create Dynamic Relative Scale for Profiles (Small Version + Large Version)
-  
-  *               - Update Future Capacity for Removed Builds (not just added Builds)
 
-  *               - Account for repurposing / building cost differently
-  *               - Don't Allow Player to over-pack a site
+  THU    T03    Allow variable Chip Tonnage, Legend for Site Input Slots (Time + chip tonnage)
+  THU    T04    Clean-up / Simplify 5 Game Scores to ~3
+  THU    T05    Score Visualization
+  THU    T07    Score Logic
+  THU    T09    Impot new xls scenario
+  THU    T01    Implement/Polish Game Setup Files
+  THU    T01a    - Number of Sites
+  THU    T01b    - Slots Per Slice
+  THU    T01c    - Slice Cost
+  THU    T01d    - Slice + NCE Build Time
+  THU    T01e    - Days per Year
+  THU    T10    Therepuetic Area is correllated to Peak Demand (Have color Codes coorrellate)
+  THU    T10a    - Respiratory
+  THU    T10b    - Oncology
+  THU    T10c    - Inflammatory
+  THU    T10d    - HIV/Immuno
+  THU    T11     - Add NCE Math Model to PharmaDSS GitHub
   
-  *               - Have Demand automatically produced in cheaper sites FIRST
-  *               - Have Security of Supply influenced by monte carlo calc?
-
-  *               - Add R&D slot to table visualization
-  *               - Add Batch/Continuous Mode (continuous effectively makes sites have higher capacity)
-                 
-  *               - Allow user/player to "nudge" baseline parameters before proceeding with game (for instance, change assumption about NCE R&D allowed on Sites)
-  *               - Include Salary modifier for different Sites  
-  *               - Filter for NEC-specific performance?
-  *
-  *               - Draw Build Ghosts on All of Site?
-  *               - "NCE Not Available" Error when in NCE dock
+  NOV  HIGH    01  IW  Allow user to compare performance with baseline/batch/ideal scenario(s)
+  NOV  HIGH    01a GG  Develop Batch Rules/AI, Incorporate Drug Buffer Into Model
+  NOV  HIGH    01b HK  Develop Batch Index
+  NOV  HIGH    02  GG  Have Random-ish visualization of NCE generation from candidacy to launch, feeding back into R&D
+  NOV  HIGH    02a GG  Polish Diagram/Slide
+  NOV  HIGH    02b HK  Independent Module
+  NOV  HIGH    02c IW  Embed within PharmasDSS
+  NOV  HIGH    03  IW  Implement Automated Stochastic NCE demand profiles
+  NOV  LOW     06a IW  Draw People associated with slices and sites
+  NOV  LOW     06b GG  Create Document of people associated with slices and sites
+  JAN  HIGH    04  IW  Enable 2-4 Sites
+  JAN  LOW     07  IW  Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment (i.e. don't project info and automaticallt remove)
+  JAN  THU     T06 HK  Isolate Score/Metrics for a single NCE
+  JAN  MED     08  ??  Text feed back for game play / TUTORIAL
+  DEC  HIGH    10  IW  Implement random site events (1 per turn, can be good or bad)
+  DEC  MED     05  IW  "Ghost" of hypothetical "perfect" player to play against
+  ??   ??      01c HK  Add R&D slots to table visualization
   
-  *               - Graphic Icons (b) Build (Widget?) and (c) R&D (beaker)
-  *               - Text feed back for game play
-  *                 - Can't Repurpose while Under Construction
-  *                 - Site has no production!
-  *                 - out of room! (over cap)
-  *
-  *               - Incorporate Drug Buffer Into Model
   */
  

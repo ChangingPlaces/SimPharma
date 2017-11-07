@@ -296,12 +296,10 @@ class TableSurface {
               }
             }
           } else { // If the cell is currently in use, proceed
-
             if (editing[u][v]) {
               // If Lego Piece is Removed ...
               if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) { 
                 try {
-                  //                  if (agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).editing) // If piece is yet to be confirmed
                   inUse[u][v] = false;
                   Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                   session.current.event.add(remove);
@@ -312,7 +310,25 @@ class TableSurface {
                 catch (Exception e) {
                   println("Error Removing A Piece from the Table while IN use");
                 }
-              } else { // If Lego Piece is Changed ....
+              } else if (tablePieceInput[u - MARGIN_W][v][0] != -1 && siteBuildIndex[u][v] != tablePieceInput[u - MARGIN_W][v][0]) { // If Lego Piece is Changed ....
+                try {
+                  inUse[u][v] = false;
+                  Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
+                  session.current.event.add(remove);
+                  dockIndex(siteBuildIndex[u][v]);
+                  siteBuildIndex[u][v] = -1;
+                  updateProfileCapacities();
+                  
+                  // Begin Building the Current Production Facility
+                  boolean repurp = inExisting(u, v);
+                  Event deploy = new Event("deploy", siteIndex[u][v], session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX, repurp);
+                  session.current.event.add(deploy);
+                  siteBuildIndex[u][v] = agileModel.SITES.get(siteIndex[u][v]).siteBuild.size()-1;
+                  inUse[u][v] = true;
+                } 
+                catch (Exception e) {
+                  println("Error Changing A Piece from the Table while IN use");
+                }
               }
             }
           } // end else !inUse
