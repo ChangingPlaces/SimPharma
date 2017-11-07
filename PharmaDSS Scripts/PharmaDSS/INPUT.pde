@@ -177,7 +177,11 @@ void mousePressed() {
     // Add piece to table virtually (Must run BEFORE Main Menu Button Implementation)
     int ID;
     if (gameMode) {
-      ID = agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX;
+      if (session.selectedProfile > -1) {
+        ID = agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX;
+      } else {
+        ID = -1;
+      }
       //println(ID);
     } else {
       ID = session.selectedProfile;

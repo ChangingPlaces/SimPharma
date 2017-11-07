@@ -134,27 +134,31 @@ class Build {
     // Draw "Chip" Image
     image(chip, x, y - 100 , w, 75);
     
-    float chipCap = agileModel.PROFILES.get(session.selectedProfile).chipCapacity;
-    
-    text("Production Capacity:" + int(chipCap) + " kg/day", x, y -140);
-    
-    text("Personnel: " , x, y - 115);
-    for (int i=0; i< labor.size (); i++) {
-      if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
-        fill(#CC0000);
-      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(1, 0) )) {
-        fill(#00CC00);
-      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(2, 0) )) {
-        fill(#0000CC);
-      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(3, 0) )) {
-        fill(#CCCC00);
-      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(4, 0) )) {
-        fill(#CC00CC);
-      } else {
-        fill(#00CCCC);
-      }
-      ellipse(x + i*5 + 5, y - 105, 3, 10);
+    // Chip Throughput
+    if (session.selectedProfile > -1) {
+      float chipCap = agileModel.PROFILES.get(session.selectedProfile).chipCapacity;
+      text("Production Capacity:" + int(chipCap) + " kg/day", x, y -140);
+    } else {
+      println("Error drawing NCE throughput. -1 array out of bounds.");
     }
+    
+//    text("Personnel: " , x, y - 115);
+//    for (int i=0; i< labor.size (); i++) {
+//      if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
+//        fill(#CC0000);
+//      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(1, 0) )) {
+//        fill(#00CC00);
+//      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(2, 0) )) {
+//        fill(#0000CC);
+//      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(3, 0) )) {
+//        fill(#CCCC00);
+//      } else if (labor.get(i).name.equals(agileModel.LABOR_TYPES.getString(4, 0) )) {
+//        fill(#CC00CC);
+//      } else {
+//        fill(#00CCCC);
+//      }
+//      ellipse(x + i*5 + 5, y - 105, 3, 10);
+//    }
     
     jump = 0;
     fill(textColor);
@@ -188,7 +192,7 @@ class Build {
       } else {
         fill(#00CCCC);
       }
-      for (int j=0; j<3; j++) ellipse(x + i*15 + j*5 + 5, y + 110, 3, 10);
+      for (int j=0; j<2; j++) ellipse(x + i*10 + j*5 + 5, y + 110, 3, 10);
     }
     
     jump = 150;

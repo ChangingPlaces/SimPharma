@@ -198,6 +198,8 @@ String VERSION = "BETA V1.4";
   NOV  HIGH    02c IW  Embed within PharmasDSS
   NOV  HIGH    03  IW  Implement Automated Stochastic NCE demand profiles
   NOV  LOW     06a IW  Draw People associated with slices and sites
+                        - 20 People per Site
+                        - 12 Site
   NOV  LOW     06b GG  Create Document of people associated with slices and sites
   JAN  HIGH    04  IW  Enable 2-4 Sites
   JAN  LOW     07  IW  Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment (i.e. don't project info and automaticallt remove)
