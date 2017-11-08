@@ -18,6 +18,8 @@ boolean tableTest = false;
  *
  */
 
+// Dimensions of Site Area
+int L_X, L_Y, L_W, L_H;
 int MAX_BASIN_HEIGHT = 6;
 
 void setupTable() {
@@ -26,6 +28,11 @@ void setupTable() {
   mfg = new TableSurface(projectorHeight, projectorHeight, V_MAX, V_MAX, true);
   enableSites = true;
   generateBasins();
+  
+  L_X = 6 + (6 - agileModel.SLICE_SIZE);
+  L_Y = 4;
+  L_W = 14 - (6 - agileModel.SLICE_SIZE);
+  L_H = 13;
 }
 
 void drawTable() {
@@ -36,7 +43,6 @@ void drawTable() {
 
 void generateBasins() {
   siteCapacity = new float[NUM_SITES][2];
-  
   for (int i=0; i<NUM_SITES; i++) { 
     //siteCapacity[i] = agileModel.SITES.get(i).capEx + agileModel.SITES.get(i).capGn;
     siteCapacity[i][0] = agileModel.SITES.get(i).capEx;
@@ -190,6 +196,10 @@ class TableSurface {
   }
 
   void resetCellTypes() {
+    if (NUM_SITES == 2) L_H = 13;
+    if (NUM_SITES == 3) L_H = 14;
+    MAX_BASIN_HEIGHT = int(float(L_H) / NUM_SITES);
+    
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
 
@@ -230,7 +240,6 @@ class TableSurface {
         
         if (site >-1) {
           slice = int(cellType[u][v][2]);
-          
           if ( inputArea.get(site).sliceBuilt[slice] ) {
             cellType[u][v][1] = "EXISTING";
           }
@@ -421,7 +430,7 @@ class TableSurface {
             if (inputArea.get(i).sliceBuilt[j]) {
               // Slice is built
               p.fill(textColor);
-              p.text("S" + (j+1), (inputArea.get(i).basinX-3)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
+              p.text("Sl" + (j+1), (inputArea.get(i).basinX-3)*cellW + 0.15*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
               
               p.fill(abs(textColor - 100), 70);
               draw = true;
@@ -453,17 +462,14 @@ class TableSurface {
             
           }
           
-//          p.shape(inputArea.get(i).s[0]);
-          
-          // p.tint(180);
-//          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 4.5)*cellH);
-          p.image(sitePNG, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 3*cellH);
+          // Factory PNG Image
+          p.image(sitePNG, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 2.4*cellH);
           
           ArrayList<Person> labor;
           
           // Site Labor
-          p.fill(textColor);
-          p.text("Baseline Labor: " , (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
+//          p.fill(textColor);
+//          p.text("Baseline: " , (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY + 1.5)*cellH);
           labor = agileModel.SITES.get(i).labor;
           for (int k=0; k<labor.size (); k++) {
             if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
@@ -479,7 +485,7 @@ class TableSurface {
             } else {
               p.fill(#00CCCC);
             }
-            p.ellipse((inputArea.get(i).basinX - 8)*cellW + k*6.5 + 7, (inputArea.get(i).basinY + 4.0)*cellH, 4, 13);
+            p.ellipse((inputArea.get(i).basinX - 8)*cellW + k*6.5 + 7, (inputArea.get(i).basinY + 2.75)*cellH, 4, 13);
           }
           
           // Slice Labor
@@ -579,7 +585,7 @@ class TableSurface {
             } else {
               p.fill(#00FF00);
             }
-            p.stroke(255);
+            p.noStroke();
             p.ellipse(u*cellW + 0.25*cellW, v*cellH + 0.5*cellH, 0.25*cellW, 0.25*cellH);
 
             // Draw Yellow Symbol if Active Editing
@@ -591,8 +597,9 @@ class TableSurface {
             // Draw Other Info
             p.fill(255);
             p.textSize(10);
-            p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
-            p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
+            //p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
+            //p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
+            p.text(cellType[u][v][0], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
           }         
 
           p.noFill();
@@ -672,9 +679,11 @@ class TableSurface {
 //      basinWidth = int(float(availableWidth)/num);
 //      step = 1;
 //    }
+    int shift = 0;
     for (int i=0; i<num; i++) {
       // Creates Existing/Greenfield Basins for Site
-      inputArea.add( new Basin(i, U - agileModel.SLICE_SIZE - 2, MARGIN_H + int(i*(V - MARGIN_H)*0.4), basinSize[i], agileModel.SLICE_SIZE, MAX_BASIN_HEIGHT) );
+      inputArea.add( new Basin(i, U - agileModel.SLICE_SIZE - 2, MARGIN_H + shift + 1*i, basinSize[i], agileModel.SLICE_SIZE, MAX_BASIN_HEIGHT) );
+      shift += max(4, inputArea.get(i).numSlices);
     }
   }
 
@@ -717,6 +726,10 @@ class TableSurface {
       basinSize[0] = int((basinCap[0] + basinCap[1]) / agileModel.maxCap * MAX_SIZE); // Total
       basinSize[1] = int( basinCap[0] / agileModel.maxCap * MAX_SIZE); // Existing
       
+      // Trim off fractions of slices
+      basinSize[0] -= basinSize[0] % agileModel.SLICE_SIZE;
+      basinSize[1] -= basinSize[1] % agileModel.SLICE_SIZE;
+      
       CORNER_BEVEL = new int[2];
       CORNER_BEVEL[0] = 10;
       CORNER_BEVEL[1] = 5;
@@ -741,6 +754,7 @@ class TableSurface {
       for (int i=0; i<basinSize[0]; i++) {
         int u = basinX + i%basinWidth;
         int v = basinY + i/basinWidth;
+        
         cellType[u][v][0] = "SITE_" + index;
         if (i<basinSize[1]) {
           cellType[u][v][1] = "EXISTING";
@@ -754,7 +768,6 @@ class TableSurface {
         }
         cellType[u][v][2] = "" + (v - basinY);
       }
-      
       
       // Outline (0 = Existing Capacity; 1 = Greenfield Capacity);
       for (int i=0; i<2; i++) {

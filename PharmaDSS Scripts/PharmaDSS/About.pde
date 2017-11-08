@@ -170,14 +170,16 @@
   *               - BugFix: Correct Display and Value for Chip Capacity
   *               - New Feature: Draw People associated with slices and sites
   *               - New Feature: Refined Table Graphics
+  *               - New Feature: Enable 2-3 Sites
   */
   
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
  
+  Legend for Slice Slots
   THU    T04    Clean-up / Simplify 5 Game Scores to ~3
-  THU    T05     - Score Visualization
+  THU    T05     - Score Visualization / Descriptions
   THU    T07     - Score Logic
   THU    T09    Import new xls scenario
   THU    T01    Implement/Polish Game Setup Files
@@ -202,7 +204,6 @@ String VERSION = "BETA V1.4";
   NOV  HIGH    02c IW  Embed within PharmasDSS
   NOV  HIGH    03  IW  Implement Automated Stochastic NCE demand profiles
   NOV  LOW     06b GG  Create Document of people associated with slices and sites
-  JAN  HIGH    04  IW  Enable 2-4 Sites
   JAN  LOW     07  IW  Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment (i.e. don't project info and automaticallt remove)
   JAN  THU     T06 HK  Isolate Score/Metrics for a single NCE
   JAN  MED     08  ??  Text feed back for game play / TUTORIAL

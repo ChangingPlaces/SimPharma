@@ -147,14 +147,8 @@ void drawScreen() {
   stroke(background);
   strokeWeight(1);
   fill(0);
+  
   float HEIGHT = canH*.48;
-
-  // Dimensions of Site Area
-  int L_X = 6 + (6 - agileModel.SLICE_SIZE);
-  int L_Y = 4;
-  int L_W = 14 - (6 - agileModel.SLICE_SIZE);
-  int L_H = 13;
-
   int SITE_X = int( offscreen.width*L_X/float(mfg.U)  );
   int SITE_Y = int( offscreen.height*L_Y/float(mfg.V) );
   int SITE_W = int( L_W/float(mfg.U)*offscreen.width  );
@@ -169,8 +163,8 @@ void drawScreen() {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
-  text("NCE 'Chip'", MARGIN + sitesX - 10, titlesY);
-  text("Site 'Slice'", MARGIN + sitesX - 10, titlesY + 250);
+  text("Unit: NCE 'Chip'", MARGIN + sitesX - 10, titlesY);
+  text("Unit: Site 'Slice'", MARGIN + sitesX - 10, titlesY + 250);
   text("Site Deployments", width - WIDTH - 1.5*MARGIN - 5, titlesY);
   
   // Draw Build Legend

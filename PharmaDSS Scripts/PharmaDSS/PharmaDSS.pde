@@ -127,10 +127,13 @@ void setup() {
   
   initScores();
   setupRadar();
-  performance.flatOutputs();
-  prediction.flatOutputs();
+  performance.maxOutputs();
+  prediction.maxOutputs();
   
   setupTable();
+  
+  // For good measure
+  regenerateGame();
 
   initUDP();
   

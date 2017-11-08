@@ -5,7 +5,7 @@ void regenerateGame() {
   
   boolean interrupt = false;
   
-  // Cannot reset game while in active game mode
+  // Reset game if in game mode
   if (gameMode) {
     interrupt = true;
     gameMode = false;
@@ -32,8 +32,8 @@ void regenerateGame() {
   generateBasins();
   
   //resets Scores
-  performance.flatOutputs();
-  prediction.flatOutputs();
+  performance.maxOutputs();
+  prediction.maxOutputs();
   
   // Reset Table Pieces
   fauxPieces(2, tablePieceInput, 15);
@@ -195,7 +195,9 @@ class Game {
           agileModel.activeProfiles.remove(i);
           
           // keeps current profile selected if one behind it is removed
-          if (selectedProfile > i) selectedProfile--;
+          if (selectedProfile > i) {
+            selectedProfile--;
+          }
             
         }
       }
