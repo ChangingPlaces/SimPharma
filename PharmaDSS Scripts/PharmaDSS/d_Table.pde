@@ -301,7 +301,7 @@ class TableSurface {
                 inUse[u][v] = false;
                 Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                 session.current.event.add(remove);
-                dockIndex(siteBuildIndex[u][v]);
+                dockIndex(siteIndex[u][v], siteBuildIndex[u][v]);
                 siteBuildIndex[u][v] = -1;
                 updateProfileCapacities();
               } 
@@ -309,28 +309,32 @@ class TableSurface {
                 println("Error Removing A Piece from the Table while NOT in use");
               }
             }
-          } else { // If the cell is currently in use, proceed
+          } 
+          else { // If the cell is currently in use, proceed
             if (editing[u][v]) {
+              
               // If Lego Piece is Removed ...
               if (tablePieceInput[u - MARGIN_W][v][0] == -1 && siteBuildIndex[u][v] != -1) { 
                 try {
                   inUse[u][v] = false;
                   Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                   session.current.event.add(remove);
-                  dockIndex(siteBuildIndex[u][v]);
+                  dockIndex(siteIndex[u][v], siteBuildIndex[u][v]);
                   siteBuildIndex[u][v] = -1;
                   updateProfileCapacities();
                 } 
                 catch (Exception e) {
                   println("Error Removing A Piece from the Table while IN use");
                 }
+                
+              // If Lego Piece is Changed ....
               } else if (tablePieceInput[u - MARGIN_W][v][0] != -1 && 
-                         agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).PROFILE_INDEX != tablePieceInput[u - MARGIN_W][v][0]) { // If Lego Piece is Changed ....
+                         agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).PROFILE_INDEX != tablePieceInput[u - MARGIN_W][v][0]) { 
                 try {
                   inUse[u][v] = false;
                   Event remove = new Event("remove", siteIndex[u][v], siteBuildIndex[u][v]);
                   session.current.event.add(remove);
-                  dockIndex(siteBuildIndex[u][v]);
+                  dockIndex(siteIndex[u][v], siteBuildIndex[u][v]);
                   siteBuildIndex[u][v] = -1;
                   updateProfileCapacities();
                   
@@ -386,11 +390,11 @@ class TableSurface {
     updateProfileCapacities();
   }
 
-  void dockIndex(int dockedIndex) {
+  void dockIndex(int site, int dockedIndex) {
     // Cycle through each 22x22 Table Grid
     for (int u=0; u<U; u++) {
       for (int v=0; v<V; v++) {
-        if (siteBuildIndex[u][v] > dockedIndex) {
+        if (siteBuildIndex[u][v] > dockedIndex && site == siteIndex[u][v]) {
           siteBuildIndex[u][v]--;
         }
       }
@@ -609,9 +613,10 @@ class TableSurface {
             // Draw Other Info
             p.fill(255);
             p.textSize(10);
-            //p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
-            //p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
-            p.text(cellType[u][v][0], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
+            p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
+            p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
+            if (inUse[u][v]) p.text("T", u*cellW + 0.45*cellW, v*cellH + 0.6*cellH);
+            //p.text(cellType[u][v][0], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
           }
 
           p.noFill();

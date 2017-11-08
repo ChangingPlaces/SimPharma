@@ -176,13 +176,15 @@
   *               - New Feature: Auto-select NCE Profile when adding
   *               - BugFix: Fixed Future Score Set When NCE Fails During Game
   *               - New Feature: Auto-Reset Game When Trying To Progress Past Last Turn
+  *               - BugFix(?): siteBuildIndices get mixed up when pieces flicker
+  
   */
   
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
-  
-  Legend for Slice Slots
+  *               - BugFix: siteBuildIndices get mixed up when pieces flicker
+  *               - Legend for Slice Slots
   THU    T04    Clean-up / Simplify 5 Game Scores to ~3
   THU    T05     - Score Visualization / Descriptions
   THU    T07     - Score Logic
