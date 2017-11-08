@@ -19,6 +19,8 @@
 String DEMO = "SYCAMORE";
 //String DEMO = "MIT";
 
+boolean showRealSiteNames = true;
+
 void setupDemo(String demo) {
   
   // Sycamore Settings (June 4, 2017)

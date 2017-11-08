@@ -242,7 +242,7 @@ void drawProfiles(ArrayList<Profile> list) {
   textAlign(RIGHT);
   fill(textColor, 200);
   text(agileModel.YEAR_0 + session.current.TURN, profilesX + profilesW + 1.15*MARGIN, titlesY);
-
+  
   boolean axis;
   boolean selected, hover;
   int numProf = agileModel.PROFILES.size();

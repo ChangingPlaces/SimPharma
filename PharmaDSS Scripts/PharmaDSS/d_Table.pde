@@ -428,7 +428,7 @@ class TableSurface {
         for (int i=0; i<inputArea.size (); i++) {
           p.fill(255);
           p.textAlign(BOTTOM);
-          p.textSize(0.4*cellH);
+          p.textSize(0.5*cellH);
 //          p.text("Site " + (i+1), (inputArea.get(i).basinX + 0.0)*cellW, (inputArea.get(i).basinY - 4.1)*cellH);
           String n = "Ware";
           if (i == 0) {
@@ -436,8 +436,12 @@ class TableSurface {
           } else if (i==1) {
             n = "Jurong";
           }
-          //p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
-          p.text(n, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
+          
+          if (!showRealSiteNames) {
+            p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
+          } else {
+            p.text(n, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + 1.35*cellH);
+          }
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
           boolean draw;
