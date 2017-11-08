@@ -81,8 +81,6 @@ void loadMenu(int canvasWidth, int canvasHeight) {
 }
 
 void keyPressed() {
-  println("keyPressed = " + key);
-  
   switch(key) {
     case 'h': 
       key_h();
@@ -137,9 +135,6 @@ void keyPressed() {
       break;
     case '0': 
       key_0();
-      break;
-    case '1': // foot pedal
-      key_space();
       break;
       
     // Debugging (no formal buttons)
@@ -482,25 +477,25 @@ String checkSelections(String effect) {
   }
   
   // Mouse-based Build Module Selection (within Sites)
-  for(int j = 0; j<NCEClicks.size(); j++){
-    float NCEClickX = NCEClicks.get(j)[0];
-    float NCEClickY = NCEClicks.get(j)[1];
-    float NCEClickWidth = NCEClicks.get(j)[2];
-    float NCEClickHeight = NCEClicks.get(j)[3];  
-    if(mouseX <= NCEClickX + NCEClickWidth && mouseX >= NCEClickX  && mouseY <= NCEClickY + NCEClickHeight && mouseY >= NCEClickY){
+  for(int j = 0; j<APIClicks.size(); j++){
+    float APIClickX = APIClicks.get(j)[0];
+    float APIClickY = APIClicks.get(j)[1];
+    float APIClickWidth = APIClicks.get(j)[2];
+    float APIClickHeight = APIClicks.get(j)[3];  
+    if(mouseX <= APIClickX + APIClickWidth && mouseX >= APIClickX  && mouseY <= APIClickY + APIClickHeight && mouseY >= APIClickY){
       if (effect.equals("click")) {
-        session.selectedSiteBuild = int(NCEClicks.get(j)[4]);
+        session.selectedSiteBuild = int(APIClicks.get(j)[4]);
       } else if (effect.equals("hover")) {
-        session.hoverSiteBuild = int(NCEClicks.get(j)[4]);
+        session.hoverSiteBuild = int(APIClicks.get(j)[4]);
         hoverCheck = "BUILD";
       }
       
       // Set Profile to be same as site build
       int prof;
       if (gameMode) {
-        prof = activeProfileIndex(int(NCEClicks.get(j)[5]));
+        prof = activeProfileIndex(int(APIClicks.get(j)[5]));
       } else {
-        prof = int(NCEClicks.get(j)[5]);
+        prof = int(APIClicks.get(j)[5]);
       }
       if (effect.equals("click")) {
         session.selectedProfile = prof;

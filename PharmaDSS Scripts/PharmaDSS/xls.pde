@@ -9,7 +9,7 @@ boolean loadOriginal = true;
 import de.bezier.data.*;  
 
   // Data Locations (Last modified according to "Agile Network Model v7")
-  // Note that NCE profiles need to be edited so that all demand (forecast AND actual) are proper values (not equations). 
+  // Note that API profiles need to be edited so that all demand (forecast AND actual) are proper values (not equations). 
   // In other words, values should not self-reference each other.
   
   // "Overarching Game Rules&Inputs"
@@ -49,7 +49,7 @@ import de.bezier.data.*;
     int RND_LIMIT_ROW = 57; 
     int RND_LIMIT_COL = 1;
   
-  // "NCE Profile Data"
+  // "API Profile Data"
   int PROFILE_SHEET = 0; 
     
     // Cell A1
@@ -194,7 +194,7 @@ void loadModel_XLS(MFG_System model, String name) {
       float mag = 7.5;
       agileModel.SITES.add(
         // Site(String name, float capEx, float capGn, int limitRnD)
-        new Site( "Site " + (i+1), mag*(totHeight-gnHeight), mag*(gnHeight), int(random( 2, 5) ) 
+          new Site( "Site " + (i+1), mag*(totHeight-gnHeight), mag*(gnHeight), int(random( 2, 5) ) 
       ));
       
       // Temporary solution to populate sites with people
@@ -256,7 +256,7 @@ void loadModel_XLS(MFG_System model, String name) {
     // Calculates peak forecast demand value, lead years, etc
     model.PROFILES.get(i).calc();
     
-    //Rescale peak NCE values to be within reasonable orders of magnitude of GMS Build Options
+    //Rescale peak API values to be within reasonable orders of magnitude of GMS Build Options
     if (!loadOriginal) {
       
       float mag = 1000*(random(10)+3);

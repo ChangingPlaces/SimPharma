@@ -1,9 +1,9 @@
 // Site Characteristics for a given manufacturing site (i.e. Cork, Jurong)
-    ArrayList<float[]> NCEClicks = new ArrayList<float[]>();
+    ArrayList<float[]> APIClicks = new ArrayList<float[]>();
     
 class Site {
   
-  //Array of coords for NCE stuff
+  //Array of coords for API stuff
 
     //gives x, y, width, height, id
   
@@ -13,7 +13,7 @@ class Site {
   // Capacity at site, existing and Greenfield
   float capEx, capGn;
   
-  // Limit to the amount of NCEs on site for RnD
+  // Limit to the amount of APIs on site for RnD
   int limitRnD;
   
   // A List of Manufacturing Capacities (Build objects) assigned to the site
@@ -186,12 +186,12 @@ class Site {
       
       //property array for clicking
       float[] props = {BLD_X +  BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, i, agileModel.PROFILES.get(siteBuild.get(i).PROFILE_INDEX).ABSOLUTE_INDEX};
-      NCEClicks.add(props);
+      APIClicks.add(props);
       
       // Draw Site Builds on Sites
       if(!gameMode){
         
-        // Draws Solid NCE colors before game starts
+        // Draws Solid API colors before game starts
         fill(agileModel.profileColor[siteBuild.get(i).PROFILE_INDEX], 180);
         rect(BLD_X + BLD_W*(i%3), BLD_Y + offset,  BLD_W, BLD_H - 2, 5);
         fill(background, 100);

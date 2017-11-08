@@ -29,7 +29,7 @@
   *               developed by Ira Winder at the MIT Media Lab.
   *
   *               Classes that define primary object abstractions in the system are: 
-  *               (a) Profile: NCE demand profile
+  *               (a) Profile: API demand profile
   *               (b) Site: Factory Location/Area
   *               (c) Build: Manufacturing Unit/Process
   *               (d) Person: "Human Beans", as the BFG would say (i.e. Labor)
@@ -47,7 +47,7 @@
   *
   * ALPHA V1.2:   - Dynamic, Turn-based interaction using button and keyboard commands
   *               - Added UI for selecting specific (a)Profiles, (b)Sites, and (c)Builds
-  *               - Allocate NCE "Build" capacity between sites
+  *               - Allocate API "Build" capacity between sites
   *               - Enabled "deploy" event that allocates capacity to site in a given turn
   *               - Add Large-scale format for selected profile for greater legibility
   *               - Build capacity has 3 states: (1) Under Construction, (2) Active, (3) Inactive/Not utilized 
@@ -55,8 +55,8 @@
   * ALPHA V1.3:   - Select Subset of builds in site...remove or repurpose site builds
   *               - Prepopulate Builds
   *               - Random order for XLS PRofiles
-  *               - Add Total Capacity to NCEs
-  *               - Make Builds and NCEs similar magnitides
+  *               - Add Total Capacity to APIs
+  *               - Make Builds and APIs similar magnitides
   *               - Add Process Graphic to visualization
   *               - Make Screen Resolution Lower/Resizable
   *               - Draw Launch Tick
@@ -96,13 +96,13 @@
   *               - Emphasize Output "Graph" during game (not radar)
   *               - Polish Screen-based Site Visualization
   *               - if add/remove a piece in the same turn, no penalty
-  *               - Add Clear Legend for NCE Typology in Game
+  *               - Add Clear Legend for API Typology in Game
   *               - Check that launch dates are correct...
   *               - Link 1 Lego Unit to a custom Build Type that is displayed on the the table margin
   *               - Only fill up production capacities partially on sites
-  *               - Make Selected NCE Profile Full Screen When Docked
+  *               - Make Selected API Profile Full Screen When Docked
   *               - Add Per-site COGs to large Profile Visualization
-  *               - Make NCE Dock for NCE selection
+  *               - Make API Dock for API selection
   *
   * BETA V1.1:    - Added OPEX Calc
   *               - Added COGs Calc
@@ -111,15 +111,15 @@
   *                 -Capacity loading bar colors
   *                 -greenfield line
   *               - Click based 
-  *               - Graphic Icons for NCE (molecule)
-  *               - Make sure screen updates when NCE is docked
-  *               - Make Sure NCE selects ABSOLUTE Profile, not ORDER of Active Profile
+  *               - Graphic Icons for API (molecule)
+  *               - Make sure screen updates when API is docked
+  *               - Make Sure API selects ABSOLUTE Profile, not ORDER of Active Profile
   *               - Link Colortizer Variables (ID + rot) to PharmaDSS Variables
   *               - No longer Remove Profiles From Game Once they Fail
   *               - Edited Current Turn Indicator; Reveals Future Demand 1-yr out
-  *               - Clarify Current Year VS other milestones in NCE profile graph
+  *               - Clarify Current Year VS other milestones in API profile graph
   *               - Have "Chip" Visualization shown initially, at least until first turn is progressed
-  *               - NCE Actual Demand should reveal 1 year sooner
+  *               - API Actual Demand should reveal 1 year sooner
   *               - Colortizer Integration: Allow Adding/Removing Within Same Turn
   *               - Efficiency / Value Visualization should be distinct/seperate, perhaps put into toggle-able layers
   *               - Only use radar for normalized values
@@ -129,7 +129,7 @@
   *               - New Feature: Update Button Animation
   *               - New Feature: Automatically Initializes in "Game Mode"
   *               - Refactoring:  Menu + Buttons for easy updating
-  *               - Bug Fix: Deploy correct NCE when clicking table in game mode
+  *               - Bug Fix: Deploy correct API when clicking table in game mode
   *               - New Feature: Selection Box Hover over Profiles, Sites, and Builds
   *               - New Feature + Bug Fixes: Table Testing Enabled on PC
   *               - Hot Fix: Allows Repurposing of Modules on Table
@@ -153,30 +153,31 @@
   *               - BugFix: Correct Output Metrics When Beginning with Demand of Zero
   *               - Edit: Changed Lead Time from 5 years to 3 years
   *               - BugFix: Build Modules are repurposed more quickly when built on site (Lego Table Interface Only)
-  *               - BugFix: Increase Scale Height of NCE Graphs
+  *               - BugFix: Increase Scale Height of API Graphs
   *               - BugFix: Future Capacity Viz Simplified
   *               - Edit: Change Size of Site 2 in XLS File
-  *               - BugFix: Show NCEs when no actual demand (i.e. NCE 4 & 7)
+  *               - BugFix: Show APIs when no actual demand (i.e. API 4 & 7)
   *               - BugFix: Future Capacity Viz When Repurposing too long
   *
   * BETA V1.4:    - New Feature: Incorporate Site "Slices" into Interface Design
-  *               - New Feature: Update NCE Dock and Graphics
+  *               - New Feature: Update API Dock and Graphics
   *               - New Feature: Rebuild Site Visualizations, particularly how builds are represented
   *               - New Feature: Transparent Background for Site Visualization
-  *               - BugFix: Fix NCE Flicker Error
+  *               - BugFix: Fix API Flicker Error
   *               - New Feature: Allow variable Chip Tonnage, Legend for Site Input Slots (Time + chip tonnage)
   *               - Refactor: Reorganized Visualization
-  *               - BugFix: Doesn't Crash When Selected NCE = -1
+  *               - BugFix: Doesn't Crash When Selected API = -1
   *               - BugFix: Correct Display and Value for Chip Capacity
   *               - New Feature: Draw People associated with slices and sites
   *               - New Feature: Refined Table Graphics
   *               - New Feature: Enable 2-3 Sites
   *               - BugFix: No more Random Scores
   *               - BugFix: Production Vs. Capacity Correctly Shows on Tokens
-  *               - New Feature: Auto-select NCE Profile when adding
-  *               - BugFix: Fixed Future Score Set When NCE Fails During Game
+  *               - New Feature: Auto-select API Profile when adding
+  *               - BugFix: Fixed Future Score Set When API Fails During Game
   *               - New Feature: Auto-Reset Game When Trying To Progress Past Last Turn
   *               - BugFix(?): siteBuildIndices get mixed up when pieces flicker
+  *               - New Feature: Change "NCE" to "API" and named Sites
   
   */
   
@@ -193,26 +194,26 @@ String VERSION = "BETA V1.4";
   THU    T01a    - Number of Sites
   THU    T01b    - Slots Per Slice
   THU    T01c    - Slice Cost
-  THU    T01d    - Slice + NCE Build Time
+  THU    T01d    - Slice + API Build Time
   THU    T01e    - Days per Year
   THU    T10    Therepuetic Area is correllated to Peak Demand (Have color Codes coorrellate)
   THU    T10a    - Respiratory
   THU    T10b    - Oncology
   THU    T10c    - Inflammatory
   THU    T10d    - HIV/Immuno
-  THU    T11     - Add NCE Math Model to PharmaDSS GitHub
+  THU    T11     - Add API Math Model to PharmaDSS GitHub
   
   NOV  HIGH    01  IW  Allow user to compare performance with baseline/batch/ideal scenario(s)
   NOV  HIGH    01a GG  Develop Batch Rules/AI, Incorporate Drug Buffer Into Model
   NOV  HIGH    01b HK  Develop Batch Index
-  NOV  HIGH    02  GG  Have Random-ish visualization of NCE generation from candidacy to launch, feeding back into R&D
+  NOV  HIGH    02  GG  Have Random-ish visualization of API generation from candidacy to launch, feeding back into R&D
   NOV  HIGH    02a GG  Polish Diagram/Slide
   NOV  HIGH    02b HK  Independent Module
   NOV  HIGH    02c IW  Embed within PharmasDSS
-  NOV  HIGH    03  IW  Implement Automated Stochastic NCE demand profiles
+  NOV  HIGH    03  IW  Implement Automated Stochastic API demand profiles
   NOV  LOW     06b GG  Create Document of people associated with slices and sites
-  JAN  LOW     07  IW  Clarify on projection/site that capacity dedicated to a failed NCE market is available for redevelopment (i.e. don't project info and automaticallt remove)
-  JAN  THU     T06 HK  Isolate Score/Metrics for a single NCE
+  JAN  LOW     07  IW  Clarify on projection/site that capacity dedicated to a failed API market is available for redevelopment (i.e. don't project info and automaticallt remove)
+  JAN  THU     T06 HK  Isolate Score/Metrics for a single API
   JAN  MED     08  ??  Text feed back for game play / TUTORIAL
   DEC  HIGH    10  IW  Implement random site events (1 per turn, can be good or bad)
   DEC  MED     05  IW  "Ghost" of hypothetical "perfect" player to play against

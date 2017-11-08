@@ -1,10 +1,10 @@
-// Demand profile for a chemical entity (i.e. NCE)
+// Demand profile for a chemical entity (i.e. API)
 float MAX_PROFILE_VALUE = 0;
 color END = color(249, 60, 60);
 
 
 class Profile {
-  // Name of NCE Demand Profile
+  // Name of API Demand Profile
   String name; 
  
   // This static index should always refer to the profile's "ideal" state located in "MFG_System.PROFILES"
@@ -21,7 +21,7 @@ class Profile {
   
   // Profile Output Weights:
   float weightBalance = 1.0; // Factors into Security of Supply (Site Safety/Balance)
-  float weightSupply  = 1.0; // Factors into Security of Supply (NCE Safety/Capacity)
+  float weightSupply  = 1.0; // Factors into Security of Supply (API Safety/Capacity)
   float weightDemand  = 1.0; // Factors into Ability to Meet Demand
 
   // (TBA) Criticality to Patient
@@ -106,7 +106,7 @@ class Profile {
     // Based on Profile, compute the date that forecast is first know based on N years advance notice (i.e. 5yr) MFG_System.LEAD_TIME
     lead();
 
-    // Based on Profile, compute the date that NCE Profile "terminates"
+    // Based on Profile, compute the date that API Profile "terminates"
     end();
 
     //Initialize Table for holding capacity values
@@ -166,7 +166,7 @@ class Profile {
     }
   }
 
-  // Based on Profile, compute the date that NCE Profile "terminates" (i.e. is no longer viable)
+  // Based on Profile, compute the date that API Profile "terminates" (i.e. is no longer viable)
   //for graph class
   void end() {
     timeEnd = Float.POSITIVE_INFINITY;
@@ -409,7 +409,7 @@ class Profile {
     }
 
     // Draw Profile Name and Summary
-    // Draw small year axis on last NCE only
+    // Draw small year axis on last API only
     if ( (gameMode && timeEnd <= session.current.TURN) || (!gameMode && timeEnd <= NUM_INTERVALS-1)) {
       fill(#FF0000);
     } else {
@@ -527,7 +527,7 @@ class Profile {
 }
 
 void updateProfileCapacities() {
-  // Updates the production capacities for each NCE
+  // Updates the production capacities for each API
   for (int i=0; i<agileModel.activeProfiles.size(); i++) {
     agileModel.activeProfiles.get(i).calcProduction(agileModel.SITES);
   }

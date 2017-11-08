@@ -4,7 +4,7 @@ TableSurface mfg;
 float[][] siteCapacity;
 boolean enableSites;
 
-boolean dockedNCE = false;
+boolean dockedAPI = false;
 boolean tableTest = false;
 
 /*      ---------------> + U-Axis
@@ -428,9 +428,16 @@ class TableSurface {
         for (int i=0; i<inputArea.size (); i++) {
           p.fill(255);
           p.textAlign(BOTTOM);
-          p.textSize(cellH/2);
+          p.textSize(0.4*cellH);
 //          p.text("Site " + (i+1), (inputArea.get(i).basinX + 0.0)*cellW, (inputArea.get(i).basinY - 4.1)*cellH);
-          p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
+          String n = "Ware";
+          if (i == 0) {
+            n = "Cork";
+          } else if (i==1) {
+            n = "Jurong";
+          }
+          //p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
+          p.text(n, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
           boolean draw;
@@ -567,7 +574,6 @@ class TableSurface {
                   // Draw Built
                   p.fill(agileModel.profileColor[ tablePieceInput[u - MARGIN_W][v][0] ]);
                   p.rect(u*cellW + GRID_GAP, v*cellH + GRID_GAP, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
-                  p.image(nce, u*cellW + ratio*cellW, v*cellH + 0.5*ratio*cellH, (1-2*ratio)*cellW, (1-2*ratio)*cellH);
 
                   //Draw Capacity
                   p.fill(0);
@@ -578,8 +584,10 @@ class TableSurface {
                   cap = agileModel.PROFILES.get(nce_index).capacityProfile.getFloat(1, session.current.TURN);
                   dem = agileModel.PROFILES.get(nce_index).demandProfile.getFloat(2, session.current.TURN);
                   per = min(cap, dem) / cap;
-                  //float cap = agileModel.SITES.get(siteIndex[u][v]).meetPercent;
+                  if (per < 0.8) p.image(nce, u*cellW + ratio*cellW, v*cellH + 0.5*ratio*cellH, (1-2*ratio)*cellW, (1-2*ratio)*cellH);
+                  if (per > 0.8) { p.fill(#FF0000, 200); p.stroke(textColor); p.strokeWeight(2); }
                   p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, per*(cellW-10), ratio*cellH);
+                  if (per > 0.8) { p.fill(textColor); p.textSize(0.35*cellH); p.textAlign(CENTER); p.text("MAX", (u+.5)*cellW, v*cellH + (1-ratio)*cellH - 10); }
                 }
               } 
               catch (Exception e) {
@@ -624,19 +632,19 @@ class TableSurface {
       }
     }
 
-    // Draw Interface for Selecting NCE to Zoom In To
+    // Draw Interface for Selecting API to Zoom In To
     p.fill(255);
     p.stroke(0, 100); p.strokeWeight(20);
     p.rect(6*cellW, (V-4)*cellH, cellW*3, 3*cellH, 0.5*cellW);
     p.noStroke();
     p.textSize(20);
     p.textAlign(LEFT);
-    p.text("<- Select NCE", 9.25*cellW, (V-2.85)*cellH + 20);
+    p.text("<- Select API", 9.25*cellW, (V-2.85)*cellH + 20);
     p.fill(0);
     p.stroke(0, 100); p.strokeWeight(20);
     p.rect(7*cellW, (V-3)*cellH, cellW, cellH);
 
-    // Draw NCE in Filter Dock
+    // Draw API in Filter Dock
     if (tablePieceInput[7 - MARGIN_W][V-3][0] > -1 && tablePieceInput[7 - MARGIN_W][V-3][0] < NUM_PROFILES) {
       p.noStroke();
       p.fill(agileModel.profileColor[ tablePieceInput[7 - MARGIN_W][V-3][0] ]);

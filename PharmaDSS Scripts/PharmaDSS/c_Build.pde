@@ -19,7 +19,7 @@ class Build {
   
   // Status of Build when allocated to a site:
 
-  // NCE profile produced by build
+  // API profile produced by build
   int PROFILE_INDEX;
   // Is build operational, yet?
   boolean built;
@@ -142,9 +142,9 @@ class Build {
       }
       float chipCap = agileModel.PROFILES.get(selP).chipCapacity;
       text("Production Capacity:" + int(chipCap) + " kg/day" + "\n" +
-           "Profile: NCE " + (selP+1), x, y -140);
+           "Profile: API " + (selP+1), x, y -140);
     } else {
-      println("Error drawing NCE throughput. -1 array out of bounds.");
+      println("Error drawing API throughput. -1 array out of bounds.");
     }
     
 //    text("Personnel: " , x, y - 115);

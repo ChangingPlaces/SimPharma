@@ -163,7 +163,7 @@ void drawScreen() {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
-  text("Unit: NCE 'Chip'", MARGIN + sitesX - 10, titlesY);
+  text("Unit: API 'Chip'", MARGIN + sitesX - 10, titlesY);
   text("Unit: Site 'Slice'", MARGIN + sitesX - 10, titlesY + 250);
   text("Site Deployments", width - WIDTH - 1.5*MARGIN - 5, titlesY);
   
@@ -171,7 +171,7 @@ void drawScreen() {
   drawBuilds();
   
 //  // Draw Site Info (Obsolete)
-//  NCEClicks.clear();
+//  APIClicks.clear();
 //  for (int i=0; i<NUM_SITES; i++) {
 //    selected = false;
 //    if (i == session.selectedSite) selected = true;
@@ -198,7 +198,7 @@ void drawScreen() {
   // Draw Graph of Outputs
   outputGraph.draw();
 
-//  // Draws Overlay Graphic to describe NCE attributes
+//  // Draws Overlay Graphic to describe API attributes
 //  if (infoOverlay || infoOverride) drawInfoOverlay();
 
   // Draw Pork Chop
@@ -236,7 +236,7 @@ void drawProfiles(ArrayList<Profile> list) {
   fill(textColor);
   textAlign(LEFT);
   textSize(max(18, textSize));
-  text("NCE Demand Profiles", MARGIN + profilesX - 25, titlesY);
+  text("API 20 Year Demands", MARGIN + profilesX - 25, titlesY);
 
   // Current Year
   textAlign(RIGHT);
@@ -396,7 +396,7 @@ void drawInfoOverlay() {
 }
 
 
-// Method for drawing phase diagram explaining process of developing NCES to release
+// Method for drawing phase diagram explaining process of developing APIS to release
 void drawPhaseDiagram() {
 
   phaseArrow = createShape();

@@ -9,10 +9,10 @@
   *
   *  COGs -> Related to site production cost
   *
-  *  Ability to Meet Demand -> Weight each NCE the same regardless of total tonnage
+  *  Ability to Meet Demand -> Weight each API the same regardless of total tonnage
   *
   *  Security of Supply; Composite of Site Security and Capacity Security
-  *  Weight each NCE the same regardless of total tonnage
+  *  Weight each API the same regardless of total tonnage
   *  50% - Spread between sites? (deviation from equal / half ... i.e. 1t and 4t at site 1 and two repectively has deviation of 1.5/2.5
   *  50% - Assume that 100% Security is ability to meet demand if actual demand doubles in a given year.
   *
@@ -226,11 +226,11 @@ float calcSecurity(int turn, String mode) {
   supplyScore = 0.0;
   
   // WEIGHTS SHOULD ADD UP TO 1.0
-  float BALANCE_WEIGHT = 0.5;
+  float BALAAPI_WEIGHT = 0.5;
   float SUPPLY_WEIGHT  = 0.5;
 
   // Magnitude of allowed value difference before score reaches 0% (1.0 for 100% deviance; 2.0 for 200% deviance, etc)
-  float TOLERANCE = 2.0;
+  float TOLERAAPI = 2.0;
   // Ideal %Capacity Available in Network
   float IDEAL_NETWORK_BUFFER = 0.2;
   
@@ -239,15 +239,15 @@ float calcSecurity(int turn, String mode) {
   int scoreCount;
   Build current;
   
-  // If Demand Exists; NCE's Score Counts toward Total
+  // If Demand Exists; API's Score Counts toward Total
   scoreCount = 0;
   
-  // Cycles through Each NCE
+  // Cycles through Each API
   for (int i=0; i<agileModel.activeProfiles.size(); i++) {
 
     numBackup = 0.0;
     
-    // Calculates NCE Capacity at each site;
+    // Calculates API Capacity at each site;
     siteCapacity = new float[agileModel.SITES.size()];
     for (int s=0; s<agileModel.SITES.size(); s++) {
       siteCapacity[s] = 0.0;
@@ -260,7 +260,7 @@ float calcSecurity(int turn, String mode) {
       
     }
     
-    // Calculates Total NCE Capacity
+    // Calculates Total API Capacity
     totalCapacity = 0.0;
     for (int s=0; s<agileModel.SITES.size(); s++) {
       totalCapacity += siteCapacity[s];
@@ -281,7 +281,7 @@ float calcSecurity(int turn, String mode) {
     
     // Calaculates normalized balance and supply scores and adds them to total
     if ( demand > 0) { // Only scores if demand exists
-      // If Demand Exists; NCE's Score Counts toward Total
+      // If Demand Exists; API's Score Counts toward Total
       scoreCount ++;
     
       // Determines how many "backup" sites there are
@@ -304,7 +304,7 @@ float calcSecurity(int turn, String mode) {
         if (numBackup < 0.0) numBackup = 0.0;
       }
       
-      // Adds the current NCE's balance score to the overall
+      // Adds the current API's balance score to the overall
       balanceScore += agileModel.activeProfiles.get(i).weightBalance * numBackup;
       
 
@@ -316,7 +316,7 @@ float calcSecurity(int turn, String mode) {
       } else if (bufferSupply > 0 && bufferSupply <= 1.0) {
         sup = 1.0;
       } else if (bufferSupply > 1.0) {
-        sup = TOLERANCE - bufferSupply;
+        sup = TOLERAAPI - bufferSupply;
         if (sup < 0.0) sup = 0;
       }
       supplyScore += agileModel.activeProfiles.get(i).weightSupply * sup;
@@ -333,7 +333,7 @@ float calcSecurity(int turn, String mode) {
     balanceScore = 0;
     supplyScore = 0;
   }
-  percent = BALANCE_WEIGHT * balanceScore + SUPPLY_WEIGHT * supplyScore;
+  percent = BALAAPI_WEIGHT * balanceScore + SUPPLY_WEIGHT * supplyScore;
   
   return percent;
 }

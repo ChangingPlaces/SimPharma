@@ -151,7 +151,7 @@ class Game {
         agileModel.SITES.get(i).updateBuilds();
       }
       
-      // Updates the production capacities for each NCE
+      // Updates the production capacities for each API
       updateProfileCapacities();
       
       // Updates the status of the radar plot to now-previous turn
@@ -274,10 +274,10 @@ class Event {
     event.repurpose    = repurp;
     event.editing      = true;
     
-    // Customizes a Build for a given NCE
+    // Customizes a Build for a given API
     event.assignProfile(profileIndex);
     
-    // Add the NCE-customized Build to the given Site
+    // Add the API-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);
   }
   
@@ -296,12 +296,12 @@ class Event {
     event.repurpose    = repurp;
     event.editing      = true;
     
-    // Customizes a Build for a given NCE
+    // Customizes a Build for a given API
     event.assignProfile(profileIndex);
     event.age          = int(event.buildTime - agileModel.PROFILES.get(profileIndex).timeLaunch);
     event.capEx_Logged = true;
     
-    // Add the NCE-customized Build to the given Site
+    // Add the API-customized Build to the given Site
     agileModel.SITES.get(siteIndex).siteBuild.add(event);
   }
   
