@@ -173,12 +173,14 @@
   *               - New Feature: Enable 2-3 Sites
   *               - BugFix: No more Random Scores
   *               - BugFix: Production Vs. Capacity Correctly Shows on Tokens
+  *               - New Feature: Auto-select NCE Profile when adding
+  *               - BugFix: Fixed Future Score Set When NCE Fails During Game
   */
   
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
-  *               - New Feature: Auto-select NCE Profile when adding
+  
   Legend for Slice Slots
   THU    T04    Clean-up / Simplify 5 Game Scores to ~3
   THU    T05     - Score Visualization / Descriptions

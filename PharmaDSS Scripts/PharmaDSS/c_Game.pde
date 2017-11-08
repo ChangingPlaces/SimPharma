@@ -399,7 +399,6 @@ void deploySelection() {
     boolean repurp = false;
     Event deploy = new Event("deploy", session.selectedSite, session.selectedBuild, agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX, repurp);
     session.current.event.add(deploy);
-    
   } catch (Exception e) {
     println("deploySelection() failed to execute");
   }
