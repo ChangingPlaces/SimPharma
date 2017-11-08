@@ -150,11 +150,15 @@ float calcCOGs(int turn, String mode) {
       nce = agileModel.PROFILES.get(current.PROFILE_INDEX);
       
       profileCapacity = nce.capacityProfile.getFloat(1, turn);
+    if (nce.timeEnd <= session.current.TURN) {
+        profileDemand   = 0;
+    } else {
       if (mode.equals("execute")) {
         profileDemand   = nce.demandProfile.getFloat(2, turn);
       } else {
         profileDemand   = nce.demandProfile.getFloat(1, turn);
       }
+    }
       
       if (profileCapacity > 0) {
         production = min(profileDemand, profileCapacity) / profileCapacity;
@@ -183,10 +187,14 @@ float calcDemandMeetAbility(int turn, String mode) {
   for (int i=0; i<agileModel.activeProfiles.size(); i++) {
     
     profileCapacity = agileModel.activeProfiles.get(i).capacityProfile.getFloat(1, turn);
-    if (mode.equals("execute")) {
-      profileDemand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, turn);
+    if (agileModel.activeProfiles.get(i).timeEnd <= session.current.TURN) {
+        profileDemand   = 0;
     } else {
-      profileDemand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(1, turn);
+      if (mode.equals("execute")) {
+        profileDemand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, turn);
+      } else {
+        profileDemand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(1, turn);
+      }
     }
     
     if (profileDemand > 0) {
@@ -258,7 +266,17 @@ float calcSecurity(int turn, String mode) {
       totalCapacity += siteCapacity[s];
     }
     
-    float demand = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, min(turn, NUM_INTERVALS-1) );
+    float demand;
+    if (agileModel.activeProfiles.get(i).timeEnd <= session.current.TURN) {
+        demand   = 0;
+    } else {
+      if (mode.equals("execute")) {
+        demand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(2, turn);
+      } else {
+        demand   = agileModel.activeProfiles.get(i).demandProfile.getFloat(1, turn);
+      }
+    }
+    
     demand /= 1000.0; // units of kiloTons
     
     // Calaculates normalized balance and supply scores and adds them to total

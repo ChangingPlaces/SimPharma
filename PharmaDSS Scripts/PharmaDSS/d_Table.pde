@@ -21,6 +21,7 @@ boolean tableTest = false;
 // Dimensions of Site Area
 int L_X, L_Y, L_W, L_H;
 int MAX_BASIN_HEIGHT = 6;
+int SLICE_ID = 14;
 
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight);
@@ -282,9 +283,15 @@ class TableSurface {
 
               // Begin Building the Current Production Facility
               boolean repurp = inExisting(u, v);
+              if (gameMode) {
+                session.selectedProfile = activeProfileIndex(agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX);
+              } else {
+                session.selectedProfile = agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX;
+              }
               Event deploy = new Event("deploy", siteIndex[u][v], session.selectedBuild, agileModel.PROFILES.get(tablePieceInput[u - MARGIN_W][v][0]).ABSOLUTE_INDEX, repurp);
               session.current.event.add(deploy);
               siteBuildIndex[u][v] = agileModel.SITES.get(siteIndex[u][v]).siteBuild.size()-1;
+              
               inUse[u][v] = true;
             }
 
@@ -562,8 +569,13 @@ class TableSurface {
                   p.fill(0);
                   p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, cellW-10, ratio*cellH);
                   p.fill(255);
-                  float cap = agileModel.SITES.get(siteIndex[u][v]).meetPercent;
-                  p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, cap*(cellW-10), ratio*cellH);
+                  float cap, dem, per; //Capacity, Demand, Percent
+                  int nce_index = agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).PROFILE_INDEX;
+                  cap = agileModel.PROFILES.get(nce_index).capacityProfile.getFloat(1, session.current.TURN);
+                  dem = agileModel.PROFILES.get(nce_index).demandProfile.getFloat(2, session.current.TURN);
+                  per = min(cap, dem) / cap;
+                  //float cap = agileModel.SITES.get(siteIndex[u][v]).meetPercent;
+                  p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, per*(cellW-10), ratio*cellH);
                 }
               } 
               catch (Exception e) {
@@ -600,7 +612,7 @@ class TableSurface {
             //p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
             //p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
             p.text(cellType[u][v][0], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
-          }         
+          }
 
           p.noFill();
         }
