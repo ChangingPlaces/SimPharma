@@ -562,8 +562,13 @@ class TableSurface {
                   p.fill(0);
                   p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, cellW-10, ratio*cellH);
                   p.fill(255);
-                  float cap = agileModel.SITES.get(siteIndex[u][v]).meetPercent;
-                  p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, cap*(cellW-10), ratio*cellH);
+                  float cap, dem, per; //Capacity, Demand, Percent
+                  int nce_index = agileModel.SITES.get(siteIndex[u][v]).siteBuild.get(siteBuildIndex[u][v]).PROFILE_INDEX;
+                  cap = agileModel.PROFILES.get(nce_index).capacityProfile.getFloat(1, session.current.TURN);
+                  dem = agileModel.PROFILES.get(nce_index).demandProfile.getFloat(2, session.current.TURN);
+                  per = min(cap, dem) / cap;
+                  //float cap = agileModel.SITES.get(siteIndex[u][v]).meetPercent;
+                  p.rect(u*cellW + 5, v*cellH + (1-ratio)*cellH - 5, per*(cellW-10), ratio*cellH);
                 }
               } 
               catch (Exception e) {
@@ -600,7 +605,7 @@ class TableSurface {
             //p.text(siteIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.2*cellH);
             //p.text(siteBuildIndex[u][v], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
             p.text(cellType[u][v][0], u*cellW + 0.2*cellW, v*cellH + 0.9*cellH);
-          }         
+          }
 
           p.noFill();
         }
