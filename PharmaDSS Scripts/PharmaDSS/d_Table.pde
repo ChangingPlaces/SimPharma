@@ -383,7 +383,7 @@ class TableSurface {
 
   void draw(PGraphics p) {
     int buffer = 30;
-    int spotLightHeight = int(1.15*cellH);
+    int spotLightHeight = int(1.47*cellH);
     int spotLightWidth = int(3.5*cellW);
 
     p.beginDraw();
@@ -410,7 +410,7 @@ class TableSurface {
           p.textAlign(BOTTOM);
           p.textSize(cellH/2);
 //          p.text("Site " + (i+1), (inputArea.get(i).basinX + 0.0)*cellW, (inputArea.get(i).basinY - 4.1)*cellH);
-          p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
+          p.text("Site " + (i+1), (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH + cellH/2);
 //          p.shape(inputArea.get(i).s[0]);
 //          p.shape(inputArea.get(i).s[1]);
           boolean draw;
@@ -420,14 +420,23 @@ class TableSurface {
             p.noStroke();
             if (inputArea.get(i).sliceBuilt[j]) {
               // Slice is built
-              p.fill(GSK_ORANGE, 100);
+              p.fill(textColor);
+              p.text("S" + (j+1), (inputArea.get(i).basinX-3)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
+              
+              p.fill(abs(textColor - 100), 70);
               draw = true;
             } else if (inputArea.get(i).sliceTimer[j] >= 0 ) {
               // slice under construction
+              p.fill(textColor);
+              p.text("Building...", (inputArea.get(i).basinX)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
+              
               p.fill(#FFFF00, 100);
               draw = true;
             } else {
               // Slice is not yet built or under construction
+              p.fill(textColor);
+              p.text("<- Build Slice", (inputArea.get(i).basinX - 2)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
+              
               p.fill(abs(textColor - 100), 70);
               draw = false;
             }
@@ -438,11 +447,9 @@ class TableSurface {
             }
             
             // Draw Slice Slot
-            p.rect((inputArea.get(i).basinX - 3)*cellW + GRID_GAP, inputArea.get(i).basinY*cellH + j*cellH + GRID_GAP, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
-            //p.textAlign(CENTER); p.textSize(10);
-            p.fill(textColor);
-            p.text("Slice" + (j+1), (inputArea.get(i).basinX - 2)*cellW + 0.25*cellW, inputArea.get(i).basinY*cellH + j*cellH + 0.66*cellH);
-            p.textAlign(LEFT);
+            if (!draw) {
+              p.rect((inputArea.get(i).basinX - 3)*cellW + GRID_GAP, inputArea.get(i).basinY*cellH + j*cellH + GRID_GAP, cellW - 2*GRID_GAP, cellH - 2*GRID_GAP);
+            }
             
           }
           
@@ -451,6 +458,52 @@ class TableSurface {
           // p.tint(180);
 //          p.image(sitePNG, (inputArea.get(i).basinX)*cellW, (1.5)*cellH, (inputArea.get(i).basinWidth)*cellW, (inputArea.get(i).basinY - 4.5)*cellH);
           p.image(sitePNG, (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY)*cellH, 3.5*cellW, 3*cellH);
+          
+          ArrayList<Person> labor;
+          
+          // Site Labor
+          p.fill(textColor);
+          p.text("Baseline Labor: " , (inputArea.get(i).basinX - 8)*cellW, (inputArea.get(i).basinY + 3.5)*cellH);
+          labor = agileModel.SITES.get(i).labor;
+          for (int k=0; k<labor.size (); k++) {
+            if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
+              p.fill(#CC0000);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(1, 0) )) {
+              p.fill(#00CC00);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(2, 0) )) {
+              p.fill(#0000CC);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(3, 0) )) {
+              p.fill(#CCCC00);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(4, 0) )) {
+              p.fill(#CC00CC);
+            } else {
+              p.fill(#00CCCC);
+            }
+            p.ellipse((inputArea.get(i).basinX - 8)*cellW + k*6.5 + 7, (inputArea.get(i).basinY + 4.0)*cellH, 4, 13);
+          }
+          
+          // Slice Labor
+          labor = agileModel.GMS_BUILDS.get(0).labor;
+          for (int k=0; k<labor.size (); k++) {
+            if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(0, 0) )) {
+              p.fill(#CC0000);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(1, 0) )) {
+              p.fill(#00CC00);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(2, 0) )) {
+              p.fill(#0000CC);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(3, 0) )) {
+              p.fill(#CCCC00);
+            } else if (labor.get(k).name.equals(agileModel.LABOR_TYPES.getString(4, 0) )) {
+              p.fill(#CC00CC);
+            } else {
+              p.fill(#00CCCC);
+            }
+            int mult = 1;
+            for (int j=0; j<inputArea.get(i).numSlices; j++) {
+              if (inputArea.get(i).sliceBuilt[j]) p.ellipse((inputArea.get(i).basinX - 2)*cellW + GRID_GAP + k*6.5 + 7, inputArea.get(i).basinY*cellH + (0.4+j)*cellH + GRID_GAP, 4, 13);
+            }
+          }
+          
         }
       }
     }
@@ -553,8 +606,8 @@ class TableSurface {
     p.rect(6*cellW, (V-4)*cellH, cellW*3, 3*cellH, 0.5*cellW);
     p.noStroke();
     p.textSize(20);
-    p.textAlign(RIGHT);
-    p.text("Select\nNCE", 5.75*cellW, (V-3)*cellH + 20);
+    p.textAlign(LEFT);
+    p.text("<- Select NCE", 9.25*cellW, (V-2.85)*cellH + 20);
     p.fill(0);
     p.stroke(0, 100); p.strokeWeight(20);
     p.rect(7*cellW, (V-3)*cellH, cellW, cellH);

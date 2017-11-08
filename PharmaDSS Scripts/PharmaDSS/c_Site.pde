@@ -22,6 +22,9 @@ class Site {
   
   float meetPercent;
   
+  // Operators (Amount, Shifts, Cost)
+  ArrayList<Person> labor;
+  
 //  // Salary Modifier for Site Conditions (i.e. 0.9 or 1.2 of Labour Cost)
 //  float salaryMod;
   
@@ -37,6 +40,8 @@ class Site {
     
     siteBuild = new ArrayList<Build>();
     siteRND = new ArrayList<Build>();
+    
+    labor = new ArrayList<Person>();
   }
   
   // Update the state of all builds on site

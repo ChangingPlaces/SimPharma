@@ -57,8 +57,6 @@ class Build {
     built = false;
     age = 0;
     
-    
-    
     capacity = agileModel.PROFILES.get(index).chipCapacity * agileModel.DAYS_PER_CHIP / 1000.0;
   }
 
@@ -136,8 +134,15 @@ class Build {
     
     // Chip Throughput
     if (session.selectedProfile > -1) {
-      float chipCap = agileModel.PROFILES.get(session.selectedProfile).chipCapacity;
-      text("Production Capacity:" + int(chipCap) + " kg/day", x, y -140);
+      int selP;
+      if (gameMode) {
+        selP = agileModel.activeProfiles.get(session.selectedProfile).ABSOLUTE_INDEX;
+      } else {
+        selP = session.selectedProfile;
+      }
+      float chipCap = agileModel.PROFILES.get(selP).chipCapacity;
+      text("Production Capacity:" + int(chipCap) + " kg/day" + "\n" +
+           "Profile: NCE " + (selP+1), x, y -140);
     } else {
       println("Error drawing NCE throughput. -1 array out of bounds.");
     }
@@ -175,7 +180,6 @@ class Build {
     
     
     // Faux Slice Description (Probably need to make a slice class at one point)
-    
     fill(textColor);
     text("Personnel: " , x, y + 100);
     for (int i=0; i< labor.size (); i++) {
@@ -192,7 +196,8 @@ class Build {
       } else {
         fill(#00CCCC);
       }
-      for (int j=0; j<2; j++) ellipse(x + i*10 + j*5 + 5, y + 110, 3, 10);
+      int mult = 1;
+      for (int j=0; j<1; j++) ellipse(x + i*mult*5 + j*5 + 5, y + 110, 3, 10);
     }
     
     jump = 150;

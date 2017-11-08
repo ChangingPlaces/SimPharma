@@ -209,9 +209,9 @@ void drawScreen() {
 
   // Draw Pork Chop
   image(logo_GSK, 1.0*MARGIN, height-MARGIN - 85 + 2, 95, 95); 
-  image(logo_MIT, 2.9*MARGIN, height-MARGIN - 15, 1.4*MARGIN, 0.6*MARGIN); 
+  image(logo_MIT, 3.0*MARGIN, height-MARGIN - 15, 0.9*1.4*MARGIN, 0.9*0.6*MARGIN); 
   textAlign(LEFT);
-  text("PharmaDSS \n" + VERSION, 2.9*MARGIN, height-MARGIN - 40);
+  text("PharmaDSS \n" + VERSION, 3.0*MARGIN, height-MARGIN - 40);
   
   // Draws Full Table on Screen
   if (tableTest) {

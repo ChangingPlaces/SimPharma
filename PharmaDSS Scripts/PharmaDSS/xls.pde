@@ -167,6 +167,13 @@ void loadModel_XLS(MFG_System model, String name) {
         reader.getFloat(SITE_ROW + i + 2, SITE_COL + 1),
         reader.getInt(RND_LIMIT_ROW + i, RND_LIMIT_COL)
       ));
+      
+      // Temporary solution to populate sites with people
+      int sz = model.GMS_BUILDS.get(0).labor.size();
+      for (int j=0; j<sz; j++) {
+        for (int k=0; k<2; k++) model.SITES.get(i).labor.add( model.GMS_BUILDS.get(0).labor.get(j) );
+      }
+      
     }
     
   } else {
@@ -190,6 +197,13 @@ void loadModel_XLS(MFG_System model, String name) {
         // Site(String name, float capEx, float capGn, int limitRnD)
         new Site( "Site " + (i+1), mag*(totHeight-gnHeight), mag*(gnHeight), int(random( 2, 5) ) 
       ));
+      
+      // Temporary solution to populate sites with people
+      int sz = model.GMS_BUILDS.get(0).labor.size();
+      for (int j=0; j<sz; j++) {
+        for (int k=0; k<2; k++) model.SITES.get(i).labor.add( model.GMS_BUILDS.get(0).labor.get(j) );
+      }
+      
     }
     
   }
