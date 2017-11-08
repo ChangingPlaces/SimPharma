@@ -81,6 +81,8 @@ void loadMenu(int canvasWidth, int canvasHeight) {
 }
 
 void keyPressed() {
+  println("keyPressed = " + key);
+  
   switch(key) {
     case 'h': 
       key_h();
@@ -135,6 +137,9 @@ void keyPressed() {
       break;
     case '0': 
       key_0();
+      break;
+    case '1': // foot pedal
+      key_space();
       break;
       
     // Debugging (no formal buttons)
