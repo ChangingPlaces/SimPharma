@@ -105,7 +105,9 @@ class Game {
     // Lock User Input on table for game turn execution
     mfg.lockEdits();
     
-    if (current.TURN < NUM_INTERVALS) {
+    if (current.TURN >= NUM_INTERVALS) {
+      regenerateGame();
+    } else {
       int[][][] input = new int[U_MAX][V_MAX][2];
       for (int u=0; u<U_MAX; u++) {
         for (int v=0; v<V_MAX; v++) {

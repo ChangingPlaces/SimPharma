@@ -175,6 +175,7 @@
   *               - BugFix: Production Vs. Capacity Correctly Shows on Tokens
   *               - New Feature: Auto-select NCE Profile when adding
   *               - BugFix: Fixed Future Score Set When NCE Fails During Game
+  *               - New Feature: Auto-Reset Game When Trying To Progress Past Last Turn
   */
   
 String VERSION = "BETA V1.4";

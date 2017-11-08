@@ -21,6 +21,7 @@ boolean tableTest = false;
 // Dimensions of Site Area
 int L_X, L_Y, L_W, L_H;
 int MAX_BASIN_HEIGHT = 6;
+int SLICE_ID = 14;
 
 void setupTable() {
   offscreen = createGraphics(projectorHeight, projectorHeight);
