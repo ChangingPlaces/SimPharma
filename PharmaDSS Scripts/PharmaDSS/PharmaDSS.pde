@@ -27,8 +27,8 @@ void setupDemo(String demo) {
   if (demo.equals("SYCAMORE")) {
     screenWidth = 1280;
     screenHeight = 800;
-    projectorWidth = 1280;
-    projectorHeight = 768;
+    projectorWidth = 1920;
+    projectorHeight = 1200;
     projectorOffset = 1280;
   }
   

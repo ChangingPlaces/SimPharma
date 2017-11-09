@@ -133,6 +133,9 @@ void keyPressed() {
     case ' ': 
       key_space();
       break;
+    case '1':
+      key_space();
+      break;
     case '0': 
       key_0();
       break;
