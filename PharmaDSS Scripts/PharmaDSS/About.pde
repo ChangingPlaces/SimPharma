@@ -184,8 +184,21 @@
 String VERSION = "BETA V1.4";
   
  /* TO DO:    
-  *               - BugFix: siteBuildIndices get mixed up when pieces flicker
-  *               - Legend for Slice Slots
+ 
+  HotFix        siteBuildIndices get mixed up when pieces flicker
+  HotFix        Build Chips Instantly (No "Under Construction" Status)
+  HotFix        Automatically Delete Chip When Drug Fails
+  HotFix        Clarify tht Score Reflects Current Year, Not Future Year
+  HotFix        Clarify which year Capacity in Chips Represents (Next Year?)
+  HotFix        Turn off hover-select for APIs when using mouse
+  HotFix        Allow Building of Chips on a Slice 1 year before it's finished
+  HotFix        Reduce Initial Slices to 2 on both sites for base case
+  HotFix        Confirm game reset when advancing turn
+  HotFix        Legend for Slice Slots
+  HotFix        Are Chip Quantities Intuitive Per Annum? Per Day?
+  HotFix        Adjust security score to account for "Slice Diversity," not just "Site Diversity"
+  
+  
   THU    T04    Clean-up / Simplify 5 Game Scores to ~3
   THU    T05     - Score Visualization / Descriptions
   THU    T07     - Score Logic
@@ -197,10 +210,10 @@ String VERSION = "BETA V1.4";
   THU    T01d    - Slice + API Build Time
   THU    T01e    - Days per Year
   THU    T10    Therepuetic Area is correllated to Peak Demand (Have color Codes coorrellate)
-  THU    T10a    - Respiratory
-  THU    T10b    - Oncology
-  THU    T10c    - Inflammatory
-  THU    T10d    - HIV/Immuno
+  THU    T10a    - Respiratory (Orange?)
+  THU    T10b    - Oncology (Green?)
+  THU    T10c    - Inflammatory (Teal?)
+  THU    T10d    - HIV/Immuno (Purple?)
   THU    T11     - Add API Math Model to PharmaDSS GitHub
   
   NOV  HIGH    01  IW  Allow user to compare performance with baseline/batch/ideal scenario(s)
@@ -218,6 +231,7 @@ String VERSION = "BETA V1.4";
   DEC  HIGH    10  IW  Implement random site events (1 per turn, can be good or bad)
   DEC  MED     05  IW  "Ghost" of hypothetical "perfect" player to play against
   ??   ??      01c HK  Add R&D slots to table visualization
+  JAN  LOW     11  IW  Chip Designer/Customizer Slot
   
   */
  
