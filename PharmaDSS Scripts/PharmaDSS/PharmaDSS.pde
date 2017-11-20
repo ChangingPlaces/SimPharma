@@ -15,8 +15,6 @@
  *    "d_Canvas" - specifies scripts related to drawing elements to a processing canvas
  */
 
-// Hello Andy!
-
 // Set the Demo Name to "SYCAMORE", "MIT", etc to enable site-specific customization (i.e. screen resolution, projector size)
 String DEMO = "SYCAMORE";
 //String DEMO = "MIT";
