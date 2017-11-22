@@ -168,10 +168,10 @@ class Build {
     jump = 0;
     fill(textColor);
     if (type.equals("GMS")) {
-      text("Build Time: " + int(repurpTime) + " " + agileModel.TIME_UNITS, x, jump + y - 11);
+      text("Build Time: " + int(1+repurpTime) + " " + (agileModel.TIME_UNITS), x, jump + y - 11);
       //text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS, x, jump + y +4);
       // This needs to actually represent sum of personnel costs
-      text("Operational Cost: " + int(buildCost/1000000)/20.0 + "mil " + agileModel.COST_UNITS + "/yr", x, jump + y + 4); 
+      text("Operational Cost: " + int(buildCost/1000000)/10.0 + "mil " + agileModel.COST_UNITS + "/yr", x, jump + y + 4); 
       //text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, jump + y + 19);
       //text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y + 34);
     } else {
@@ -203,10 +203,12 @@ class Build {
     jump = 150;
     fill(textColor);
     if (type.equals("GMS")) {
-      text("Build Time: " + 2 + " " + agileModel.TIME_UNITS, x, jump + y - 11);
-      text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS, x, jump + y +4);
+      text("Build Time: " + 3 + " " + agileModel.TIME_UNITS, x, jump + y - 11);
+      //text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS, x, jump + y +4);
+      text("Build Cost: " + 30.0 + " mil " + agileModel.COST_UNITS, x, jump + y +4);
       // This needs to actually represent sum of personnel costs
-      text("Operational Cost: " + int(buildCost/1000000)/10.0 + "mil " + agileModel.COST_UNITS + "/y", x, jump + y + 19); 
+      //text("Operational Cost: " + int(buildCost/1000000)/10.0 + "mil " + agileModel.COST_UNITS + "/y", x, jump + y + 19); 
+      text("Operational Cost: " + 1.0 + " mil " + agileModel.COST_UNITS + "/y", x, jump + y + 19); 
       //text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, jump + y + 19);
       //text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y + 34);
     } else {

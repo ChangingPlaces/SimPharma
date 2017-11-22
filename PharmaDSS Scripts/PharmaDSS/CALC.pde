@@ -24,9 +24,9 @@ void initScores() {
   int NUM_OUTPUTS = 5;
 
   String[] outputNames = {
-    "Capital\nExpenses",
+    "CAPEX\nEfficiency",
     "Cost of\nGoods",
-    "Operating\nExpenses",
+    "OPEX\nEfficiency",
     "Demand\nMet",
     "Security\nof Supply"
   };

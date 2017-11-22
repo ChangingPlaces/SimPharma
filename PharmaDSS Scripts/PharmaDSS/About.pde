@@ -178,6 +178,8 @@
   *               - New Feature: Auto-Reset Game When Trying To Progress Past Last Turn
   *               - BugFix(?): siteBuildIndices get mixed up when pieces flicker
   *               - New Feature: Change "NCE" to "API" and named Sites
+  *               - Turn off hover-select for APIs when using mouse
+  *               - Minor Visualization Figures w/ Giovanni 11/22
   
   */
   
@@ -190,7 +192,6 @@ String VERSION = "BETA V1.4";
   HotFix        Automatically Delete Chip When Drug Fails
   HotFix        Clarify tht Score Reflects Current Year, Not Future Year
   HotFix        Clarify which year Capacity in Chips Represents (Next Year?)
-  HotFix        Turn off hover-select for APIs when using mouse
   HotFix        Allow Building of Chips on a Slice 1 year before it's finished
   HotFix        Reduce Initial Slices to 2 on both sites for base case
   HotFix        Confirm game reset when advancing turn

@@ -459,7 +459,7 @@ String checkSelections(String effect) {
         session.selectedProfile = i;
       } else if (effect.equals("hover")) {
         session.hoverProfile = i;
-        session.selectedProfile = i;
+        //session.selectedProfile = i;
         hoverCheck = "PROFILE";
       }
     }
