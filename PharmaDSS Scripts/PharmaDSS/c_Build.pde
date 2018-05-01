@@ -61,7 +61,8 @@ class Build {
   }
 
   // Update Temporal aspects of build, such as age and construction progress
-  void updateBuild() {
+  boolean updateBuild() {
+    boolean done = false;
     age++;
     if (repurpose) {
       if (age > repurpTime) {
@@ -72,6 +73,9 @@ class Build {
       // Build becomes active after N years of construction
       built = true;
     }
+    
+    if (age == 1) done = true;
+    return done;
   }
 
   void draw(PGraphics p, int x, int y, int w, int h, String type, boolean selected) {
@@ -171,7 +175,8 @@ class Build {
       text("Build Time: " + int(1+repurpTime) + " " + (agileModel.TIME_UNITS), x, jump + y - 11);
       //text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS, x, jump + y +4);
       // This needs to actually represent sum of personnel costs
-      text("Operational Cost: " + int(buildCost/1000000)/10.0 + "mil " + agileModel.COST_UNITS + "/yr", x, jump + y + 4); 
+      text("Build Cost: " + int(buildCost/100000)/10.0 + "mil " + agileModel.COST_UNITS + "/yr", x, jump + y + 4); 
+      text("Operational Cost: " + int(400000.0/100000)/10.0 + "mil " + agileModel.COST_UNITS + "/yr", x, jump + y + 19); 
       //text("Repurpose Time: " + int(repurpTime) + " " +agileModel.TIME_UNITS, x, jump + y + 19);
       //text("Repurpose Cost: " + int(repurpCost/100000)/10.0 + agileModel.COST_UNITS, x, jump + y + 34);
     } else {

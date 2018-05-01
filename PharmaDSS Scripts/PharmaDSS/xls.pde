@@ -103,8 +103,10 @@ void loadModel_XLS(MFG_System model, String name) {
       model.GMS_BUILDS.add(new Build());
       model.GMS_BUILDS.get(index).name         = "Build #" + (i+1);
       model.GMS_BUILDS.get(index).capacity     = reader.getFloat(GMS_ROW, GMS_COL + i);
-      model.GMS_BUILDS.get(index).buildCost    = buildCost(model.GMS_BUILDS.get(index).capacity);
-      model.GMS_BUILDS.get(index).buildTime    = buildTime(model.GMS_BUILDS.get(index).capacity);
+      //model.GMS_BUILDS.get(index).buildCost    = buildCost(model.GMS_BUILDS.get(index).capacity);
+      model.GMS_BUILDS.get(index).buildCost    = 100000;
+      //model.GMS_BUILDS.get(index).buildTime    = buildTime(model.GMS_BUILDS.get(index).capacity);
+      model.GMS_BUILDS.get(index).buildTime    = 0;
       model.GMS_BUILDS.get(index).repurpCost   = 1000000 * reader.getFloat(GMS_ROW + 3, GMS_COL + i);
       model.GMS_BUILDS.get(index).repurpTime   = reader.getFloat(GMS_ROW + 4, GMS_COL + i);
       

@@ -19,6 +19,7 @@ class Site {
   // A List of Manufacturing Capacities (Build objects) assigned to the site
   ArrayList<Build> siteBuild;
   ArrayList<Build> siteRND;
+  int totBuilds = 0;
   
   float meetPercent;
   
@@ -53,7 +54,7 @@ class Site {
         siteBuild.remove(i);
         if (session.selectedSiteBuild >= i && i != 0) session.selectedSiteBuild--; // moves index back to avoid crash
       } else {
-        siteBuild.get(i).updateBuild();
+        if(siteBuild.get(i).updateBuild()) totBuilds++;
       }
     
       if (gameMode) {  

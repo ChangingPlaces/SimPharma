@@ -32,7 +32,7 @@ void initScores() {
   };
   
   float[] outputMax = {
-    250000000.0,
+    200000000.0,
       2000000.0,
      20000000.0,
             1.0,
@@ -41,8 +41,8 @@ void initScores() {
   
   String[] outputUnits = {
     "mil GBP",
-    "mil GBP",
-    "mil GBP",
+    "mil GBP/y",
+    "mil GBP/y",
     "%",
     "%"
   };
@@ -106,16 +106,23 @@ void updatePrediction(int turn) {
 float calcCAPEX(int turn, String mode) {
   float expenses = 0.0;
   Build current;
-  for (int i=0; i<agileModel.SITES.size(); i++) {
-    for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
-      current = agileModel.SITES.get(i).siteBuild.get(j);
-      if (!current.capEx_Logged) { // Ensures capital cost for build is only counted once
-        expenses += current.buildCost;
-        if (current.age != 0) current.capEx_Logged = false;
-      }
+  for (int i=0; i<agileModel.SITES.size(); i++) {   
+    
+    if (agileModel.SITES.get(i).siteBuild.size() > 0) {
+      current = agileModel.SITES.get(i).siteBuild.get(0);
+      expenses += current.buildCost*agileModel.SITES.get(i).totBuilds;
     }
+    
+//    for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
+//      current = agileModel.SITES.get(i).siteBuild.get(j);
+//      if (!current.capEx_Logged) { // Ensures capital cost for build is only counted once
+//        expenses += current.buildCost;
+//        if (current.age != 0) current.capEx_Logged = false;
+//      }
+//    }
   }
   expenses += 30000000*agileModel.newSlices;
+  
   return expenses;
 }
 
@@ -129,13 +136,15 @@ float calcOPEX(int turn, String mode) {
       int timePassed = turn - session.current.TURN;
       boolean predict = mode.equals("predict") && ((current.age + timePassed) >= current.buildTime - 1);
       if (current.built || predict) {
-        for (int l=0; l<current.labor.size(); l++) {
-          expenses += current.labor.get(l).cost;
-        }
+//        for (int l=0; l<current.labor.size(); l++) {
+//          expenses += current.labor.get(l).cost;
+//        }
+        expenses += 400000;
       }
     }
   }
   expenses += 1000000*agileModel.finishedSlices;
+  expenses += 5*1000000;
   return expenses;
 }
 
