@@ -101,18 +101,18 @@ void setup() {
   setupDemo(DEMO);
   size(screenWidth, screenHeight, P2D);
   
-  // Window may be resized after initialized
-  frame.setResizable(true);
-  
-  // Recalculates relative positions of canvas items if screen is resized
-  frame.addComponentListener(new ComponentAdapter() { 
-     public void componentResized(ComponentEvent e) { 
-       if(e.getSource()==frame) { 
-         loadMenu(width, height);
-       } 
-     } 
-   }
-   );
+//  // Window may be resized after initialized
+//  frame.setResizable(true);
+//  
+//  // Recalculates relative positions of canvas items if screen is resized
+//  frame.addComponentListener(new ComponentAdapter() { 
+//     public void componentResized(ComponentEvent e) { 
+//       if(e.getSource()==frame) { 
+//         loadMenu(width, height);
+//       } 
+//     } 
+//   }
+//   );
   
   // Loads and formats menue items
   loadMenu(width, height);

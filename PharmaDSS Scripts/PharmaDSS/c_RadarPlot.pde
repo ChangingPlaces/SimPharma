@@ -1,4 +1,4 @@
-boolean displayRadar = true;
+boolean displayRadar = false;
 RadarPlot radar;
 
 void setupRadar() {

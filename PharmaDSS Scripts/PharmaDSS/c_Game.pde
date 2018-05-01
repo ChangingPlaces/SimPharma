@@ -170,9 +170,9 @@ class Game {
       
       userLog.addLog("Simulate");
       
-      // Turns on KPI Radar if not already on
-      displayRadar = true;
-//      mainMenu.buttons[ bHash.get("k") ].isPressed = displayRadar;
+      //// Turns on KPI Radar if not already on
+      //displayRadar = true;
+      //mainMenu.buttons[ bHash.get("k") ].isPressed = displayRadar;
     }
   }
   

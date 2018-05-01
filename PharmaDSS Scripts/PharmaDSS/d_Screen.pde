@@ -69,15 +69,15 @@ void drawScreen() {
   float canH = height - 2.8*MARGIN;
 
   // Output Graph
-  if (displayRadar || displayBuilds) {
+  if (displayRadar) {
     lineX     = int(MARGIN*1.5 + sitesX + (width - sitesX - 1.25*MARGIN)/3 + 20);
     lineY     = int(2.2*MARGIN + 65 + canH*.6);
     lineW     = int(2*(width - sitesX - 1.25*MARGIN)/3 - 100);
     lineH     = int(canH*.25);
   } else {
-    lineX     = int(MARGIN*1.5 + sitesX);
+    lineX     = int(MARGIN*1.75 + sitesX);
     lineY     = int(2.2*MARGIN + 65 + canH*.6);
-    lineW     = int(width - sitesX - 3.25*MARGIN);
+    lineW     = int(width - sitesX - 3.50*MARGIN);
     lineH     = int(canH*.25);
   }
 
@@ -185,7 +185,7 @@ void drawScreen() {
   textAlign(LEFT);
   textSize(max(18, textSize));
   if (performance.numScores < 5) text("Performance", MARGIN + lineX  - 70, canH*.6 + titlesY + MARGIN/2.5 - 5);
-  text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
+  if (displayRadar) text("Performance VS. Ideal", MARGIN + sitesX  - 10, canH*.6 + titlesY + MARGIN/2.5 - 5);
   textSize(min(16, textSize));
   outputGraph = new LineGraph(performance.scores, prediction.scores, lineX, lineY, lineW, lineH);
 
