@@ -8,6 +8,8 @@ class Logger {
   int MINUTE = minute();
   int SECOND = second();
   
+  boolean alternate;
+  
   Logger() {
     log = new Table();
     log.addColumn("Time");
@@ -37,6 +39,8 @@ class Logger {
       }
         
       log.addColumn(name);
+      
+      alternate = true;
     }
   }
   
@@ -50,7 +54,8 @@ class Logger {
     row.setInt("Screen Height", height);
     
     //Faux Input
-    row.setString("Input", "TRUE");
+    row.setString("Input", "" + alternate);
+    alternate = !alternate;
     
     //XY AXIS
     row.setString("X_AXIS", "CAPEX Efficiency");
