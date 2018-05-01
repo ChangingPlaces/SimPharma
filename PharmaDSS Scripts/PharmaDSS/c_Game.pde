@@ -164,6 +164,8 @@ class Game {
         }
       }
       
+      userLog.addLog("End Turn");
+      
       // Turns on KPI Radar if not already on
       displayRadar = true;
 //      mainMenu.buttons[ bHash.get("k") ].isPressed = displayRadar;

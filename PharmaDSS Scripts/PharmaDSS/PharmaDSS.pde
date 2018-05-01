@@ -50,6 +50,9 @@ import java.awt.event.*;
 MFG_System agileModel;
 Game session;
 
+// Initialize User Log
+Logger userLog;
+
 // Specify to "true" if reading MFG_System Values from an XLS spreadsheet file in the "data/" folder"
 // (Do not set to false unless you provide for default initialization values for system)
 boolean readXLS = true;
@@ -132,6 +135,7 @@ void setup() {
   setupRadar();
   performance.maxOutputs();
   prediction.maxOutputs();
+  userLog = new Logger();
   
   setupTable();
   
