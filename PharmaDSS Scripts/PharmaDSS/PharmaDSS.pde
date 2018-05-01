@@ -135,7 +135,6 @@ void setup() {
   setupRadar();
   performance.maxOutputs();
   prediction.maxOutputs();
-  userLog = new Logger();
   
   setupTable();
   

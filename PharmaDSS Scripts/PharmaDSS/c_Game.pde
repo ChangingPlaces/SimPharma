@@ -37,6 +37,8 @@ void regenerateGame() {
   
   // Reset Table Pieces
   fauxPieces(2, tablePieceInput, 15);
+  
+  userLog = new Logger();
 }
 
 // Game, Turn, Event classes help log and manage actions over the passage of time
