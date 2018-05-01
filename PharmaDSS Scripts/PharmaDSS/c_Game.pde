@@ -122,13 +122,14 @@ class Game {
       
       // Update Slice Construction Status
       if (enableSites) {
+        agileModel.finishedSlices = 0;
         if (mfg.inputArea.size() > 0) {
           for (int i=0; i<mfg.inputArea.size (); i++) {
             for (int j=0; j<mfg.inputArea.get(i).numSlices; j++) {
-              
               if (mfg.inputArea.get(i).sliceTimer[j] > 0) {
                 mfg.inputArea.get(i).sliceTimer[j] --;
               } else if (mfg.inputArea.get(i).sliceTimer[j] == 0) {
+                agileModel.finishedSlices++;
                 mfg.inputArea.get(i).sliceBuilt[j] = true;
               }
               

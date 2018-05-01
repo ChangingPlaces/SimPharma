@@ -90,8 +90,12 @@ class LineGraph{
               
               fill(textColor);
               textAlign(CENTER);
-              int val = str(100*drawVal.get(j+1)[i]/performance.max[i]).substring(0, str(100*drawVal.get(j+1)[i]/performance.max[i]).indexOf(".")).length();
-              text(nf(100*drawVal.get(j+1)[i], val, 1).substring(0,3) + " " +performance.unit[i], posx2, posy2-10);
+              //int val = str(100*drawVal.get(j+1)[i]/performance.max[i]).substring(0, str(100*drawVal.get(j+1)[i]/performance.max[i]).indexOf(".")).length();
+              if (i < 3) {
+                text(drawVal.get(j+1)[i]/1000000.0 + " " +performance.unit[i], posx2, posy2-10);
+              } else {
+                text(100*drawVal.get(j+1)[i] + " " +performance.unit[i], posx2, posy2-10);
+              }
             }
           }
         

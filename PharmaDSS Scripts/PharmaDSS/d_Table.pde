@@ -376,6 +376,12 @@ class TableSurface {
                 y_slice = inputArea.get(i).basinY + j;
                 if (tablePieceInput[x_slice][y_slice][0] > -1 && inputArea.get(i).sliceTimer[j] == -1) {
                   inputArea.get(i).sliceTimer[j] = inputArea.get(i).SLICE_BUILD_TIME;
+                  
+                  // Add Slice to System (Slice!)
+                  //
+                  agileModel.newSlices++;
+                  println(agileModel.newSlices);
+                  
                 }
                 
               }

@@ -115,6 +115,7 @@ float calcCAPEX(int turn, String mode) {
       }
     }
   }
+  expenses += 30000000*agileModel.newSlices;
   return expenses;
 }
 
@@ -134,6 +135,7 @@ float calcOPEX(int turn, String mode) {
       }
     }
   }
+  expenses += 1000000*agileModel.finishedSlices;
   return expenses;
 }
 
