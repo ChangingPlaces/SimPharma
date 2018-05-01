@@ -17,6 +17,8 @@ class Logger {
     log.addColumn("Screen Width");
     log.addColumn("Screen Height");
     
+    log.addColumn("Input");
+    
     //XY AXIS
     log.addColumn("X_AXIS");
     log.addColumn("Y_AXIS");
