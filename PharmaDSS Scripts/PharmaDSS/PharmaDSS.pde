@@ -20,6 +20,7 @@ String DEMO = "SYCAMORE";
 //String DEMO = "MIT";
 
 boolean showRealSiteNames = true;
+boolean workshop = true;
 
 void setupDemo(String demo) {
   

@@ -20,6 +20,7 @@ class Button{
   boolean isPressed = false;
   boolean isVoid = false;
   boolean active = true;
+  boolean allowClick = true;
   
   //Button Constructor
   Button(int x, int y, int w, int h, String label, String key_code){
@@ -37,7 +38,7 @@ class Button{
       p.noStroke();
       int gap = 0;
       
-      if (active) {
+      if (active && allowClick) {
         
         if (isPressed || ( over() && mousePressed) ){
           p.fill(pressed);
@@ -76,7 +77,7 @@ class Button{
   
   // returns true if mouse hovers in button region
   boolean over(){
-    if(mouseX >= x  && mouseY >= y + 5 && mouseX <= x + w && mouseY <= y + 2 + h){
+    if(mouseX >= x  && mouseY >= y + 5 && mouseX <= x + w && mouseY <= y + 2 + h && allowClick){
       return true;
     } else {
       return false;

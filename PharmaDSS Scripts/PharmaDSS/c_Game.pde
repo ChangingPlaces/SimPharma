@@ -106,7 +106,7 @@ class Game {
     mfg.lockEdits();
     
     if (current.TURN >= NUM_INTERVALS) {
-      regenerateGame();
+      //regenerateGame();
     } else {
       int[][][] input = new int[U_MAX][V_MAX][2];
       for (int u=0; u<U_MAX; u++) {

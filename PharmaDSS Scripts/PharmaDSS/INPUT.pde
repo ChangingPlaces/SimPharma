@@ -20,37 +20,37 @@ boolean showMainMenu = true;
 // what they are named by editing this String array:
 // [0] Name; [1] Abbreviated name
 String[][] buttonNames = 
-{ 
-  { "Load Random Data", "q" },
-  { "Load XLS Data", "x" },
-  { "VOID", "" },
-  { "Toggle Profile", "p" },
-  { "Play Game", "g" },
-  { "End Turn", "SPACE" },
-  { "VOID", "" },
-  { "VOID", "" },
-  { "VOID", "" },
-  { "VOID", "" },
-  { "Table Projection", "`" },
-  { "Table Test", "t" },
-  { "Invert Colors", "i" },
-  { "Debug", "0" },
-  { "VOID", "" },
-  { "VOID", "" },
-  { "VOID", "" },
-  { "VOID", "" },
-  { "VOID", "" }
-
-// Obsolete Keys
-//  { "Toggle Site", "s" },
-//  { "Toggle Site Build", "b" },
-//  { "Deploy Selection", "d" },
-//  { "Remove Selection", "r" },
-//  { "Repurpose Selection", "e" },
-//  { "Toggle KPI's", "k" },
-//  { "Enlarge Profile", "l" },
+  { 
+    { "Load Random Data", "q" },
+    { "Load XLS Data", "x" },
+    { "VOID", "" },
+    { "Toggle Profile", "p" },
+    { "Play Game", "g" },
+    { "End Turn", "SPACE" },
+    { "VOID", "" },
+    { "VOID", "" },
+    { "VOID", "" },
+    { "VOID", "" },
+    { "Table Projection", "`" },
+    { "Table Test", "t" },
+    { "Invert Colors", "i" },
+    { "Debug", "0" },
+    { "VOID", "" },
+    { "VOID", "" },
+    { "VOID", "" },
+    { "VOID", "" },
+    { "VOID", "" }
   
-};
+  // Obsolete Keys
+  //  { "Toggle Site", "s" },
+  //  { "Toggle Site Build", "b" },
+  //  { "Deploy Selection", "d" },
+  //  { "Remove Selection", "r" },
+  //  { "Repurpose Selection", "e" },
+  //  { "Toggle KPI's", "k" },
+  //  { "Enlarge Profile", "l" },
+    
+  };
 
 // Hash Map of Button Names where Key is key-command and Value is buttonNames[] index
 HashMap<String, Integer> bHash;
@@ -59,6 +59,7 @@ HashMap<String, Integer> bHash;
 String[][] show = { {"Show Main Menu", "h"} };
 
 void loadMenu(int canvasWidth, int canvasHeight) {
+  
   // Initializes Menu Items (canvas width, canvas height, button width[pix], button height[pix], 
   // number of buttons to offset downward, String[] names of buttons)
   String[][] hideText = show;
@@ -67,6 +68,13 @@ void loadMenu(int canvasWidth, int canvasHeight) {
   
   // Hash Map of Button Names where Key is key-command and Value is buttonNames[] index
   bHash = hashButtons(buttonNames);
+  
+  if (workshop) {
+    for (Button b: mainMenu.buttons) {
+      b.allowClick = false;
+    }
+    mainMenu.buttons[ bHash.get("SPACE") ].allowClick = true;
+  }
   
   hideMenu.buttons[0].isPressed = showMainMenu;
   
