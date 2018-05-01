@@ -164,7 +164,7 @@ class Game {
         }
       }
       
-      userLog.addLog("End Turn");
+      userLog.addLog("Simulate");
       
       // Turns on KPI Radar if not already on
       displayRadar = true;
@@ -440,4 +440,3 @@ int activeProfileIndex (int profile) {
   }
   return index;
 }
-

@@ -28,7 +28,15 @@ class Logger {
     
     //SCORES ("-ILITIES")
     for(String n: performance.name) {
-      log.addColumn(n);
+      
+      String[] parts = split(n, "\n");
+      String name = "";
+      for (int j=0; j<parts.length; j++) {
+        name += parts[j];
+        if (j != parts.length-1) name += " ";
+      }
+        
+      log.addColumn(name);
     }
   }
   
@@ -41,9 +49,12 @@ class Logger {
     row.setInt("Screen Width",  width);
     row.setInt("Screen Height", height);
     
-//    //XY AXIS
-//    row.setString("X_AXIS", result.name.get(result.xIndex));
-//    row.setString("Y_AXIS", result.name.get(result.yIndex));
+    //Faux Input
+    row.setString("Input", "TRUE");
+    
+    //XY AXIS
+    row.setString("X_AXIS", "CapEx Efficiency");
+    row.setString("Y_AXIS", "Cost of Goods");
     
     // Turn Year
     row.setInt("Year", agileModel.YEAR_0 + session.current.TURN);
@@ -53,7 +64,13 @@ class Logger {
       float score;
       if (performance.scores.size() > 0) {
         score = performance.scores.get(session.current.TURN-1)[i];
-        row.setFloat(performance.name[i], score);
+        String[] parts = split(performance.name[i], "\n");
+        String name = "";
+        for (int j=0; j<parts.length; j++) {
+          name += parts[j];
+          if (j != parts.length-1) name += " ";
+        }
+        row.setFloat(name, score);
       }  
     }
     
