@@ -179,7 +179,8 @@ void loadModel_XLS(MFG_System model, String name) {
   } else {
     
     // Generates Random Sites but Makes Sure Existing and GnField stay rectangular
-    NUM_SITES = int(random(2, 4));
+    //NUM_SITES = int(random(2, 4));
+    NUM_SITES = 2;
     agileModel.SITES.clear();
     int randomLargest = int(random(0,NUM_SITES-.001));
     println("rLarge:" + randomLargest);

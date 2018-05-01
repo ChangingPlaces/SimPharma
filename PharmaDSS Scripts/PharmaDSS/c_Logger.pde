@@ -53,7 +53,7 @@ class Logger {
     row.setString("Input", "TRUE");
     
     //XY AXIS
-    row.setString("X_AXIS", "CapEx Efficiency");
+    row.setString("X_AXIS", "CAPEX Efficiency");
     row.setString("Y_AXIS", "Cost of Goods");
     
     // Turn Year

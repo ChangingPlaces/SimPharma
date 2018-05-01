@@ -143,7 +143,6 @@ float calcCOGs(int turn, String mode) {
   Build current;
   Profile nce;
   float profileCapacity, profileDemand, production;
-    
   for (int i=0; i<agileModel.SITES.size(); i++) {
     for (int j=0; j<agileModel.SITES.get(i).siteBuild.size(); j++) {
       current = agileModel.SITES.get(i).siteBuild.get(j);

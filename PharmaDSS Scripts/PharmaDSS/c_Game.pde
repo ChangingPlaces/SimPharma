@@ -32,6 +32,7 @@ void regenerateGame() {
   generateBasins();
   
   //resets Scores
+  initScores();
   performance.maxOutputs();
   prediction.maxOutputs();
   
